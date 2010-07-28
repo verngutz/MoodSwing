@@ -1,0 +1,57 @@
+Put your name inside the parentheses of the roles you want to take. Each role must be filled by at least one member.
+
+Ass Coder ()
+- Does most of the coding
+- Must create epic code
+- Must learn C# and XNA
+
+Assistant Coder (Vernon)
+- Helps the Ass coder with the coding
+- Must create semi-epic code
+- Must learn C# and XNA
+
+Graphics Artist ()
+- Makes the graphics of the game
+- Controls the mood and style of game art
+- Must create epic models
+- Must learn Photoshop or Gimp and Wings3D or Blender
+
+Assistant Graphics Artist (Vernon)
+- Helps the graphics artist
+- Must integrate his work with the style of the graphics artist
+- Must create semi-epic models
+- Must learn Photoshop or Gimp and Wings3D or Blender
+
+Gameplay Designer (Vernon)
+- Designs the mechanics of the game
+- Works with the evaluation functions used in the game
+- Must learn College Algebra and basic game design techniques
+
+World Designer ()
+- Designs the way the game world works
+- Must be consistent with the gameplay design and story
+- Handles the physics of the game
+- Must learn College Physics
+
+Level Designer ()
+- Designs the individual levels of the game
+- Must be consistent with the gameplay, world designs, and story
+
+Character Designer ()
+- Designs the characters created for use in the game
+- Must be consistent with world design and story
+- Must learn basic psychology
+
+Story Author (Vernon)
+- Writes the story of the game
+- Must be good in English
+
+Composer (Vernon)
+- Makes music and background effects for the game
+- Must be consistent with graphics
+- Must learn music theory and audio engineering
+
+Manager (Vernon)
+- Manages and motivates the team
+- Must plan and manage time for the team
+- Must learn basic psychology
