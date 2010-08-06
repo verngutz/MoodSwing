@@ -1,0 +1,8 @@
+*.cachefile
+*.csproj*
+*.suo
+bin/
+obj/
+*.contentproj
+MoodSwing/MoodSwing_TemporaryKey*
+
