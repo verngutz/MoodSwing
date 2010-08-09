@@ -10,7 +10,7 @@ Assistant Coder (Vernon)
 - Must create semi-epic code
 - Must learn C# and XNA
 
-Graphics Artist ()
+Graphics Artist (Fords)
 - Makes the graphics of the game
 - Controls the mood and style of game art
 - Must create epic models
@@ -27,17 +27,17 @@ Gameplay Designer (Vernon)
 - Works with the evaluation functions used in the game
 - Must learn College Algebra and basic game design techniques
 
-World Designer ()
+World Designer (Fords)
 - Designs the way the game world works
 - Must be consistent with the gameplay design and story
 - Handles the physics of the game
 - Must learn College Physics
 
-Level Designer ()
+Level Designer (Fords)
 - Designs the individual levels of the game
 - Must be consistent with the gameplay, world designs, and story
 
-Character Designer ()
+Character Designer (Fords)
 - Designs the characters created for use in the game
 - Must be consistent with world design and story
 - Must learn basic psychology
