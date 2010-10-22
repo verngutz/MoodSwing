@@ -5,4 +5,5 @@ bin/
 obj/
 *.contentproj
 MoodSwing/MoodSwing_TemporaryKey*
+*.db
 
