@@ -32,32 +32,29 @@ namespace MoodSwingGUI
             get { return currentText; }
         }
 
-        private SpriteBatch spriteBatch;
         private Vector2 position;
         private Vector2 size;
         private SpriteFont spriteFont;
         private Color color;
         private Vector2 fontScale;
 
-        public MSLabel(String text, Rectangle boundingRectangle, Alignment alignment, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
+        public MSLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
             : base(spriteBatch, game)
         {
             Text = text;
             position = new Vector2(boundingRectangle.X, boundingRectangle.Y);
             size = new Vector2(boundingRectangle.Width, boundingRectangle.Height);
             this.spriteFont = spriteFont;
-            this.fontScale = spriteFont.MeasureString(text) / size;
             this.color = color;
         }
 
-        public MSLabel(String text, Vector2 position, Vector2 size, Alignment alignment, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
+        public MSLabel(String text, Vector2 position, Vector2 size, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
             :base(spriteBatch, game)
         {
             Text = text;
             this.position = position;
             this.size = size;
             this.spriteFont = spriteFont;
-            this.fontScale = spriteFont.MeasureString(text) / size;
             this.color = color;
         }
 
@@ -76,7 +73,7 @@ namespace MoodSwingGUI
         {
             if (!currentText.Equals(previousText))
             {
-                this.fontScale = spriteFont.MeasureString(Text) / size;
+                this.fontScale = size / spriteFont.MeasureString(Text);
             }
             base.Update(gameTime);
         }

@@ -23,10 +23,9 @@ namespace MoodSwingGUI
         private Color highlight;
         private MSLabel label;
 
-        public MSButton(Game g)
-            : base(g)
+        public MSButton(SpriteBatch spritebatch, Game game)
+            : base(spritebatch, game)
         {
-
         }
     }
 }
