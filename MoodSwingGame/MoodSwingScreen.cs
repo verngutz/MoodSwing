@@ -34,7 +34,11 @@ namespace MoodSwingGame
             return this;
         }
         public virtual void sentinel( KeyboardState oldKeyState, MouseState oldMouseState ) {
-            
+            foreach (MS2DComponent ms2dc in Elements)
+            {
+                if (ms2dc is MSButton)
+                    (ms2dc as MSButton).chechMouseToButtonCollision(oldMouseState);
+            }
         }
 
 

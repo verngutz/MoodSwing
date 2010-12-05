@@ -17,6 +17,11 @@ namespace MoodSwingGUI
     {
         private Texture2D background;
         private List<MS2DComponent> elements;
+        public List<MS2DComponent> Elements
+        {
+            get { return elements; }
+        }
+
         private Vector2 boundedPosition;
         private Vector2 boundedSize;
         private Color highlight;

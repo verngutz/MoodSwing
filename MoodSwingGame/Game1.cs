@@ -27,8 +27,8 @@ namespace MoodSwingGame
         GraphicsDeviceManager graphics;
 
         MoodSwingScreen currScreen;
-        public KeyboardState oldState;
-
+        KeyboardState oldKeyboardState;
+        MouseState oldMouseState;
 
         public Game1()
         {
@@ -48,7 +48,8 @@ namespace MoodSwingGame
 
             base.Initialize();
             IsMouseVisible = true;
-            oldState = Keyboard.GetState();
+            oldKeyboardState = Keyboard.GetState();
+            oldMouseState = Mouse.GetState();
             //currScreen = OpeningFrame.OPENING_FRAME;
         }
 
@@ -91,11 +92,14 @@ namespace MoodSwingGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            KeyboardState newState = Keyboard.GetState();
+           
+            KeyboardState newKeyboardState = Keyboard.GetState();
+            MouseState newMouseState = Mouse.GetState();
 
+            currScreen.sentinel(oldKeyboardState, oldMouseState);
             if (currScreen is OpeningFrame)
             {
-                if (newState.IsKeyDown(Keys.Escape) && oldState.IsKeyUp(Keys.Escape))
+                if (newKeyboardState.IsKeyDown(Keys.Escape) && oldKeyboardState.IsKeyUp(Keys.Escape))
                 {
                     currScreen = currScreen.next();
                 }
@@ -103,11 +107,15 @@ namespace MoodSwingGame
 
             else if (currScreen is MainMenu)
             {
-                if (newState.IsKeyDown(Keys.Escape) && oldState.IsKeyUp(Keys.Escape))
+                if (newKeyboardState.IsKeyDown(Keys.Escape) && oldKeyboardState.IsKeyUp(Keys.Escape))
                 {
                     //this.Exit();
                 }
             }
+
+            oldMouseState = newMouseState; ;
+            oldKeyboardState = newKeyboardState;
+
             base.Update(gameTime);
         }
 

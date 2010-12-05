@@ -37,7 +37,7 @@ namespace MoodSwingGame
 
         public override void sentinel(KeyboardState oldKeyState, MouseState oldMouseState)
         {
-            
+            base.sentinel(oldKeyState, oldMouseState);
         }
     }
 }

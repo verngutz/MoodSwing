@@ -82,18 +82,23 @@ namespace MoodSwingGUI
 
         }
 
-        public void chechMouseToButtonCollision(MouseState prevMouseState)
+        public void chechMouseToButtonCollision(MouseState oldMouseState)
         {
             MouseState currentMouseState = Mouse.GetState();
             if (currentMouseState.X >= this.Position.X && currentMouseState.X <= this.Position.X + this.Size.X
              && currentMouseState.Y >= this.Position.Y && currentMouseState.Y <= this.Position.Y + this.Size.Y)
             {
-                if (currentMouseState.LeftButton == ButtonState.Pressed)
+                if (currentMouseState.LeftButton == ButtonState.Pressed && 
+                    oldMouseState.LeftButton == ButtonState.Released)
                 {
                     currentState = MSButtonState.CLICKED;
                 }
-                else
+                else if (currentMouseState.LeftButton == ButtonState.Released)
+                {
                     currentState = MSButtonState.HOVERED;
+                    if( oldMouseState.LeftButton == ButtonState.Pressed ) 
+                        action.PerformAction(Game);
+                }
             }
             else
                 currentState = MSButtonState.UNCLICKED;
