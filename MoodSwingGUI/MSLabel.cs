@@ -70,7 +70,7 @@ namespace MoodSwingGUI
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.DrawString(spriteFont, Text, position, color, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
+            spriteBatch.DrawString(spriteFont, Text, Position, color, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
             base.Draw(gameTime);
         }
 
@@ -83,7 +83,7 @@ namespace MoodSwingGUI
         {
             if (!currentText.Equals(previousText))
             {
-                this.fontScale = size / spriteFont.MeasureString(Text);
+                this.fontScale = Size / spriteFont.MeasureString(Text);
             }
             base.Update(gameTime);
         }

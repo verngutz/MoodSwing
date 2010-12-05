@@ -21,25 +21,21 @@ namespace MoodSwingGUI
             HOVERED
         }
 
-        private Rectangle boundingRectangle;
         private ButtonState currentState;
         private Texture2D clickedTexture;
         private Texture2D hoveredTexture;
         private Texture2D unclickedTexture;
         private Color highlight;
         private MSLabel label;
-        private SpriteBatch spriteBatch;
 
         public MSButton(Game g, int x, int y, int width, int height,
             Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch sb, Color hlight )
-            : base(sb, g)
+            : base( new Vector2(x,y), new Vector2(width, height), sb, g)
         {
             unclickedTexture = unclicked;
             clickedTexture = clicked;
             hoveredTexture = hovered;
-            spriteBatch = sb;
             highlight = hlight;
-            boundingRectangle = new Rectangle( x, y, width, height );
         }
 
         public override void Draw(GameTime gameTime)
@@ -58,7 +54,7 @@ namespace MoodSwingGUI
                     break;
             }
 
-            spriteBatch.Draw(currTexture, boundingRectangle, highlight);
+            this.spriteBatch.Draw(currTexture, Position, highlight );
             base.Draw(gameTime);
 
         }
