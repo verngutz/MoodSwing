@@ -19,8 +19,8 @@ namespace MoodSwingGame
             }
         }
 
-        private OpeningFrame(Texture2D texture, Game1 g, SpriteBatch sb )
-            : base( texture, g, sb)
+        private OpeningFrame(Texture2D bg, Game1 g, SpriteBatch sb )
+            : base(bg, Color.White, sb, g )
         {
 
         }

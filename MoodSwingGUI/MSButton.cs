@@ -29,6 +29,7 @@ namespace MoodSwingGUI
         private Color highlight;
         private MSLabel label;
         private MSAction action;
+        private Vector2 scale;
 
         public MSButton(Game g, MSLabel l, MSAction a, int x, int y, int width, int height,
             Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch sb, Color hlight )
@@ -41,6 +42,7 @@ namespace MoodSwingGUI
             currentState = 0;
             label = l;
             action = a;
+            scale = Size / new Vector2(unclicked.Width, unclicked.Height);
         }
 
 
@@ -55,6 +57,7 @@ namespace MoodSwingGUI
             currentState = 0;
             label = l;
             action = a;
+            scale = Size / new Vector2(unclicked.Width, unclicked.Height);
         }
 
         public override void Draw(GameTime gameTime)
@@ -73,8 +76,8 @@ namespace MoodSwingGUI
                     break;
             }
 
-            this.spriteBatch.Draw(currTexture, Position, highlight );
-            label.Draw(gameTime);
+            this.spriteBatch.Draw(currTexture, Position, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 0);
+            if( label != null ) label.Draw(gameTime);
             base.Draw(gameTime);
 
         }

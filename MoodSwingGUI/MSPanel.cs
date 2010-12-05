@@ -22,6 +22,7 @@ namespace MoodSwingGUI
         private Color highlight;
         private Vector2 scale;
 
+        
         public MSPanel(Texture2D background, Rectangle boundingRectangle, float topPadding, float bottomPadding, float leftPadding, float rightPadding, SpriteBatch spriteBatch, Game game)
             : base(boundingRectangle, spriteBatch, game)
         {
@@ -30,7 +31,7 @@ namespace MoodSwingGUI
 
             boundedPosition = Position + new Vector2(leftPadding, topPadding);
             boundedSize = Size - new Vector2(rightPadding, bottomPadding);
-            scale = Size / new Vector2(background.Width, background.Height);
+            scale = new Vector2(background.Width, background.Height) / Size;
             this.highlight = Color.White;
         }
 
@@ -42,7 +43,7 @@ namespace MoodSwingGUI
 
             boundedPosition = Position + new Vector2(leftPadding, topPadding);
             boundedSize = Size - new Vector2(rightPadding, bottomPadding);
-            scale = Size / new Vector2(background.Width, background.Height);
+            scale = new Vector2(background.Width, background.Height) / Size;
             this.highlight = highlight;
         }
 
@@ -54,7 +55,7 @@ namespace MoodSwingGUI
 
             boundedPosition = Position + new Vector2(leftPadding, topPadding);
             boundedSize = Size - new Vector2(rightPadding, bottomPadding);
-            scale = Size / new Vector2(background.Width, background.Height);
+            scale = new Vector2(background.Width, background.Height) / Size;
             this.highlight = Color.White;
         }
 
@@ -66,7 +67,7 @@ namespace MoodSwingGUI
 
             boundedPosition = Position + new Vector2(leftPadding, topPadding);
             boundedSize = Size - new Vector2(rightPadding, bottomPadding);
-            scale = Size / new Vector2(background.Width, background.Height);
+            scale = new Vector2(background.Width, background.Height) / Size;
             this.highlight = highlight;
         }
 
@@ -78,28 +79,28 @@ namespace MoodSwingGUI
                     element.Position = boundedPosition;
                     break;
                 case Alignment.TOP_CENTER:
-                    element.Position = boundedPosition + new Vector2(boundedSize.X / 2 - element.Size.X, 0);
+                    element.Position = boundedPosition + new Vector2((boundedSize.X - element.Size.X) / 2, 0);
                     break;
                 case Alignment.TOP_RIGHT:
-                    element.Position = boundedPosition + new Vector2(boundedSize.X - 2 * element.Size.X, 0);
+                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, 0);
                     break;
                 case Alignment.MIDDLE_LEFT:
-                    element.Position = boundedPosition + new Vector2(0, boundedSize.Y / 2 - element.Size.Y);
+                    element.Position = boundedPosition + new Vector2(0, (boundedSize.Y - element.Size.Y) / 2);
                     break;
                 case Alignment.MIDDLE_CENTER:
-                    element.Position = boundedPosition + boundedSize / 2 - element.Size;
+                    element.Position = boundedPosition + (boundedSize - element.Size) / 2;
                     break;
                 case Alignment.MIDDLE_RIGHT:
-                    element.Position = boundedPosition + new Vector2(boundedSize.X - 2 * element.Size.X, boundedSize.Y / 2 - element.Size.Y);
+                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, boundedSize.Y / 2);
                     break;
                 case Alignment.BOTTOM_LEFT:
-                    element.Position = boundedPosition + new Vector2(0, boundedSize.Y - 2 * element.Size.Y);
+                    element.Position = boundedPosition + new Vector2(0, boundedSize.Y - element.Size.Y);
                     break;
                 case Alignment.BOTTOM_CENTER:
-                    element.Position = boundedPosition + new Vector2(boundedSize.X / 2 - element.Size.X, boundedSize.Y - 2 * element.Size.Y);
+                    element.Position = boundedPosition + new Vector2((boundedSize.X - element.Size.X) / 2, boundedSize.Y - element.Size.Y);
                     break;
                 case Alignment.BOTTOM_RIGHT:
-                    element.Position = boundedPosition + new Vector2(boundedSize.X - 2 * element.Size.X, boundedSize.Y - 2 * element.Size.Y);
+                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, boundedSize.Y - element.Size.Y);
                     break;
             }
             elements.Add(element);
@@ -108,7 +109,6 @@ namespace MoodSwingGUI
         public override void Draw(GameTime gameTime)
         {
             spriteBatch.Draw(background, Position, null, highlight, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
-
             foreach(MS2DComponent element in elements)
             {
                 element.Draw(gameTime);

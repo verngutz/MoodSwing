@@ -63,7 +63,10 @@ namespace MoodSwingGame
 
             OpeningFrame.INIT(Content.Load<Texture2D>("OpeningScreen"), this, spriteBatch);
             MainMenu.INIT(Content.Load<Texture2D>("MainMenu"), this, spriteBatch);
-
+            MainMenu.MAIN_MENU.add(Content.Load<Texture2D>("ChainSaw_unpressed"),
+                                    Content.Load<Texture2D>("ChainSaw_pressed"),
+                                    Content.Load<Texture2D>("ChainSaw_hover"));
+                            
             currScreen = OpeningFrame.OPENING_FRAME;
         }
 
@@ -120,7 +123,7 @@ namespace MoodSwingGame
             spriteBatch.Begin();
             //currScreen.Draw(gameTime);
             // spriteBatch.Draw(texture, rect, Color.White);
-            currScreen.draw(gameTime);
+            currScreen.Draw(gameTime);
             spriteBatch.End();
             base.Draw(gameTime);
         }
