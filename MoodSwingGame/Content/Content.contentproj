@@ -69,6 +69,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+
     <Compile Include="ChainSaw_hover.png">
       <Name>ChainSaw_hover</Name>
       <Importer>TextureImporter</Importer>
@@ -81,6 +82,18 @@
     </Compile>
     <Compile Include="ChainSaw_unpressed.png">
       <Name>ChainSaw_unpressed</Name>
+	 <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="193719,xcitefun-windows-7-wallpapers-3.jpg">
+      <Name>193719,xcitefun-windows-7-wallpapers-3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="stewie-griffin-middle-finger.jpg">
+      <Name>stewie-griffin-middle-finger</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

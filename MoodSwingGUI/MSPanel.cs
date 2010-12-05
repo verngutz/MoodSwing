@@ -30,8 +30,9 @@ namespace MoodSwingGUI
             elements = new List<MS2DComponent>();
 
             boundedPosition = Position + new Vector2(leftPadding, topPadding);
-            boundedSize = Size - new Vector2(rightPadding, bottomPadding);
-            scale = new Vector2(background.Width, background.Height) / Size;
+
+            boundedSize = Size - new Vector2(leftPadding, topPadding) - new Vector2(rightPadding, bottomPadding);
+            scale = Size / new Vector2(background.Width, background.Height);
             this.highlight = Color.White;
         }
 
@@ -42,8 +43,9 @@ namespace MoodSwingGUI
             elements = new List<MS2DComponent>();
 
             boundedPosition = Position + new Vector2(leftPadding, topPadding);
-            boundedSize = Size - new Vector2(rightPadding, bottomPadding);
-            scale = new Vector2(background.Width, background.Height) / Size;
+
+            boundedSize = Size - new Vector2(leftPadding, topPadding) - new Vector2(rightPadding, bottomPadding);
+            scale = Size / new Vector2(background.Width, background.Height);
             this.highlight = highlight;
         }
 
@@ -54,8 +56,8 @@ namespace MoodSwingGUI
             elements = new List<MS2DComponent>();
 
             boundedPosition = Position + new Vector2(leftPadding, topPadding);
-            boundedSize = Size - new Vector2(rightPadding, bottomPadding);
-            scale = new Vector2(background.Width, background.Height) / Size;
+            boundedSize = Size - new Vector2(leftPadding, topPadding) - new Vector2(rightPadding, bottomPadding);
+            scale = Size / new Vector2(background.Width, background.Height);
             this.highlight = Color.White;
         }
 
@@ -66,8 +68,8 @@ namespace MoodSwingGUI
             elements = new List<MS2DComponent>();
 
             boundedPosition = Position + new Vector2(leftPadding, topPadding);
-            boundedSize = Size - new Vector2(rightPadding, bottomPadding);
-            scale = new Vector2(background.Width, background.Height) / Size;
+            boundedSize = Size - new Vector2(leftPadding, topPadding) - new Vector2(rightPadding, bottomPadding);
+            scale = Size / new Vector2(background.Width, background.Height);
             this.highlight = highlight;
         }
 
@@ -80,6 +82,7 @@ namespace MoodSwingGUI
                     break;
                 case Alignment.TOP_CENTER:
                     element.Position = boundedPosition + new Vector2((boundedSize.X - element.Size.X) / 2, 0);
+
                     break;
                 case Alignment.TOP_RIGHT:
                     element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, 0);
@@ -91,7 +94,7 @@ namespace MoodSwingGUI
                     element.Position = boundedPosition + (boundedSize - element.Size) / 2;
                     break;
                 case Alignment.MIDDLE_RIGHT:
-                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, boundedSize.Y / 2);
+                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, (boundedSize.Y - element.Size.Y) / 2);
                     break;
                 case Alignment.BOTTOM_LEFT:
                     element.Position = boundedPosition + new Vector2(0, boundedSize.Y - element.Size.Y);
