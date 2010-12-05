@@ -38,8 +38,8 @@ namespace MoodSwingGame
         {
             return this;
         }
-        public virtual void sentinel( KeyboardState oldKeyState, MouseState, oldMouseState ) {
-
+        public virtual void sentinel( KeyboardState oldKeyState, MouseState oldMouseState ) {
+            
         }
 
     }

@@ -17,11 +17,10 @@ namespace MoodSwingGUI
     {
         private Texture2D background;
         private List<MS2DComponent> elements;
-        private float topPadding;
-        private float bottomPadding;
-        private float leftPadding;
-        private float rightPadding;
+        private Vector2 boundedPosition;
+        private Vector2 boundedSize;
         private Color highlight;
+        private Vector2 scale;
 
         public MSPanel(Texture2D background, Rectangle boundingRectangle, float topPadding, float bottomPadding, float leftPadding, float rightPadding, SpriteBatch spriteBatch, Game game)
             : base(boundingRectangle, spriteBatch, game)
@@ -29,11 +28,9 @@ namespace MoodSwingGUI
             this.background = background;
             elements = new List<MS2DComponent>();
 
-            this.topPadding = topPadding;
-            this.bottomPadding = bottomPadding;
-            this.leftPadding = leftPadding;
-            this.rightPadding = rightPadding;
-
+            boundedPosition = Position + new Vector2(leftPadding, topPadding);
+            boundedSize = Size - new Vector2(rightPadding, bottomPadding);
+            scale = new Vector2(background.Width, background.Height) / Size;
             this.highlight = Color.White;
         }
 
@@ -43,11 +40,9 @@ namespace MoodSwingGUI
             this.background = background;
             elements = new List<MS2DComponent>();
 
-            this.topPadding = topPadding;
-            this.bottomPadding = bottomPadding;
-            this.leftPadding = leftPadding;
-            this.rightPadding = rightPadding;
-
+            boundedPosition = Position + new Vector2(leftPadding, topPadding);
+            boundedSize = Size - new Vector2(rightPadding, bottomPadding);
+            scale = new Vector2(background.Width, background.Height) / Size;
             this.highlight = highlight;
         }
 
@@ -57,11 +52,9 @@ namespace MoodSwingGUI
             this.background = background;
             elements = new List<MS2DComponent>();
 
-            this.topPadding = topPadding;
-            this.bottomPadding = bottomPadding;
-            this.leftPadding = leftPadding;
-            this.rightPadding = rightPadding;
-
+            boundedPosition = Position + new Vector2(leftPadding, topPadding);
+            boundedSize = Size - new Vector2(rightPadding, bottomPadding);
+            scale = new Vector2(background.Width, background.Height) / Size;
             this.highlight = Color.White;
         }
 
@@ -71,34 +64,55 @@ namespace MoodSwingGUI
             this.background = background;
             elements = new List<MS2DComponent>();
 
-            this.topPadding = topPadding;
-            this.bottomPadding = bottomPadding;
-            this.leftPadding = leftPadding;
-            this.rightPadding = rightPadding;
-
+            boundedPosition = Position + new Vector2(leftPadding, topPadding);
+            boundedSize = Size - new Vector2(rightPadding, bottomPadding);
+            scale = new Vector2(background.Width, background.Height) / Size;
             this.highlight = highlight;
         }
 
-        public void AddElement(MS2DComponent element, Alignment alignment, bool resize)
+        public void AddElement(MS2DComponent element, Alignment alignment)
         {
             switch (alignment)
             {
                 case Alignment.TOP_LEFT:
-                    element.Position = Position + new Vector2(leftPadding, topPadding);
-                    if(resize)
-                        element.Size = Position - new Vector2(rightPadding, bottomPadding) - element.Position;
+                    element.Position = boundedPosition;
                     break;
                 case Alignment.TOP_CENTER:
-                    element.Position = Position + new Vector2(Size.X / 2, topPadding);
-                    if(resize)
-                        element.Size = Position - new Vector2(rightPadding, bottomPadding) - element.Position;
-                        break;
-                default:
-                    if(resize)
-                        element.Size = ;
+                    element.Position = boundedPosition + new Vector2((boundedSize.X - element.Size.X) / 2, 0);
+                    break;
+                case Alignment.TOP_RIGHT:
+                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, 0);
+                    break;
+                case Alignment.MIDDLE_LEFT:
+                    element.Position = boundedPosition + new Vector2(0, (boundedSize.Y - element.Size.Y) / 2);
+                    break;
+                case Alignment.MIDDLE_CENTER:
+                    element.Position = boundedPosition + (boundedSize - element.Size) / 2;
+                    break;
+                case Alignment.MIDDLE_RIGHT:
+                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, boundedSize.Y / 2);
+                    break;
+                case Alignment.BOTTOM_LEFT:
+                    element.Position = boundedPosition + new Vector2(0, boundedSize.Y - element.Size.Y);
+                    break;
+                case Alignment.BOTTOM_CENTER:
+                    element.Position = boundedPosition + new Vector2((boundedSize.X - element.Size.X) / 2, boundedSize.Y - element.Size.Y);
+                    break;
+                case Alignment.BOTTOM_RIGHT:
+                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, boundedSize.Y - element.Size.Y);
                     break;
             }
             elements.Add(element);
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            spriteBatch.Draw(background, Position, null, highlight, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+            foreach(MS2DComponent element in elements)
+            {
+                element.Draw(gameTime);
+            }
+            base.Draw(gameTime);
         }
     }
 }
