@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace MoodSwingGUI
 {
-    public class MSButton:DrawableGameComponent
+    public class MSButton : MS2DComponent
     {
         enum ButtonState {
             UNCLICKED = 0,
@@ -32,7 +32,7 @@ namespace MoodSwingGUI
 
         public MSButton(Game g, int x, int y, int width, int height,
             Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch sb, Color hlight )
-            : base(g)
+            : base(sb, g)
         {
             unclickedTexture = unclicked;
             clickedTexture = clicked;
@@ -44,7 +44,7 @@ namespace MoodSwingGUI
 
         public override void Draw(GameTime gameTime)
         {
-            Texture2D currTexture;
+            Texture2D currTexture = null;
             switch (currentState)
             {
                 case ButtonState.CLICKED:
@@ -60,6 +60,7 @@ namespace MoodSwingGUI
 
             spriteBatch.Draw(currTexture, boundingRectangle, highlight);
             base.Draw(gameTime);
+
         }
     }
 }

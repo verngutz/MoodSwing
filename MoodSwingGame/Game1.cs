@@ -25,8 +25,10 @@ namespace MoodSwingGame
         }
 
         GraphicsDeviceManager graphics;
+
         MoodSwingScreen currScreen;
         public KeyboardState oldState;
+
 
         public Game1()
         {

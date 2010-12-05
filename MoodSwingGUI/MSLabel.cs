@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -14,7 +15,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace MoodSwingGUI
 {
-    public class MSLabel:DrawableGameComponent
+    public class MSLabel : MS2DComponent
     {
         private String previousText;
         private String currentText;
@@ -28,43 +29,38 @@ namespace MoodSwingGUI
                 }
                 currentText = value;
             }
-            get
-            {
-                return currentText;
-            }
+            get { return currentText; }
         }
 
-        private SpriteBatch spriteBatch;
         private Vector2 position;
         private Vector2 size;
         private SpriteFont spriteFont;
         private Color color;
+        private Vector2 fontScale;
 
         public MSLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
-            : base(game)
+            : base(spriteBatch, game)
         {
             Text = text;
             position = new Vector2(boundingRectangle.X, boundingRectangle.Y);
             size = new Vector2(boundingRectangle.Width, boundingRectangle.Height);
             this.spriteFont = spriteFont;
             this.color = color;
-            this.spriteBatch = spriteBatch;
         }
 
         public MSLabel(String text, Vector2 position, Vector2 size, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
-            :base(game)
+            :base(spriteBatch, game)
         {
             Text = text;
             this.position = position;
             this.size = size;
             this.spriteFont = spriteFont;
             this.color = color;
-            this.spriteBatch = spriteBatch;
         }
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.DrawString(spriteFont, Text, position, color);
+            spriteBatch.DrawString(spriteFont, Text, position, color, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
             base.Draw(gameTime);
         }
 
@@ -77,10 +73,9 @@ namespace MoodSwingGUI
         {
             if (!currentText.Equals(previousText))
             {
+                this.fontScale = size / spriteFont.MeasureString(Text);
             }
             base.Update(gameTime);
         }
-
-        
     }
 }

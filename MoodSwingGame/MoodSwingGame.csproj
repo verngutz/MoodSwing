@@ -140,6 +140,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MoodSwingCoreComponents\MoodSwingCoreComponents.csproj">
+      <Project>{E368BC1E-D0C7-4FFF-9629-181506F33CAB}</Project>
+      <Name>MoodSwingCoreComponents</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MoodSwingGUI\MoodSwingGUI.csproj">
       <Project>{26219BC2-2F42-4C55-961D-BC6516AC90B7}</Project>
       <Name>MoodSwingGUI</Name>
