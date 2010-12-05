@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C# Express 2008
+# Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoodSwingGame", "MoodSwingGame.csproj", "{F1FC1C64-C11B-441C-898F-E090999A4B67}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E368BC1E-D0C7-4FFF-9629-181506F33CAB} = {E368BC1E-D0C7-4FFF-9629-181506F33CAB}
@@ -27,14 +27,14 @@ Global
 		{26219BC2-2F42-4C55-961D-BC6516AC90B7}.Debug|x86.Build.0 = Debug|x86
 		{26219BC2-2F42-4C55-961D-BC6516AC90B7}.Release|x86.ActiveCfg = Release|x86
 		{26219BC2-2F42-4C55-961D-BC6516AC90B7}.Release|x86.Build.0 = Release|x86
+		{4187668E-4D1E-4C46-906B-2580CE293461}.Debug|x86.ActiveCfg = Debug|x86
+		{4187668E-4D1E-4C46-906B-2580CE293461}.Release|x86.ActiveCfg = Release|x86
 		{E368BC1E-D0C7-4FFF-9629-181506F33CAB}.Debug|x86.ActiveCfg = Debug|x86
 		{E368BC1E-D0C7-4FFF-9629-181506F33CAB}.Debug|x86.Build.0 = Debug|x86
 		{E368BC1E-D0C7-4FFF-9629-181506F33CAB}.Release|x86.ActiveCfg = Release|x86
 		{E368BC1E-D0C7-4FFF-9629-181506F33CAB}.Release|x86.Build.0 = Release|x86
 		{B7C78280-C812-4373-A5A5-8A30B5682446}.Debug|x86.ActiveCfg = Debug|x86
 		{B7C78280-C812-4373-A5A5-8A30B5682446}.Release|x86.ActiveCfg = Release|x86
-		{4187668E-4D1E-4C46-906B-2580CE293461}.Debug|x86.ActiveCfg = Debug|x86
-		{4187668E-4D1E-4C46-906B-2580CE293461}.Release|x86.ActiveCfg = Release|x86
 		{BC9D1B9A-53A1-4736-B649-B68C4C20F7EB}.Debug|x86.ActiveCfg = Debug|x86
 		{BC9D1B9A-53A1-4736-B649-B68C4C20F7EB}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
