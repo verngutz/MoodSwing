@@ -47,6 +47,7 @@ namespace MoodSwingGame
             // TODO: Add your initialization logic here
 
             base.Initialize();
+            IsMouseVisible = true;
             oldState = Keyboard.GetState();
             //currScreen = OpeningFrame.OPENING_FRAME;
         }

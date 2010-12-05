@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace MoodSwingGame
 {
@@ -30,11 +31,15 @@ namespace MoodSwingGame
 
         public void draw(GameTime gt)
         {
+
             Draw(gt);
         }
         public virtual MoodSwingScreen next()
         {
             return this;
+        }
+        public virtual void sentinel( KeyboardState oldKeyState, MouseState, oldMouseState ) {
+
         }
 
     }
