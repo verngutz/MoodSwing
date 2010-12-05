@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -13,20 +13,13 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace MoodSwingGUI
 {
-    public class MSButton : MS2DComponent
+    public abstract class MS2DComponent : DrawableGameComponent
     {
-        private Rectangle boundingRectangle;
-        private Texture2D currentTexture;
-        private Texture2D clickedTexture;
-        private Texture2D hoveredTexture;
-        private Texture2D unclickedTexture;
-        private Color highlight;
-        private MSLabel label;
-
-        public MSButton(Game g)
-            : base(g)
+        protected SpriteBatch spriteBatch;
+        public MS2DComponent(SpriteBatch spriteBatch, Game game)
+            : base(game)
         {
-
+            this.spriteBatch = spriteBatch;
         }
     }
 }
