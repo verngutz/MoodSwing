@@ -11,6 +11,6 @@
         BOTTOM_LEFT,
         BOTTOM_CENTER,
         BOTTOM_RIGHT,
-        NONE
+        MANUAL
     }
 }
