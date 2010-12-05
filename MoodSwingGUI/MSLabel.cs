@@ -32,28 +32,38 @@ namespace MoodSwingGUI
             get { return currentText; }
         }
 
-        private Vector2 position;
-        private Vector2 size;
         private SpriteFont spriteFont;
         private Color color;
         private Vector2 fontScale;
 
-        public MSLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
-            : base(spriteBatch, game)
+        public MSLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, SpriteBatch spriteBatch, Game game)
+            : base(boundingRectangle, spriteBatch, game)
         {
             Text = text;
-            position = new Vector2(boundingRectangle.X, boundingRectangle.Y);
-            size = new Vector2(boundingRectangle.Width, boundingRectangle.Height);
+            this.spriteFont = spriteFont;
+            color = Color.White;
+        }
+
+        public MSLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
+            : base(boundingRectangle, spriteBatch, game)
+        {
+            Text = text;
             this.spriteFont = spriteFont;
             this.color = color;
         }
 
-        public MSLabel(String text, Vector2 position, Vector2 size, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
-            :base(spriteBatch, game)
+        public MSLabel(String text, Vector2 position, Vector2 size, SpriteFont spriteFont, SpriteBatch spriteBatch, Game game)
+            :base(position, size, spriteBatch, game)
         {
             Text = text;
-            this.position = position;
-            this.size = size;
+            this.spriteFont = spriteFont;
+            color = Color.White;
+        }
+
+        public MSLabel(String text, Vector2 position, Vector2 size, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
+            : base(position, size, spriteBatch, game)
+        {
+            Text = text;
             this.spriteFont = spriteFont;
             this.color = color;
         }
