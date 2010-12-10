@@ -5,17 +5,18 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
-    public class MoodSwingScreen : DrawableGameComponent
+    public class MoodSwingScreen : MSPanel
     {
-        SpriteBatch spriteBatch;
-        Texture2D texture;
 
-        public MoodSwingScreen ( Texture2D t2D, Game g, SpriteBatch sb ) : base ( g )  {
-            texture = t2D;
-            spriteBatch = sb;
+        public MoodSwingScreen ( Texture2D bg, Color highlight, SpriteBatch sb, Game g ) :
+            base(bg, new Vector2(0, 0), 
+            new Vector2(g.GraphicsDevice.DisplayMode.Width, g.GraphicsDevice.DisplayMode.Height),
+            0.0f, 0.0f, 0.0f, 0.0f, sb, g)
+        {
         }
 
         protected override void LoadContent()
@@ -25,22 +26,21 @@ namespace MoodSwingGame
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Draw(texture, new Rectangle(0, 0, 500, 500), Color.White);
             base.Draw(gameTime);
         }
-
-        public void draw(GameTime gt)
-        {
-
-            Draw(gt);
-        }
+        
         public virtual MoodSwingScreen next()
         {
             return this;
         }
         public virtual void sentinel( KeyboardState oldKeyState, MouseState oldMouseState ) {
-            
+            foreach (MS2DComponent ms2dc in Elements)
+            {
+                if (ms2dc is MSButton)
+                    (ms2dc as MSButton).chechMouseToButtonCollision(oldMouseState);
+            }
         }
+
 
     }
 }

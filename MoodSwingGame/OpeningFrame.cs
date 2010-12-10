@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using Microsoft.Xna.Framework.Input;
 
 namespace MoodSwingGame
 {
@@ -19,8 +19,8 @@ namespace MoodSwingGame
             }
         }
 
-        private OpeningFrame(Texture2D texture, Game1 g, SpriteBatch sb )
-            : base( texture, g, sb)
+        private OpeningFrame(Texture2D bg, Game1 g, SpriteBatch sb )
+            : base(bg, Color.White, sb, g )
         {
 
         }
@@ -33,6 +33,11 @@ namespace MoodSwingGame
         public static void INIT(Texture2D t2D, Game1 game, SpriteBatch sb)
         {
             openingFrame = new OpeningFrame(t2D, game, sb);
+        }
+
+        public override void sentinel(KeyboardState oldKeyState, MouseState oldMouseState)
+        {
+            base.sentinel(oldKeyState, oldMouseState);
         }
     }
 }

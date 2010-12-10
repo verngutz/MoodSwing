@@ -29,6 +29,7 @@ namespace MoodSwingGUI
         private Color highlight;
         private MSLabel label;
         private MSAction action;
+        private Vector2 scale;
 
         public MSButton(Game g, MSLabel l, MSAction a, int x, int y, int width, int height,
             Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch sb, Color hlight )
@@ -41,6 +42,7 @@ namespace MoodSwingGUI
             currentState = 0;
             label = l;
             action = a;
+            scale = Size / new Vector2(unclicked.Width, unclicked.Height);
         }
 
 
@@ -55,6 +57,7 @@ namespace MoodSwingGUI
             currentState = 0;
             label = l;
             action = a;
+            scale = Size / new Vector2(unclicked.Width, unclicked.Height);
         }
 
         public override void Draw(GameTime gameTime)
@@ -73,24 +76,29 @@ namespace MoodSwingGUI
                     break;
             }
 
-            this.spriteBatch.Draw(currTexture, Position, highlight );
-            label.Draw(gameTime);
+            this.spriteBatch.Draw(currTexture, Position, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 0);
+            if( label != null ) label.Draw(gameTime);
             base.Draw(gameTime);
 
         }
 
-        public void chechMouseToButtonCollision(MouseState prevMouseState)
+        public void chechMouseToButtonCollision(MouseState oldMouseState)
         {
             MouseState currentMouseState = Mouse.GetState();
             if (currentMouseState.X >= this.Position.X && currentMouseState.X <= this.Position.X + this.Size.X
              && currentMouseState.Y >= this.Position.Y && currentMouseState.Y <= this.Position.Y + this.Size.Y)
             {
-                if (currentMouseState.LeftButton == ButtonState.Pressed)
+                if (currentMouseState.LeftButton == ButtonState.Pressed && 
+                    oldMouseState.LeftButton == ButtonState.Released)
                 {
                     currentState = MSButtonState.CLICKED;
                 }
-                else
+                else if (currentMouseState.LeftButton == ButtonState.Released)
+                {
                     currentState = MSButtonState.HOVERED;
+                    if( oldMouseState.LeftButton == ButtonState.Pressed ) 
+                        action.PerformAction(Game);
+                }
             }
             else
                 currentState = MSButtonState.UNCLICKED;

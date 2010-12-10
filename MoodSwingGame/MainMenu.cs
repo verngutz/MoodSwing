@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
+using MoodSwingGUI;
 namespace MoodSwingGame
 {
     public class MainMenu : MoodSwingScreen
@@ -17,15 +19,25 @@ namespace MoodSwingGame
             }
         }
 
-        private MainMenu(Texture2D texture, Game1 g, SpriteBatch sb)
-            : base(texture, g, sb)
+        private MainMenu(Texture2D bg, Game1 g, SpriteBatch sb)
+            : base(bg, Color.White, sb, g)
         {
-
+            
         }
 
         public static void INIT(Texture2D t2D, Game1 game, SpriteBatch sb)
         {
             mainMenu = new MainMenu(t2D, game, sb);
+        }
+
+        public void add( Texture2D unclicked, Texture2D clicked, Texture2D hovered ) {
+            AddElement( new MSButton( Game, null, new Exit(), new Vector2(50,50), new Vector2( 50, 50), unclicked,
+                clicked, hovered, spriteBatch, Color.White ), Alignment.TOP_LEFT );
+        }
+
+        public override void sentinel(KeyboardState oldKeyState, MouseState oldMouseState)
+        {
+            base.sentinel(oldKeyState, oldMouseState);
         }
     }
 }

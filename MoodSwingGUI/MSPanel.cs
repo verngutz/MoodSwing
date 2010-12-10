@@ -17,10 +17,16 @@ namespace MoodSwingGUI
     {
         private Texture2D background;
         private List<MS2DComponent> elements;
+        public List<MS2DComponent> Elements
+        {
+            get { return elements; }
+        }
+
         private Vector2 boundedPosition;
         private Vector2 boundedSize;
         private Color highlight;
         private Vector2 scale;
+
 
         public MSPanel(Texture2D background, Rectangle boundingRectangle, float topPadding, float bottomPadding, float leftPadding, float rightPadding, SpriteBatch spriteBatch, Game game)
             : this(background, boundingRectangle, topPadding, bottomPadding, leftPadding, rightPadding, Color.White, spriteBatch, game) { }
@@ -32,6 +38,7 @@ namespace MoodSwingGUI
             elements = new List<MS2DComponent>();
 
             boundedPosition = Position + new Vector2(leftPadding, topPadding);
+
             boundedSize = Size - new Vector2(leftPadding, topPadding) - new Vector2(rightPadding, bottomPadding);
             scale = Size / new Vector2(background.Width, background.Height);
             this.highlight = highlight;
@@ -60,7 +67,8 @@ namespace MoodSwingGUI
                     element.Position = boundedPosition;
                     break;
                 case Alignment.TOP_CENTER:
-                    element.Position = boundedPosition + new Vector2((boundedSize.X - element.Size.X) / 2 , 0);
+                    element.Position = boundedPosition + new Vector2((boundedSize.X - element.Size.X) / 2, 0);
+
                     break;
                 case Alignment.TOP_RIGHT:
                     element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, 0);
@@ -90,7 +98,6 @@ namespace MoodSwingGUI
         public override void Draw(GameTime gameTime)
         {
             spriteBatch.Draw(background, Position, null, highlight, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
-
             foreach(MS2DComponent element in elements)
             {
                 element.Draw(gameTime);

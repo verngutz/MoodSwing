@@ -18,6 +18,7 @@ namespace MoodSwingGUI
         protected SpriteBatch spriteBatch;
 
         public Vector2 Position { set; get; }
+
         public Vector2 Size { set; get; }
       
         public MS2DComponent(Vector2 position, Vector2 size, SpriteBatch spriteBatch, Game game)
