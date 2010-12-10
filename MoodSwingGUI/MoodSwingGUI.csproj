@@ -82,7 +82,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alignment.cs" />
+    <Compile Include="MSMiscellaneous.cs" />
     <Compile Include="MSButton.cs" />
     <Compile Include="MSCheckbox.cs" />
     <Compile Include="MSLabel.cs" />

@@ -28,12 +28,5 @@ namespace MoodSwingGUI
             Size = size;
             this.spriteBatch = spriteBatch;
         }
-        public MS2DComponent(Rectangle boundingRectangle, SpriteBatch spriteBatch, Game game)
-            : base(game)
-        {
-            Position = new Vector2(boundingRectangle.X, boundingRectangle.Y);
-            Size = new Vector2(boundingRectangle.Width, boundingRectangle.Height);
-            this.spriteBatch = spriteBatch;
-        }
     }
 }

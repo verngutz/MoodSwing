@@ -16,12 +16,6 @@ namespace MoodSwingGUI
 {
     public class MSButton : MS2DComponent
     {
-        enum MSButtonState {
-            UNCLICKED = 0,
-            CLICKED,
-            HOVERED
-        }
-
         private MSButtonState currentState;
         private Texture2D clickedTexture;
         private Texture2D hoveredTexture;
@@ -30,63 +24,73 @@ namespace MoodSwingGUI
         private MSLabel label;
         private MSAction action;
         private Vector2 scale;
+        private Shape shape;
 
-        public MSButton(Game g, MSLabel l, MSAction a, int x, int y, int width, int height,
-            Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch sb, Color hlight )
-            : base( new Vector2(x,y), new Vector2(width, height), sb, g)
+        public MSButton(MSLabel label, MSAction action, int x, int y, int width, int height, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Shape shape, Game game)
+            : this(label, action, x, y, width, height, unclicked, clicked, hovered, spriteBatch, Color.White, shape, game) { }
+
+        public MSButton(MSLabel label, MSAction action, int x, int y, int width, int height, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Color highlight, Shape shape, Game game)
+            : this(label, action, new Vector2(x, y), new Vector2(width, height), unclicked, clicked, hovered, spriteBatch, highlight, shape, game) { }
+
+        public MSButton(MSLabel label, MSAction action, Rectangle boundingRectangle, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Shape shape, Game game)
+            : this(label, action, boundingRectangle, unclicked, clicked, hovered, spriteBatch, Color.White, shape, game) { }
+
+        public MSButton(MSLabel label, MSAction action, Rectangle boundingRectangle, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Color highlight, Shape shape, Game game)
+            : this(label, action, new Vector2(boundingRectangle.X, boundingRectangle.Y), new Vector2(boundingRectangle.Width, boundingRectangle.Height), unclicked, clicked, hovered, spriteBatch, highlight, shape, game) { }
+
+        public MSButton(MSLabel label, MSAction action, Vector2 position, Vector2 size, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Shape shape, Game game)
+            : this(label, action, position, size, unclicked, clicked, hovered, spriteBatch, Color.White, shape, game) { }
+
+        public MSButton(MSLabel label, MSAction action, Vector2 position, Vector2 size, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Color highlight, Shape shape, Game game)
+            : base(position, size, spriteBatch, game)
         {
             unclickedTexture = unclicked;
             clickedTexture = clicked;
             hoveredTexture = hovered;
-            highlight = hlight;
+            this.highlight = highlight;
             currentState = 0;
-            label = l;
-            action = a;
+            this.label = label;
+            this.action = action;
             scale = Size / new Vector2(unclicked.Width, unclicked.Height);
-        }
-
-
-        public MSButton(Game g, MSLabel l, MSAction a, Vector2 pos, Vector2 size,
-            Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch sb, Color hlight)
-            : base(pos, size, sb, g)
-        {
-            unclickedTexture = unclicked;
-            clickedTexture = clicked;
-            hoveredTexture = hovered;
-            highlight = hlight;
-            currentState = 0;
-            label = l;
-            action = a;
-            scale = Size / new Vector2(unclicked.Width, unclicked.Height);
+            this.shape = shape;
         }
 
         public override void Draw(GameTime gameTime)
         {
-            Texture2D currTexture = null;
             switch (currentState)
             {
                 case MSButtonState.CLICKED:
-                    currTexture = clickedTexture;
+                    spriteBatch.Draw(clickedTexture, Position, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 0);
                     break;
                 case MSButtonState.HOVERED:
-                    currTexture = hoveredTexture;
+                    spriteBatch.Draw(hoveredTexture, Position, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 0);
                     break;
                 case MSButtonState.UNCLICKED:
-                    currTexture = unclickedTexture;
+                    spriteBatch.Draw(unclickedTexture, Position, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 0);
                     break;
             }
 
-            this.spriteBatch.Draw(currTexture, Position, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 0);
             if( label != null ) label.Draw(gameTime);
             base.Draw(gameTime);
 
         }
 
-        public void chechMouseToButtonCollision(MouseState oldMouseState)
+        public bool IsHoveredByMouse(MouseState currentMouseState)
+        {
+            switch (shape)
+            {
+                case Shape.RECTANGULAR:
+                    return !(currentMouseState.X < Position.X || currentMouseState.X > Position.X + Size.X || currentMouseState.Y < Position.Y || currentMouseState.Y > Position.Y + Size.Y);
+                case Shape.CIRCULAR:
+                    return (Vector2.Distance(Position + Size / 2, new Vector2(currentMouseState.X, currentMouseState.Y)) <= Size.X/2);
+            }
+            return false;
+        }
+
+        public void CheckMouseClick(MouseState oldMouseState)
         {
             MouseState currentMouseState = Mouse.GetState();
-            if (currentMouseState.X >= this.Position.X && currentMouseState.X <= this.Position.X + this.Size.X
-             && currentMouseState.Y >= this.Position.Y && currentMouseState.Y <= this.Position.Y + this.Size.Y)
+            if (IsHoveredByMouse(currentMouseState))
             {
                 if (currentMouseState.LeftButton == ButtonState.Pressed && 
                     oldMouseState.LeftButton == ButtonState.Released)

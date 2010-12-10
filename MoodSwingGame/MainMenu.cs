@@ -31,8 +31,8 @@ namespace MoodSwingGame
         }
 
         public void add( Texture2D unclicked, Texture2D clicked, Texture2D hovered ) {
-            AddElement( new MSButton( Game, null, new Exit(), new Vector2(50,50), new Vector2( 50, 50), unclicked,
-                clicked, hovered, spriteBatch, Color.White ), Alignment.TOP_LEFT );
+            AddElement( new MSButton(null, new Exit(), new Vector2(50,50), new Vector2( 50, 50), unclicked,
+                clicked, hovered, spriteBatch, Color.White, Shape.RECTANGULAR, Game ), Alignment.TOP_LEFT );
         }
 
         public override void sentinel(KeyboardState oldKeyState, MouseState oldMouseState)

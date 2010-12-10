@@ -37,7 +37,7 @@ namespace MoodSwingGame
             foreach (MS2DComponent ms2dc in Elements)
             {
                 if (ms2dc is MSButton)
-                    (ms2dc as MSButton).chechMouseToButtonCollision(oldMouseState);
+                    (ms2dc as MSButton).CheckMouseClick(oldMouseState);
             }
         }
 

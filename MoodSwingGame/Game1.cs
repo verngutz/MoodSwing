@@ -98,7 +98,7 @@ namespace MoodSwingGame
            
             KeyboardState newKeyboardState = Keyboard.GetState();
             MouseState newMouseState = Mouse.GetState();
-
+            
             currScreen.sentinel(oldKeyboardState, oldMouseState);
             if (currScreen is OpeningFrame)
             {

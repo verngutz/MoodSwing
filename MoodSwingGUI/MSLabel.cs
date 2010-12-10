@@ -38,16 +38,17 @@ namespace MoodSwingGUI
         private Color color;
         private Vector2 fontScale;
 
+        public MSLabel(String text, int x, int y, int width, int height, SpriteFont spriteFont, SpriteBatch spriteBatch, Game game)
+            : this(text, x, y, width, height, spriteFont, Color.White, spriteBatch, game) { }
+
+        public MSLabel(String text, int x, int y, int width, int height, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
+            : this(text, new Vector2(x, y), new Vector2(width, height), spriteFont, color, spriteBatch, game) { }
+
         public MSLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, SpriteBatch spriteBatch, Game game)
             : this(text, boundingRectangle, spriteFont, Color.White, spriteBatch, game) { }
 
         public MSLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
-            : base(boundingRectangle, spriteBatch, game)
-        {
-            Text = text;
-            this.spriteFont = spriteFont;
-            this.color = color;
-        }
+            : this(text, new Vector2(boundingRectangle.X, boundingRectangle.Y), new Vector2(boundingRectangle.Width, boundingRectangle.Height), spriteFont, color, spriteBatch, game) { }
 
         public MSLabel(String text, Vector2 position, Vector2 size, SpriteFont spriteFont, SpriteBatch spriteBatch, Game game)
             : this(text, position, size, spriteFont, Color.White, spriteBatch, game) { }
