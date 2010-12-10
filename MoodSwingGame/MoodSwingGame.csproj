@@ -84,6 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Citizen.cs" />
     <Compile Include="Game2.cs" />
     <Compile Include="Game3.cs" />
     <Compile Include="MainMenu.cs" />

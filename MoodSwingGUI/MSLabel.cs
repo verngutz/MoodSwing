@@ -17,6 +17,8 @@ namespace MoodSwingGUI
 {
     public class MSLabel : MS2DComponent
     {
+        public enum LabelEffect { WRAP, RESIZE }
+
         private String previousText;
         private String currentText;
         public String Text
@@ -37,12 +39,7 @@ namespace MoodSwingGUI
         private Vector2 fontScale;
 
         public MSLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, SpriteBatch spriteBatch, Game game)
-            : base(boundingRectangle, spriteBatch, game)
-        {
-            Text = text;
-            this.spriteFont = spriteFont;
-            color = Color.White;
-        }
+            : this(text, boundingRectangle, spriteFont, Color.White, spriteBatch, game) { }
 
         public MSLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
             : base(boundingRectangle, spriteBatch, game)
@@ -53,12 +50,7 @@ namespace MoodSwingGUI
         }
 
         public MSLabel(String text, Vector2 position, Vector2 size, SpriteFont spriteFont, SpriteBatch spriteBatch, Game game)
-            :base(position, size, spriteBatch, game)
-        {
-            Text = text;
-            this.spriteFont = spriteFont;
-            color = Color.White;
-        }
+            : this(text, position, size, spriteFont, Color.White, spriteBatch, game) { }
 
         public MSLabel(String text, Vector2 position, Vector2 size, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
             : base(position, size, spriteBatch, game)

@@ -23,16 +23,7 @@ namespace MoodSwingGUI
         private Vector2 scale;
 
         public MSPanel(Texture2D background, Rectangle boundingRectangle, float topPadding, float bottomPadding, float leftPadding, float rightPadding, SpriteBatch spriteBatch, Game game)
-            : base(boundingRectangle, spriteBatch, game)
-        {
-            this.background = background;
-            elements = new List<MS2DComponent>();
-
-            boundedPosition = Position + new Vector2(leftPadding, topPadding);
-            boundedSize = Size - new Vector2(leftPadding, topPadding) - new Vector2(rightPadding, bottomPadding);
-            scale = Size / new Vector2(background.Width, background.Height);
-            this.highlight = Color.White;
-        }
+            : this(background, boundingRectangle, topPadding, bottomPadding, leftPadding, rightPadding, Color.White, spriteBatch, game) { }
 
         public MSPanel(Texture2D background, Rectangle boundingRectangle, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Color highlight, SpriteBatch spriteBatch, Game game)
             : base(boundingRectangle, spriteBatch, game)
@@ -47,16 +38,7 @@ namespace MoodSwingGUI
         }
 
         public MSPanel(Texture2D background, Vector2 position, Vector2 size, float topPadding, float bottomPadding, float leftPadding, float rightPadding, SpriteBatch spriteBatch, Game game)
-            : base(position, size, spriteBatch, game)
-        {
-            this.background = background;
-            elements = new List<MS2DComponent>();
-
-            boundedPosition = Position + new Vector2(leftPadding, topPadding);
-            boundedSize = Size - new Vector2(leftPadding, topPadding) - new Vector2(rightPadding, bottomPadding);
-            scale = Size / new Vector2(background.Width, background.Height);
-            this.highlight = Color.White;
-        }
+            : this(background, position, size, topPadding, bottomPadding, leftPadding, rightPadding, Color.White, spriteBatch, game) { }
 
         public MSPanel(Texture2D background, Vector2 position, Vector2 size, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Color highlight, SpriteBatch spriteBatch, Game game)
             : base(position, size, spriteBatch, game)
