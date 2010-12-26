@@ -20,6 +20,8 @@ namespace MoodSwingGame
         public Model GetModel { get { return model; } }
         public Vector3 Position { set; get; }
 
+        private double hunger;
+
         public Citizen(Model model, Vector3 initialPosition)
         {
             this.model = model;

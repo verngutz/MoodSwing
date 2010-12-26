@@ -81,7 +81,7 @@
     </Compile>
     <Compile Include="ChainSaw_unpressed.png">
       <Name>ChainSaw_unpressed</Name>
-	 <Importer>TextureImporter</Importer>
+      <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>

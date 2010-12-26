@@ -26,14 +26,14 @@ namespace MoodSwingGUI
         private Vector2 scale;
         private Shape shape;
 
-        public MSButton(MSLabel label, MSAction action, int x, int y, int width, int height, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Shape shape, Game game)
-            : this(label, action, x, y, width, height, unclicked, clicked, hovered, spriteBatch, Color.White, shape, game) { }
+        public MSButton(MSLabel label, MSAction action, float x, float y, float width, float height, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Shape shape, Game game)
+            : this(label, action, new Vector2(x, y), new Vector2(width, height), unclicked, clicked, hovered, spriteBatch, Color.White, shape, game) { }
 
-        public MSButton(MSLabel label, MSAction action, int x, int y, int width, int height, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Color highlight, Shape shape, Game game)
+        public MSButton(MSLabel label, MSAction action, float x, float y, float width, float height, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Color highlight, Shape shape, Game game)
             : this(label, action, new Vector2(x, y), new Vector2(width, height), unclicked, clicked, hovered, spriteBatch, highlight, shape, game) { }
 
         public MSButton(MSLabel label, MSAction action, Rectangle boundingRectangle, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Shape shape, Game game)
-            : this(label, action, boundingRectangle, unclicked, clicked, hovered, spriteBatch, Color.White, shape, game) { }
+            : this(label, action, new Vector2(boundingRectangle.X, boundingRectangle.Y), new Vector2(boundingRectangle.Width, boundingRectangle.Height), unclicked, clicked, hovered, spriteBatch, Color.White, shape, game) { }
 
         public MSButton(MSLabel label, MSAction action, Rectangle boundingRectangle, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Color highlight, Shape shape, Game game)
             : this(label, action, new Vector2(boundingRectangle.X, boundingRectangle.Y), new Vector2(boundingRectangle.Width, boundingRectangle.Height), unclicked, clicked, hovered, spriteBatch, highlight, shape, game) { }
@@ -60,13 +60,13 @@ namespace MoodSwingGUI
             switch (currentState)
             {
                 case MSButtonState.CLICKED:
-                    spriteBatch.Draw(clickedTexture, Position, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 0);
+                    SpriteBatch.Draw(clickedTexture, Position, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 0);
                     break;
                 case MSButtonState.HOVERED:
-                    spriteBatch.Draw(hoveredTexture, Position, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 0);
+                    SpriteBatch.Draw(hoveredTexture, Position, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 0);
                     break;
                 case MSButtonState.UNCLICKED:
-                    spriteBatch.Draw(unclickedTexture, Position, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 0);
+                    SpriteBatch.Draw(unclickedTexture, Position, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 0);
                     break;
             }
 
@@ -75,7 +75,7 @@ namespace MoodSwingGUI
 
         }
 
-        public bool IsHoveredByMouse(MouseState currentMouseState)
+        private bool IsHoveredByMouse(MouseState currentMouseState)
         {
             switch (shape)
             {
@@ -87,7 +87,7 @@ namespace MoodSwingGUI
             return false;
         }
 
-        public void CheckMouseClick(MouseState oldMouseState)
+        public bool CheckMouseClick(MouseState oldMouseState)
         {
             MouseState currentMouseState = Mouse.GetState();
             if (IsHoveredByMouse(currentMouseState))
@@ -100,12 +100,16 @@ namespace MoodSwingGUI
                 else if (currentMouseState.LeftButton == ButtonState.Released)
                 {
                     currentState = MSButtonState.HOVERED;
-                    if( oldMouseState.LeftButton == ButtonState.Pressed ) 
+                    if (oldMouseState.LeftButton == ButtonState.Pressed)
+                    {
                         action.PerformAction(Game);
+                        return true;
+                    }
                 }
             }
             else
                 currentState = MSButtonState.UNCLICKED;
+            return false;
         }
     }
 }

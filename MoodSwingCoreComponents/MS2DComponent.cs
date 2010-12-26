@@ -16,6 +16,7 @@ namespace MoodSwingGUI
     public abstract class MS2DComponent : DrawableGameComponent
     {
         protected SpriteBatch spriteBatch;
+        public SpriteBatch SpriteBatch { get { return spriteBatch; } }
 
         public Vector2 Position { set; get; }
 
