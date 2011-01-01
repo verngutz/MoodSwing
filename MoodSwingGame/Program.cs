@@ -10,7 +10,7 @@ namespace MoodSwingGame
         static void Main(string[] args)
         {
 
-            using (Game3 game = new Game3())
+            using (Game1 game = new Game1())
             {
                 game.Run();
             }

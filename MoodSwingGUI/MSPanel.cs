@@ -92,7 +92,7 @@ namespace MoodSwingGUI
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Draw(background, Position, null, highlight, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+            SpriteBatch.Draw(background, Position, null, highlight, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
             foreach(MS2DComponent element in elements)
             {
                 element.Draw(gameTime);
