@@ -12,11 +12,3 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-namespace MoodSwingGUI
-{
-    public class MSCheckbox : MS2DComponent
-    {
-        private MSLabel label;
-        private TickMode ticked;
-    }
-}

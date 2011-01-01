@@ -42,7 +42,7 @@ namespace MoodSwingGame
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            c = new Citizen(Content.Load<Model>("L200-FBX"), new Vector3(0, 0, 0));
+            c = new Citizen(Content.Load<Model>("person"), new Vector3(0, 0, 0));
         }
 
         protected override void UnloadContent()
