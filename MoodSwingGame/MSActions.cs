@@ -13,7 +13,6 @@ namespace MoodSwingGame
         public override void PerformAction( Game game )
         {
             game.Exit();
-            
         }
     }
 }

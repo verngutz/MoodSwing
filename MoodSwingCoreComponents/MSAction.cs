@@ -8,6 +8,6 @@ namespace MoodSwingCoreComponents
 {
     public abstract class MSAction
     {
-        public abstract void PerformAction( Game game);
+        public abstract void PerformAction(Game game);
     }
 }

@@ -10,30 +10,36 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class MoodSwing : Microsoft.Xna.Framework.Game
     {
-        public SpriteBatch spriteBatch;
-        public SpriteBatch Sprite
-        {
-            get { return spriteBatch; }
-        }
+        public enum State { INTRO, MAIN, OPTIONS, CITY, DISTRICT }
+        public State CurrentState { set; get; }
+
+        private SpriteBatch spriteBatch;
+        public SpriteBatch SpriteBatch { get { return spriteBatch; } }
 
         GraphicsDeviceManager graphics;
 
-        MoodSwingScreen currScreen;
-        KeyboardState oldKeyboardState;
-        MouseState oldMouseState;
+        public MSScreen CurrentScreen { set; get; }
 
-        public Game1()
+        private KeyboardState oldKeyboardState;
+        public KeyboardState OldKeyboardState { get { return oldKeyboardState; } }
+
+        private MouseState oldMouseState;
+        public MouseState OldMouseState { get { return oldMouseState; } }
+
+        public MoodSwing()
         {
             graphics = new GraphicsDeviceManager(this);
-
+            graphics.PreferredBackBufferWidth = 1024;
+            graphics.PreferredBackBufferHeight = 768;
             graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
         }
@@ -52,7 +58,8 @@ namespace MoodSwingGame
             IsMouseVisible = true;
             oldKeyboardState = Keyboard.GetState();
             oldMouseState = Mouse.GetState();
-            //currScreen = OpeningFrame.OPENING_FRAME;
+            CurrentState = State.INTRO;
+            CurrentScreen = MSIntroScreen.getInstance(this);
         }
 
         /// <summary>
@@ -63,15 +70,6 @@ namespace MoodSwingGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            OpeningFrame.INIT(Content.Load<Texture2D>("OpeningScreen"), this, spriteBatch);
-            MainMenu.INIT(Content.Load<Texture2D>("MainMenu"), this, spriteBatch);
-            MainMenu.MAIN_MENU.add(Content.Load<Texture2D>("ChainSaw_unpressed"),
-                                    Content.Load<Texture2D>("ChainSaw_pressed"),
-                                    Content.Load<Texture2D>("ChainSaw_hover"));
-                            
-            currScreen = OpeningFrame.OPENING_FRAME;
-
         }
 
         /// <summary>
@@ -91,33 +89,10 @@ namespace MoodSwingGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+            CurrentScreen.Update(gameTime);
 
-           
-            KeyboardState newKeyboardState = Keyboard.GetState();
-            MouseState newMouseState = Mouse.GetState();
-            
-            currScreen.sentinel(oldKeyboardState, oldMouseState);
-            if (currScreen is OpeningFrame)
-            {
-                if (newKeyboardState.IsKeyDown(Keys.Escape) && oldKeyboardState.IsKeyUp(Keys.Escape))
-                {
-                    currScreen = currScreen.next();
-                }
-            }
-
-            else if (currScreen is MainMenu)
-            {
-                if (newKeyboardState.IsKeyDown(Keys.Escape) && oldKeyboardState.IsKeyUp(Keys.Escape))
-                {
-                    //this.Exit();
-                }
-            }
-
-            oldMouseState = newMouseState; ;
-            oldKeyboardState = newKeyboardState;
+            oldMouseState = Mouse.GetState();
+            oldKeyboardState = Keyboard.GetState();
 
             base.Update(gameTime);
         }
@@ -128,13 +103,9 @@ namespace MoodSwingGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
-
-            // TODO: Add your drawing code here
+            GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            //currScreen.Draw(gameTime);
-            // spriteBatch.Draw(texture, rect, Color.White);
-            currScreen.Draw(gameTime);
+            CurrentScreen.Draw(gameTime);
             spriteBatch.End();
             base.Draw(gameTime);
         }

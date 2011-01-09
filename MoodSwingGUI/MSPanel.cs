@@ -33,17 +33,35 @@ namespace MoodSwingGUI
         private Color highlight;
         private Vector2 scale;
 
-        public MSPanel(Texture2D background, int x, int y, int width, int height, float topPadding, float bottomPadding, float leftPadding, float rightPadding, SpriteBatch spriteBatch, Game game)
+        public MSPanel(Texture2D background, float x, float y, float width, float height, SpriteBatch spriteBatch, Game game)
+            : this(background, x, y, width, height, 0, 0, 0, 0, Color.White, spriteBatch, game) { }
+
+        public MSPanel(Texture2D background, float x, float y, float width, float height, Color highlight, SpriteBatch spriteBatch, Game game)
+            : this(background, new Vector2(x, y), new Vector2(width, height), 0, 0, 0, 0, highlight, spriteBatch, game) { }
+
+        public MSPanel(Texture2D background, float x, float y, float width, float height, float topPadding, float bottomPadding, float leftPadding, float rightPadding, SpriteBatch spriteBatch, Game game)
             : this(background, x, y, width, height, topPadding, bottomPadding, leftPadding, rightPadding, Color.White, spriteBatch, game) { }
 
-        public MSPanel(Texture2D background, int x, int y, int width, int height, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Color highlight, SpriteBatch spriteBatch, Game game)
+        public MSPanel(Texture2D background, float x, float y, float width, float height, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Color highlight, SpriteBatch spriteBatch, Game game)
             : this(background, new Vector2(x, y), new Vector2(width, height), topPadding, bottomPadding, leftPadding, rightPadding, highlight, spriteBatch, game) { }
+
+        public MSPanel(Texture2D background, Rectangle boundingRectangle, SpriteBatch spriteBatch, Game game)
+            : this(background, boundingRectangle, 0, 0, 0, 0, Color.White, spriteBatch, game) { }
+
+        public MSPanel(Texture2D background, Rectangle boundingRectangle, Color highlight, SpriteBatch spriteBatch, Game game)
+            : this(background, new Vector2(boundingRectangle.X, boundingRectangle.Y), new Vector2(boundingRectangle.Width, boundingRectangle.Height), 0, 0, 0, 0, spriteBatch, game) { }
 
         public MSPanel(Texture2D background, Rectangle boundingRectangle, float topPadding, float bottomPadding, float leftPadding, float rightPadding, SpriteBatch spriteBatch, Game game)
             : this(background, boundingRectangle, topPadding, bottomPadding, leftPadding, rightPadding, Color.White, spriteBatch, game) { }
 
         public MSPanel(Texture2D background, Rectangle boundingRectangle, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Color highlight, SpriteBatch spriteBatch, Game game)
             : this(background, new Vector2(boundingRectangle.X, boundingRectangle.Y), new Vector2(boundingRectangle.Width, boundingRectangle.Height), topPadding, bottomPadding, leftPadding, rightPadding, spriteBatch, game) { }
+
+        public MSPanel(Texture2D background, Vector2 position, Vector2 size, SpriteBatch spriteBatch, Game game)
+            : this(background, position, size, 0, 0, 0, 0, Color.White, spriteBatch, game) { }
+
+        public MSPanel(Texture2D background, Vector2 position, Vector2 size, Color highlight, SpriteBatch spriteBatch, Game game)
+            : this(background, position, size, 0, 0, 0, 0, highlight, spriteBatch, game) { }
 
         public MSPanel(Texture2D background, Vector2 position, Vector2 size, float topPadding, float bottomPadding, float leftPadding, float rightPadding, SpriteBatch spriteBatch, Game game)
             : this(background, position, size, topPadding, bottomPadding, leftPadding, rightPadding, Color.White, spriteBatch, game) { }
@@ -57,7 +75,12 @@ namespace MoodSwingGUI
 
             boundedPosition = Position + new Vector2(leftPadding, topPadding);
             boundedSize = Size - new Vector2(leftPadding, topPadding) - new Vector2(rightPadding, bottomPadding);
-            scale = Size / new Vector2(background.Width, background.Height);
+
+            if(background == null)
+                scale = Vector2.Zero;
+            else
+                scale = Size / new Vector2(background.Width, background.Height);
+
             this.highlight = highlight;
         }
 

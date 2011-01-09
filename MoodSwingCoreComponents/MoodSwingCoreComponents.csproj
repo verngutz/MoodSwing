@@ -84,9 +84,7 @@
   <ItemGroup>
     <Compile Include="MS2DClickable.cs" />
     <Compile Include="MS2DComponent.cs" />
-    <Compile Include="MS3DBox.cs" />
     <Compile Include="MS3DComponent.cs" />
-    <Compile Include="MS3DSphere.cs" />
     <Compile Include="MSAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

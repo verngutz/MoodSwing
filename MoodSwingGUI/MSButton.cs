@@ -82,8 +82,8 @@ namespace MoodSwingGUI
             MouseState currentMouseState = Mouse.GetState();
             if (CollidesWithMouse(currentMouseState))
             {
-                if (currentMouseState.LeftButton == ButtonState.Pressed && 
-                    oldMouseState.LeftButton == ButtonState.Released)
+                if (currentMouseState.LeftButton == ButtonState.Pressed 
+                    && oldMouseState.LeftButton == ButtonState.Released)
                 {
                     currentState = MSButtonState.CLICKED;
                 }
