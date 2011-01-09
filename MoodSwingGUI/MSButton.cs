@@ -14,7 +14,7 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGUI
 {
-    public class MSButton : MS2DComponent
+    public class MSButton : MS2DClickable
     {
         private MSButtonState currentState;
         private Texture2D clickedTexture;
@@ -42,7 +42,7 @@ namespace MoodSwingGUI
             : this(label, action, position, size, unclicked, clicked, hovered, spriteBatch, Color.White, shape, game) { }
 
         public MSButton(MSLabel label, MSAction action, Vector2 position, Vector2 size, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Color highlight, Shape shape, Game game)
-            : base(position, size, spriteBatch, game)
+            : base(position, size, shape, spriteBatch, game)
         {
             unclickedTexture = unclicked;
             clickedTexture = clicked;
@@ -75,22 +75,12 @@ namespace MoodSwingGUI
 
         }
 
-        private bool IsHoveredByMouse(MouseState currentMouseState)
-        {
-            switch (shape)
-            {
-                case Shape.RECTANGULAR:
-                    return !(currentMouseState.X < Position.X || currentMouseState.X > Position.X + Size.X || currentMouseState.Y < Position.Y || currentMouseState.Y > Position.Y + Size.Y);
-                case Shape.CIRCULAR:
-                    return (Vector2.Distance(Position + Size / 2, new Vector2(currentMouseState.X, currentMouseState.Y)) <= Size.X/2);
-            }
-            return false;
-        }
+        
 
-        public bool CheckMouseClick(MouseState oldMouseState)
+        public override bool CheckMouseClick(MouseState oldMouseState)
         {
             MouseState currentMouseState = Mouse.GetState();
-            if (IsHoveredByMouse(currentMouseState))
+            if (CollidesWithMouse(currentMouseState))
             {
                 if (currentMouseState.LeftButton == ButtonState.Pressed && 
                     oldMouseState.LeftButton == ButtonState.Released)

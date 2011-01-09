@@ -5,8 +5,9 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using MoodSwingCoreComponents;
 using MoodSwingGUI;
+
 namespace MoodSwingGame
 {
     public class MainMenu : MoodSwingScreen

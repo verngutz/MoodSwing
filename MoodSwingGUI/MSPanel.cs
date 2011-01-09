@@ -10,16 +10,22 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using MoodSwingCoreComponents;
 
 namespace MoodSwingGUI
 {
-    public class MSPanel : MS2DComponent
+    public class MSPanel : MS2DClickable
     {
         private Texture2D background;
         private List<MS2DComponent> elements;
         public List<MS2DComponent> Elements
         {
             get { return elements; }
+        }
+        private List<MS2DClickable> clickableElements;
+        public List<MS2DClickable> ClickableElements
+        {
+            get { return clickableElements; }
         }
 
         private Vector2 boundedPosition;
@@ -43,10 +49,11 @@ namespace MoodSwingGUI
             : this(background, position, size, topPadding, bottomPadding, leftPadding, rightPadding, Color.White, spriteBatch, game) { }
 
         public MSPanel(Texture2D background, Vector2 position, Vector2 size, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Color highlight, SpriteBatch spriteBatch, Game game)
-            : base(position, size, spriteBatch, game)
+            : base(position, size, Shape.RECTANGULAR, spriteBatch, game)
         {
             this.background = background;
             elements = new List<MS2DComponent>();
+            clickableElements = new List<MS2DClickable>();
 
             boundedPosition = Position + new Vector2(leftPadding, topPadding);
             boundedSize = Size - new Vector2(leftPadding, topPadding) - new Vector2(rightPadding, bottomPadding);
@@ -88,11 +95,33 @@ namespace MoodSwingGUI
                     break;
             }
             elements.Add(element);
+            if (element is MS2DClickable)
+            {
+                clickableElements.Add(element as MS2DClickable);
+            }
+        }
+
+        public override bool CheckMouseClick(MouseState oldMouseState)
+        {
+            if (CollidesWithMouse(oldMouseState))
+            {
+                foreach (MS2DClickable element in clickableElements)
+                {
+                    if (element.CheckMouseClick(oldMouseState))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         public override void Draw(GameTime gameTime)
         {
-            SpriteBatch.Draw(background, Position, null, highlight, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+            if (background != null)
+            {
+                SpriteBatch.Draw(background, Position, null, highlight, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+            }
             foreach(MS2DComponent element in elements)
             {
                 element.Draw(gameTime);

@@ -14,7 +14,7 @@
         MANUAL
     }
 
-    public enum Shape { RECTANGULAR, CIRCULAR }
+    
 
     public enum MSButtonState { UNCLICKED, CLICKED, HOVERED }
 }

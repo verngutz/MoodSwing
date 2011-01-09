@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-namespace MoodSwingGUI
+namespace MoodSwingCoreComponents
 {
     public abstract class MS2DComponent : DrawableGameComponent
     {
