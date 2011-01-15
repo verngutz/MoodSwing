@@ -41,7 +41,6 @@ namespace MoodSwingGame
 
         public override void Draw(GameTime gameTime)
         {
-            System.Console.WriteLine("Error");
             foreach( MSTile tile in mapArray ) 
             {
                 tile.Draw(gameTime);
