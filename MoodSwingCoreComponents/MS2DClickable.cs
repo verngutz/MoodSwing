@@ -14,30 +14,30 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace MoodSwingCoreComponents
 {
-    public enum Shape { RECTANGULAR, CIRCULAR, AMORPHOUS }
-    public abstract class MS2DClickable : MS2DComponent
+    /// <summary>
+    /// MS2DClickable is an MS2DCollidable that can be clicked (collides with) the Mouse
+    /// </summary>
+    public abstract class MS2DClickable : MS2DCollidable
     {
-        private Shape shape;
-        public Shape Shape { get { return shape; } }
-      
         public MS2DClickable(Vector2 position, Vector2 size, Shape shape, SpriteBatch spriteBatch, Game game)
-            : base(position, size, spriteBatch, game)
+            : base(position, size, shape, spriteBatch, game)
         {
             this.shape = shape;
         }
 
-        public bool CollidesWithMouse(MouseState currentMouseState)
+        /// <summary>
+        /// Check whether the Mouse is currently over this MS2DClickable
+        /// </summary>
+        /// <returns>true if this Mouse is currently over this MS2DClickable, false otherwise</returns>
+        public bool CollidesWithMouse()
         {
-            switch (Shape)
-            {
-                case Shape.RECTANGULAR:
-                    return !(currentMouseState.X < Position.X || currentMouseState.X > Position.X + Size.X || currentMouseState.Y < Position.Y || currentMouseState.Y > Position.Y + Size.Y);
-                case Shape.CIRCULAR:
-                    return (Vector2.Distance(Position + Size / 2, new Vector2(currentMouseState.X, currentMouseState.Y)) <= Size.X / 2);
-            }
-            return false;
+            return base.EnclosesPoint(new Point(Mouse.GetState().X, Mouse.GetState().Y));
         }
 
+        /// <summary>
+        /// Override this method to tell how an MS2DClickable should interact with the Mouse frame by frame.
+        /// </summary>
+        /// <param name="oldMouseState">the previous MouseState of the Mouse</param>
         public abstract bool CheckMouseClick(MouseState oldMouseState);
     }
 }

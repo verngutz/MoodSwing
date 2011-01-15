@@ -17,8 +17,6 @@ namespace MoodSwingGUI
 {
     public class MSLabel : MS2DComponent
     {
-        public enum LabelEffect { WRAP, RESIZE }
-
         private String previousText;
         private String currentText;
         public String Text
@@ -66,11 +64,6 @@ namespace MoodSwingGUI
         {
             SpriteBatch.DrawString(spriteFont, Text, Position, color, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
             base.Draw(gameTime);
-        }
-
-        public override void Initialize()
-        {
-            base.Initialize();
         }
 
         public override void Update(GameTime gameTime)

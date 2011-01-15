@@ -14,6 +14,9 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGUI
 {
+    /// <summary>
+    /// MSButton represents a drawable, clickable, action-attachable button.
+    /// </summary>
     public class MSButton : MS2DClickable
     {
         private MSButtonState currentState;
@@ -25,7 +28,7 @@ namespace MoodSwingGUI
         private MSAction action;
         private Vector2 scale;
         private Shape shape;
-
+        
         public override Vector2 Position
         {
             get
@@ -43,101 +46,101 @@ namespace MoodSwingGUI
         /// <summary>
         /// Constructs an MSButton from the given parameters.
         /// </summary>
-        /// <param name="label">The MSLabel to add to this MSButton, if any, otherwise use null. Make sure to position the MSLabel relative to the upper-right corner of this MSButton.</param>
-        /// <param name="action">The MSAction that will be executed when this MSButton is clicked.</param>
-        /// <param name="x">The x-position, in screen coordinates, corresponding to where the upper-left corner of this MSButton should be.</param>
-        /// <param name="y">The y-position, in screen coordinates, corresponding to where the upper-left corner of this MSButton should be.</param>
-        /// <param name="width">The width, in screen coordinates, of this MSButton.</param>
-        /// <param name="height">The height, in screen coordinates, of this MSButton.</param>
-        /// <param name="unclicked">The Texture2D object that will be drawn when this MSButton is MSButtonState.UNCLICKED.</param>
-        /// <param name="clicked">The Texture2D object that will be drawn when this MSButton is MSButtonState.CLICKED.</param>
-        /// <param name="hovered">The Texture2D object that will be drawn when this MSButton is MSButtonState.HOVERED.</param>
-        /// <param name="spriteBatch">The SpriteBatch that will draw this MSButton.</param>
-        /// <param name="shape">The Shape of this MSButton.<seealso cref="MoodSwingCoreComponents.Shape"/></param>
-        /// <param name="game">The Game where this MSButton will be used.</param>
+        /// <param name="label">Add text to this MSButton with an MSLabel. Use null if you don't need to add text. Make sure to position the MSLabel relative to the upper-right corner of this MSButton.</param>
+        /// <param name="action">will be executed when this MSButton is clicked</param>
+        /// <param name="x">the x-position, in screen coordinates, corresponding to where the upper-left corner of this MSButton should be</param>
+        /// <param name="y">the y-position, in screen coordinates, corresponding to where the upper-left corner of this MSButton should be</param>
+        /// <param name="width">width in pixels of this MSButton</param>
+        /// <param name="height">height in pixels of this MSButton</param>
+        /// <param name="unclicked">will be drawn when this MSButton is MSButtonState.UNCLICKED</param>
+        /// <param name="clicked">will be drawn when this MSButton is MSButtonState.CLICKED</param>
+        /// <param name="hovered">will be drawn when this MSButton is MSButtonState.HOVERED</param>
+        /// <param name="spriteBatch">the SpriteBatch that will draw this MSButton</param>
+        /// <param name="shape">the Shape of this MSButton<seealso cref="MoodSwingCoreComponents.Shape"/></param>
+        /// <param name="game">the Game where this MSButton will be used</param>
         public MSButton(MSLabel label, MSAction action, float x, float y, float width, float height, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Shape shape, Game game)
             : this(label, action, new Vector2(x, y), new Vector2(width, height), unclicked, clicked, hovered, spriteBatch, Color.White, shape, game) { }
 
         /// <summary>
         /// Constructs an MSButton from the given parameters.
         /// </summary>
-        /// <param name="label">The MSLabel to add to this MSButton, if any, otherwise use null. Make sure to position the MSLabel relative to the upper-right corner of this MSButton.</param>
-        /// <param name="action">The MSAction that will be executed when this MSButton is clicked.</param>
-        /// <param name="x">The x-position, in screen coordinates, corresponding to where the upper-left corner of this MSButton should be.</param>
-        /// <param name="y">The y-position, in screen coordinates, corresponding to where the upper-left corner of this MSButton should be.</param>
-        /// <param name="width">The width, in screen coordinates, of this MSButton.</param>
-        /// <param name="height">The height, in screen coordinates, of this MSButton.</param>
-        /// <param name="unclicked">The Texture2D object that will be drawn when this MSButton is MSButtonState.UNCLICKED.</param>
-        /// <param name="clicked">The Texture2D object that will be drawn when this MSButton is MSButtonState.CLICKED.</param>
-        /// <param name="hovered">The Texture2D object that will be drawn when this MSButton is MSButtonState.HOVERED.</param>
-        /// <param name="spriteBatch">The SpriteBatch that will draw this MSButton.</param>
-        /// <param name="highlight">The Microsoft.XNA.Framework.Graphics.Color to overlay this MSButton with.</param>
-        /// <param name="shape">The Shape of this MSButton.<seealso cref="MoodSwingCoreComponents.Shape"/></param>
-        /// <param name="game">The Game where this MSButton will be used.</param>
+        /// <param name="label">Add text to this MSButton with an MSLabel. Use null if you don't need to add text. Make sure to position the MSLabel relative to the upper-right corner of this MSButton.</param>
+        /// <param name="action">will be executed when this MSButton is clicked</param>
+        /// <param name="x">the x-position, in screen coordinates, corresponding to where the upper-left corner of this MSButton should be</param>
+        /// <param name="y">the y-position, in screen coordinates, corresponding to where the upper-left corner of this MSButton should be</param>
+        /// <param name="width">width in pixels of this MSButton</param>
+        /// <param name="height">height in pixels of this MSButton</param>
+        /// <param name="unclicked">will be drawn when this MSButton is MSButtonState.UNCLICKED</param>
+        /// <param name="clicked">will be drawn when this MSButton is MSButtonState.CLICKED</param>
+        /// <param name="hovered">will be drawn when this MSButton is MSButtonState.HOVERED</param>
+        /// <param name="spriteBatch">the SpriteBatch that will draw this MSButton</param>
+        /// <param name="highlight">the Color to overlay this MSButton with</param>
+        /// <param name="shape">the Shape of this MSButton<seealso cref="MoodSwingCoreComponents.Shape"/></param>
+        /// <param name="game">the Game where this MSButton will be used</param>
         public MSButton(MSLabel label, MSAction action, float x, float y, float width, float height, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Color highlight, Shape shape, Game game)
             : this(label, action, new Vector2(x, y), new Vector2(width, height), unclicked, clicked, hovered, spriteBatch, highlight, shape, game) { }
 
         /// <summary>
         /// Constructs an MSButton from the given parameters.
         /// </summary>
-        /// <param name="label">The MSLabel to add to this MSButton, if any, otherwise use null. Make sure to position the MSLabel relative to the upper-right corner of this MSButton.</param>
-        /// <param name="action">The MSAction that will be executed when this MSButton is clicked.</param>
-        /// <param name="boundingRectangle">The Microsoft.XNA.Framework.Rectangle containing this button.</param>
-        /// <param name="unclicked">The Texture2D object that will be drawn when this MSButton is MSButtonState.UNCLICKED.</param>
-        /// <param name="clicked">The Texture2D object that will be drawn when this MSButton is MSButtonState.CLICKED.</param>
-        /// <param name="hovered">The Texture2D object that will be drawn when this MSButton is MSButtonState.HOVERED.</param>
-        /// <param name="spriteBatch">The SpriteBatch that will draw this MSButton.</param>
-        /// <param name="shape">The Shape of this MSButton.<seealso cref="MoodSwingCoreComponents.Shape"/></param>
-        /// <param name="game">The Game where this MSButton will be used.</param>
+        /// <param name="label">Add text to this MSButton with an MSLabel. Use null if you don't need to add text. Make sure to position the MSLabel relative to the upper-right corner of this MSButton.</param>
+        /// <param name="action">will be executed when this MSButton is clicked</param>
+        /// <param name="boundingRectangle">the Rectangle that encloses this MSButton</param>
+        /// <param name="unclicked">will be drawn when this MSButton is MSButtonState.UNCLICKED</param>
+        /// <param name="clicked">will be drawn when this MSButton is MSButtonState.CLICKED</param>
+        /// <param name="hovered">will be drawn when this MSButton is MSButtonState.HOVERED</param>
+        /// <param name="spriteBatch">the SpriteBatch that will draw this MSButton</param>
+        /// <param name="shape">the Shape of this MSButton<seealso cref="MoodSwingCoreComponents.Shape"/></param>
+        /// <param name="game">the Game where this MSButton will be used</param>
         public MSButton(MSLabel label, MSAction action, Rectangle boundingRectangle, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Shape shape, Game game)
             : this(label, action, new Vector2(boundingRectangle.X, boundingRectangle.Y), new Vector2(boundingRectangle.Width, boundingRectangle.Height), unclicked, clicked, hovered, spriteBatch, Color.White, shape, game) { }
-        
+
         /// <summary>
         /// Constructs an MSButton from the given parameters.
         /// </summary>
-        /// <param name="label">The MSLabel to add to this MSButton, if any, otherwise use null. Make sure to position the MSLabel relative to the upper-right corner of this MSButton.</param>
-        /// <param name="action">The MSAction that will be executed when this MSButton is clicked.</param>
-        /// <param name="boundingRectangle">The Microsoft.XNA.Framework.Rectangle containing this button.</param>
-        /// <param name="unclicked">The Texture2D object that will be drawn when this MSButton is MSButtonState.UNCLICKED.</param>
-        /// <param name="clicked">The Texture2D object that will be drawn when this MSButton is MSButtonState.CLICKED.</param>
-        /// <param name="hovered">The Texture2D object that will be drawn when this MSButton is MSButtonState.HOVERED.</param>
-        /// <param name="spriteBatch">The SpriteBatch that will draw this MSButton.</param>
-        /// <param name="highlight">The Microsoft.XNA.Framework.Graphics.Color to overlay this MSButton with.</param>
-        /// <param name="shape">The Shape of this MSButton.<seealso cref="MoodSwingCoreComponents.Shape"/></param>
-        /// <param name="game">The Game where this MSButton will be used.</param>
+        /// <param name="label">Add text to this MSButton with an MSLabel. Use null if you don't need to add text. Make sure to position the MSLabel relative to the upper-right corner of this MSButton.</param>
+        /// <param name="action">will be executed when this MSButton is clicked</param>
+        /// <param name="boundingRectangle">the Rectangle that encloses this MSButton</param>
+        /// <param name="unclicked">will be drawn when this MSButton is MSButtonState.UNCLICKED</param>
+        /// <param name="clicked">will be drawn when this MSButton is MSButtonState.CLICKED</param>
+        /// <param name="hovered">will be drawn when this MSButton is MSButtonState.HOVERED</param>
+        /// <param name="spriteBatch">the SpriteBatch that will draw this MSButton</param>
+        /// <param name="highlight">the Color to overlay this MSButton with</param>
+        /// <param name="shape">the Shape of this MSButton<seealso cref="MoodSwingCoreComponents.Shape"/></param>
+        /// <param name="game">the Game where this MSButton will be used</param>
         public MSButton(MSLabel label, MSAction action, Rectangle boundingRectangle, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Color highlight, Shape shape, Game game)
             : this(label, action, new Vector2(boundingRectangle.X, boundingRectangle.Y), new Vector2(boundingRectangle.Width, boundingRectangle.Height), unclicked, clicked, hovered, spriteBatch, highlight, shape, game) { }
 
         /// <summary>
         /// Constructs an MSButton from the given parameters.
         /// </summary>
-        /// <param name="label">The MSLabel to add to this MSButton, if any, otherwise use null. Make sure to position the MSLabel relative to the upper-right corner of this MSButton.</param>
-        /// <param name="action">The MSAction that will be executed when this MSButton is clicked.</param>
-        /// <param name="position">A Microsoft.XNA.Framework.Vector2 representing the position of this MSButton in screen coordinates.</param>
-        /// <param name="size">A Microsoft.XNA.Framework.Vector2 </param>
-        /// <param name="unclicked">The Texture2D object that will be drawn when this MSButton is MSButtonState.UNCLICKED.</param>
-        /// <param name="clicked">The Texture2D object that will be drawn when this MSButton is MSButtonState.CLICKED.</param>
-        /// <param name="hovered">The Texture2D object that will be drawn when this MSButton is MSButtonState.HOVERED.</param>
-        /// <param name="spriteBatch">The SpriteBatch that will draw this MSButton.</param>
-        /// <param name="shape">The Shape of this MSButton.<seealso cref="MoodSwingCoreComponents.Shape"/></param>
-        /// <param name="game">The Game where this MSButton will be used.</param>
+        /// <param name="label">Add text to this MSButton with an MSLabel. Use null if you don't need to add text. Make sure to position the MSLabel relative to the upper-right corner of this MSButton.</param>
+        /// <param name="action">will be executed when this MSButton is clicked</param>
+        /// <param name="position">represents the position of this MSButton in screen coordinates</param>
+        /// <param name="size">represents the size of this MSButton in pixels</param>
+        /// <param name="unclicked">will be drawn when this MSButton is MSButtonState.UNCLICKED</param>
+        /// <param name="clicked">will be drawn when this MSButton is MSButtonState.CLICKED</param>
+        /// <param name="hovered">will be drawn when this MSButton is MSButtonState.HOVERED</param>
+        /// <param name="spriteBatch">the SpriteBatch that will draw this MSButton</param>
+        /// <param name="shape">the Shape of this MSButton<seealso cref="MoodSwingCoreComponents.Shape"/></param>
+        /// <param name="game">the Game where this MSButton will be used</param>
         public MSButton(MSLabel label, MSAction action, Vector2 position, Vector2 size, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Shape shape, Game game)
             : this(label, action, position, size, unclicked, clicked, hovered, spriteBatch, Color.White, shape, game) { }
-        
+
         /// <summary>
         /// Constructs an MSButton from the given parameters.
         /// </summary>
-        /// <param name="label">The MSLabel to add to this MSButton, if any, otherwise use null. Make sure to position the MSLabel relative to the upper-right corner of this MSButton.</param>
-        /// <param name="action">The MSAction that will be executed when this MSButton is clicked.</param>
-        /// <param name="position">A Microsoft.XNA.Framework.Vector2 representing the position of this MSButton in screen coordinates.</param>
-        /// <param name="size">A Microsoft.XNA.Framework.Vector2 </param>
-        /// <param name="unclicked">The Texture2D object that will be drawn when this MSButton is MSButtonState.UNCLICKED.</param>
-        /// <param name="clicked">The Texture2D object that will be drawn when this MSButton is MSButtonState.CLICKED.</param>
-        /// <param name="hovered">The Texture2D object that will be drawn when this MSButton is MSButtonState.HOVERED.</param>
-        /// <param name="spriteBatch">The SpriteBatch that will draw this MSButton.</param>
-        /// <param name="highlight">The Microsoft.XNA.Framework.Graphics.Color to overlay this MSButton with.</param>
-        /// <param name="shape">The Shape of this MSButton.<seealso cref="MoodSwingCoreComponents.Shape"/></param>
-        /// <param name="game">The Game where this MSButton will be used.</param>
+        /// <param name="label">Add text to this MSButton with an MSLabel. Use null if you don't need to add text. Make sure to position the MSLabel relative to the upper-right corner of this MSButton.</param>
+        /// <param name="action">will be executed when this MSButton is clicked</param>
+        /// <param name="position">represents the position of this MSButton in screen coordinates</param>
+        /// <param name="size">represents the size of this MSButton in pixels</param>
+        /// <param name="unclicked">will be drawn when this MSButton is MSButtonState.UNCLICKED</param>
+        /// <param name="clicked">will be drawn when this MSButton is MSButtonState.CLICKED</param>
+        /// <param name="hovered">will be drawn when this MSButton is MSButtonState.HOVERED</param>
+        /// <param name="spriteBatch">the SpriteBatch that will draw this MSButton</param>
+        /// <param name="highlight">the Color to overlay this MSButton with</param>
+        /// <param name="shape">the Shape of this MSButton<seealso cref="MoodSwingCoreComponents.Shape"/></param>
+        /// <param name="game">the Game where this MSButton will be used</param>
         public MSButton(MSLabel label, MSAction action, Vector2 position, Vector2 size, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Color highlight, Shape shape, Game game)
             : base(position, size, shape, spriteBatch, game)
         {
@@ -173,10 +176,15 @@ namespace MoodSwingGUI
 
         }
 
+        /// <summary>
+        /// Changes this MSButton's MSButtonState depending on the previous and current MouseStates of the Mouse
+        /// </summary>
+        /// <param name="oldMouseState">the previous MouseState of the Mouse</param>
+        /// <returns>true if this MSButton has been clicked or equivalently, if this MSButton performs its MSAction</returns>
         public override bool CheckMouseClick(MouseState oldMouseState)
         {
             MouseState currentMouseState = Mouse.GetState();
-            if (CollidesWithMouse(currentMouseState))
+            if (CollidesWithMouse())
             {
                 if (currentMouseState.LeftButton == ButtonState.Pressed 
                     && oldMouseState.LeftButton == ButtonState.Released)

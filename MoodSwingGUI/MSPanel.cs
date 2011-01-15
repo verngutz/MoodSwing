@@ -140,14 +140,11 @@ namespace MoodSwingGUI
 
         public override bool CheckMouseClick(MouseState oldMouseState)
         {
-            if (CollidesWithMouse(oldMouseState))
+            foreach (MS2DClickable element in clickableElements)
             {
-                foreach (MS2DClickable element in clickableElements)
+                if (element.CheckMouseClick(oldMouseState))
                 {
-                    if (element.CheckMouseClick(oldMouseState))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
             return false;
