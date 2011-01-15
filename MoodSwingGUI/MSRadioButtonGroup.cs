@@ -60,7 +60,7 @@ namespace MoodSwingGUI
 
         public override bool CheckMouseClick(MouseState oldMouseState)
         {
-            if (CollidesWithMouse(oldMouseState))
+            if (CollidesWithMouse())
             {
                 foreach (MSCheckbox button in radioButtons)
                 {
