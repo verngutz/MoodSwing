@@ -20,7 +20,7 @@ namespace MoodSwingGame
         public MSRoad(Vector2 position, Vector2 size, SpriteBatch spriteBatch, Texture2D t, float rotate)
             : base(position, size, spriteBatch, t)
         {
-            rotation = rot;
+            rotation = rotate;
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)

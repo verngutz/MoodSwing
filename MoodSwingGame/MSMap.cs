@@ -34,7 +34,7 @@ namespace MoodSwingGame
                 line = sr.ReadLine().Split(' ');
                 for(int j = 0; j < columns; j++)
                 {
-                    mapArray[i, j] = MSTileFactory.createMSTile(line[j], new Vector2(i * tileDimension, j * tileDimension), new Vector2(tileDimension, tileDimension));
+                    mapArray[i, j] = MSTileFactory.createMSTile(Int32.Parse(line[j]), new Vector2(i * tileDimension, j * tileDimension), new Vector2(tileDimension, tileDimension));
                 }
             }
         }
