@@ -25,7 +25,8 @@ namespace MoodSwingGame
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            SpriteBatch.Draw( texture, Position, null, Color.White, rotation, Vector2.Zero, 1, SpriteEffects.None, 0);
+            SpriteBatch.Draw( texture, Position+Size/2, null, Color.White, rotation, Size/2, 1, SpriteEffects.None, 0);
+            //SpriteBatch.Draw( texture, Position, null, Color.White, rotation,
             base.Draw(gameTime);
         }
     }

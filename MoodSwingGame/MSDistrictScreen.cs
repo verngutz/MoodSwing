@@ -26,12 +26,19 @@ namespace MoodSwingGame
             return districtScreen;
         }
 
+        private MSMap map;
         private MSDistrictScreen(MoodSwing game)
             : base(game.Content.Load<Texture2D>("DistrictView"), 150, 150, 150, 150, game.SpriteBatch, game) 
         {
-            
+            map = new MSMap(@"Content\mapinfo.txt");
         }
 
+        public override void Draw(GameTime gameTime)
+        {
+            
+            base.Draw(gameTime);
+            map.Draw(gameTime);
+        }
         public override void Update(GameTime gameTime)
         {
             CheckMouseClick((Game as MoodSwing).OldMouseState);

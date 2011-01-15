@@ -25,6 +25,7 @@ namespace MoodSwingGame
         }
         public static MSTile createMSTile(int tileKey, Vector2 position, Vector2 size)
         {
+            System.Console.WriteLine(tileKey);
             switch (tileKey - ((tileKey / 10) * 10))
             {
                 case 0:
@@ -34,7 +35,8 @@ namespace MoodSwingGame
                     switch((tileKey / 10) - ((tileKey / 100) * 10))
                     {
                         case 0:
-                            return (new MSRoad(position,size,MoodSwing.getInstance().SpriteBatch,MoodSwing.getInstance().Content.Load<Texture2D>("Road_0"),0));
+                            System.Console.WriteLine("Road 0");
+                            return (new MSRoad(position,size,MoodSwing.getInstance().SpriteBatch,MoodSwing.getInstance().Content.Load<Texture2D>("Floors/Road_0"),0));
                         case 1:
                             switch((tileKey / 100) - ((tileKey / 1000) * 10))
                             {
@@ -51,7 +53,8 @@ namespace MoodSwingGame
                                     rotation = MathHelper.ToRadians(270);
                                     break;
                             }
-                            return (new MSRoad(position,size,MoodSwing.getInstance().SpriteBatch,MoodSwing.getInstance().Content.Load<Texture2D>("Road_1"),rotation));
+                            System.Console.WriteLine("Road 1");
+                            return (new MSRoad(position, size, MoodSwing.getInstance().SpriteBatch, MoodSwing.getInstance().Content.Load<Texture2D>("Floors/Road_1"), rotation));
                         case 2:
                             switch((tileKey / 100) - ((tileKey / 1000) * 10))
                             {
@@ -71,7 +74,8 @@ namespace MoodSwingGame
                                             rotation = MathHelper.ToRadians(270);
                                             break;
                                     }
-                                    return (new MSRoad(position, size, MoodSwing.getInstance().SpriteBatch, MoodSwing.getInstance().Content.Load<Texture2D>("Road_2_0"), rotation));
+                                    System.Console.WriteLine("Road 2.0");
+                                    return (new MSRoad(position, size, MoodSwing.getInstance().SpriteBatch, MoodSwing.getInstance().Content.Load<Texture2D>("Floors/Road_2_0"), rotation));
                                 case 1:
                                     switch ((tileKey / 1000) - ((tileKey / 10000) * 10))
                                     {
@@ -82,7 +86,8 @@ namespace MoodSwingGame
                                             rotation = MathHelper.ToRadians(90);
                                             break;
                                     }
-                                    return (new MSRoad(position, size, MoodSwing.getInstance().SpriteBatch, MoodSwing.getInstance().Content.Load<Texture2D>("Road_2_1"), rotation));
+                                    System.Console.WriteLine("Road 2.1");
+                                    return (new MSRoad(position, size, MoodSwing.getInstance().SpriteBatch, MoodSwing.getInstance().Content.Load<Texture2D>("Floors/Road_2_1"), rotation));
                             }
                             break;
                         case 3:
@@ -101,11 +106,14 @@ namespace MoodSwingGame
                                     rotation = MathHelper.ToRadians(270);
                                     break;
                             }
-                            return (new MSRoad(position, size, MoodSwing.getInstance().SpriteBatch, MoodSwing.getInstance().Content.Load<Texture2D>("Road_3"), rotation));
+                            System.Console.WriteLine("Road 3");
+                            return (new MSRoad(position, size, MoodSwing.getInstance().SpriteBatch, MoodSwing.getInstance().Content.Load<Texture2D>("Floors/Road_3"), rotation));
                         case 4:
-                            return (new MSRoad(position,size,MoodSwing.getInstance().SpriteBatch,MoodSwing.getInstance().Content.Load<Texture2D>("Road_4"),0));
+                            System.Console.WriteLine("Road 4");
+                            return (new MSRoad(position, size, MoodSwing.getInstance().SpriteBatch, MoodSwing.getInstance().Content.Load<Texture2D>("Floors/Road_4"), 0));
                     }
-                    return (new MSRoad(position,size,MoodSwing.getInstance().SpriteBatch,MoodSwing.getInstance().Content.Load<Texture2D>("Road_4_0"),rotation));
+                    System.Console.WriteLine("Road 5");
+                    return (new MSRoad(position, size, MoodSwing.getInstance().SpriteBatch, MoodSwing.getInstance().Content.Load<Texture2D>("Floors/Road_4_0"), rotation));
             }
             return null;
         }

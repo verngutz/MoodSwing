@@ -18,11 +18,11 @@ using System.IO;
 
 namespace MoodSwingGame
 {
-    class MSMap
+    public class MSMap : DrawableGameComponent
     {
         private MSTile[,] mapArray;
         private const int tileDimension = 32;
-        public MSMap(String filename)
+        public MSMap(String filename) : base( MoodSwing.getInstance() )
         {
             StreamReader sr = new StreamReader(filename);
             string[] line = sr.ReadLine().Split(' ');
@@ -34,8 +34,17 @@ namespace MoodSwingGame
                 line = sr.ReadLine().Split(' ');
                 for(int j = 0; j < columns; j++)
                 {
-                    mapArray[i, j] = MSTileFactory.createMSTile(Int32.Parse(line[j]), new Vector2(i * tileDimension, j * tileDimension), new Vector2(tileDimension, tileDimension));
+                    mapArray[i, j] = MSTileFactory.createMSTile(Int32.Parse(line[j]), new Vector2(j * tileDimension, i * tileDimension), new Vector2(tileDimension, tileDimension));
                 }
+            }
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            System.Console.WriteLine("Error");
+            foreach( MSTile tile in mapArray ) 
+            {
+                tile.Draw(gameTime);
             }
         }
     }
