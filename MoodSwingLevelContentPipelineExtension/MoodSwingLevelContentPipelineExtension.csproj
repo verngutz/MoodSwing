@@ -106,6 +106,7 @@
   <ItemGroup>
     <Compile Include="MoodSwingLevelProcessor.cs" />
     <Compile Include="MoodSwingLevelImporter.cs" />
+    <Compile Include="MoodSwingLevelWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

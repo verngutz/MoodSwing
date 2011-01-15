@@ -87,6 +87,7 @@
     <Compile Include="MS2DComponent.cs" />
     <Compile Include="MS3DComponent.cs" />
     <Compile Include="MSAction.cs" />
+    <Compile Include="MSLevelReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
