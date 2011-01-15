@@ -19,6 +19,14 @@ namespace MoodSwingGame
     /// </summary>
     public class MoodSwing : Microsoft.Xna.Framework.Game
     {
+        private static MoodSwing MSInstance;
+        public static MoodSwing getInstance() 
+        {
+            if (MSInstance == null)
+                MSInstance = new MoodSwing();
+            return MSInstance;
+        }
+
         private SpriteBatch spriteBatch;
         public SpriteBatch SpriteBatch { get { return spriteBatch; } }
 
@@ -32,7 +40,7 @@ namespace MoodSwingGame
         private MouseState oldMouseState;
         public MouseState OldMouseState { get { return oldMouseState; } }
 
-        public MoodSwing()
+        private MoodSwing()
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1024;
@@ -55,7 +63,7 @@ namespace MoodSwingGame
             IsMouseVisible = true;
             oldKeyboardState = Keyboard.GetState();
             oldMouseState = Mouse.GetState();
-            CurrentScreen = MSIntroScreen.getInstance(this);
+            CurrentScreen = MSIntroScreen.getInstance();
         }
 
         /// <summary>

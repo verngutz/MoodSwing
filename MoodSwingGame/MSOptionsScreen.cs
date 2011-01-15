@@ -13,10 +13,10 @@ namespace MoodSwingGame
     public class MSOptionsScreen : MSScreen
     {
         private static MSOptionsScreen optionsScreen;
-        public static MSOptionsScreen getInstance(MoodSwing game)
+        public static MSOptionsScreen getInstance()
         {
             if (optionsScreen == null)
-                optionsScreen = new MSOptionsScreen(game);
+                optionsScreen = new MSOptionsScreen(MoodSwing.getInstance());
             return optionsScreen;
         }
 

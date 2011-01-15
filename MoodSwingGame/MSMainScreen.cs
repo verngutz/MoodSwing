@@ -13,10 +13,10 @@ namespace MoodSwingGame
     public class MSMainScreen : MSScreen
     {
         private static MSMainScreen mainScreen;
-        public static MSMainScreen getInstance(MoodSwing game)
+        public static MSMainScreen getInstance()
         {
             if (mainScreen == null)
-                mainScreen = new MSMainScreen(game);
+                mainScreen = new MSMainScreen(MoodSwing.getInstance());
             return mainScreen;
         }
 

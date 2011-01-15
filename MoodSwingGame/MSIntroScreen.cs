@@ -18,10 +18,10 @@ namespace MoodSwingGame
     public class MSIntroScreen : MSScreen
     {
         private static MSIntroScreen singleton;
-        public static MSIntroScreen getInstance(MoodSwing game)
+        public static MSIntroScreen getInstance()
         {
             if (singleton == null)
-                singleton = new MSIntroScreen(game);
+                singleton = new MSIntroScreen(MoodSwing.getInstance());
             return singleton;
         }
 

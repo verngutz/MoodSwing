@@ -20,7 +20,7 @@ namespace MoodSwingGame
         public override void PerformAction(Game game)
         {
             MoodSwing moodSwing = (MoodSwing)game;
-            moodSwing.CurrentScreen = MSMainScreen.getInstance(moodSwing);
+            moodSwing.CurrentScreen = MSMainScreen.getInstance();
         }
     }
 
@@ -29,7 +29,7 @@ namespace MoodSwingGame
         public override void PerformAction(Game game)
         {
             MoodSwing moodSwing = (MoodSwing)game;
-            moodSwing.CurrentScreen = MSCityScreen.getInstance(moodSwing);
+            moodSwing.CurrentScreen = MSCityScreen.getInstance();
         }
     }
 
@@ -38,8 +38,8 @@ namespace MoodSwingGame
         public override void PerformAction(Game game)
         {
             MoodSwing moodSwing = (MoodSwing)game;
-            MSOptionsScreen.getInstance(moodSwing).ReturnScreen = moodSwing.CurrentScreen;
-            moodSwing.CurrentScreen = MSOptionsScreen.getInstance(moodSwing);
+            MSOptionsScreen.getInstance().ReturnScreen = moodSwing.CurrentScreen;
+            moodSwing.CurrentScreen = MSOptionsScreen.getInstance();
         }
     }
 
@@ -48,7 +48,17 @@ namespace MoodSwingGame
         public override void PerformAction(Game game)
         {
             MoodSwing moodSwing = (MoodSwing)game;
-            moodSwing.CurrentScreen = MSOptionsScreen.getInstance(moodSwing).ReturnScreen;
+            moodSwing.CurrentScreen = MSOptionsScreen.getInstance().ReturnScreen;
+        }
+    }
+
+    public class OpenDistrictScreen : MSAction
+    {
+        public override void PerformAction(Game game)
+        {
+            MoodSwing moodSwing = (MoodSwing)game;
+            moodSwing.CurrentScreen = MSDistrictScreen.getInstance();
+                
         }
     }
 }

@@ -19,12 +19,13 @@ namespace MoodSwingGame
     public class MSCityScreen : MSScreen
     {
         private static MSCityScreen cityScreen;
-        public static MSCityScreen getInstance(MoodSwing game)
+        public static MSCityScreen getInstance()
         {
             if (cityScreen == null)
-                cityScreen = new MSCityScreen(game);
+                cityScreen = new MSCityScreen(MoodSwing.getInstance());
             return cityScreen;
         }
+
 
         private MSCityScreen(MoodSwing game)
             : base(game.Content.Load<Texture2D>("CityView"), 150, 150, 150, 150, game.SpriteBatch, game) 
@@ -43,6 +44,21 @@ namespace MoodSwingGame
                     Shape.RECTANGULAR,
                     Game)
                     , Alignment.BOTTOM_CENTER);
+
+            AddElement(
+                new MSButton(
+                    new MSLabel("District View", new Vector2(20, 10), new Vector2(60, 30), game.Content.Load<SpriteFont>("Temp"), Color.Black, SpriteBatch, game),
+                    new OpenDistrictScreen(),
+                    Vector2.Zero,
+                    new Vector2(100, 50),
+                    game.Content.Load<Texture2D>("Button"),
+                    game.Content.Load<Texture2D>("ButtonClicked"),
+                    game.Content.Load<Texture2D>("ButtonHover"),
+                    SpriteBatch,
+                    Color.White,
+                    Shape.RECTANGULAR,
+                    Game)
+                    , Alignment.MIDDLE_CENTER);
         }
 
         public override void Update(GameTime gameTime)

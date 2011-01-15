@@ -87,6 +87,7 @@
     <Compile Include="Citizen.cs" />
     <Compile Include="DistrictBackground.cs" />
     <Compile Include="MSCityScreen.cs" />
+    <Compile Include="MSDistrictScreen.cs" />
     <Compile Include="MSMainScreen.cs" />
     <Compile Include="MSIntroScreen.cs" />
     <Compile Include="MSActions.cs" />
