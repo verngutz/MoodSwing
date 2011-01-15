@@ -84,14 +84,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MSBuilding.cs" />
     <Compile Include="MSCityScreen.cs" />
+    <Compile Include="MSDistrictScreen.cs" />
     <Compile Include="MSMainScreen.cs" />
     <Compile Include="MSIntroScreen.cs" />
     <Compile Include="MSActions.cs" />
+    <Compile Include="MSMap.cs" />
     <Compile Include="MSOptionsScreen.cs" />
+    <Compile Include="MSTile.cs" />
+    <Compile Include="MSTileFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="MoodSwing.cs" />
+    <Compile Include="MSRoad.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

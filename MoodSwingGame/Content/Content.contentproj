@@ -90,6 +90,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DistrictView.png">
+      <Name>DistrictView</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+ </ItemGroup>
+ <ItemGroup>
     <ProjectReference Include="..\..\MoodSwingLevelContentPipelineExtension\MoodSwingLevelContentPipelineExtension.csproj">
       <Project>{DA3A38B2-9C1F-4046-B53F-BE3244A60B4F}</Project>
       <Name>MoodSwingLevelContentPipelineExtension</Name>

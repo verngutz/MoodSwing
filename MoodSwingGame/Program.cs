@@ -10,10 +10,7 @@ namespace MoodSwingGame
         static void Main(string[] args)
         {
 
-            using (MoodSwing game = new MoodSwing())
-            {
-                game.Run();
-            }
+            MoodSwing.getInstance().Run();
         }
     }
 }
