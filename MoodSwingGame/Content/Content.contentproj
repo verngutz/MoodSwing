@@ -89,6 +89,12 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\MoodSwingLevelContentPipelineExtension\MoodSwingLevelContentPipelineExtension.csproj">
+      <Project>{DA3A38B2-9C1F-4046-B53F-BE3244A60B4F}</Project>
+      <Name>MoodSwingLevelContentPipelineExtension</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
