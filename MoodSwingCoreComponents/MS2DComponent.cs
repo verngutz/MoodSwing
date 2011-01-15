@@ -18,9 +18,9 @@ namespace MoodSwingCoreComponents
         protected SpriteBatch spriteBatch;
         public SpriteBatch SpriteBatch { get { return spriteBatch; } }
 
-        public Vector2 Position { set; get; }
+        public virtual Vector2 Position { set; get; }
 
-        public Vector2 Size { set; get; }
+        public virtual Vector2 Size { set; get; }
       
         public MS2DComponent(Vector2 position, Vector2 size, SpriteBatch spriteBatch, Game game)
             : base(game)

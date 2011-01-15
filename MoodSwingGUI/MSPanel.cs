@@ -28,6 +28,20 @@ namespace MoodSwingGUI
             get { return clickableElements; }
         }
 
+        public override Vector2 Position
+        {
+            get
+            {
+                return base.Position;
+            }
+            set
+            {
+                boundedPosition -= base.Position;
+                boundedPosition += value;
+                base.Position = value;
+            }
+        }
+
         private Vector2 boundedPosition;
         private Vector2 boundedSize;
         private Color highlight;

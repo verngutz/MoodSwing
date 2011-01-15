@@ -21,14 +21,14 @@ namespace MoodSwingGame
         public static MSIntroScreen getInstance(MoodSwing game)
         {
             if (singleton == null)
-                singleton = new MSIntroScreen(game.SpriteBatch, game);
+                singleton = new MSIntroScreen(game);
             return singleton;
         }
 
         private Video introVideo;
         private VideoPlayer videoPlayer;
 
-        private MSIntroScreen(SpriteBatch spriteBatch, MoodSwing game) : base(null, spriteBatch, game) 
+        private MSIntroScreen(MoodSwing game) : base(null, game.SpriteBatch, game) 
         {
             videoPlayer = new VideoPlayer();
             this.LoadContent();
@@ -43,11 +43,10 @@ namespace MoodSwingGame
 
         public override void Update(GameTime gameTime)
         {
+            CheckMouseClick((Game as MoodSwing).OldMouseState);
             if (videoPlayer.State == MediaState.Stopped)
-            {
-                (Game as MoodSwing).CurrentState = MoodSwing.State.MAIN;
-                (Game as MoodSwing).CurrentScreen = MSMainScreen.getInstance(Game as MoodSwing);
-            }
+                (new OpenMainScreen()).PerformAction(Game);
+
             base.Update(gameTime);
         }
 

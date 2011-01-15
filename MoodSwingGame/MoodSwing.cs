@@ -19,9 +19,6 @@ namespace MoodSwingGame
     /// </summary>
     public class MoodSwing : Microsoft.Xna.Framework.Game
     {
-        public enum State { INTRO, MAIN, OPTIONS, CITY, DISTRICT }
-        public State CurrentState { set; get; }
-
         private SpriteBatch spriteBatch;
         public SpriteBatch SpriteBatch { get { return spriteBatch; } }
 
@@ -58,7 +55,6 @@ namespace MoodSwingGame
             IsMouseVisible = true;
             oldKeyboardState = Keyboard.GetState();
             oldMouseState = Mouse.GetState();
-            CurrentState = State.INTRO;
             CurrentScreen = MSIntroScreen.getInstance(this);
         }
 

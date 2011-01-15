@@ -26,6 +26,20 @@ namespace MoodSwingGUI
         private Vector2 scale;
         private Shape shape;
 
+        public override Vector2 Position
+        {
+            get
+            {
+                return base.Position;
+            }
+            set
+            {
+                base.Position = value;
+                if(label != null)
+                    label.Position += base.Position;
+            }
+        }
+
         public MSButton(MSLabel label, MSAction action, float x, float y, float width, float height, Texture2D unclicked, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Shape shape, Game game)
             : this(label, action, new Vector2(x, y), new Vector2(width, height), unclicked, clicked, hovered, spriteBatch, Color.White, shape, game) { }
 
@@ -50,6 +64,7 @@ namespace MoodSwingGUI
             this.highlight = highlight;
             currentState = 0;
             this.label = label;
+            this.label.Position += Position;
             this.action = action;
             scale = Size / new Vector2(unclicked.Width, unclicked.Height);
             this.shape = shape;
