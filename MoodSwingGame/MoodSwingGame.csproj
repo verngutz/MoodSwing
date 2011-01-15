@@ -91,8 +91,10 @@
     <Compile Include="MSMainScreen.cs" />
     <Compile Include="MSIntroScreen.cs" />
     <Compile Include="MSActions.cs" />
+    <Compile Include="MSMap.cs" />
     <Compile Include="MSOptionsScreen.cs" />
     <Compile Include="MSTile.cs" />
+    <Compile Include="MSTileFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="MoodSwing.cs" />
