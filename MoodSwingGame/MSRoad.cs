@@ -17,10 +17,10 @@ namespace MoodSwingGame
     {
 
         private float rotation;
-        public MSRoad(Vector2 position, Vector2 size, SpriteBatch spriteBatch, Texture2D t)
+        public MSRoad(Vector2 position, Vector2 size, SpriteBatch spriteBatch, Texture2D t, float rotate)
             : base(position, size, spriteBatch, t)
         {
-            rotation = 0;
+            rotation = rot;
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
