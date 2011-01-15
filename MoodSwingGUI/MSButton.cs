@@ -108,6 +108,7 @@ namespace MoodSwingGUI
                     if (oldMouseState.LeftButton == ButtonState.Pressed)
                     {
                         action.PerformAction(Game);
+                        currentState = MSButtonState.UNCLICKED;
                         return true;
                     }
                 }

@@ -25,6 +25,8 @@ namespace MoodSwingGame
             : base(position, size, spriteBatch, MoodSwing.getInstance())
         {
             texture = t;
+            MSLevel level;
+
         }
 
         public override void Draw(GameTime gameTime)
