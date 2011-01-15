@@ -14,7 +14,5 @@
         MANUAL
     }
 
-    
-
     public enum MSButtonState { UNCLICKED, CLICKED, HOVERED }
 }

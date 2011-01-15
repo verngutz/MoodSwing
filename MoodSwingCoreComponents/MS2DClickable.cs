@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace MoodSwingCoreComponents
 {
-    public enum Shape { RECTANGULAR, CIRCULAR }
+    public enum Shape { RECTANGULAR, CIRCULAR, AMORPHOUS }
     public abstract class MS2DClickable : MS2DComponent
     {
         private Shape shape;
