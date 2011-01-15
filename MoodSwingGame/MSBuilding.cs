@@ -11,23 +11,20 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-using MoodSwingCoreComponents;
-using MoodSwingGUI;
-
-
 namespace MoodSwingGame
 {
-    public abstract class MSTile : MS2DComponent
+    public class MSBuilding : MSTile
     {
-
-        protected Texture2D texture;
-        
-        public MSTile( Vector2 position, Vector2 size, SpriteBatch spriteBatch, Texture2D t)
-            : base(position, size, spriteBatch, MoodSwing.getInstance())
+        public MSBuilding(Vector2 position, Vector2 size, SpriteBatch spriteBatch, Texture2D t)
+            : base(position, size, spriteBatch, t)
         {
-            texture = t;
 
         }
 
+        public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
+        {
+            SpriteBatch.Draw(texture, Position, Color.White);
+            base.Draw(gameTime);
+        }
     }
 }
