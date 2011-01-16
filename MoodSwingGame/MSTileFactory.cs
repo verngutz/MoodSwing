@@ -35,6 +35,7 @@ namespace MoodSwingGame
                         case 1:
                             return new MSBuilding(c.Load<Model>("Cube"), c.Load<Texture2D>("Floors/Building"), position);
                         case 2:
+                            break;
                             //insert district hall creation here
                     }
                     break;
