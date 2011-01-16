@@ -37,7 +37,7 @@ namespace MoodSwingGame
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.World = world;
-                    effect.View = view;
+                    effect.View = MSCamera.getInstance().getView();
                     effect.Projection = projection;
                     effect.TextureEnabled = true;
                     effect.Texture = wrapper;

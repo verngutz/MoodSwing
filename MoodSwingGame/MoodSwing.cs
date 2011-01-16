@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 using MoodSwingGUI;
-
+using MoodSwingCoreComponents;
 namespace MoodSwingGame
 {
     /// <summary>
@@ -40,12 +40,14 @@ namespace MoodSwingGame
         private MouseState oldMouseState;
         public MouseState OldMouseState { get { return oldMouseState; } }
 
+        private Vector2 mouseRHoldButton;
+
         private MoodSwing()
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
         }
 
@@ -94,9 +96,31 @@ namespace MoodSwingGame
         protected override void Update(GameTime gameTime)
         {
             CurrentScreen.Update(gameTime);
+            KeyboardState newKeyBoardState = Keyboard.GetState();
+            MouseState newMouseState = Mouse.GetState();
 
-            oldMouseState = Mouse.GetState();
-            oldKeyboardState = Keyboard.GetState();
+            if (newKeyBoardState.IsKeyDown(Keys.Up))
+                MSCamera.getInstance().shift(new Vector3(0, 0.3f, 0));
+            else if (newKeyBoardState.IsKeyDown(Keys.Down))
+                MSCamera.getInstance().shift(new Vector3(0, -0.3f, 0));
+            else if (newKeyBoardState.IsKeyDown(Keys.Left))
+                MSCamera.getInstance().shift(new Vector3(-.3f, 0, 0));
+            else if (newKeyBoardState.IsKeyDown(Keys.Right))
+                MSCamera.getInstance().shift(new Vector3(0.3f, 0, 0));
+
+            if( newMouseState.X >= 0 && newMouseState.X <= 5 )
+                MSCamera.getInstance().shift(new Vector3(.3f, 0, 0));
+            else if( newMouseState.X <= graphics.GraphicsDevice.Viewport.Width && 
+                newMouseState.X >= graphics.GraphicsDevice.Viewport.Width-5 )
+                MSCamera.getInstance().shift(new Vector3(-.3f, 0, 0));
+            else if( newMouseState.Y >= 0 && newMouseState.Y <= 5 )
+                MSCamera.getInstance().shift(new Vector3(0, -0.3f, 0));
+            else if( newMouseState.Y <= graphics.GraphicsDevice.Viewport.Height &&
+                newMouseState.Y >= graphics.GraphicsDevice.Viewport.Height - 5)
+                MSCamera.getInstance().shift(new Vector3(0, 0.3f, 0));
+
+            oldMouseState = newMouseState;
+            oldKeyboardState = newKeyBoardState;
 
             base.Update(gameTime);
         }
