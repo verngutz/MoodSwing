@@ -31,33 +31,34 @@ namespace MoodSwingGame
                     switch ((tileKey / 10) - ((tileKey / 100) * 10))
                     {
                         case 0:
-                            return new MSBuilding(c.Load<Model>("Cube"), c.Load<Texture2D>("Floors/Road_0"), position);
+                            return new MSBuilding(c.Load<Model>("Cube"), position);
                         case 1:
-                            return new MSBuilding(c.Load<Model>("Cube"), c.Load<Texture2D>("Floors/Building"), position);
+                            return new MSBuilding(c.Load<Model>("Cube"), position);
                         case 2:
                             //insert district hall creation here
+                            break;
                     }
                     break;
                 case 1:
                     switch((tileKey / 10) - ((tileKey / 100) * 10))
                     {
                         case 0:
-                            return new MSRoad(c.Load<Model>("Cube"), c.Load<Texture2D>("Floors/Road_0"), position, 0);
+                            return new MSRoad(c.Load<Model>("Road_0"), position, 0);
                         case 1:
-                            return new MSRoad(c.Load<Model>("Cube"), c.Load<Texture2D>("Floors/Road_1"), position, MathHelper.ToRadians(((tileKey / 100) - ((tileKey / 1000) * 10))*90));
+                            return new MSRoad(c.Load<Model>("Road_1"), position, MathHelper.ToRadians(((tileKey / 100) - ((tileKey / 1000) * 10))*90));
                         case 2:
                             switch((tileKey / 100) - ((tileKey / 1000) * 10))
                             {
                                 case 0:
-                                    return new MSRoad(c.Load<Model>("Cube"), c.Load<Texture2D>("Floors/Road_2_0"), position, MathHelper.ToRadians(((tileKey / 1000) - ((tileKey / 10000) * 10)) * 90));
+                                    return new MSRoad(c.Load<Model>("Road_2_0"), position, MathHelper.ToRadians(((tileKey / 1000) - ((tileKey / 10000) * 10)) * 90));
                                 case 1:
-                                    return new MSRoad(c.Load<Model>("Cube"), c.Load<Texture2D>("Floors/Road_2_1"), position, MathHelper.ToRadians(((tileKey / 1000) - ((tileKey / 10000) * 10)) * 90));
+                                    return new MSRoad(c.Load<Model>("Road_2_1"), position, MathHelper.ToRadians(((tileKey / 1000) - ((tileKey / 10000) * 10)) * 90));
                             }
                             break;
                         case 3:
-                            return new MSRoad(c.Load<Model>("Cube"), c.Load<Texture2D>("Floors/Road_3"), position, MathHelper.ToRadians(((tileKey / 100) - ((tileKey / 1000) * 10)) * 90));
+                            return new MSRoad(c.Load<Model>("Road_3"), position, MathHelper.ToRadians(((tileKey / 100) - ((tileKey / 1000) * 10)) * 90));
                         case 4:
-                            return new MSRoad(c.Load<Model>("Cube"), c.Load<Texture2D>("Floors/Road_4"), position, 0);
+                            return new MSRoad(c.Load<Model>("Road_4"), position, 0);
                     }
                     break;
             }

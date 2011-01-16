@@ -21,13 +21,11 @@ namespace MoodSwingGame
     {
 
         private Model model;
-        private Texture2D wrapper;
 
-        public MSTile(Model model, Texture2D wrapper, Vector3 position)
+        public MSTile(Model model, Vector3 position)
             : base(position, MoodSwing.getInstance())
         {
             this.model = model;
-            this.wrapper = wrapper;
         }
 
         public override void Draw(GameTime gameTime)
@@ -41,7 +39,6 @@ namespace MoodSwingGame
                     effect.View = view;
                     effect.Projection = projection;
                     effect.TextureEnabled = true;
-                    effect.Texture = wrapper;
                 }
                 mesh.Draw();
             }

@@ -15,8 +15,8 @@ namespace MoodSwingGame
 {
     public class MSRoad : MSTile
     {
-        public MSRoad(Model model, Texture2D wrapper, Vector3 position, float rotation)
-            : base(model, wrapper, position)
+        public MSRoad(Model model, Vector3 position, float rotation)
+            : base(model, position)
         {
             world = Matrix.CreateRotationZ(rotation) * world;
         }
