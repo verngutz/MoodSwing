@@ -26,7 +26,6 @@ namespace MoodSwingGame
         {
             districtHall = new MSDistrictHall(pos, size, MoodSwing.getInstance().SpriteBatch, t );
         }
-
         private MSDistrictHall( Vector2 position, Vector2 size, SpriteBatch spriteBatch, Texture2D t ) 
             : base( position, size, spriteBatch, t )
         {
