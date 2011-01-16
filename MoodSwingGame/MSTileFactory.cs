@@ -31,36 +31,51 @@ namespace MoodSwingGame
                     switch ((tileKey / 10) - ((tileKey / 100) * 10))
                     {
                         case 0:
-                            return new MSBuilding(c.Load<Model>("Cube"), position);
+                            return new MSBuilding(c.Load<Model>("cubeWithColors"), position);
                         case 1:
-                            return new MSBuilding(c.Load<Model>("Cube"), position);
+                            return new MSBuilding(c.Load<Model>("cubeWithColors"), position);
                         case 2:
+                            break;
                             //insert district hall creation here
                             break;
                     }
                     break;
                 case 1:
+                    string modelname = "";
+                    float rotation = 0;
                     switch((tileKey / 10) - ((tileKey / 100) * 10))
                     {
                         case 0:
-                            return new MSRoad(c.Load<Model>("Road_0"), position, 0);
+                            modelname = "cubeWithColors";
+                            rotation = 0;
+                            break;
                         case 1:
-                            return new MSRoad(c.Load<Model>("Road_1"), position, MathHelper.ToRadians(((tileKey / 100) - ((tileKey / 1000) * 10))*90));
+                            modelname = "cubeWithColors";
+                            rotation = MathHelper.ToRadians(((tileKey / 100) - ((tileKey / 1000) * 10)) * 90);
+                            break;
                         case 2:
                             switch((tileKey / 100) - ((tileKey / 1000) * 10))
                             {
                                 case 0:
-                                    return new MSRoad(c.Load<Model>("Road_2_0"), position, MathHelper.ToRadians(((tileKey / 1000) - ((tileKey / 10000) * 10)) * 90));
+                                    modelname = "cubeWithColors";
+                                    rotation = MathHelper.ToRadians(((tileKey / 1000) - ((tileKey / 10000) * 10)) * 90);
+                                    break;
                                 case 1:
-                                    return new MSRoad(c.Load<Model>("Road_2_1"), position, MathHelper.ToRadians(((tileKey / 1000) - ((tileKey / 10000) * 10)) * 90));
+                                    modelname = "cubeWithColors";
+                                    rotation = MathHelper.ToRadians(((tileKey / 1000) - ((tileKey / 10000) * 10)) * 90);
+                                    break;
                             }
                             break;
                         case 3:
-                            return new MSRoad(c.Load<Model>("Road_3"), position, MathHelper.ToRadians(((tileKey / 100) - ((tileKey / 1000) * 10)) * 90));
+                            modelname = "cubeWithColors";
+                            rotation = MathHelper.ToRadians(((tileKey / 100) - ((tileKey / 1000) * 10)) * 90);
+                            break;
                         case 4:
-                            return new MSRoad(c.Load<Model>("Road_4"), position, 0);
+                            modelname = "cubeWithColors";
+                            rotation = 0;
+                            break;
                     }
-                    break;
+                    return new MSRoad(c.Load<Model>(modelname), position, rotation);
             }
             return null;
         }

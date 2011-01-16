@@ -36,7 +36,7 @@ namespace MoodSwingGame
                 {
                     effect.EnableDefaultLighting();
                     effect.World = world;
-                    effect.View = view;
+                    effect.View = MSCamera.getInstance().getView();
                     effect.Projection = projection;
                     effect.TextureEnabled = true;
                 }
