@@ -15,19 +15,12 @@ namespace MoodSwingGame
 {
     public class MSRoad : MSTile
     {
-
-        private float rotation;
-        public MSRoad(Vector2 position, Vector2 size, SpriteBatch spriteBatch, Texture2D t, float rotate)
-            : base(position, size, spriteBatch, t)
+        public MSRoad(Model model, Texture2D wrapper, Vector3 position, float rotation)
+            : base(model, wrapper, position)
         {
-            rotation = rotate;
+            world = Matrix.CreateRotationZ(rotation) * world;
         }
 
-        public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
-        {
-            SpriteBatch.Draw( texture, Position+Size/2, null, Color.White, rotation, Size/2, 1, SpriteEffects.None, 0);
-            //SpriteBatch.Draw( texture, Position, null, Color.White, rotation,
-            base.Draw(gameTime);
-        }
+    
     }
 }

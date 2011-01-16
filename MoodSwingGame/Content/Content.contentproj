@@ -103,6 +103,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cube.fbx">
+      <Name>Cube</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>16</ProcessorParameters_Scale>
+    </Compile>
     <None Include="mapinfo.txt">
       <Name>mapinfo</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

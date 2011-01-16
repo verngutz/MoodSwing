@@ -16,29 +16,23 @@ namespace MoodSwingCoreComponents
 {
     public abstract class MS3DComponent : DrawableGameComponent
     {
-        private Model model;
-
-        protected Vector3 position;
+        private Vector3 position;
         public Vector3 Position { get { return position; } }
 
-        protected float yaw;
-        public float Yaw { get { return yaw; } }
+        private BoundingBox boundingBox;
+        public BoundingBox BoundingBox { get { return boundingBox; } }
 
-        protected float pitch;
-        public float Pitch { get { return pitch; } }
+        protected Matrix world;
+        protected Matrix view;
+        protected Matrix projection;
 
-        protected float roll;
-        public float Roll { get { return roll; } }
-
-
-        public MS3DComponent(Model model, Vector3 position, float yaw, float pitch, float roll, Game game) 
-            : base(game) 
+        public MS3DComponent(Vector3 position, Game game)
+            : base(game)
         {
-            this.model = model;
             this.position = position;
-            this.yaw = yaw;
-            this.pitch = pitch;
-            this.roll = roll;
+            world = Matrix.CreateTranslation(position);
+            view = Matrix.CreateLookAt(new Vector3(200, 200, 200), new Vector3(50, 50, 0), Vector3.UnitZ);
+            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), game.GraphicsDevice.DisplayMode.AspectRatio, 5, 5000);
         }
     }
 }

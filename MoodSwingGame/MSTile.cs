@@ -17,16 +17,36 @@ using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
-    public abstract class MSTile : MS2DComponent
+    public abstract class MSTile : MS3DComponent
     {
 
-        protected Texture2D texture;
-        
-        public MSTile( Vector2 position, Vector2 size, SpriteBatch spriteBatch, Texture2D t)
-            : base(position, size, spriteBatch, MoodSwing.getInstance())
-        {
-            texture = t;
+        private Model model;
+        private Texture2D wrapper;
 
+        public MSTile(Model model, Texture2D wrapper, Vector3 position)
+            : base(position, MoodSwing.getInstance())
+        {
+            this.model = model;
+            this.wrapper = wrapper;
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            foreach (ModelMesh mesh in model.Meshes)
+            {
+                foreach (BasicEffect effect in mesh.Effects)
+                {
+                    effect.World = world;
+                    effect.View = view;
+                    effect.Projection = projection;
+                    effect.TextureEnabled = true;
+                    effect.Texture = wrapper;
+                    effect.EnableDefaultLighting();
+                }
+                mesh.Draw();
+                System.Console.WriteLine(Position);
+            }
+            base.Draw(gameTime);
         }
 
     }

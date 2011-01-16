@@ -28,9 +28,24 @@ namespace MoodSwingGame
 
         private MSMap map;
         private MSDistrictScreen(MoodSwing game)
-            : base(game.Content.Load<Texture2D>("DistrictView"), 150, 150, 150, 150, game.SpriteBatch, game) 
+            : base(null, 150, 150, 150, 150, game.SpriteBatch, game) 
         {
             map = new MSMap(@"Content\mapinfo.txt");
+            
+            AddElement(
+                new MSButton(
+                    new MSLabel("Exit", new Vector2(20, 10), new Vector2(60, 30), game.Content.Load<SpriteFont>("Temp"), Color.Black, SpriteBatch, game),
+                    new Exit(),
+                    Vector2.Zero,
+                    new Vector2(100, 50),
+                    game.Content.Load<Texture2D>("Button"),
+                    game.Content.Load<Texture2D>("ButtonClicked"),
+                    game.Content.Load<Texture2D>("ButtonHover"),
+                    SpriteBatch,
+                    Color.White,
+                    Shape.RECTANGULAR,
+                    Game)
+                    , Alignment.TOP_CENTER);
         }
 
         public override void Draw(GameTime gameTime)
