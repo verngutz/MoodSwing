@@ -108,6 +108,7 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <ProcessorParameters_Scale>16</ProcessorParameters_Scale>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <None Include="mapinfo.txt">
       <Name>mapinfo</Name>

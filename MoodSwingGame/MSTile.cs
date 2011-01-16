@@ -36,15 +36,14 @@ namespace MoodSwingGame
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
+                    effect.EnableDefaultLighting();
                     effect.World = world;
                     effect.View = view;
                     effect.Projection = projection;
                     effect.TextureEnabled = true;
                     effect.Texture = wrapper;
-                    effect.EnableDefaultLighting();
                 }
                 mesh.Draw();
-                System.Console.WriteLine(Position);
             }
             base.Draw(gameTime);
         }
