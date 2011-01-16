@@ -17,19 +17,15 @@ namespace MoodSwingGUI
 {
     public class MSLabel : MS2DComponent
     {
-        private String previousText;
-        private String currentText;
+        private String text;
         public String Text
         {
             set
             {
-                if (currentText != null)
-                {
-                    previousText = String.Copy(currentText);
-                }
-                currentText = value;
+                fontScale = Size / spriteFont.MeasureString(value);
+                text = value;
             }
-            get { return currentText; }
+            get { return text; }
         }
 
         private SpriteFont spriteFont;
@@ -54,25 +50,15 @@ namespace MoodSwingGUI
         public MSLabel(String text, Vector2 position, Vector2 size, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
             : base(position, size, spriteBatch, game)
         {
-            Text = text;
             this.spriteFont = spriteFont;
+            Text = text;
             this.color = color;
-            fontScale = Size / spriteFont.MeasureString(Text);
         }
 
         public override void Draw(GameTime gameTime)
         {
             SpriteBatch.DrawString(spriteFont, Text, Position, color, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
             base.Draw(gameTime);
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            if (!currentText.Equals(previousText))
-            {
-                this.fontScale = Size / spriteFont.MeasureString(Text);
-            }
-            base.Update(gameTime);
         }
     }
 }

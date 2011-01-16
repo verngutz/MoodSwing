@@ -103,62 +103,46 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cube.fbx">
-      <Name>Cube</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>16</ProcessorParameters_Scale>
-    </Compile>
     <None Include="mapinfo.txt">
       <Name>mapinfo</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Compile Include="Ship.fbx">
-      <Name>Ship</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>16</ProcessorParameters_Scale>
-    </Compile>
-    <Compile Include="Road_0.fbx">
-      <Name>Road_0</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>16</ProcessorParameters_Scale>
-    </Compile>
-    <Compile Include="Road_1.fbx">
-      <Name>Road_1</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>16</ProcessorParameters_Scale>
-    </Compile>
-    <Compile Include="Road_2_0.fbx">
-      <Name>Road_2_0</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>16</ProcessorParameters_Scale>
-    </Compile>
-    <Compile Include="Road_2_1.fbx">
-      <Name>Road_2_1</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>16</ProcessorParameters_Scale>
-    </Compile>
-    <Compile Include="Road_3.fbx">
-      <Name>Road_3</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>16</ProcessorParameters_Scale>
-    </Compile>
-    <Compile Include="Road_4.fbx">
-      <Name>Road_4</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>16</ProcessorParameters_Scale>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Floors\Building.png">
       <Name>Building</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Floors\Road_0.png">
+      <Name>Road_0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Floors\Road_1.png">
+      <Name>Road_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Floors\Road_2_0.png">
+      <Name>Road_2_0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Floors\Road_2_1.png">
+      <Name>Road_2_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Floors\Road_3.png">
+      <Name>Road_3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Floors\Road_4.png">
+      <Name>Road_4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
