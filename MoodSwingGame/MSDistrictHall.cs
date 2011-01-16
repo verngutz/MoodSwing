@@ -22,15 +22,16 @@ namespace MoodSwingGame
         {
             return districtHall;
         }
-        public static void instantiate(Model model, Texture2D wrapper, Vector2 position)
+        public static void instantiate(Model model, Texture2D wrapper, Vector3 position)
         {
             districtHall = new MSDistrictHall(model, wrapper, position);
         }
 
 
 
-        private MSDistrictHall( Model model, Texture2D wrapper, Vector2 position ) 
+        private MSDistrictHall( Model model, Texture2D wrapper, Vector3 position ) 
             : base( model, wrapper, position )
+
         {
                 
         }
