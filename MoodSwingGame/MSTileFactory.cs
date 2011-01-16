@@ -40,27 +40,41 @@ namespace MoodSwingGame
                     }
                     break;
                 case 1:
+                    string modelname = "";
+                    float rotation = 0;
                     switch((tileKey / 10) - ((tileKey / 100) * 10))
                     {
                         case 0:
-                            return new MSRoad(c.Load<Model>("Road_0"), position, 0);
+                            modelname = "Road_0";
+                            rotation = 0;
+                            break;
                         case 1:
-                            return new MSRoad(c.Load<Model>("Road_1"), position, MathHelper.ToRadians(((tileKey / 100) - ((tileKey / 1000) * 10))*90));
+                            modelname = "Road_1";
+                            rotation = MathHelper.ToRadians(((tileKey / 100) - ((tileKey / 1000) * 10)) * 90);
+                            break;
                         case 2:
                             switch((tileKey / 100) - ((tileKey / 1000) * 10))
                             {
                                 case 0:
-                                    return new MSRoad(c.Load<Model>("Road_2_0"), position, MathHelper.ToRadians(((tileKey / 1000) - ((tileKey / 10000) * 10)) * 90));
+                                    modelname = "Road_2_0";
+                                    rotation = MathHelper.ToRadians(((tileKey / 1000) - ((tileKey / 10000) * 10)) * 90);
+                                    break;
                                 case 1:
-                                    return new MSRoad(c.Load<Model>("Road_2_1"), position, MathHelper.ToRadians(((tileKey / 1000) - ((tileKey / 10000) * 10)) * 90));
+                                    modelname = "Road_2_1";
+                                    rotation = MathHelper.ToRadians(((tileKey / 1000) - ((tileKey / 10000) * 10)) * 90);
+                                    break;
                             }
                             break;
                         case 3:
-                            return new MSRoad(c.Load<Model>("Road_3"), position, MathHelper.ToRadians(((tileKey / 100) - ((tileKey / 1000) * 10)) * 90));
+                            modelname = "Road_3";
+                            rotation = MathHelper.ToRadians(((tileKey / 100) - ((tileKey / 1000) * 10)) * 90);
+                            break;
                         case 4:
-                            return new MSRoad(c.Load<Model>("Road_4"), position, 0);
+                            modelname = "Road_4";
+                            rotation = 0;
+                            break;
                     }
-                    break;
+                    return new MSRoad(c.Load<Model>(modelname), position, rotation);
             }
             return null;
         }
