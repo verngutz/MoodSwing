@@ -42,6 +42,7 @@ namespace MoodSwingGame
 
         private Vector2 mouseRHoldButton;
 
+
         private MoodSwing()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -99,6 +100,7 @@ namespace MoodSwingGame
             KeyboardState newKeyBoardState = Keyboard.GetState();
             MouseState newMouseState = Mouse.GetState();
 
+            //Camera movement using keyboard
             if (newKeyBoardState.IsKeyDown(Keys.Up))
                 MSCamera.getInstance().shift(new Vector3(0, 0.3f, 0));
             else if (newKeyBoardState.IsKeyDown(Keys.Down))
@@ -108,6 +110,7 @@ namespace MoodSwingGame
             else if (newKeyBoardState.IsKeyDown(Keys.Right))
                 MSCamera.getInstance().shift(new Vector3(0.3f, 0, 0));
 
+            //Camera movement using mouse
             if( newMouseState.X >= 0 && newMouseState.X <= 5 )
                 MSCamera.getInstance().shift(new Vector3(.3f, 0, 0));
             else if( newMouseState.X <= graphics.GraphicsDevice.Viewport.Width && 
@@ -119,6 +122,8 @@ namespace MoodSwingGame
                 newMouseState.Y >= graphics.GraphicsDevice.Viewport.Height - 5)
                 MSCamera.getInstance().shift(new Vector3(0, 0.3f, 0));
 
+            //Camera rotation handler
+            //if( newMouseState.
             oldMouseState = newMouseState;
             oldKeyboardState = newKeyBoardState;
 
