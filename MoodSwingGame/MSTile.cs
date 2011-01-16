@@ -21,13 +21,11 @@ namespace MoodSwingGame
     {
 
         private Model model;
-        private Texture2D wrapper;
 
-        public MSTile(Model model, Texture2D wrapper, Vector3 position)
+        public MSTile(Model model, Vector3 position)
             : base(position, MoodSwing.getInstance())
         {
             this.model = model;
-            this.wrapper = wrapper;
         }
 
         public override void Draw(GameTime gameTime)
@@ -36,15 +34,13 @@ namespace MoodSwingGame
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
+                    effect.EnableDefaultLighting();
                     effect.World = world;
                     effect.View = MSCamera.getInstance().getView();
                     effect.Projection = projection;
                     effect.TextureEnabled = true;
-                    effect.Texture = wrapper;
-                    effect.EnableDefaultLighting();
                 }
                 mesh.Draw();
-                System.Console.WriteLine(Position);
             }
             base.Draw(gameTime);
         }
