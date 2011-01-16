@@ -15,16 +15,7 @@ namespace MoodSwingGame
 {
     public class MSBuilding : MSTile
     {
-        public MSBuilding(Vector2 position, Vector2 size, SpriteBatch spriteBatch, Texture2D t)
-            : base(position, size, spriteBatch, t)
-        {
-
-        }
-
-        public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
-        {
-            SpriteBatch.Draw(texture, Position, Color.White);
-            base.Draw(gameTime);
-        }
+        public MSBuilding(Model model, Texture2D wrapper, Vector3 position)
+            : base(model, wrapper, position) { }
     }
 }
