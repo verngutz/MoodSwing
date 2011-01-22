@@ -48,7 +48,7 @@ namespace MoodSwingGame
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             Content.RootDirectory = "Content";
         }
 
@@ -110,20 +110,41 @@ namespace MoodSwingGame
             else if (newKeyBoardState.IsKeyDown(Keys.Right))
                 MSCamera.getInstance().shift(new Vector3(0.3f, 0, 0));
 
-            //Camera movement using mouse
-            if( newMouseState.X >= 0 && newMouseState.X <= 5 )
-                MSCamera.getInstance().shift(new Vector3(.3f, 0, 0));
-            else if( newMouseState.X <= graphics.GraphicsDevice.Viewport.Width && 
-                newMouseState.X >= graphics.GraphicsDevice.Viewport.Width-5 )
-                MSCamera.getInstance().shift(new Vector3(-.3f, 0, 0));
-            else if( newMouseState.Y >= 0 && newMouseState.Y <= 5 )
-                MSCamera.getInstance().shift(new Vector3(0, -0.3f, 0));
-            else if( newMouseState.Y <= graphics.GraphicsDevice.Viewport.Height &&
-                newMouseState.Y >= graphics.GraphicsDevice.Viewport.Height - 5)
-                MSCamera.getInstance().shift(new Vector3(0, 0.3f, 0));
+            
 
             //Camera rotation handler
-            //if( newMouseState.
+            if (newMouseState.RightButton == ButtonState.Pressed)
+            {
+                if (oldMouseState.RightButton == ButtonState.Released)
+                    mouseRHoldButton = new Vector2(newMouseState.X, newMouseState.Y);
+
+                MSCamera camera = MSCamera.getInstance();
+                Vector2 movement = new Vector2(newMouseState.X, newMouseState.Y) - mouseRHoldButton;
+
+                if (movement.X != 0)
+                {
+                    if (movement.X > 0)
+                    {
+                        camera.rotate(new Vector3(0, 0, 1));
+                    }
+                    else
+                        camera.rotate(new Vector3(0, 0, -1));
+                }
+            }
+            else
+            {
+                //Camera movement using mouse
+                if (newMouseState.X >= 0 && newMouseState.X <= 5)
+                    MSCamera.getInstance().shift(new Vector3(.3f, 0, 0));
+                else if (newMouseState.X <= graphics.GraphicsDevice.Viewport.Width &&
+                    newMouseState.X >= graphics.GraphicsDevice.Viewport.Width - 5)
+                    MSCamera.getInstance().shift(new Vector3(-.3f, 0, 0));
+                else if (newMouseState.Y >= 0 && newMouseState.Y <= 5)
+                    MSCamera.getInstance().shift(new Vector3(0, -0.3f, 0));
+                else if (newMouseState.Y <= graphics.GraphicsDevice.Viewport.Height &&
+                    newMouseState.Y >= graphics.GraphicsDevice.Viewport.Height - 5)
+                    MSCamera.getInstance().shift(new Vector3(0, 0.3f, 0));
+            }
             oldMouseState = newMouseState;
             oldKeyboardState = newKeyBoardState;
 

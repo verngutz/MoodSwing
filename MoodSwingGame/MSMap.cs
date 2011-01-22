@@ -44,6 +44,7 @@ namespace MoodSwingGame
             foreach( MSTile tile in mapArray ) 
             {
                 tile.Draw(gameTime);
+                break;
             }
         }
     }

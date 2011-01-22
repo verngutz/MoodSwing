@@ -43,5 +43,21 @@ namespace MoodSwingCoreComponents
             cameraPosition += dV;
             cameraTarget += dV;
         }
+
+        private float angle = 0;
+        public void rotate(Vector3 dV)
+        {
+            float distance = Vector3.Distance(cameraPosition,cameraTarget);
+            angle += 0.00001f;
+            Matrix rotationMatrix = Matrix.CreateRotationZ(3 * angle);
+            Vector3 transformedReference = Vector3.Transform(cameraPosition, rotationMatrix);
+            //cameraTarget = cameraTarget + transformedReference;
+            cameraPosition = transformedReference;
+
+            //cameraPosition = cameraTarget + ((cameraPosition - cameraTarget) / Vector3.Distance(cameraPosition, cameraTarget)) * distance;
+
+        }
+    
     }
+
 }
