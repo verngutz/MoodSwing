@@ -125,10 +125,10 @@ namespace MoodSwingGame
                 {
                     if (movement.X > 0)
                     {
-                        camera.rotate(new Vector3(0, 0, 1));
+                        camera.rotate(1f);
                     }
                     else
-                        camera.rotate(new Vector3(0, 0, -1));
+                        camera.rotate(-1f);
                 }
             }
             else
