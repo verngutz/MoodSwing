@@ -59,6 +59,8 @@ namespace MoodSwingGame
                     Game)
                     , Alignment.TOP_CENTER);
 
+            AddElement(new MSTextField("longer string testing", Vector2.Zero, new Vector2(250, 30), Game.Content.Load<SpriteFont>("Temp"), SpriteBatch, Game), Alignment.MIDDLE_LEFT);
+
             miscPanel.AddElement(
                 new MSButton(
                     new MSLabel("Exit", new Vector2(20, 10), new Vector2(60, 30), game.Content.Load<SpriteFont>("Temp"), Color.Black, SpriteBatch, game), 
