@@ -37,7 +37,7 @@ namespace MoodSwingGame
                         case 2:
                             break;
                             //insert district hall creation here
-                            break;
+                            
                     }
                     break;
                 case 1:

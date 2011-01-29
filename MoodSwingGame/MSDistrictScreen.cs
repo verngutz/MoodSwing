@@ -56,8 +56,20 @@ namespace MoodSwingGame
         }
         public override void Update(GameTime gameTime)
         {
+            checkCollision();
             CheckMouseClick((Game as MoodSwing).OldMouseState);
             base.Update(gameTime);
         }
+
+        public void checkCollision()
+        {
+            if (Mouse.GetState().LeftButton == ButtonState.Released &&
+                MoodSwing.getInstance().OldMouseState.LeftButton == ButtonState.Pressed)
+            {
+                map.checkCollision();
+            }
+        }
+
+        
     }
 }

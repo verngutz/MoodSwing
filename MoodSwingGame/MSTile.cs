@@ -17,11 +17,11 @@ using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
-    public abstract class MSTile : MS3DComponent
+    public abstract class MSTile : MS3DComponent, IComparable
     {
 
         private Model model;
-
+        public Model TileModel { get { return model; } }
         public MSTile(Model model, Vector3 position)
             : base(position, MoodSwing.getInstance())
         {
@@ -45,5 +45,11 @@ namespace MoodSwingGame
             base.Draw(gameTime);
         }
 
+        public int CompareTo(object ob)
+        {
+            MSTile t = (ob as MSTile);
+            return (int)(Vector3.Distance(t.Position, MSCamera.getInstance().Position) -
+                    Vector3.Distance(Position, MSCamera.getInstance().Position));
+        }
     }
 }

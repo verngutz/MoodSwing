@@ -25,12 +25,19 @@ namespace MoodSwingCoreComponents
         }
 
         private Vector3 cameraPosition;
+        public Vector3 Position { get { return cameraPosition; } }
         private Vector3 cameraTarget;
+        private Vector3 pitchAxis;
+        public void adjustPitchAxis()
+        {
+            pitchAxis = Vector3.Normalize(Vector3.Cross(cameraPosition - cameraTarget, Vector3.UnitZ));
+        }
 
         private MSCamera()
         {
             cameraPosition = new Vector3(200, 200, 200);
-            cameraTarget = new Vector3(50, 50, 0);
+            cameraTarget = new Vector3(0, 0, 0);
+            adjustPitchAxis();
         }
 
         public Matrix getView()
@@ -38,23 +45,37 @@ namespace MoodSwingCoreComponents
             return Matrix.CreateLookAt(cameraPosition, cameraTarget, Vector3.UnitZ);
         }
 
-        public void shift(Vector3 dV)
+        private const int ZOOM_LIMIT = 20;
+        private int zoomCount = 0;
+        public void zoom(int direction)
         {
-            cameraPosition += dV;
-            cameraTarget += dV;
+
+            if (Math.Abs(zoomCount + direction) < ZOOM_LIMIT)
+            {
+                zoomCount += direction;
+                Vector3 unit = Vector3.Normalize(cameraPosition - cameraTarget);
+                cameraPosition -= unit * direction * 5;
+            }
+        }
+        public void shift(Vector2 dV)
+        {
+            Vector3 shift = dV.X * pitchAxis + dV.Y * Vector3.Normalize(Vector3.Cross(Vector3.UnitZ,pitchAxis));
+            cameraPosition += shift;
+            cameraTarget += shift;
         }
 
-        private float angle = 0;
-        public void rotate(Vector3 dV)
+        public void rotate( Vector2 rotation )
         {
-            float distance = Vector3.Distance(cameraPosition,cameraTarget);
-            angle += 0.00001f;
-            Matrix rotationMatrix = Matrix.CreateRotationZ(3 * angle);
-            Vector3 transformedReference = Vector3.Transform(cameraPosition, rotationMatrix);
-            //cameraTarget = cameraTarget + transformedReference;
+            float angle = 0.01f;
+           // Matrix rotationMatrix = Matrix.CreateRotationZ(angle);
+            Vector3 transformedReference;
+            
+            
+            Matrix pitchRotationMatrix = Matrix.CreateFromAxisAngle(pitchAxis, angle * 1);
+            transformedReference = Vector3.Transform(cameraPosition, pitchRotationMatrix);
             cameraPosition = transformedReference;
 
-            //cameraPosition = cameraTarget + ((cameraPosition - cameraTarget) / Vector3.Distance(cameraPosition, cameraTarget)) * distance;
+
 
         }
     
