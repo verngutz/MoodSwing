@@ -25,12 +25,14 @@ namespace MoodSwingCoreComponents
         }
 
         private Vector3 cameraPosition;
+        public Vector3 Position { get { return cameraPosition; } }
         private Vector3 cameraTarget;
 
         private MSCamera()
         {
             cameraPosition = new Vector3(200, 200, 200);
-            cameraTarget = new Vector3(50, 50, 0);
+            cameraTarget = new Vector3(0, 0, 0);
+            
         }
 
         public Matrix getView()

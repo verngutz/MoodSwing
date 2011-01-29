@@ -21,6 +21,7 @@ namespace MoodSwingGame
     public class MSMap : DrawableGameComponent
     {
         private MSTile[,] mapArray;
+        private MSTile[] mapList;
         private const int tileDimension = 32;
         public MSMap(String filename) : base( MoodSwing.getInstance() )
         {
@@ -29,22 +30,25 @@ namespace MoodSwingGame
             int rows = Int32.Parse(line[0]);
             int columns = Int32.Parse(line[1]);
             mapArray = new MSTile[rows,columns];
+            mapList = new MSTile[rows * columns];
             for(int i = 0; i < rows; i++)
             {
                 line = sr.ReadLine().Split(' ');
                 for(int j = 0; j < columns; j++)
                 {
                     mapArray[i, j] = MSTileFactory.createMSTile(Int32.Parse(line[j]), new Vector3(j * tileDimension, i * tileDimension, 0));
+                    mapList[i * columns + j] = mapArray[i, j];
                 }
             }
         }
 
         public override void Draw(GameTime gameTime)
         {
-            foreach( MSTile tile in mapArray ) 
+            Array.Sort(mapList);
+            foreach( MSTile tile in mapList ) 
             {
                 tile.Draw(gameTime);
-                break;
+                
             }
         }
     }

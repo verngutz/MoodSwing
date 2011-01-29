@@ -23,7 +23,6 @@ namespace MoodSwingCoreComponents
         public BoundingBox BoundingBox { get { return boundingBox; } }
 
         protected Matrix world;
-        protected Matrix view;
         protected Matrix projection;
 
         public MS3DComponent(Vector3 position, Game game)
@@ -31,7 +30,6 @@ namespace MoodSwingCoreComponents
         {
             this.position = position;
             world = Matrix.CreateTranslation(position);
-            view = Matrix.CreateLookAt(new Vector3(200, 200, 200), new Vector3(50, 50, 0), Vector3.UnitZ);
             projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), game.GraphicsDevice.Viewport.AspectRatio, 5, 5000);
         }
     }
