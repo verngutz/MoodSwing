@@ -30,7 +30,6 @@ namespace MoodSwingCoreComponents
         private Vector3 pitchAxis;
         public void adjustPitchAxis()
         {
-            System.Console.WriteLine("HELLO");
             pitchAxis = Vector3.Normalize(Vector3.Cross(cameraPosition - cameraTarget, Vector3.UnitZ));
         }
 

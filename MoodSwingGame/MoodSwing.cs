@@ -136,7 +136,6 @@ namespace MoodSwingGame
             }
             oldMouseState = newMouseState;
             oldKeyboardState = newKeyBoardState;
-            System.Console.WriteLine(newMouseState.ScrollWheelValue);
             base.Update(gameTime);
         }
 

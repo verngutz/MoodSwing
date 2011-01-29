@@ -21,7 +21,7 @@ namespace MoodSwingGame
     {
 
         private Model model;
-
+        public Model TileModel { get { return model; } }
         public MSTile(Model model, Vector3 position)
             : base(position, MoodSwing.getInstance())
         {

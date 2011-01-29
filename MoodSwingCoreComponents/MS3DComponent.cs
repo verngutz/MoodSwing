@@ -23,7 +23,10 @@ namespace MoodSwingCoreComponents
         public BoundingBox BoundingBox { get { return boundingBox; } }
 
         protected Matrix world;
+        public Matrix WorldMatrix { get { return world; } }
+
         protected Matrix projection;
+        public Matrix ProjectionMatrix { get { return projection; } }
 
         public MS3DComponent(Vector3 position, Game game)
             : base(game)
@@ -31,6 +34,7 @@ namespace MoodSwingCoreComponents
             this.position = position;
             world = Matrix.CreateTranslation(position);
             projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), game.GraphicsDevice.Viewport.AspectRatio, 5, 5000);
+           
         }
     }
 }
