@@ -27,12 +27,18 @@ namespace MoodSwingCoreComponents
         private Vector3 cameraPosition;
         public Vector3 Position { get { return cameraPosition; } }
         private Vector3 cameraTarget;
+        private Vector3 pitchAxis;
+        public void adjustPitchAxis()
+        {
+            System.Console.WriteLine("HELLO");
+            pitchAxis = Vector3.Normalize(Vector3.Cross(cameraPosition - cameraTarget, Vector3.UnitZ));
+        }
 
         private MSCamera()
         {
             cameraPosition = new Vector3(200, 200, 200);
             cameraTarget = new Vector3(0, 0, 0);
-            
+            adjustPitchAxis();
         }
 
         public Matrix getView()
@@ -40,17 +46,34 @@ namespace MoodSwingCoreComponents
             return Matrix.CreateLookAt(cameraPosition, cameraTarget, Vector3.UnitZ);
         }
 
-        public void shift(Vector3 dV)
+        private const int ZOOM_LIMIT = 20;
+        private int zoomCount = 0;
+        public void zoom(int direction)
         {
-            cameraPosition += dV;
-            cameraTarget += dV;
+
+            if (Math.Abs(zoomCount + direction) < ZOOM_LIMIT)
+            {
+                zoomCount += direction;
+                Vector3 unit = Vector3.Normalize(cameraPosition - cameraTarget);
+                cameraPosition -= unit * direction * 5;
+            }
+        }
+        public void shift(Vector2 dV)
+        {
+            Vector3 shift = dV.X * pitchAxis + dV.Y * Vector3.Normalize(Vector3.Cross(Vector3.UnitZ,pitchAxis));
+            cameraPosition += shift;
+            cameraTarget += shift;
         }
 
-        public void rotate(float direction)
+        public void rotate( Vector2 rotation )
         {
-            float angle = direction*0.01f;
-            Matrix rotationMatrix = Matrix.CreateRotationZ(angle);
-            Vector3 transformedReference = Vector3.Transform(cameraPosition, rotationMatrix);
+            float angle = 0.01f;
+           // Matrix rotationMatrix = Matrix.CreateRotationZ(angle);
+            Vector3 transformedReference;
+            
+            
+            Matrix pitchRotationMatrix = Matrix.CreateFromAxisAngle(pitchAxis, angle * 1);
+            transformedReference = Vector3.Transform(cameraPosition, pitchRotationMatrix);
             cameraPosition = transformedReference;
 
 

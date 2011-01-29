@@ -99,55 +99,44 @@ namespace MoodSwingGame
             CurrentScreen.Update(gameTime);
             KeyboardState newKeyBoardState = Keyboard.GetState();
             MouseState newMouseState = Mouse.GetState();
-
-            //Camera movement using keyboard
-            if (newKeyBoardState.IsKeyDown(Keys.Up))
-                MSCamera.getInstance().shift(new Vector3(0, 0.3f, 0));
-            else if (newKeyBoardState.IsKeyDown(Keys.Down))
-                MSCamera.getInstance().shift(new Vector3(0, -0.3f, 0));
-            else if (newKeyBoardState.IsKeyDown(Keys.Left))
-                MSCamera.getInstance().shift(new Vector3(-.3f, 0, 0));
-            else if (newKeyBoardState.IsKeyDown(Keys.Right))
-                MSCamera.getInstance().shift(new Vector3(0.3f, 0, 0));
-
             
 
             //Camera rotation handler
             if (newMouseState.RightButton == ButtonState.Pressed)
             {
-                if (oldMouseState.RightButton == ButtonState.Released)
-                    mouseRHoldButton = new Vector2(newMouseState.X, newMouseState.Y);
-
                 MSCamera camera = MSCamera.getInstance();
-                Vector2 movement = new Vector2(newMouseState.X, newMouseState.Y) - mouseRHoldButton;
-
-                if (movement.X != 0)
+                if (oldMouseState.RightButton == ButtonState.Released)
                 {
-                    if (movement.X > 0)
-                    {
-                        camera.rotate(1f);
-                    }
-                    else
-                        camera.rotate(-1f);
+                    mouseRHoldButton = new Vector2(newMouseState.X, newMouseState.Y);
+                    camera.adjustPitchAxis(); 
                 }
+                Vector2 movement = new Vector2(newMouseState.X, newMouseState.Y) - mouseRHoldButton;
+               movement = movement/(new Vector2(Math.Abs(movement.X), Math.Abs(movement.Y) ));
+                camera.rotate(movement);
             }
             else
             {
                 //Camera movement using mouse
                 if (newMouseState.X >= 0 && newMouseState.X <= 5)
-                    MSCamera.getInstance().shift(new Vector3(.3f, 0, 0));
+                    MSCamera.getInstance().shift(new Vector2(1,0));
                 else if (newMouseState.X <= graphics.GraphicsDevice.Viewport.Width &&
                     newMouseState.X >= graphics.GraphicsDevice.Viewport.Width - 5)
-                    MSCamera.getInstance().shift(new Vector3(-.3f, 0, 0));
+                    MSCamera.getInstance().shift(new Vector2(-1, 0));
                 else if (newMouseState.Y >= 0 && newMouseState.Y <= 5)
-                    MSCamera.getInstance().shift(new Vector3(0, -0.3f, 0));
+                    MSCamera.getInstance().shift(new Vector2(0,-1));
                 else if (newMouseState.Y <= graphics.GraphicsDevice.Viewport.Height &&
                     newMouseState.Y >= graphics.GraphicsDevice.Viewport.Height - 5)
-                    MSCamera.getInstance().shift(new Vector3(0, 0.3f, 0));
+                    MSCamera.getInstance().shift(new Vector2(0, 1));
+
+                int delta = (newMouseState.ScrollWheelValue - oldMouseState.ScrollWheelValue);
+                if (delta != 0 )
+                    MSCamera.getInstance().zoom(delta / Math.Abs(delta));
+
+           
             }
             oldMouseState = newMouseState;
             oldKeyboardState = newKeyBoardState;
-
+            System.Console.WriteLine(newMouseState.ScrollWheelValue);
             base.Update(gameTime);
         }
 

@@ -107,6 +107,7 @@
       <Name>cubeWithColors</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>1.5</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <ItemGroup>
