@@ -18,7 +18,7 @@ namespace MoodSwingGUI
     /// MSImageHolder holds a Texture2D and may be added to an MSPanel
     /// <seealso cref="MoodSwingGUI.MSPanel"/>
     /// </summary>
-    public class MSImageHolder : MS2DComponent
+    public class MSImageHolder : MSGUIComponent
     {
         private Texture2D image;
         private Vector2 scale;

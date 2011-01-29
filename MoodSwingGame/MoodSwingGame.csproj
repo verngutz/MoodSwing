@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MSBuilding.cs" />
+    <Compile Include="MSCitizen.cs" />
     <Compile Include="MSCityScreen.cs" />
     <Compile Include="MSDistrictHall.cs" />
     <Compile Include="MSDistrictScreen.cs" />

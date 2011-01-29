@@ -15,7 +15,7 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGUI
 {
-    public class MSRadioButtonGroup : MS2DClickable
+    public class MSRadioButtonGroup : MSGUIClickable
     {
         private List<MSCheckbox> radioButtons;
         private MSCheckbox currentTicked;

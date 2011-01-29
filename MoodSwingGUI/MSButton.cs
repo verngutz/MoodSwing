@@ -17,7 +17,7 @@ namespace MoodSwingGUI
     /// <summary>
     /// MSButton represents a drawable, clickable, action-attachable button.
     /// </summary>
-    public class MSButton : MS2DClickable
+    public class MSButton : MSGUIClickable
     {
         private MSButtonState currentState;
         private Texture2D clickedTexture;

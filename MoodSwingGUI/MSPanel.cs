@@ -14,16 +14,16 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGUI
 {
-    public class MSPanel : MS2DClickable
+    public class MSPanel : MSGUIClickable
     {
         private Texture2D background;
-        private List<MS2DComponent> elements;
-        public List<MS2DComponent> Elements
+        private List<MSGUIComponent> elements;
+        public List<MSGUIComponent> Elements
         {
             get { return elements; }
         }
-        private List<MS2DClickable> clickableElements;
-        public List<MS2DClickable> ClickableElements
+        private List<MSGUIClickable> clickableElements;
+        public List<MSGUIClickable> ClickableElements
         {
             get { return clickableElements; }
         }
@@ -84,8 +84,8 @@ namespace MoodSwingGUI
             : base(position, size, Shape.RECTANGULAR, spriteBatch, game)
         {
             this.background = background;
-            elements = new List<MS2DComponent>();
-            clickableElements = new List<MS2DClickable>();
+            elements = new List<MSGUIComponent>();
+            clickableElements = new List<MSGUIClickable>();
 
             boundedPosition = Position + new Vector2(leftPadding, topPadding);
             boundedSize = Size - new Vector2(leftPadding, topPadding) - new Vector2(rightPadding, bottomPadding);
@@ -98,7 +98,43 @@ namespace MoodSwingGUI
             this.highlight = highlight;
         }
 
-        public void AddElement(MS2DComponent element, Alignment alignment)
+        public void AddElement(MSGUIClickable element, Alignment alignment)
+        {
+            switch (alignment)
+            {
+                case Alignment.TOP_LEFT:
+                    element.Position = boundedPosition;
+                    break;
+                case Alignment.TOP_CENTER:
+                    element.Position = boundedPosition + new Vector2((boundedSize.X - element.Size.X) / 2, 0);
+
+                    break;
+                case Alignment.TOP_RIGHT:
+                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, 0);
+                    break;
+                case Alignment.MIDDLE_LEFT:
+                    element.Position = boundedPosition + new Vector2(0, (boundedSize.Y - element.Size.Y) / 2);
+                    break;
+                case Alignment.MIDDLE_CENTER:
+                    element.Position = boundedPosition + (boundedSize - element.Size) / 2;
+                    break;
+                case Alignment.MIDDLE_RIGHT:
+                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, (boundedSize.Y - element.Size.Y) / 2);
+                    break;
+                case Alignment.BOTTOM_LEFT:
+                    element.Position = boundedPosition + new Vector2(0, boundedSize.Y - element.Size.Y);
+                    break;
+                case Alignment.BOTTOM_CENTER:
+                    element.Position = boundedPosition + new Vector2((boundedSize.X - element.Size.X) / 2, boundedSize.Y - element.Size.Y);
+                    break;
+                case Alignment.BOTTOM_RIGHT:
+                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, boundedSize.Y - element.Size.Y);
+                    break;
+            }
+            clickableElements.Add(element);
+        }
+
+        public void AddElement(MSGUIComponent element, Alignment alignment)
         {
             switch (alignment)
             {
@@ -132,15 +168,11 @@ namespace MoodSwingGUI
                     break;
             }
             elements.Add(element);
-            if (element is MS2DClickable)
-            {
-                clickableElements.Add(element as MS2DClickable);
-            }
         }
 
         public override bool CheckMouseClick(MouseState oldMouseState)
         {
-            foreach (MS2DClickable element in clickableElements)
+            foreach (MSGUIClickable element in clickableElements)
             {
                 if (element.CheckMouseClick(oldMouseState))
                 {
@@ -150,13 +182,25 @@ namespace MoodSwingGUI
             return false;
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            foreach (MSGUIComponent element in elements)
+                element.Update(gameTime);
+
+            base.Update(gameTime);
+        }
+
         public override void Draw(GameTime gameTime)
         {
             if (background != null)
             {
                 SpriteBatch.Draw(background, Position, null, highlight, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
             }
-            foreach(MS2DComponent element in elements)
+            foreach(MSGUIComponent element in elements)
+            {
+                element.Draw(gameTime);
+            }
+            foreach (MSGUIClickable element in clickableElements)
             {
                 element.Draw(gameTime);
             }

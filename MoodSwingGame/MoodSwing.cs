@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -10,15 +11,22 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+
+using TomShane.Neoforce.Controls;
+using TomShane.Neoforce.Importers;
+
 using MoodSwingGUI;
 using MoodSwingCoreComponents;
+
 namespace MoodSwingGame
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class MoodSwing : Microsoft.Xna.Framework.Game
+    public class MoodSwing : Game
     {
+        private GraphicsDeviceManager graphics;
+
         private static MoodSwing MSInstance;
         public static MoodSwing getInstance() 
         {
@@ -30,9 +38,8 @@ namespace MoodSwingGame
         private SpriteBatch spriteBatch;
         public SpriteBatch SpriteBatch { get { return spriteBatch; } }
 
-        GraphicsDeviceManager graphics;
-
         public MSScreen CurrentScreen { set; get; }
+        public Window CurrentWindow { set; get; }
 
         private KeyboardState oldKeyboardState;
         public KeyboardState OldKeyboardState { get { return oldKeyboardState; } }
@@ -50,6 +57,8 @@ namespace MoodSwingGame
             graphics.PreferredBackBufferHeight = 768;
             graphics.IsFullScreen = false;
             Content.RootDirectory = "Content";
+
+            IsMouseVisible = true;
         }
 
         /// <summary>
@@ -63,7 +72,6 @@ namespace MoodSwingGame
             // TODO: Add your initialization logic here
 
             base.Initialize();
-            IsMouseVisible = true;
             oldKeyboardState = Keyboard.GetState();
             oldMouseState = Mouse.GetState();
             CurrentScreen = MSIntroScreen.getInstance();

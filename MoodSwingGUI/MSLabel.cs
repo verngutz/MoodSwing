@@ -15,7 +15,7 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGUI
 {
-    public class MSLabel : MS2DComponent
+    public class MSLabel : MSGUIComponent
     {
         private String text;
         public String Text

@@ -18,7 +18,7 @@ namespace MoodSwingGUI
     /// <summary>
     /// MSCheckbox represents a checkbox that has two discrete states, ticked and unticked.
     /// </summary>
-    public class MSCheckbox : MS2DClickable
+    public class MSCheckbox : MSGUIClickable
     {
         /// <summary>
         /// Gets or sets the tick marker for this MSCheckbox
