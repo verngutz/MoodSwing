@@ -58,6 +58,7 @@ namespace MoodSwingGame
         {
             checkCollision();
             CheckMouseClick((Game as MoodSwing).OldMouseState);
+            map.Update(gameTime);
             base.Update(gameTime);
         }
 

@@ -111,10 +111,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="building.fbx">
+      <Name>building</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>1.5</ProcessorParameters_Scale>
+    </Compile>
     <None Include="mapinfo.txt">
       <Name>mapinfo</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="person.fbx">
+      <Name>person</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>0.5</ProcessorParameters_Scale>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Floors\Building.png">

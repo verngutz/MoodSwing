@@ -66,16 +66,26 @@ namespace MoodSwingCoreComponents
 
         public void rotate( Vector2 rotation )
         {
-            float angle = 0.01f;
+            float angle = .01f;
            // Matrix rotationMatrix = Matrix.CreateRotationZ(angle);
             Vector3 transformedReference;
-            
-            
-            Matrix pitchRotationMatrix = Matrix.CreateFromAxisAngle(pitchAxis, angle * 1);
+
+
+            //Matrix x = Matrix.CreateWorld(Vector3.Zero, Vector3.Forward, Vector3.Up) * Matrix.CreateFromYawPitchRoll(0, 0, 0);
+
+
+            Matrix pitchRotationMatrix = Matrix.CreateFromAxisAngle(pitchAxis, angle);
+        
             transformedReference = Vector3.Transform(cameraPosition, pitchRotationMatrix);
-            cameraPosition = transformedReference;
+            //cameraPosition = transformedReference;
+            Vector3 a = Vector3.Normalize(transformedReference);
+            Vector3 b = Vector3.Normalize(cameraPosition);
 
-
+            System.Console.WriteLine(MathHelper.ToDegrees((float)Math.Acos(Vector3.Dot(a, b))));
+            if (Math.Acos(Vector3.Dot(a, b)) < MathHelper.ToRadians(1))
+            {
+                cameraPosition = transformedReference;
+            }
 
         }
     

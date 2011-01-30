@@ -31,7 +31,7 @@ namespace MoodSwingGame
                     switch ((tileKey / 10) - ((tileKey / 100) * 10))
                     {
                         case 0:
-                            return new MSBuilding(c.Load<Model>("cubeWithColors"), position);
+                            return new MSBuilding(c.Load<Model>("building"), position);
                         case 1:
                             return new MSBuilding(c.Load<Model>("cubeWithColors"), position);
                         case 2:

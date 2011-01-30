@@ -48,7 +48,7 @@ namespace MoodSwingGame
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
         }
 
@@ -99,6 +99,7 @@ namespace MoodSwingGame
             CurrentScreen.Update(gameTime);
             KeyboardState newKeyBoardState = Keyboard.GetState();
             MouseState newMouseState = Mouse.GetState();
+            
             
 
             //Camera rotation handler

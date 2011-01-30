@@ -84,6 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MS3DTile.cs" />
     <Compile Include="MSBuilding.cs" />
     <Compile Include="MSCityScreen.cs" />
     <Compile Include="MSDistrictHall.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="MSActions.cs" />
     <Compile Include="MSMap.cs" />
     <Compile Include="MSOptionsScreen.cs" />
+    <Compile Include="MSPerson.cs" />
     <Compile Include="MSTile.cs" />
     <Compile Include="MSTileFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
