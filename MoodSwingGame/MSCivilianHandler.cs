@@ -38,17 +38,15 @@ namespace MoodSwingGame
             random = new Random();
         }
 
-        public MSPerson tryForBaby( MSMap map )
+        public MSPerson TryForBaby( MSMap map )
         {
             int rnd = random.Next(5000);
             if (rnd < 400)
             {
-                Vector2 start = map.getRandomBuilding();
-                Vector2 end = map.getRandomBuilding();
-                Node path = map.getPath(start, end);
+                Vector2 start = map.GetRandomBuilding();
+                Vector2 end = map.GetRandomBuilding();
+                Node path = map.GetPath(start, end);
 
-                if (path == null) 
-                    System.Console.WriteLine("NULL!!!");
                 MSPerson person =  new MSPerson(MoodSwing.getInstance().Content.Load<Model>("person"), 
                     (map.MapArray[(int)start.X, (int)start.Y] as MS3DComponent).Position + new Vector3(0, 0, 20),
                     path);
@@ -60,14 +58,14 @@ namespace MoodSwingGame
             return null;
         }
 
-        public List<MS3DComponent> update(MSMap map)
+        public List<MS3DComponent> Update(MSMap map)
         {
             List<MS3DComponent> list = new List<MS3DComponent>();
 
             foreach (MSPerson person in census)
             {
                 if( !person.IsThere )
-                    person.walk(map.MapArray);
+                    person.Walk(map.MapArray);
                 else
                     list.Add(person);
             }

@@ -22,7 +22,7 @@ namespace MoodSwingGame
         {
 
         }
-        public static MSTile createMSTile(int tileKey, Vector3 position)
+        public static MSTile CreateMSTile(int tileKey, Vector3 position)
         {
             ContentManager c = MoodSwing.getInstance().Content;
             switch (tileKey - ((tileKey / 10) * 10))

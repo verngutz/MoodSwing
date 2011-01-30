@@ -22,11 +22,9 @@ namespace MoodSwingGame
     {
         private MSTile[,] mapArray;
         public MSTile[,] MapArray { get { return mapArray; } }
-        //private List<MS3DComponent> mapList;
         private const int tileDimension = 32;
         private int rows;
         private int columns;
-        private MSPerson person;
         private static Random random = new Random();
         public MSMap(String filename) : base( MoodSwing.getInstance() )
         {
@@ -41,43 +39,18 @@ namespace MoodSwingGame
                 line = sr.ReadLine().Split(' ');
                 for(int j = 0; j < columns; j++)
                 {
-                    mapArray[i, j] = MSTileFactory.createMSTile(Int32.Parse(line[j]), new Vector3(j * tileDimension, i * tileDimension, 0));
-                    //if (mapArray[i, j] is MS3DComponent)
-                    //mapList.Add(mapArray[i, j] as MS3DComponent);
-                }
+                    mapArray[i, j] = MSTileFactory.CreateMSTile(Int32.Parse(line[j]), new Vector3(j * tileDimension, i * tileDimension, 0));
+                } 
             }
         }
 
         public override void Update(GameTime gameTime)
         {
-            /*if (person != null)
-            {
-                person.walk(mapArray);
-                if (person.IsThere && mapList.Contains(person))
-                {
-                    mapList.Remove(person);
-                    person = null;
-                }
-            }
-            else
-            {
-                int rnd = random.Next(3000);
-                if (rnd < 10000)
-                {
-                    Vector2 start = getCoordinate(mapArray, rows, columns);
-                    Vector2 end = getCoordinate(mapArray, rows, columns);
-                    System.Console.WriteLine(start + " :: " + end);
-                    Node path = getPath(mapArray, start, end, rows, columns);
-
-                    
-                    person = new MSPerson(MoodSwing.getInstance().Content.Load<Model>("person"), (mapArray[(int)start.X,(int)start.Y] as MSBuilding).Position + new Vector3(0, 0, 20) , path);
-                    mapList.Add(person);
-                }
-            }*/
+            
             base.Update(gameTime);
         }
 
-        public Vector2 getRandomBuilding()
+        public Vector2 GetRandomBuilding()
         {
             int x = 0;
             int y = 0;
@@ -89,17 +62,9 @@ namespace MoodSwingGame
             } while (!(mapArray[x, y] is MSBuilding) );
             return new Vector2(x,y);
         }
-        public override void Draw(GameTime gameTime)
-        {
-            //mapList.Sort();
-            /*foreach( MS3DComponent tile in mapList ) 
-            {
-                tile.Draw(gameTime);        
-            }*/
-        }
-
+        
         //note: This needs revision when the 'dummy' tiles have been implemented.
-        public void checkCollision()
+        public void CheckCollision()
         {
             System.Console.WriteLine("CHECKING...");
             float? minDistance = null;
@@ -134,6 +99,7 @@ namespace MoodSwingGame
                 
          
         }
+
         public Ray CalculateRay(Vector2 mouseLocation, Matrix view, Matrix projection, Viewport viewport)
         {
             Vector3 nearPoint = viewport.Unproject(new Vector3(mouseLocation.X,
@@ -172,7 +138,7 @@ namespace MoodSwingGame
         /// <param name="row">The number of rows in the map.</param>
         /// <param name="col">The number of columns in the map.</param>
         
-        public Node getPath(Vector2 start, Vector2 end)
+        public Node GetPath(Vector2 start, Vector2 end)
         {
             List<Node> toCheck = new List<Node>();
             List<Node> done = new List<Node>();

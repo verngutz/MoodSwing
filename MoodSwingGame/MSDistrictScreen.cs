@@ -71,18 +71,18 @@ namespace MoodSwingGame
             if (Mouse.GetState().LeftButton == ButtonState.Released &&
                 MoodSwing.getInstance().OldMouseState.LeftButton == ButtonState.Pressed)
             {
-                map.checkCollision();
+                map.CheckCollision();
             }
 
             CheckMouseClick((Game as MoodSwing).OldMouseState);
             map.Update(gameTime);
-            MSPerson person = civilianHandler.tryForBaby(map);
+            MSPerson person = civilianHandler.TryForBaby(map);
             if (person != null)
             {
                 elementsList.Add(person);
             }
 
-            List<MS3DComponent> toRemove = civilianHandler.update(map);
+            List<MS3DComponent> toRemove = civilianHandler.Update(map);
             foreach (MS3DComponent temp in toRemove)
             {
                 elementsList.Remove(temp);

@@ -31,7 +31,7 @@ namespace MoodSwingGame
             this.isThere = false;
         }
 
-        public void walk( MSTile[,] mapArray )
+        public void Walk( MSTile[,] mapArray )
         {
             Vector2 pos = new Vector2(Position.X, Position.Y);
             
