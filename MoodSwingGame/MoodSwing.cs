@@ -48,7 +48,7 @@ namespace MoodSwingGame
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             Content.RootDirectory = "Content";
         }
 
@@ -103,16 +103,17 @@ namespace MoodSwingGame
             
 
             //Camera rotation handler
-            if (newMouseState.RightButton == ButtonState.Pressed)
+            if (newMouseState.MiddleButton == ButtonState.Pressed)
             {
                 MSCamera camera = MSCamera.getInstance();
-                if (oldMouseState.RightButton == ButtonState.Released)
+                if (oldMouseState.MiddleButton == ButtonState.Released)
                 {
                     mouseRHoldButton = new Vector2(newMouseState.X, newMouseState.Y);
                     camera.adjustPitchAxis(); 
                 }
                 Vector2 movement = new Vector2(newMouseState.X, newMouseState.Y) - mouseRHoldButton;
-               movement = movement/(new Vector2(Math.Abs(movement.X), Math.Abs(movement.Y) ));
+                movement.Y *= -1;
+                System.Console.WriteLine(movement);
                 camera.rotate(movement);
             }
             else

@@ -27,11 +27,20 @@ namespace MoodSwingGame
         }
 
         private MSMap map;
+        private List<MS3DComponent> elementsList;
+        private MSCivilianHandler civilianHandler;
         private MSDistrictScreen(MoodSwing game)
             : base(null, 150, 150, 150, 150, game.SpriteBatch, game) 
         {
             map = new MSMap(@"Content\mapinfo.txt");
-            
+            elementsList = new List<MS3DComponent>();
+            civilianHandler = MSCivilianHandler.getInstance();
+
+            foreach (MSTile tile in map.MapArray)
+            {
+                if (tile is MS3DComponent) elementsList.Add(tile as MS3DComponent);
+            }
+
             AddElement(
                 new MSButton(
                     new MSLabel("Exit", new Vector2(20, 10), new Vector2(60, 30), game.Content.Load<SpriteFont>("Temp"), Color.Black, SpriteBatch, game),
@@ -50,25 +59,35 @@ namespace MoodSwingGame
 
         public override void Draw(GameTime gameTime)
         {
-            
+            elementsList.Sort();
+            foreach( MS3DComponent temp in elementsList ) 
+            {
+                temp.Draw(gameTime);
+            }
             base.Draw(gameTime);
-            map.Draw(gameTime);
         }
         public override void Update(GameTime gameTime)
-        {
-            checkCollision();
-            CheckMouseClick((Game as MoodSwing).OldMouseState);
-            map.Update(gameTime);
-            base.Update(gameTime);
-        }
-
-        public void checkCollision()
         {
             if (Mouse.GetState().LeftButton == ButtonState.Released &&
                 MoodSwing.getInstance().OldMouseState.LeftButton == ButtonState.Pressed)
             {
                 map.checkCollision();
             }
+
+            CheckMouseClick((Game as MoodSwing).OldMouseState);
+            map.Update(gameTime);
+            MSPerson person = civilianHandler.tryForBaby(map);
+            if (person != null)
+            {
+                elementsList.Add(person);
+            }
+
+            List<MS3DComponent> toRemove = civilianHandler.update(map);
+            foreach (MS3DComponent temp in toRemove)
+            {
+                elementsList.Remove(temp);
+            }
+            base.Update(gameTime);
         }
 
         

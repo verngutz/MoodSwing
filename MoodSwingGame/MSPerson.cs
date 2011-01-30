@@ -20,29 +20,32 @@ namespace MoodSwingGame
     {
         private Model model;
         private Node path;
+        private bool isThere;
+        public bool IsThere { get { return isThere; } }
 
         public MSPerson( Model m, Vector3 position, Node p )
             : base(position, MoodSwing.getInstance())
         {
             this.model = m;
-            this.path = p.next;
+            this.path = p;
+            this.isThere = false;
         }
 
         public void walk( MSTile[,] mapArray )
         {
-            //System.Console.WriteLine("TARGET: " + path.Position);
             Vector2 pos = new Vector2(Position.X, Position.Y);
             
-            Vector3 target = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MSRoad).Position;
-            Vector2 tar = new Vector2(target.X, target.Y);
+            Vector3 targetVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
+            Vector2 targetVector2 = new Vector2(targetVector3.X, targetVector3.Y);
             
-            Vector2 unit = tar-pos;
+            Vector2 unit = targetVector2-pos;
             unit = Vector2.Normalize(unit);
 
-            if (Vector2.Distance(pos, tar) < 1)
+            if (Vector2.Distance(pos, targetVector2) < 1)
             {
-                this.position = new Vector3( tar.X, tar.Y, position.Z );
-                if( path.next != null ) path = path.next;
+                this.position = new Vector3( targetVector2.X, targetVector2.Y, position.Z );
+                if (path.next != null) path = path.next;
+                else isThere = true;
             }
             else 
                 this.position += new Vector3(unit.X, unit.Y, 0);
