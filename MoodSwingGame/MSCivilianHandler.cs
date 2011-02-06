@@ -72,7 +72,6 @@ namespace MoodSwingGame
 
             foreach (MSPerson person in list)
             {
-                System.Console.WriteLine("REMOVE");
                 census.Remove(person);
             }
             return list;
