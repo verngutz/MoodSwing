@@ -86,7 +86,7 @@ namespace MoodSwingCoreComponents
             }
             else
                 transformedReference = Vector3.Transform(cameraPosition, yawRotationMatrix);
-            cameraPosition = Vector3.Normalize(transformedReference - cameraTarget) * distance + cameraTarget; ;
+            cameraPosition = transformedReference ;
             adjustPitchAxis();
 
         }
