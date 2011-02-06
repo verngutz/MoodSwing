@@ -27,13 +27,13 @@ namespace MoodSwingGame
         {
             AddElement(
                 new MSButton(
-                    new MSLabel("Return", new Vector2(20, 10), new Vector2(60, 30), game.Content.Load<SpriteFont>("Temp"), Color.Black, SpriteBatch, game),
+                    null,
                     new ReturnFromOptionsScreen(),
                     Vector2.Zero,
-                    new Vector2(100, 50),
-                    game.Content.Load<Texture2D>("Button"),
-                    game.Content.Load<Texture2D>("ButtonClicked"),
-                    game.Content.Load<Texture2D>("ButtonHover"),
+                    new Vector2(574, 60),
+                    game.Content.Load<Texture2D>("exit"),
+                    game.Content.Load<Texture2D>("exitclicked"),
+                    game.Content.Load<Texture2D>("exit"),
                     SpriteBatch,
                     Color.White,
                     Shape.RECTANGULAR,
@@ -43,8 +43,8 @@ namespace MoodSwingGame
 
         public override void Update(GameTime gameTime)
         {
-            CheckMouseClick((Game as MoodSwing).OldMouseState);
             base.Update(gameTime);
+            CheckMouseClick((Game as MoodSwing).OldMouseState);
         }
     }
 }

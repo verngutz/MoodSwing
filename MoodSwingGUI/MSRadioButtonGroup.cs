@@ -50,12 +50,12 @@ namespace MoodSwingGUI
 
         public override void Draw(GameTime gameTime)
         {
+            base.Draw(gameTime);
             container.Draw(gameTime);
             foreach (MSCheckbox button in radioButtons)
             {
                 button.Draw(gameTime);
             }
-            base.Draw(gameTime);
         }
 
         public override bool CheckMouseClick(MouseState oldMouseState)

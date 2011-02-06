@@ -58,6 +58,9 @@ namespace MoodSwingGUI
         /// <param name="spriteBatch">the SpriteBatch that will draw this MSScreen</param>
         /// <param name="game">the Game where this MSScreen will be used</param>
         public MSScreen(Texture2D background, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Color highlight, SpriteBatch spriteBatch, Game game)
-            : base(background, new Vector2(0, 0), new Vector2(game.GraphicsDevice.DisplayMode.Width, game.GraphicsDevice.DisplayMode.Height), topPadding, bottomPadding, leftPadding, rightPadding, spriteBatch, game) { }
+            : base(background, new Vector2(0, 0), new Vector2(game.GraphicsDevice.Viewport.Width, game.GraphicsDevice.Viewport.Height), topPadding, bottomPadding, leftPadding, rightPadding, spriteBatch, game) 
+        {
+            hasFocus = true;
+        }
     }
 }

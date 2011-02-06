@@ -63,8 +63,8 @@ namespace MoodSwingGUI
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Draw(image, Position, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
             base.Draw(gameTime);
+            spriteBatch.Draw(image, Position, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
         }
     }
 }

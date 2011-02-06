@@ -142,12 +142,9 @@ namespace MoodSwingGUI
         /// <param name="game">the Game where this MSCheckbox will be used</param>
         /// <param name="isTicked">true if this Checkbox must be initially ticked, false otherwise</param>
         public MSCheckbox(MSLabel untickedLabel, MSLabel tickedLabel, MSAction untickedAction, MSAction tickedAction, Vector2 position, Vector2 size, Texture2D untickedUnclicked, Texture2D untickedClicked, Texture2D untickedHovered, Texture2D tickedUnclicked, Texture2D tickedClicked, Texture2D tickedHovered, SpriteBatch spriteBatch, Color highlight, Shape shape, Game game, bool isTicked)
-            : base(position, size, shape, spriteBatch, game)
-        {
-            unticked = new MSButton(untickedLabel, untickedAction, position, size, untickedUnclicked, untickedClicked, untickedHovered, spriteBatch, highlight, shape, game);
-            ticked = new MSButton(tickedLabel, tickedAction, position, size, tickedUnclicked, tickedClicked, tickedHovered, spriteBatch, highlight, shape, game);
-            IsTicked = isTicked;
-        }
+            : this(new MSButton(untickedLabel, untickedAction, position, size, untickedUnclicked, untickedClicked, untickedHovered, spriteBatch, highlight, shape, game),
+            new MSButton(tickedLabel, tickedAction, position, size, tickedUnclicked, tickedClicked, tickedHovered, spriteBatch, highlight, shape, game),
+            isTicked) { }
 
         /// <summary>
         /// Creates an MSCheckbox using two MSButtons
@@ -161,20 +158,16 @@ namespace MoodSwingGUI
             this.unticked = unticked;
             this.ticked = ticked;
             IsTicked = IsTicked;
+            if (isTicked) collisionTexture = ticked.CollisionTexture;
+            else collisionTexture = unticked.CollisionTexture;
         }
 
         public override void Draw(GameTime gameTime)
         {
-            if (IsTicked)
-            {
-                ticked.Draw(gameTime);
-            }
-            else
-            {
-                unticked.Draw(gameTime);
-            }
             base.Draw(gameTime);
 
+            if (IsTicked) ticked.Draw(gameTime);
+            else unticked.Draw(gameTime);
         }
 
         /// <summary>
@@ -184,22 +177,20 @@ namespace MoodSwingGUI
         /// <returns>true if this MSCheckbox has been clicked or equivalently, if this MSCheckbox must toggle property IsTicked</returns>
         public override bool CheckMouseClick(MouseState oldMouseState)
         {
-            if (IsTicked)
+            if (IsTicked && ticked.CheckMouseClick(oldMouseState))
             {
-                if (ticked.CheckMouseClick(oldMouseState))
-                {
-                    IsTicked = false;
-                    return true;
-                }
+                IsTicked = false;
+                collisionTexture = unticked.CollisionTexture;
+                return true;
             }
-            else
+
+            else if (unticked.CheckMouseClick(oldMouseState))
             {
-                if (unticked.CheckMouseClick(oldMouseState))
-                {
-                    IsTicked = true;
-                    return true;
-                }
+                IsTicked = true;
+                collisionTexture = ticked.CollisionTexture;
+                return true;
             }
+
             return false;
         }
     }

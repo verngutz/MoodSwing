@@ -28,6 +28,9 @@ namespace MoodSwingCoreComponents
     {
         protected Shape shape;
 
+        protected Texture2D collisionTexture;
+        public Texture2D CollisionTexture { get { return collisionTexture; } }
+
         /// <summary>
         /// Gets the Shape of this MS2DCollidable. This is used for collision detection.
         /// <seealso cref="MoodSwingCoreComponents.Shape"/>
@@ -54,9 +57,44 @@ namespace MoodSwingCoreComponents
                 case Shape.CIRCULAR:
                     return Vector2.Distance(Position + Size / 2, other.Position + other.Size / 2) <= Size.X;
                 case Shape.AMORPHOUS:
-                    throw new NotImplementedException();
+                    if (!(other.Position.X < Position.X || other.Position.X > Position.X + Size.X || other.Position.Y < Position.Y || other.Position.Y > Position.Y + Size.Y))
+                    {
+                        RenderTarget2D renderTarget = new RenderTarget2D(Game.GraphicsDevice, (int)other.Size.X, (int)other.Size.Y, 1, SurfaceFormat.Color);
+                        Game.GraphicsDevice.SetRenderTarget(0, renderTarget);
+                        Game.GraphicsDevice.Clear(ClearOptions.Target, Color.Red, 0, 0);
+                        spriteBatch.Begin();
+                        spriteBatch.Draw(CollisionTexture,
+                            new Rectangle(0, 0, (int)other.Size.X, (int)other.Size.Y),
+                            new Rectangle((int)(other.Position.X - Position.X), (int)(other.Position.Y - Position.Y), (int)other.Size.X, (int)other.Size.Y),
+                            Color.White);
+                        spriteBatch.End();
+                        Game.GraphicsDevice.SetRenderTarget(0, null);
+                        int numPixels = (int)other.Size.X * (int)other.Size.Y;
+                        Color[] collisionColorInformation = new Color[numPixels];
+                        renderTarget.GetTexture().GetData<Color>(0,
+                            new Rectangle(0, 0, (int)other.Size.X, (int)other.Size.Y),
+                            collisionColorInformation,
+                            0,
+                            numPixels);
+
+                        foreach (Color c in collisionColorInformation)
+                            if (c.A != 0)
+                                return true;
+
+                        return false;
+                    }
+                    else return false;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Initialize collisionTextureData if it hasn't already been
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
         }
 
         /// <summary>
@@ -73,7 +111,27 @@ namespace MoodSwingCoreComponents
                 case Shape.CIRCULAR:
                     return Vector2.Distance(Position + Size / 2, new Vector2(p.X, p.Y)) <= Size.X / 2;
                 case Shape.AMORPHOUS:
-                    throw new NotImplementedException();
+                    if (!(p.X < Position.X || p.X > Position.X + Size.X || p.Y < Position.Y || p.Y > Position.Y + Size.Y))
+                    {
+                        RenderTarget2D renderTarget = new RenderTarget2D(Game.GraphicsDevice, 1, 1, 1, SurfaceFormat.Color);
+                        Game.GraphicsDevice.SetRenderTarget(0, renderTarget);
+                        Game.GraphicsDevice.Clear(ClearOptions.Target, Color.Red, 0, 0);
+                        spriteBatch.Begin();
+                        spriteBatch.Draw(CollisionTexture,
+                            new Rectangle(0, 0, 1, 1),
+                            new Rectangle((int)(p.X - Position.X), (int)(p.Y - Position.Y), 1, 1),
+                            Color.White);
+                        spriteBatch.End();
+                        Game.GraphicsDevice.SetRenderTarget(0, null);
+                        Color[] collisionColorInformation = new Color[1];
+                        renderTarget.GetTexture().GetData<Color>(0,
+                            new Rectangle(0, 0, 1, 1),
+                            collisionColorInformation,
+                            0, 1);
+
+                        return collisionColorInformation[0].A != 0;
+                    }
+                    else return false;
             }
             return false;
         }

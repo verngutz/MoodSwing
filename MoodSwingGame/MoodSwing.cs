@@ -12,9 +12,6 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-using TomShane.Neoforce.Controls;
-using TomShane.Neoforce.Importers;
-
 using MoodSwingGUI;
 using MoodSwingCoreComponents;
 
@@ -39,7 +36,6 @@ namespace MoodSwingGame
         public SpriteBatch SpriteBatch { get { return spriteBatch; } }
 
         public MSScreen CurrentScreen { set; get; }
-        public Window CurrentWindow { set; get; }
 
         private KeyboardState oldKeyboardState;
         public KeyboardState OldKeyboardState { get { return oldKeyboardState; } }
@@ -48,7 +44,6 @@ namespace MoodSwingGame
         public MouseState OldMouseState { get { return oldMouseState; } }
 
         private Vector2 mouseRHoldButton;
-
 
         private MoodSwing()
         {

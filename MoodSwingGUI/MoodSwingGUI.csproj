@@ -84,7 +84,7 @@
   <ItemGroup>
     <Compile Include="MSGUIClickable.cs" />
     <Compile Include="MSGUIComponent.cs" />
-    <Compile Include="MSGUIFocusable.cs" />
+    <Compile Include="MSGUITypable.cs" />
     <Compile Include="MSImageHolder.cs" />
     <Compile Include="MSMiscellaneous.cs" />
     <Compile Include="MSButton.cs" />
@@ -93,6 +93,7 @@
     <Compile Include="MSPanel.cs" />
     <Compile Include="MSRadioButtonGroup.cs" />
     <Compile Include="MSScreen.cs" />
+    <Compile Include="MSSlider.cs" />
     <Compile Include="MSTextArea.cs" />
     <Compile Include="MSTextField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

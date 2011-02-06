@@ -34,13 +34,13 @@ namespace MoodSwingGame
             
             AddElement(
                 new MSButton(
-                    new MSLabel("Exit", new Vector2(20, 10), new Vector2(60, 30), game.Content.Load<SpriteFont>("Temp"), Color.Black, SpriteBatch, game),
+                    null,
                     new Exit(),
                     Vector2.Zero,
-                    new Vector2(100, 50),
-                    game.Content.Load<Texture2D>("Button"),
-                    game.Content.Load<Texture2D>("ButtonClicked"),
-                    game.Content.Load<Texture2D>("ButtonHover"),
+                    new Vector2(574, 60),
+                    game.Content.Load<Texture2D>("exit"),
+                    game.Content.Load<Texture2D>("exitclicked"),
+                    game.Content.Load<Texture2D>("exit"),
                     SpriteBatch,
                     Color.White,
                     Shape.RECTANGULAR,
@@ -50,15 +50,14 @@ namespace MoodSwingGame
 
         public override void Draw(GameTime gameTime)
         {
-            
             base.Draw(gameTime);
             map.Draw(gameTime);
         }
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             checkCollision();
             CheckMouseClick((Game as MoodSwing).OldMouseState);
-            base.Update(gameTime);
         }
 
         public void checkCollision()
