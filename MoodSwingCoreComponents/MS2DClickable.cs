@@ -20,10 +20,7 @@ namespace MoodSwingCoreComponents
     public abstract class MS2DClickable : MS2DCollidable
     {
         public MS2DClickable(Vector2 position, Vector2 size, Shape shape, SpriteBatch spriteBatch, Game game)
-            : base(position, size, shape, spriteBatch, game)
-        {
-            this.shape = shape;
-        }
+            : base(position, size, shape, spriteBatch, game) { }
 
         /// <summary>
         /// Check whether the Mouse is currently over this MS2DClickable

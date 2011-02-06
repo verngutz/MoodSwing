@@ -18,7 +18,7 @@ namespace MoodSwingGUI
     /// MSImageHolder holds a Texture2D and may be added to an MSPanel
     /// <seealso cref="MoodSwingGUI.MSPanel"/>
     /// </summary>
-    public class MSImageHolder : MS2DComponent
+    public class MSImageHolder : MSGUIComponent
     {
         private Texture2D image;
         private Vector2 scale;
@@ -63,8 +63,8 @@ namespace MoodSwingGUI
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Draw(image, Position, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
             base.Draw(gameTime);
+            spriteBatch.Draw(image, Position, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
         }
     }
 }

@@ -17,17 +17,23 @@ namespace MoodSwingGUI
     /// <summary>
     /// MSButton represents a drawable, clickable, action-attachable button.
     /// </summary>
-    public class MSButton : MS2DClickable
+    public class MSButton : MSGUIClickable
     {
         private MSButtonState currentState;
+
         private Texture2D clickedTexture;
+        public Texture2D ClickedTexture { get { return clickedTexture; } }
+
         private Texture2D hoveredTexture;
+        public Texture2D HoveredTexture { get { return hoveredTexture; } }
+
         private Texture2D unclickedTexture;
+        public Texture2D UnclickedTexture { get { return unclickedTexture; } }
+
         private Color highlight;
         private MSLabel label;
         private MSAction action;
         private Vector2 scale;
-        private Shape shape;
         
         public override Vector2 Position
         {
@@ -148,9 +154,13 @@ namespace MoodSwingGUI
             clickedTexture = clicked;
             hoveredTexture = hovered;
             this.highlight = highlight;
-            currentState = 0;
-            this.label = label;
-            this.label.Position += Position;
+            currentState = MSButtonState.UNCLICKED;
+            collisionTexture = unclicked;
+            if (label != null)
+            {
+                this.label = label;
+                this.label.Position += Position;
+            }
             this.action = action;
             scale = Size / new Vector2(unclicked.Width, unclicked.Height);
             this.shape = shape;
@@ -158,6 +168,8 @@ namespace MoodSwingGUI
 
         public override void Draw(GameTime gameTime)
         {
+            base.Draw(gameTime);
+
             switch (currentState)
             {
                 case MSButtonState.CLICKED:
@@ -170,10 +182,7 @@ namespace MoodSwingGUI
                     SpriteBatch.Draw(unclickedTexture, Position, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 0);
                     break;
             }
-
             if( label != null ) label.Draw(gameTime);
-            base.Draw(gameTime);
-
         }
 
         /// <summary>
@@ -186,24 +195,31 @@ namespace MoodSwingGUI
             MouseState currentMouseState = Mouse.GetState();
             if (CollidesWithMouse())
             {
-                if (currentMouseState.LeftButton == ButtonState.Pressed 
+                if (currentMouseState.LeftButton == ButtonState.Pressed
                     && oldMouseState.LeftButton == ButtonState.Released)
                 {
                     currentState = MSButtonState.CLICKED;
+                    collisionTexture = clickedTexture;
                 }
                 else if (currentMouseState.LeftButton == ButtonState.Released)
                 {
                     currentState = MSButtonState.HOVERED;
+                    collisionTexture = hoveredTexture;
                     if (oldMouseState.LeftButton == ButtonState.Pressed)
                     {
                         action.PerformAction(Game);
                         currentState = MSButtonState.UNCLICKED;
+                        collisionTexture = unclickedTexture;
                         return true;
                     }
                 }
             }
             else
+            {
                 currentState = MSButtonState.UNCLICKED;
+                collisionTexture = unclickedTexture;
+            }
+            
             return false;
         }
     }

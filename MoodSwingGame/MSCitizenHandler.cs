@@ -17,28 +17,28 @@ using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
-    public class MSCivilianHandler
+    public class MSCitizenHandler
     {
-        private static MSCivilianHandler civilianHandler = null;
+        private static MSCitizenHandler citizenHandler = null;
 
-        public static MSCivilianHandler getInstance()
+        public static MSCitizenHandler getInstance()
         {
-            if (civilianHandler == null)
-                civilianHandler = new MSCivilianHandler();
-            return civilianHandler;
+            if (citizenHandler == null)
+                citizenHandler = new MSCitizenHandler();
+            return citizenHandler;
         }
 
         private const int PROBABILITY = 400;
-        private List<MSPerson> census;
+        private List<MSCitizen> census;
         private Random random;
 
-        private MSCivilianHandler() 
+        private MSCitizenHandler() 
         {
-            census = new List<MSPerson>();
+            census = new List<MSCitizen>();
             random = new Random();
         }
 
-        public MSPerson TryForBaby( MSMap map )
+        public MSCitizen TryForBaby( MSMap map )
         {
             int rnd = random.Next(5000);
             if (rnd < 400)
@@ -47,7 +47,7 @@ namespace MoodSwingGame
                 Vector2 end = map.GetRandomBuilding();
                 Node path = map.GetPath(start, end);
 
-                MSPerson person =  new MSPerson(MoodSwing.getInstance().Content.Load<Model>("person"), 
+                MSCitizen person =  new MSCitizen(MoodSwing.getInstance().Content.Load<Model>("person"), 
                     (map.MapArray[(int)start.X, (int)start.Y] as MS3DComponent).Position + new Vector3(0, 0, 20),
                     path);
 
@@ -62,7 +62,7 @@ namespace MoodSwingGame
         {
             List<MS3DComponent> list = new List<MS3DComponent>();
 
-            foreach (MSPerson person in census)
+            foreach (MSCitizen person in census)
             {
                 if( !person.IsThere )
                     person.Walk(map.MapArray);
@@ -70,7 +70,7 @@ namespace MoodSwingGame
                     list.Add(person);
             }
 
-            foreach (MSPerson person in list)
+            foreach (MSCitizen person in list)
             {
                 census.Remove(person);
             }

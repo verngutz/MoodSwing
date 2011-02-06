@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="MS3DTile.cs" />
     <Compile Include="MSBuilding.cs" />
+    <Compile Include="MSCitizen.cs" />
     <Compile Include="MSCityScreen.cs" />
     <Compile Include="MSCivilianHandler.cs" />
     <Compile Include="MSDistrictHall.cs" />

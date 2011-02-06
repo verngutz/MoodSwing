@@ -15,7 +15,7 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGUI
 {
-    public class MSRadioButtonGroup : MS2DClickable
+    public class MSRadioButtonGroup : MSGUIClickable
     {
         private List<MSCheckbox> radioButtons;
         private MSCheckbox currentTicked;
@@ -50,12 +50,12 @@ namespace MoodSwingGUI
 
         public override void Draw(GameTime gameTime)
         {
+            base.Draw(gameTime);
             container.Draw(gameTime);
             foreach (MSCheckbox button in radioButtons)
             {
                 button.Draw(gameTime);
             }
-            base.Draw(gameTime);
         }
 
         public override bool CheckMouseClick(MouseState oldMouseState)

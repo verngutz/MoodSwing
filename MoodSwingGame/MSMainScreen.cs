@@ -21,23 +21,23 @@ namespace MoodSwingGame
         }
 
         private MSMainScreen(MoodSwing game)
-            : base(game.Content.Load<Texture2D>("MainMenu"), 150, 150, 150, 150, Color.White, game.SpriteBatch, game)
+            : base(game.Content.Load<Texture2D>("gamescreenbg"), 150, 150, 150, 150, Color.White, game.SpriteBatch, game)
         {
             MSPanel playGamePanel = new MSPanel(null, Vector2.Zero, new Vector2(100, 200), 0, 0, 0, 0, SpriteBatch, Game);
             AddElement(playGamePanel, Alignment.MIDDLE_CENTER);
 
             playGamePanel.AddElement(
                 new MSButton(
-                    new MSLabel("City", new Vector2(20, 10), new Vector2(60, 30), game.Content.Load<SpriteFont>("Temp"), Color.Black, SpriteBatch, game),
+                    null,
                     new OpenCityScreen(),
                     Vector2.Zero,
-                    new Vector2(100, 50),
-                    game.Content.Load<Texture2D>("Button"),
-                    game.Content.Load<Texture2D>("ButtonClicked"),
-                    game.Content.Load<Texture2D>("ButtonHover"),
+                    new Vector2(559, 60),
+                    game.Content.Load<Texture2D>("startgame"),
+                    game.Content.Load<Texture2D>("startgameclicked"),
+                    game.Content.Load<Texture2D>("startgameclicked"),
                     SpriteBatch,
                     Color.White,
-                    Shape.RECTANGULAR,
+                    Shape.AMORPHOUS,
                     Game)
                     , Alignment.MIDDLE_CENTER);
 
@@ -46,43 +46,47 @@ namespace MoodSwingGame
 
             miscPanel.AddElement(
                 new MSButton(
-                    new MSLabel("Options", new Vector2(20, 10), new Vector2(60, 30), game.Content.Load<SpriteFont>("Temp"), Color.Black, SpriteBatch, game),
+                    null,
                     new OpenOptionsScreen(),
                     Vector2.Zero,
-                    new Vector2(100, 50),
-                    game.Content.Load<Texture2D>("Button"),
-                    game.Content.Load<Texture2D>("ButtonClicked"),
-                    game.Content.Load<Texture2D>("ButtonHover"),
+                    new Vector2(472, 60),
+                    game.Content.Load<Texture2D>("options"),
+                    game.Content.Load<Texture2D>("optionsclicked"),
+                    game.Content.Load<Texture2D>("optionsclicked"),
                     SpriteBatch,
                     Color.White,
-                    Shape.RECTANGULAR,
+                    Shape.AMORPHOUS,
                     Game)
                     , Alignment.TOP_CENTER);
 
-            AddElement(new MSTextField("longer string testing", Vector2.Zero, new Vector2(250, 30), Game.Content.Load<SpriteFont>("Temp"), SpriteBatch, Game), Alignment.MIDDLE_LEFT);
+            
 
             miscPanel.AddElement(
                 new MSButton(
-                    new MSLabel("Exit", new Vector2(20, 10), new Vector2(60, 30), game.Content.Load<SpriteFont>("Temp"), Color.Black, SpriteBatch, game), 
+                    null,
                     new Exit(), 
                     Vector2.Zero,
-                    new Vector2(100, 50), 
-                    game.Content.Load<Texture2D>("Button"), 
-                    game.Content.Load<Texture2D>("ButtonClicked"), 
-                    game.Content.Load<Texture2D>("ButtonHover"), 
+                    new Vector2(574, 60), 
+                    game.Content.Load<Texture2D>("exit"), 
+                    game.Content.Load<Texture2D>("exitclicked"), 
+                    game.Content.Load<Texture2D>("exitclicked"), 
                     SpriteBatch, 
                     Color.White, 
-                    Shape.RECTANGULAR, 
+                    Shape.AMORPHOUS, 
                     Game)
                     , Alignment.BOTTOM_CENTER);
 
-            
+            MSPanel coverPanel = new MSPanel(game.Content.Load<Texture2D>("CityView"), new Rectangle(50, 50, 500, 500), spriteBatch, game);
+            AddElement(coverPanel, Alignment.MANUAL);
+            MSTextField test = new MSTextField("", Vector2.Zero, new Vector2(250, 35), null, null, Game.Content.Load<SpriteFont>("Temp"), SpriteBatch, Game);
+            AddElement(test, Alignment.MIDDLE_LEFT);
         }
 
         public override void Update(GameTime gameTime)
         {
-            CheckMouseClick((Game as MoodSwing).OldMouseState);
             base.Update(gameTime);
+            CheckMouseClick((Game as MoodSwing).OldMouseState);
+            CheckKeyboardInput((Game as MoodSwing).OldKeyboardState);
         }
     }
 }

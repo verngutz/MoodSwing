@@ -16,14 +16,14 @@ using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
-    public class MSPerson : MS3DComponent
+    public class MSCitizen : MS3DComponent
     {
         private Model model;
         private Node path;
         private bool isThere;
         public bool IsThere { get { return isThere; } }
 
-        public MSPerson( Model m, Vector3 position, Node p )
+        public MSCitizen( Model m, Vector3 position, Node p )
             : base(position, MoodSwing.getInstance())
         {
             this.model = m;

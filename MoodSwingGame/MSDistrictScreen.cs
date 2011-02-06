@@ -28,13 +28,13 @@ namespace MoodSwingGame
 
         private MSMap map;
         private List<MS3DComponent> elementsList;
-        private MSCivilianHandler civilianHandler;
+        private MSCitizenHandler civilianHandler;
         private MSDistrictScreen(MoodSwing game)
             : base(null, 150, 150, 150, 150, game.SpriteBatch, game) 
         {
             map = new MSMap(@"Content\mapinfo.txt");
             elementsList = new List<MS3DComponent>();
-            civilianHandler = MSCivilianHandler.getInstance();
+            civilianHandler = MSCitizenHandler.getInstance();
 
             foreach (MSTile tile in map.MapArray)
             {
@@ -43,13 +43,13 @@ namespace MoodSwingGame
 
             AddElement(
                 new MSButton(
-                    new MSLabel("Exit", new Vector2(20, 10), new Vector2(60, 30), game.Content.Load<SpriteFont>("Temp"), Color.Black, SpriteBatch, game),
+                    null,
                     new Exit(),
                     Vector2.Zero,
-                    new Vector2(100, 50),
-                    game.Content.Load<Texture2D>("Button"),
-                    game.Content.Load<Texture2D>("ButtonClicked"),
-                    game.Content.Load<Texture2D>("ButtonHover"),
+                    new Vector2(574, 60),
+                    game.Content.Load<Texture2D>("exit"),
+                    game.Content.Load<Texture2D>("exitclicked"),
+                    game.Content.Load<Texture2D>("exit"),
                     SpriteBatch,
                     Color.White,
                     Shape.RECTANGULAR,
@@ -59,24 +59,21 @@ namespace MoodSwingGame
 
         public override void Draw(GameTime gameTime)
         {
+            base.Draw(gameTime);
             elementsList.Sort();
             foreach( MS3DComponent temp in elementsList ) 
             {
                 temp.Draw(gameTime);
             }
-            base.Draw(gameTime);
         }
+
         public override void Update(GameTime gameTime)
         {
-            if (Mouse.GetState().LeftButton == ButtonState.Released &&
-                MoodSwing.getInstance().OldMouseState.LeftButton == ButtonState.Pressed)
-            {
-                map.CheckCollision();
-            }
-
+            base.Update(gameTime);
+            checkCollision();
             CheckMouseClick((Game as MoodSwing).OldMouseState);
             map.Update(gameTime);
-            MSPerson person = civilianHandler.TryForBaby(map);
+            MSCitizen person = civilianHandler.TryForBaby(map);
             if (person != null)
             {
                 elementsList.Add(person);
@@ -87,7 +84,15 @@ namespace MoodSwingGame
             {
                 elementsList.Remove(temp);
             }
-            base.Update(gameTime);
+        }
+
+        public void checkCollision()
+        {
+            if (Mouse.GetState().LeftButton == ButtonState.Released 
+                && MoodSwing.getInstance().OldMouseState.LeftButton == ButtonState.Pressed)
+            {
+                map.CheckCollision();
+            }
         }
 
         
