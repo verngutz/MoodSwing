@@ -85,7 +85,10 @@ namespace MoodSwingGUI
         protected bool hasFocus;
 
         public MSGUITypable(Vector2 position, Vector2 size, Shape shape, SpriteBatch spriteBatch, Game game)
-            : base(position, size, shape, spriteBatch, game) { }
+            : base(position, size, shape, spriteBatch, game) 
+        {
+            hasFocus = false;
+        }
 
         public override bool CheckMouseClick(MouseState oldMouseState)
         {
