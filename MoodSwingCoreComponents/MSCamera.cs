@@ -53,10 +53,11 @@ namespace MoodSwingCoreComponents
 
         private const int ZOOM_MIN_DIST = 100;
         private const int ZOOM_MAX_DIST = 500;
+        private const int ZOOM_SPEED = 10;
         public void zoom(int direction)
         {
             Vector3 unit = Vector3.Normalize(cameraPosition - cameraTarget);
-            Vector3 newCameraPosition = cameraPosition - (unit * direction * 8);
+            Vector3 newCameraPosition = cameraPosition - (unit * direction * ZOOM_SPEED);
             if (Vector3.Distance(newCameraPosition, cameraTarget) >= ZOOM_MIN_DIST &&
                 Vector3.Distance(newCameraPosition, cameraTarget) <= ZOOM_MAX_DIST)
             {
@@ -64,11 +65,13 @@ namespace MoodSwingCoreComponents
             }
             
         }
+
+        private const int SHIFT_SPEED = 3;
         public void shift(Vector2 dV)
         {
             Vector3 shift = dV.X * pitchAxis + dV.Y * Vector3.Normalize(Vector3.Cross(upCamera,pitchAxis));
-            cameraPosition += shift;
-            cameraTarget += shift;
+            cameraPosition += shift * SHIFT_SPEED;
+            cameraTarget += shift * SHIFT_SPEED;
         }
 
         public void rotate( Vector2 rotation )

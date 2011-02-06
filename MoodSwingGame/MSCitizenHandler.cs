@@ -28,7 +28,7 @@ namespace MoodSwingGame
             return citizenHandler;
         }
 
-        private const int PROBABILITY = 400;
+        private const int PROBABILITY = 300;
         private List<MSCitizen> census;
         private Random random;
 
@@ -46,7 +46,7 @@ namespace MoodSwingGame
 
             if (oneOnly && checkOne)
                 return null;
-            if (rnd < 400  )
+            if (rnd < PROBABILITY)
             {
                 checkOne = true;
                 Vector2 start = map.GetRandomBuilding();

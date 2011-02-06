@@ -33,6 +33,7 @@ namespace MoodSwingGame
             this.random = new Random();
         }
 
+        private const float WALK_SPEED = 0.55f;
         public void Walk( MSTile[,] mapArray )
         {
             Vector2 pos = new Vector2(Position.X, Position.Y);
@@ -59,8 +60,8 @@ namespace MoodSwingGame
                 }
                 else isThere = true;
             }
-            else 
-                this.position += new Vector3(unit.X, unit.Y, 0);
+            else
+                this.position += new Vector3(unit.X * WALK_SPEED, unit.Y * WALK_SPEED, 0);
 
 
             adjustWorldMatrix();
