@@ -22,7 +22,7 @@ namespace MoodSwingGame
     {
         private MSTile[,] mapArray;
         public MSTile[,] MapArray { get { return mapArray; } }
-        private const int tileDimension = 32;
+        public static int tileDimension = 32;
         private int rows;
         private int columns;
         private static Random random = new Random();

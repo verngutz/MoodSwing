@@ -38,11 +38,17 @@ namespace MoodSwingGame
             random = new Random();
         }
 
+        private bool oneOnly = false;
+        private bool checkOne = false;
         public MSCitizen TryForBaby( MSMap map )
         {
             int rnd = random.Next(5000);
-            if (rnd < 400)
+
+            if (oneOnly && checkOne)
+                return null;
+            if (rnd < 400  )
             {
+                checkOne = true;
                 Vector2 start = map.GetRandomBuilding();
                 Vector2 end = map.GetRandomBuilding();
                 Node path = map.GetPath(start, end);
