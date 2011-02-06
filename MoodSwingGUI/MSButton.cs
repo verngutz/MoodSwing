@@ -192,6 +192,7 @@ namespace MoodSwingGUI
         /// <returns>true if this MSButton has been clicked or equivalently, if this MSButton performs its MSAction</returns>
         public override bool CheckMouseClick(MouseState oldMouseState)
         {
+            System.Console.WriteLine("Button " + Position + " is checked.");
             MouseState currentMouseState = Mouse.GetState();
             if (CollidesWithMouse())
             {

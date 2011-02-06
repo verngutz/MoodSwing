@@ -231,16 +231,18 @@ namespace MoodSwingGUI
 
         public override bool CheckMouseClick(MouseState oldMouseState)
         {
+            System.Console.WriteLine("Panel " + Position + " is checked.");
             foreach (MSGUIClickable element in clickableElements)
                 if (element.CheckMouseClick(oldMouseState))
                     return true;
 
-            return base.CheckMouseClick(oldMouseState);
+            hasFocus = CollidesWithMouse();
+            return hasFocus;
         }
 
         public override bool CheckKeyboardInput(KeyboardState oldKeyboardState)
         {
-            if (hasFocus)
+            if(hasFocus)
                 foreach (MSGUITypable element in focusableElements)
                     if (element.CheckKeyboardInput(oldKeyboardState))
                         return true;
