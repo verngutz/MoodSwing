@@ -66,7 +66,7 @@ namespace MoodSwingCoreComponents
         }
         public void shift(Vector2 dV)
         {
-            Vector3 shift = dV.X * pitchAxis + dV.Y * Vector3.Normalize(Vector3.Cross(Vector3.UnitZ,pitchAxis));
+            Vector3 shift = dV.X * pitchAxis + dV.Y * Vector3.Normalize(Vector3.Cross(upCamera,pitchAxis));
             cameraPosition += shift;
             cameraTarget += shift;
         }

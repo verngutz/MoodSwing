@@ -22,29 +22,41 @@ namespace MoodSwingGame
         private Node path;
         private bool isThere;
         public bool IsThere { get { return isThere; } }
-
+        private Vector2 targetLocation;
+        Random random;
         public MSCitizen( Model m, Vector3 position, Node p )
             : base(position, MoodSwing.getInstance())
         {
             this.model = m;
             this.path = p;
             this.isThere = false;
+            this.random = new Random();
         }
 
         public void Walk( MSTile[,] mapArray )
         {
             Vector2 pos = new Vector2(Position.X, Position.Y);
-            
-            Vector3 targetVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
-            Vector2 targetVector2 = new Vector2(targetVector3.X, targetVector3.Y);
-            
-            Vector2 unit = targetVector2-pos;
+
+            if (targetLocation == Vector2.Zero )
+            {
+                Vector3 targetVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
+                targetLocation = new Vector2(targetVector3.X + random.Next(MSMap.tileDimension / 2) ,
+                                              targetVector3.Y + random.Next(MSMap.tileDimension / 2));
+
+            }
+            Vector2 unit = targetLocation-pos;
             unit = Vector2.Normalize(unit);
 
-            if (Vector2.Distance(pos, targetVector2) < 1)
+            if (Vector2.Distance(pos, targetLocation) < 1)
             {
-                this.position = new Vector3( targetVector2.X, targetVector2.Y, position.Z );
-                if (path.next != null) path = path.next;
+                this.position = new Vector3(targetLocation.X, targetLocation.Y, position.Z);
+                if (path.next != null)
+                {
+                    path = path.next;
+                    Vector3 targetVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
+                    targetLocation = new Vector2(targetVector3.X + random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4,
+                                                  targetVector3.Y + random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4);
+                }
                 else isThere = true;
             }
             else 
