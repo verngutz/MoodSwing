@@ -27,11 +27,20 @@ namespace MoodSwingGame
         }
 
         private MSMap map;
+        private List<MS3DComponent> elementsList;
+        private MSCitizenHandler civilianHandler;
         private MSDistrictScreen(MoodSwing game)
             : base(null, 150, 150, 150, 150, game.SpriteBatch, game) 
         {
             map = new MSMap(@"Content\mapinfo.txt");
-            
+            elementsList = new List<MS3DComponent>();
+            civilianHandler = MSCitizenHandler.getInstance();
+
+            foreach (MSTile tile in map.MapArray)
+            {
+                if (tile is MS3DComponent) elementsList.Add(tile as MS3DComponent);
+            }
+
             AddElement(
                 new MSButton(
                     null,
@@ -51,21 +60,38 @@ namespace MoodSwingGame
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
-            map.Draw(gameTime);
+            elementsList.Sort();
+            foreach( MS3DComponent temp in elementsList ) 
+            {
+                temp.Draw(gameTime);
+            }
         }
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
             checkCollision();
             CheckMouseClick((Game as MoodSwing).OldMouseState);
+            map.Update(gameTime);
+            MSCitizen person = civilianHandler.TryForBaby(map);
+            if (person != null)
+            {
+                elementsList.Add(person);
+            }
+
+            List<MS3DComponent> toRemove = civilianHandler.Update(map);
+            foreach (MS3DComponent temp in toRemove)
+            {
+                elementsList.Remove(temp);
+            }
         }
 
         public void checkCollision()
         {
-            if (Mouse.GetState().LeftButton == ButtonState.Released &&
-                MoodSwing.getInstance().OldMouseState.LeftButton == ButtonState.Pressed)
+            if (Mouse.GetState().LeftButton == ButtonState.Released 
+                && MoodSwing.getInstance().OldMouseState.LeftButton == ButtonState.Pressed)
             {
-                map.checkCollision();
+                map.CheckCollision();
             }
         }
 

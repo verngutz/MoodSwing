@@ -21,10 +21,11 @@ namespace MoodSwingGame
     public class MSMap : DrawableGameComponent
     {
         private MSTile[,] mapArray;
-        private MSTile[] mapList;
+        public MSTile[,] MapArray { get { return mapArray; } }
         private const int tileDimension = 32;
         private int rows;
         private int columns;
+        private static Random random = new Random();
         public MSMap(String filename) : base( MoodSwing.getInstance() )
         {
             StreamReader sr = new StreamReader(filename);
@@ -32,54 +33,83 @@ namespace MoodSwingGame
             rows = Int32.Parse(line[0]);
             columns = Int32.Parse(line[1]);
             mapArray = new MSTile[rows,columns];
-            mapList = new MSTile[rows * columns];
+            //mapList = new List<MS3DComponent>();
             for(int i = 0; i < rows; i++)
             {
                 line = sr.ReadLine().Split(' ');
                 for(int j = 0; j < columns; j++)
                 {
-                    mapArray[i, j] = MSTileFactory.createMSTile(Int32.Parse(line[j]), new Vector3(j * tileDimension, i * tileDimension, 0));
-                    mapList[i * columns + j] = mapArray[i, j];
-                }
+                    mapArray[i, j] = MSTileFactory.CreateMSTile(Int32.Parse(line[j]), new Vector3(j * tileDimension, i * tileDimension, 0));
+                } 
             }
         }
 
-        public override void Draw(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            Array.Sort(mapList);
-            foreach( MSTile tile in mapList ) 
-            {
-                tile.Draw(gameTime);
-                
-            }
+            
+            base.Update(gameTime);
         }
 
-        public void checkCollision()
+        public Vector2 GetRandomBuilding()
+        {
+            int x = 0;
+            int y = 0;
+            do
+            {
+                x = random.Next(rows);
+                y = random.Next(columns);
+
+            } while (!(mapArray[x, y] is MSBuilding) );
+            return new Vector2(x,y);
+        }
+        
+        //note: This needs revision when the 'dummy' tiles have been implemented.
+        public void CheckCollision()
         {
             System.Console.WriteLine("CHECKING...");
-            for (int i = rows * columns - 1; i >= 0; i-- )
-            {
-                if (Intersects(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), mapList[i].TileModel,
-                    mapList[i].WorldMatrix, MSCamera.getInstance().getView(),
-                    mapList[i].ProjectionMatrix, MoodSwing.getInstance().GraphicsDevice.Viewport))
-                {
-                    System.Console.WriteLine("found " + mapList[i].Position.Y / tileDimension + " " + mapList[i].Position.X / tileDimension);
-                    return;
-                }
+            float? minDistance = null;
+            MS3DTile tile = null;
 
+            foreach ( MSTile t in mapArray )
+            {
+                if ( t is MS3DTile)
+                {
+                    MS3DTile tempTile = t as MS3DTile;
+                    BoundingBox b = new BoundingBox(tempTile.Position, tempTile.Position + new Vector3(tileDimension, tileDimension, tileDimension));
+                    float? dist = Intersects(b, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), MSCamera.getInstance().getView(),
+                        tempTile.ProjectionMatrix, MoodSwing.getInstance().GraphicsDevice.Viewport);
+
+                    if (dist != null)
+                    {
+                        if (minDistance == null || minDistance > dist)
+                        {
+                            minDistance = dist;
+                            tile = tempTile;
+                        }
+                    }
+                }
+                
+                
             }
+
+            if (tile != null) 
+            {
+                System.Console.WriteLine("found: " + tile.Position.Y / tileDimension + " " + tile.Position.X / tileDimension);
+            }
+                
          
         }
+
         public Ray CalculateRay(Vector2 mouseLocation, Matrix view, Matrix projection, Viewport viewport)
         {
             Vector3 nearPoint = viewport.Unproject(new Vector3(mouseLocation.X,
-                    mouseLocation.Y, 0.0f),
+                    mouseLocation.Y, 5f),
                     projection,
                     view,
                     Matrix.Identity);
-
+            
             Vector3 farPoint = viewport.Unproject(new Vector3(mouseLocation.X,
-                    mouseLocation.Y, 1.0f),
+                    mouseLocation.Y, 5000.0f),
                     projection,
                     view,
                     Matrix.Identity);
@@ -90,31 +120,170 @@ namespace MoodSwingGame
             return new Ray(nearPoint, direction);
         }
 
-        public float? IntersectDistance(BoundingSphere sphere, Vector2 mouseLocation,
+        public float? Intersects(BoundingBox sphere, Vector2 mouseLocation,
             Matrix view, Matrix projection, Viewport viewport)
         {
             Ray mouseRay = CalculateRay(mouseLocation, view, projection, viewport);
             return mouseRay.Intersects(sphere);
+            
         }
 
-        public bool Intersects(Vector2 mouseLocation,
-            Model model, Matrix world,
-            Matrix view, Matrix projection,
-            Viewport viewport)
+        /// <summary>
+        /// Gets the head of the linked-list representing the shortest path
+        /// from start to end in the map coordinate system.
+        /// </summary>
+        /// <param name="mapArray">The map coordinate system.</param>
+        /// <param name="start">The start coordinate.</param>
+        /// <param name="end">The end coordinate.</param>
+        /// <param name="row">The number of rows in the map.</param>
+        /// <param name="col">The number of columns in the map.</param>
+        
+        public Node GetPath(Vector2 start, Vector2 end)
         {
-            for (int index = 0; index < model.Meshes.Count; index++)
-            {
-                BoundingSphere sphere = model.Meshes[index].BoundingSphere;
-                sphere = sphere.Transform(world);
-                float? distance = IntersectDistance(sphere, mouseLocation, view, projection, viewport);
+            List<Node> toCheck = new List<Node>();
+            List<Node> done = new List<Node>();
 
-                if (distance != null)
+            bool [,] hasVis = new  bool[rows,columns];
+
+            toCheck.Add(new Node((int)start.X, (int)start.Y, 1, 0, null) );
+            hasVis[(int)start.X, (int)start.Y] = true;
+            Node last = null;
+            while (toCheck.Count != 0)
+            {
+                toCheck.Sort();
+                Node visiting = toCheck.ElementAt<Node>(0);
+                toCheck.RemoveAt(0);
+                done.Add(visiting);
+
+                if (visiting.Position == end)
                 {
-                    return true;
+                    last = visiting;
+                    break;
+                }
+                else
+                {
+                    int x = (int)visiting.Position.X;
+                    int y = (int)visiting.Position.Y;
+
+                    if (y + 1 < columns && mapArray[x, y + 1] is MSRoad || new Vector2(x,y+1) == end ) 
+                    {
+                        if (hasVis[x, y + 1] == false)
+                        {
+                            hasVis[x, y + 1] = true;
+                            toCheck.Add(new Node(x, y + 1, visiting.G + 1, (int)Math.Abs(x - end.X) + (int)Math.Abs(y + 1 - end.Y), visiting));
+                        }
+                        else
+                        {
+                            foreach (Node temp in toCheck)
+                            {
+                                if (temp.Position == new Vector2(x, y + 1))
+                                {
+                                    temp.G = visiting.G + 1;
+                                    temp.parent = visiting;
+                                }
+                            }
+                        }
+                    }
+
+                    if (y - 1 >= 0 && mapArray[x, y - 1] is MSRoad || new Vector2(x, y - 1) == end) 
+                    {
+                        if (hasVis[x, y - 1] == false)
+                        {
+                            hasVis[x, y - 1] = true;
+                            toCheck.Add(new Node(x, y - 1, visiting.G + 1, (int)Math.Abs(x - end.X) + (int)Math.Abs(y - 1 - end.Y), visiting));
+                        }
+                        else
+                        {
+                            foreach (Node temp in toCheck)
+                            {
+                                if (temp.Position == new Vector2(x, y - 1))
+                                {
+                                    temp.G = visiting.G + 1;
+                                    temp.parent = visiting;
+                                }
+                            }
+                        }
+                    }
+                    if (x + 1 < rows && mapArray[x + 1, y] is MSRoad || new Vector2(x + 1, y) == end) 
+                    {
+                        if (hasVis[x + 1, y] == false)
+                        {
+                            hasVis[x + 1, y] = true;
+                            toCheck.Add(new Node(x + 1, y, visiting.G + 1, (int)Math.Abs(x + 1 - end.X) + (int)Math.Abs(y - end.Y), visiting));
+                        }
+                        else
+                        {
+                            foreach (Node temp in toCheck)
+                            {
+                                if (temp.Position == new Vector2(x + 1, y))
+                                {
+                                    temp.G = visiting.G + 1;
+                                    temp.parent = visiting;
+                                }
+                            }
+                        }
+                    }
+                    if (x - 1 >= 0 && mapArray[x - 1, y] is MSRoad || new Vector2(x - 1, y) == end) 
+                    {
+                        if (hasVis[x - 1, y] == false)
+                        {
+                            hasVis[x - 1, y] = true;
+                            toCheck.Add(new Node(x - 1, y, visiting.G + 1, (int)Math.Abs(x - 1 - end.X) + (int)Math.Abs(y - end.Y), visiting));
+                        }
+                        else
+                        {
+                            foreach (Node temp in toCheck)
+                            {
+                                if (temp.Position == new Vector2(x - 1, y))
+                                {
+                                    temp.G = visiting.G + 1;
+                                    temp.parent = visiting;
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
-            return false;
+            while (last.parent != null)
+            {
+                Node par = last.parent;
+                par.next = last;
+                last = par;
+            }
+
+            return last;
+        }
+
+
+    }
+
+    public class Node : IComparable
+    {
+        int x;
+        int y;
+        public Node next;
+        public Node parent;
+        int g;
+        int h;
+
+        public Vector2 Position { get { return new Vector2(x, y); } }
+        public int G { get { return g; } set { if (value < g) g = value; } } 
+        public int F { get { return g + h; } }
+
+        public Node(int a, int b, int value, int est, Node par )
+        {
+            x = a;
+            y = b;
+            g = value;
+            h = est;
+            parent = par;
+        }
+
+        public int CompareTo(object ob)
+        {
+            Node n = ob as Node;
+            return F - n.F;
         }
     }
 }

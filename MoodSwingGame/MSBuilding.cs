@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace MoodSwingGame
 {
-    public class MSBuilding : MSTile
+    public class MSBuilding : MS3DTile
     {
         public MSBuilding(Model model, Vector3 position)
             : base(model, position) { }

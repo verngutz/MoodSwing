@@ -22,7 +22,7 @@ namespace MoodSwingGame
         {
 
         }
-        public static MSTile createMSTile(int tileKey, Vector3 position)
+        public static MSTile CreateMSTile(int tileKey, Vector3 position)
         {
             ContentManager c = MoodSwing.getInstance().Content;
             switch (tileKey - ((tileKey / 10) * 10))
@@ -31,7 +31,7 @@ namespace MoodSwingGame
                     switch ((tileKey / 10) - ((tileKey / 100) * 10))
                     {
                         case 0:
-                            return new MSBuilding(c.Load<Model>("cubeWithColors"), position);
+                            return new MSBuilding(c.Load<Model>("building"), position );
                         case 1:
                             return new MSBuilding(c.Load<Model>("cubeWithColors"), position);
                         case 2:

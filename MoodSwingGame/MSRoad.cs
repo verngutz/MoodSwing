@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace MoodSwingGame
 {
-    public class MSRoad : MSTile
+    public class MSRoad : MS3DTile
     {
         public MSRoad(Model model, Vector3 position, float rotation)
             : base(model, position)

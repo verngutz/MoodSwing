@@ -16,44 +16,16 @@ using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
-    public class MSCitizen : MS3DComponent
+    public abstract class MS3DTile : MS3DComponent, MSTile
     {
         private Model model;
-        private Node path;
-        private bool isThere;
-        public bool IsThere { get { return isThere; } }
-
-        public MSCitizen( Model m, Vector3 position, Node p )
+        public Model TileModel { get { return model; } }
+        public MS3DTile(Model model, Vector3 position)
             : base(position, MoodSwing.getInstance())
         {
-            this.model = m;
-            this.path = p;
-            this.isThere = false;
+            this.model = model;
         }
 
-        public void Walk( MSTile[,] mapArray )
-        {
-            Vector2 pos = new Vector2(Position.X, Position.Y);
-            
-            Vector3 targetVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
-            Vector2 targetVector2 = new Vector2(targetVector3.X, targetVector3.Y);
-            
-            Vector2 unit = targetVector2-pos;
-            unit = Vector2.Normalize(unit);
-
-            if (Vector2.Distance(pos, targetVector2) < 1)
-            {
-                this.position = new Vector3( targetVector2.X, targetVector2.Y, position.Z );
-                if (path.next != null) path = path.next;
-                else isThere = true;
-            }
-            else 
-                this.position += new Vector3(unit.X, unit.Y, 0);
-
-
-            adjustWorldMatrix();
-
-        }
         public override void Draw(GameTime gameTime)
         {
             foreach (ModelMesh mesh in model.Meshes)
@@ -70,6 +42,8 @@ namespace MoodSwingGame
             }
             base.Draw(gameTime);
         }
+
+        
 
     }
 }
