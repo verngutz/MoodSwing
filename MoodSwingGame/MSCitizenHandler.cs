@@ -70,6 +70,21 @@ namespace MoodSwingGame
 
             foreach (MSCitizen person in census)
             {
+                int rnd = random.Next(5000);
+                if (rnd <= 1000 && !person.IsFollowing)
+                {
+                    foreach (MSCitizen p in census)
+                    {
+                        if (Vector3.Distance(person.Position, p.Position) <= 5 && p != person)
+                        {
+                            person.Follow(p);
+                            break;
+                        }
+                    }
+                }
+            }
+            foreach (MSCitizen person in census)
+            {
                 if( !person.IsThere )
                     person.Walk(map.MapArray);
                 else

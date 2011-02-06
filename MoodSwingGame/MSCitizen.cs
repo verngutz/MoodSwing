@@ -20,10 +20,15 @@ namespace MoodSwingGame
     {
         private Model model;
         private Node path;
+        public Node Path { get { return path; } }
         private bool isThere;
         public bool IsThere { get { return isThere; } }
         private Vector2 targetLocation;
+        public Vector2 TargetLocation { get { return targetLocation; } }
+        private bool isFollowing;
+        public bool IsFollowing { get { return isFollowing; } }
         Random random;
+
         public MSCitizen( Model m, Vector3 position, Node p )
             : base(position, MoodSwing.getInstance())
         {
@@ -31,6 +36,14 @@ namespace MoodSwingGame
             this.path = p;
             this.isThere = false;
             this.random = new Random();
+            isFollowing = false;
+        }
+
+        public void Follow(MSCitizen citizen)
+        {
+            path = citizen.Path;
+            targetLocation = citizen.TargetLocation;
+            isFollowing = true;
         }
 
         private const float WALK_SPEED = 0.55f;
