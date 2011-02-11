@@ -35,8 +35,11 @@ namespace MoodSwingGame
                         case 1:
                             return new MSBuilding(c.Load<Model>("cubeWithColors"), position);
                         case 2:
-                            break;
-                            //insert district hall creation here
+                            MSDistrictHall.instantiate(c.Load<Model>("districthall"), position);
+                            MSDistrictHall hall = MSDistrictHall.getInstance();
+                            
+                            
+                            return hall;
                             
                     }
                     break;

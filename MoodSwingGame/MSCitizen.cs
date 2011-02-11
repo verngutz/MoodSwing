@@ -16,17 +16,18 @@ using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
-    public class MSCitizen : MS3DComponent
+    public class MSCitizen : MS3DComponent, MSUnit
     {
         private Model model;
         private Node path;
         public Node Path { get { return path; } }
         private bool isThere;
-        public bool IsThere { get { return isThere; } }
+        public bool IsThere() { return isThere; }
         private Vector2 targetLocation;
         public Vector2 TargetLocation { get { return targetLocation; } }
         private bool isFollowing;
         public bool IsFollowing { get { return isFollowing; } }
+        public Vector2 TileCoordinate { get { return new Vector2(position.Y / MSMap.tileDimension, position.X / MSMap.tileDimension); } }
         Random random;
 
         public MSCitizen( Model m, Vector3 position, Node p )
@@ -43,6 +44,13 @@ namespace MoodSwingGame
         {
             path = citizen.Path;
             targetLocation = citizen.TargetLocation;
+            isFollowing = true;
+        }
+
+        public void Revolt( MSMap map)
+        {
+            this.path = map.GetPath( TileCoordinate, MSDistrictHall.getInstance().TileCoordinate );
+            this.targetLocation = Vector2.Zero;
             isFollowing = true;
         }
 
@@ -79,6 +87,11 @@ namespace MoodSwingGame
 
             adjustWorldMatrix();
 
+        }
+
+        public MS3DComponent Get3DComponent()
+        {
+            return this;
         }
         public override void Draw(GameTime gameTime)
         {

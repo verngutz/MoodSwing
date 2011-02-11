@@ -28,13 +28,13 @@ namespace MoodSwingGame
 
         private MSMap map;
         private List<MS3DComponent> elementsList;
-        private MSCitizenHandler civilianHandler;
+        private MSUnitHandler unitHandler;
         private MSDistrictScreen(MoodSwing game)
             : base(null, 150, 150, 150, 150, game.SpriteBatch, game) 
         {
             map = new MSMap(@"Content\mapinfo.txt");
             elementsList = new List<MS3DComponent>();
-            civilianHandler = MSCitizenHandler.getInstance();
+            unitHandler = MSUnitHandler.getInstance();
 
             foreach (MSTile tile in map.MapArray)
             {
@@ -71,13 +71,13 @@ namespace MoodSwingGame
             checkCollision();
             HandleMouseInput((Game as MoodSwing).OldMouseState);
             map.Update(gameTime);
-            MSCitizen person = civilianHandler.TryForBaby(map);
+            MSUnit person = unitHandler.TryForBaby(map);
             if (person != null)
             {
-                elementsList.Add(person);
+                elementsList.Add(person.Get3DComponent());
             }
 
-            List<MS3DComponent> toRemove = civilianHandler.Update(map);
+            List<MS3DComponent> toRemove = unitHandler.Update(map);
             foreach (MS3DComponent temp in toRemove)
             {
                 elementsList.Remove(temp);

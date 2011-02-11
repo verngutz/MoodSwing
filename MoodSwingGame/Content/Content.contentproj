@@ -93,10 +93,22 @@
       <Processor>ModelProcessor</Processor>
       <ProcessorParameters_Scale>1.5</ProcessorParameters_Scale>
     </Compile>
+    <Compile Include="districthall.fbx">
+      <Name>districthall</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>1.5</ProcessorParameters_Scale>
+    </Compile>
     <None Include="mapinfo.txt">
       <Name>mapinfo</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="mob.fbx">
+      <Name>mob</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>0.25</ProcessorParameters_Scale>
+    </Compile>
     <Compile Include="person.fbx">
       <Name>person</Name>
       <Importer>FbxImporter</Importer>

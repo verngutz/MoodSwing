@@ -27,6 +27,7 @@ namespace MoodSwingGame
             districtHall = new MSDistrictHall(model, position);
         }
 
+        public Vector2 TileCoordinate { get { return new Vector2(position.Y / MSMap.tileDimension, position.X / MSMap.tileDimension); } }
 
 
         private MSDistrictHall( Model model, Vector3 position ) 

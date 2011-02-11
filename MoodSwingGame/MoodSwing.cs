@@ -116,7 +116,6 @@ namespace MoodSwingGame
                 }
                 Vector2 movement = new Vector2(newMouseState.X, newMouseState.Y) - mouseRHoldButton;
                 movement.Y *= -1;
-                System.Console.WriteLine(movement);
                 camera.rotate(movement);
             }
             else

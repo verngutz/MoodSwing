@@ -33,7 +33,6 @@ namespace MoodSwingGame
             rows = Int32.Parse(line[0]);
             columns = Int32.Parse(line[1]);
             mapArray = new MSTile[rows,columns];
-            //mapList = new List<MS3DComponent>();
             for(int i = 0; i < rows; i++)
             {
                 line = sr.ReadLine().Split(' ');
@@ -132,11 +131,8 @@ namespace MoodSwingGame
         /// Gets the head of the linked-list representing the shortest path
         /// from start to end in the map coordinate system.
         /// </summary>
-        /// <param name="mapArray">The map coordinate system.</param>
-        /// <param name="start">The start coordinate.</param>
-        /// <param name="end">The end coordinate.</param>
-        /// <param name="row">The number of rows in the map.</param>
-        /// <param name="col">The number of columns in the map.</param>
+        /// <param name="start">The start tile coordinate.</param>
+        /// <param name="end">The end tile coordinate.</param>
         
         public Node GetPath(Vector2 start, Vector2 end)
         {
