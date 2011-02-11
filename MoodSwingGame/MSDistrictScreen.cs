@@ -41,12 +41,10 @@ namespace MoodSwingGame
                 if (tile is MS3DComponent) elementsList.Add(tile as MS3DComponent);
             }
 
-            AddElement(
-                new MSButton(
+            AddComponent(new MSButton(
                     null,
                     new Exit(),
-                    Vector2.Zero,
-                    new Vector2(574, 60),
+                    new Rectangle(0, 0, 574, 60),
                     game.Content.Load<Texture2D>("exit"),
                     game.Content.Load<Texture2D>("exitclicked"),
                     game.Content.Load<Texture2D>("exit"),
@@ -71,7 +69,7 @@ namespace MoodSwingGame
         {
             base.Update(gameTime);
             checkCollision();
-            CheckMouseClick((Game as MoodSwing).OldMouseState);
+            HandleMouseInput((Game as MoodSwing).OldMouseState);
             map.Update(gameTime);
             MSUnit person = unitHandler.TryForBaby(map);
             if (person != null)
@@ -94,7 +92,5 @@ namespace MoodSwingGame
                 map.CheckCollision();
             }
         }
-
-        
     }
 }

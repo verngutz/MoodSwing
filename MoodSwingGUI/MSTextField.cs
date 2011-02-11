@@ -17,39 +17,43 @@ namespace MoodSwingGUI
 {
     public class MSTextField : MSGUITypable
     {
-        private String storedText;
-        private String drawnText;
+        private String text;
+
+        /// <summary>
+        /// Gets or Sets the String stored in this MSTextField
+        /// </summary>
         public String Text 
         {
-            get { return storedText; }
+            get { return text; }
             set
             {
                 foreach (char c in value.ToCharArray())
                 {
-                    Input(c.ToString());
+                    InsertAfterCursor(c.ToString());
                 }
             }
         }
 
-        public override Vector2 Position
+        public override Rectangle BoundingRectangle
         {
             get
             {
-                return base.Position;
+                return base.BoundingRectangle;
             }
             set
             {
-                base.Position = value;
-                cursorPosition += value;
+                base.BoundingRectangle = value;
+                cursorPosition += Position;
             }
         }
 
-        private float fontScale;
+        private int maxTextLength;
 
-        private int drawnTextStartIndex;
-        private int drawnTextEndIndex;
-
+        /// <summary>
+        /// Gets or Sets whether this MSTextField is editable or not
+        /// </summary>
         public bool Editable { set; get; }
+
         private int cursorIndex;
         private Vector2 cursorPosition;
         private int cursorBlinkCounter;
@@ -57,132 +61,119 @@ namespace MoodSwingGUI
         private const string CURSOR = "|";
 
         private SpriteFont spriteFont;
+        private float fontScale;
         private Color color;
 
         private MSAction onEnter;
-        private MSTextField onTab;
 
-        public MSTextField(String text, int x, int y, int width, int height, MSAction onEnter, MSTextField onTab, SpriteFont spriteFont, SpriteBatch spriteBatch, Game game)
-            : this(text, x, y, width, height, onEnter, onTab, spriteFont, Color.Black, spriteBatch, game) { }
+        public MSTextField(String text, Rectangle boundingRectangle, MSAction onEnter, MSGUITypable onTab, int maxTextLength, SpriteFont spriteFont, SpriteBatch spriteBatch, Game game)
+            : this(text, boundingRectangle, onEnter, onTab, maxTextLength, spriteFont, Color.Black, spriteBatch, game) { }
 
-        public MSTextField(String text, int x, int y, int width, int height, MSAction onEnter, MSTextField onTab, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
-            : this(text, new Vector2(x, y), new Vector2(width, height), onEnter, onTab, spriteFont, color, spriteBatch, game) { }
-
-        public MSTextField(String text, Rectangle boundingRectangle, MSAction onEnter, MSTextField onTab, SpriteFont spriteFont, SpriteBatch spriteBatch, Game game)
-            : this(text, boundingRectangle, onEnter, onTab, spriteFont, Color.Black, spriteBatch, game) { }
-
-        public MSTextField(String text, Rectangle boundingRectangle, MSAction onEnter, MSTextField onTab, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
-            : this(text, new Vector2(boundingRectangle.X, boundingRectangle.Y), new Vector2(boundingRectangle.Width, boundingRectangle.Height), onEnter, onTab, spriteFont, color, spriteBatch, game) { }
-
-        public MSTextField(String text, Vector2 position, Vector2 size, MSAction onEnter, MSTextField onTab, SpriteFont spriteFont, SpriteBatch spriteBatch, Game game)
-            : this(text, position, size, onEnter, onTab, spriteFont, Color.Black, spriteBatch, game) { }
-
-        public MSTextField(String text, Vector2 position, Vector2 size, MSAction onEnter, MSTextField onTab, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
-            : base(position, size, Shape.RECTANGULAR, spriteBatch, game)
+        /// <summary>
+        /// Constructs and MSTextField from the given parameters
+        /// </summary>
+        /// <param name="text">the initial text this MSTextField contains</param>
+        /// <param name="boundingRectangle">the bounding Rectangle of this MSTextField</param>
+        /// <param name="onEnter">the MSAction to perform when this MSTextField is focused and the Enter key has been pressed</param>
+        /// <param name="onTab">the MSGUITypable that will be given the keyboard focus when this MSTextField is focused and the Tab key has been pressed</param>
+        /// <param name="maxTextLength">the maximum length of the text that this MSTextField can contain</param>
+        /// <param name="spriteFont">the SpriteFont that will be used to draw the text on this MSTextField</param>
+        /// <param name="color">the text color of this MSTextField</param>
+        /// <param name="spriteBatch">the SpriteBatch that will draw this MSTextField</param>
+        /// <param name="game">the Game where this MSTextField will be used</param>
+        public MSTextField(String text, Rectangle boundingRectangle, MSAction onEnter, MSGUITypable onTab, int maxTextLength, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
+            : base(boundingRectangle, Shape.RECTANGULAR, spriteBatch, game)
         {
             this.spriteFont = spriteFont;
-            fontScale = Size.Y / spriteFont.MeasureString(CURSOR).Y;
+            fontScale = boundingRectangle.Height / spriteFont.MeasureString(CURSOR).Y;
             cursorIndex = 0;
             cursorBlinkCounter = 0;
-            cursorPosition = new Vector2(Position.X - spriteFont.MeasureString(CURSOR).X * 5 * fontScale / 12, Position.Y);
+            cursorPosition = new Vector2(boundingRectangle.X - spriteFont.MeasureString(CURSOR).X * 5 * fontScale / 12, boundingRectangle.Y);
             Editable = true;
-            storedText = "";
-            drawnText = "";
+            text = "";
+            this.maxTextLength = maxTextLength;
             Text = text;
             this.color = color;
 
             this.onEnter = onEnter;
             this.onTab = onTab;
-
-            drawnTextStartIndex = 0;
-            drawnTextEndIndex = 0;
+            TabIsFired = false;
         }
 
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
-            spriteBatch.Draw(Game.Content.Load<Texture2D>("DistrictView"), new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y), Color.White);
-            if (Editable && hasFocus && cursorBlinkCounter++ % CURSOR_BLINK_PERIOD < CURSOR_BLINK_PERIOD / 2)
+            SpriteBatch.DrawString(spriteFont, text, Position, color, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
+            if (Editable && HasFocus && cursorBlinkCounter++ % CURSOR_BLINK_PERIOD < CURSOR_BLINK_PERIOD / 2)
                 spriteBatch.DrawString(spriteFont, CURSOR, cursorPosition, color, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
-
-            SpriteBatch.DrawString(spriteFont, "Cursor index:" + cursorIndex, new Vector2(0, 0), Color.White, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
-            SpriteBatch.DrawString(spriteFont, "Drawn text start index:" + drawnTextStartIndex, new Vector2(0, 50), Color.White, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
-            SpriteBatch.DrawString(spriteFont, "Drawn text end index:" + drawnTextEndIndex, new Vector2(0, 100), Color.White, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
-            SpriteBatch.DrawString(spriteFont, drawnText, Position, color, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
         }
 
-        public override bool CheckKeyboardInput(KeyboardState oldKeyboardState)
+        public override void HandleKeyboardInput(KeyboardState oldKeyboardState)
         {
-            if (Editable && hasFocus)
+            if (Editable && HasFocus)
             {
-                foreach (String s in ParseTextInput(oldKeyboardState))
+                foreach (String s in MSGUIKeyboardParser.ParseTextInput(oldKeyboardState))
                 {
-                    if (s.Equals(LEFT))
+                    if (s.Equals(MSGUIKeyboardParser.LEFT))
                         ShiftCursorLeft();
 
-                    else if (s.Equals(RIGHT))
+                    else if (s.Equals(MSGUIKeyboardParser.RIGHT))
                         ShiftCursorRight();
 
-                    else if (s.Equals(BACKSPACE))
-                        RemoveLast();
+                    else if (s.Equals(MSGUIKeyboardParser.BACKSPACE))
+                        RemoveBeforeCursor();
 
-                    else if (s.Equals(HOME))
+                    else if (s.Equals(MSGUIKeyboardParser.HOME))
                         GoHome();
 
-                    else if (s.Equals(END))
+                    else if (s.Equals(MSGUIKeyboardParser.END))
                         GoToEnd();
 
-                    else if (s.Equals(ENTER))
+                    else if (s.Equals(MSGUIKeyboardParser.ENTER))
                     {
                         if (onEnter != null)
-                        {
                             onEnter.PerformAction(Game);
-                        }
                     }
 
-                    else if (s.Equals(TAB))
+                    else if (s.Equals(MSGUIKeyboardParser.TAB))
                     {
                         if (onTab != null)
-                        {
-                            hasFocus = false;
-                            onTab.hasFocus = true;
-                        }
+                            TabIsFired = true;
                     }
 
-                    else if (s.Equals(CAPS_LOCK) 
-                        || s.Equals(SHIFT)
-                        || s.Equals(CONTROL)
-                        || s.Equals(ALT)
-                        || s.Equals(DELETE)
-                        || s.Equals(PAGE_UP)
-                        || s.Equals(PAGE_DOWN)
-                        || s.Equals(INSERT)
-                        || s.Equals(UP)
-                        || s.Equals(DOWN)
-                        || s.Equals(ESC)) { }
+                    else if (s.Equals(MSGUIKeyboardParser.CAPS_LOCK)
+                        || s.Equals(MSGUIKeyboardParser.SHIFT)
+                        || s.Equals(MSGUIKeyboardParser.CONTROL)
+                        || s.Equals(MSGUIKeyboardParser.ALT)
+                        || s.Equals(MSGUIKeyboardParser.DELETE)
+                        || s.Equals(MSGUIKeyboardParser.PAGE_UP)
+                        || s.Equals(MSGUIKeyboardParser.PAGE_DOWN)
+                        || s.Equals(MSGUIKeyboardParser.INSERT)
+                        || s.Equals(MSGUIKeyboardParser.UP)
+                        || s.Equals(MSGUIKeyboardParser.DOWN)
+                        || s.Equals(MSGUIKeyboardParser.ESC)) { }
 
                     else
-                        Input(s);
+                        InsertAfterCursor(s);
                 }
             }
-            return hasFocus;
         }
 
-        private void Input(String s)
+        private void InsertAfterCursor(String s)
         {
-            storedText = storedText.Insert(cursorIndex, s);
-            drawnTextEndIndex++;
-            drawnText = storedText.Substring(drawnTextStartIndex, drawnTextEndIndex - drawnTextStartIndex);
-            ShiftCursorRight();
+            if (text.Length < maxTextLength)
+            {
+                text = text.Insert(cursorIndex, s);
+                ShiftCursorRight();
+            }
         }
 
-        private void RemoveLast()
+        private void RemoveBeforeCursor()
         {
             if (cursorIndex > 0)
             {
                 ShiftCursorLeft();
-                storedText = storedText.Remove(cursorIndex, 1);
-                drawnText = storedText.Substring(drawnTextStartIndex, drawnTextEndIndex - drawnTextStartIndex);
+                text = text.Remove(cursorIndex, 1);
             }
         }
 
@@ -190,39 +181,17 @@ namespace MoodSwingGUI
         {
             if (cursorIndex > 0)
             {
-                cursorPosition -= new Vector2(spriteFont.MeasureString(storedText.Substring(cursorIndex - 1, 1)).X * fontScale, 0);
+                cursorPosition -= new Vector2(spriteFont.MeasureString(text.Substring(cursorIndex - 1, 1)).X * fontScale, 0);
                 cursorIndex--;
-                if (cursorIndex < drawnTextStartIndex)
-                {
-                    drawnTextStartIndex--;
-                    drawnText = storedText.Substring(drawnTextStartIndex, drawnTextEndIndex - drawnTextStartIndex);
-                }
-                while (spriteFont.MeasureString(drawnText).X * fontScale > Size.X)
-                {
-                    cursorPosition += new Vector2(spriteFont.MeasureString(storedText.Substring(drawnTextStartIndex, 1)).X * fontScale, 0);
-                    drawnTextEndIndex--;
-                    drawnText = storedText.Substring(drawnTextStartIndex, drawnTextEndIndex - drawnTextStartIndex);
-                }
             }
         }
 
         private void ShiftCursorRight()
         {
-            if (cursorIndex < storedText.Length)
+            if (cursorIndex < text.Length)
             {
-                cursorPosition += new Vector2(spriteFont.MeasureString(storedText.Substring(cursorIndex, 1)).X * fontScale, 0);
+                cursorPosition += new Vector2(spriteFont.MeasureString(text.Substring(cursorIndex, 1)).X * fontScale, 0);
                 cursorIndex++;
-                if (cursorIndex > drawnTextEndIndex)
-                {
-                    drawnTextEndIndex++;
-                    drawnText = storedText.Substring(drawnTextStartIndex, drawnTextEndIndex - drawnTextStartIndex);
-                }
-                while (spriteFont.MeasureString(drawnText).X * fontScale > Size.X)
-                {
-                    cursorPosition -= new Vector2(spriteFont.MeasureString(storedText.Substring(drawnTextStartIndex, 1)).X * fontScale, 0);
-                    drawnTextStartIndex++;
-                    drawnText = storedText.Substring(drawnTextStartIndex, drawnTextEndIndex - drawnTextStartIndex);
-                }
             }
         }
 
@@ -233,8 +202,21 @@ namespace MoodSwingGUI
 
         private void GoToEnd()
         {
-            while (cursorIndex < storedText.Length) ShiftCursorRight();
+            while (cursorIndex < text.Length) ShiftCursorRight();
         }
+
+        public override void UnLeftClick()
+        {
+            HasFocus = true;
+        }
+
+        public override void LeftClick() { }
+        public override void Hover() { }
+        public override void UnHover() { }
+        public override void RightClick() { }
+        public override void UnRightClick() { }
+        public override void MiddleClick() { }
+        public override void UnMiddleClick() { }
     }
 }
 

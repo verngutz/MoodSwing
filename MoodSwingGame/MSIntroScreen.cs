@@ -44,33 +44,25 @@ namespace MoodSwingGame
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            CheckMouseClick((Game as MoodSwing).OldMouseState);
+            HandleMouseInput((Game as MoodSwing).OldMouseState);
             if (videoPlayer.State == MediaState.Stopped)
                 (new OpenMainScreen()).PerformAction(Game);
         }
 
-        public override bool CheckMouseClick(MouseState oldMouseState)
+        public override void HandleMouseInput(MouseState oldMouseState)
         {
             MouseState currentMouseState = Mouse.GetState();
             if (currentMouseState.LeftButton == ButtonState.Pressed
                 && oldMouseState.LeftButton == ButtonState.Released)
-            {
                 videoPlayer.Stop();
-                return true;
-            }
-            return false;
         }
 
-        public override bool CheckKeyboardInput(KeyboardState oldKeyboardState)
+        public override void HandleKeyboardInput(KeyboardState oldKeyboardState)
         {
             KeyboardState currentKeyboardState = Keyboard.GetState();
             if (currentKeyboardState.IsKeyDown(Keys.Escape)
                 && oldKeyboardState.IsKeyUp(Keys.Escape))
-            {
                 videoPlayer.Stop();
-                return true;
-            }
-            return false;
         }
 
         public override void Draw(GameTime gameTime)

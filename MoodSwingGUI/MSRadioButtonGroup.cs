@@ -22,8 +22,8 @@ namespace MoodSwingGUI
 
         private MSPanel container;
 
-        public MSRadioButtonGroup(MSPanel container) 
-            : base(container.Position, container.Size, container.Shape, container.SpriteBatch, container.Game) 
+        public MSRadioButtonGroup(MSPanel container)
+            : base(container.BoundingRectangle, container.Shape, container.SpriteBatch, container.Game) 
         {
             this.container = container;
             radioButtons = new List<MSCheckbox>();
@@ -37,7 +37,7 @@ namespace MoodSwingGUI
         public void AddRadioButton(MSCheckbox button, Alignment alignment)
         {
             radioButtons.Add(button);
-            container.AddElement(button, alignment);
+            container.AddComponent(button, alignment);
             if (button.IsTicked)
             {
                 if (currentTicked != null)
@@ -58,21 +58,44 @@ namespace MoodSwingGUI
             }
         }
 
-        public override bool CheckMouseClick(MouseState oldMouseState)
+        public override void LeftClick()
         {
-            if (CollidesWithMouse())
-            {
-                foreach (MSCheckbox button in radioButtons)
-                {
-                    if (button.CheckMouseClick(oldMouseState))
-                    {
-                        currentTicked.IsTicked = !currentTicked.IsTicked;
-                        currentTicked = button;
-                        return true;
-                    }
-                }
-            }
-            return false;
+            throw new NotImplementedException();
+        }
+
+        public override void UnLeftClick()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void MiddleClick()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UnMiddleClick()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void RightClick()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UnRightClick()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Hover()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UnHover()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -30,12 +30,10 @@ namespace MoodSwingGame
         private MSCityScreen(MoodSwing game)
             : base(game.Content.Load<Texture2D>("CityView"), 150, 150, 150, 150, game.SpriteBatch, game) 
         {
-            AddElement(
-                new MSButton(
+            AddComponent(new MSButton(
                     null,
                     new OpenMainScreen(),
-                    Vector2.Zero,
-                    new Vector2(574, 60),
+                    new Rectangle(0, 0, 574, 60),
                     game.Content.Load<Texture2D>("exit"),
                     game.Content.Load<Texture2D>("exitClicked"),
                     game.Content.Load<Texture2D>("exit"),
@@ -45,12 +43,10 @@ namespace MoodSwingGame
                     Game)
                     , Alignment.BOTTOM_CENTER);
 
-            AddElement(
-                new MSButton(
+            AddComponent(new MSButton(
                     null,
                     new OpenDistrictScreen(),
-                    Vector2.Zero,
-                    new Vector2(559, 60),
+                    new Rectangle(0, 0, 559, 60),
                     game.Content.Load<Texture2D>("startgame"),
                     game.Content.Load<Texture2D>("startgameclicked"),
                     game.Content.Load<Texture2D>("startgame"),
@@ -63,8 +59,9 @@ namespace MoodSwingGame
 
         public override void Update(GameTime gameTime)
         {
-            CheckMouseClick((Game as MoodSwing).OldMouseState);
             base.Update(gameTime);
+            HandleMouseInput((Game as MoodSwing).OldMouseState);
+            HandleKeyboardInput((Game as MoodSwing).OldKeyboardState);
         }
     }
 }

@@ -23,15 +23,21 @@ namespace MoodSwingGame
         private MSMainScreen(MoodSwing game)
             : base(game.Content.Load<Texture2D>("gamescreenbg"), 150, 150, 150, 150, Color.White, game.SpriteBatch, game)
         {
-            MSPanel playGamePanel = new MSPanel(null, Vector2.Zero, new Vector2(100, 200), 0, 0, 0, 0, SpriteBatch, Game);
-            AddElement(playGamePanel, Alignment.MIDDLE_CENTER);
-
-            playGamePanel.AddElement(
-                new MSButton(
+            new MSButton(
                     null,
                     new OpenCityScreen(),
-                    Vector2.Zero,
-                    new Vector2(559, 60),
+                    new Rectangle(0, 0, 559, 60),
+                    game.Content.Load<Texture2D>("startgame"),
+                    game.Content.Load<Texture2D>("startgameclicked"),
+                    game.Content.Load<Texture2D>("startgameclicked"),
+                    SpriteBatch,
+                    Color.White,
+                    Shape.AMORPHOUS,
+                    Game);
+            AddComponent(new MSButton(
+                    null,
+                    new OpenCityScreen(),
+                    new Rectangle(0, 0, 559, 60),
                     game.Content.Load<Texture2D>("startgame"),
                     game.Content.Load<Texture2D>("startgameclicked"),
                     game.Content.Load<Texture2D>("startgameclicked"),
@@ -39,17 +45,12 @@ namespace MoodSwingGame
                     Color.White,
                     Shape.AMORPHOUS,
                     Game)
-                    , Alignment.MIDDLE_CENTER);
+                    , Alignment.TOP_CENTER);
 
-            MSPanel miscPanel = new MSPanel(null, Vector2.Zero, new Vector2(100, 200), 0, 0, 0, 0, SpriteBatch, Game);
-            AddElement(miscPanel, Alignment.BOTTOM_CENTER);
-
-            miscPanel.AddElement(
-                new MSButton(
+            AddComponent(new MSButton(
                     null,
                     new OpenOptionsScreen(),
-                    Vector2.Zero,
-                    new Vector2(472, 60),
+                    new Rectangle(0, 0, 472, 60),
                     game.Content.Load<Texture2D>("options"),
                     game.Content.Load<Texture2D>("optionsclicked"),
                     game.Content.Load<Texture2D>("optionsclicked"),
@@ -57,16 +58,12 @@ namespace MoodSwingGame
                     Color.White,
                     Shape.AMORPHOUS,
                     Game)
-                    , Alignment.TOP_CENTER);
+                    , Alignment.MIDDLE_CENTER);
 
-            
-
-            miscPanel.AddElement(
-                new MSButton(
+            AddComponent(new MSButton(
                     null,
-                    new Exit(), 
-                    Vector2.Zero,
-                    new Vector2(574, 60), 
+                    new Exit(),
+                    new Rectangle(0, 0, 574, 60),
                     game.Content.Load<Texture2D>("exit"), 
                     game.Content.Load<Texture2D>("exitclicked"), 
                     game.Content.Load<Texture2D>("exitclicked"), 
@@ -75,18 +72,13 @@ namespace MoodSwingGame
                     Shape.AMORPHOUS, 
                     Game)
                     , Alignment.BOTTOM_CENTER);
-
-            MSPanel coverPanel = new MSPanel(game.Content.Load<Texture2D>("CityView"), new Rectangle(50, 50, 500, 500), spriteBatch, game);
-            AddElement(coverPanel, Alignment.MANUAL);
-            MSTextField test = new MSTextField("", Vector2.Zero, new Vector2(250, 35), null, null, Game.Content.Load<SpriteFont>("Temp"), SpriteBatch, Game);
-            AddElement(test, Alignment.MIDDLE_LEFT);
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            CheckMouseClick((Game as MoodSwing).OldMouseState);
-            CheckKeyboardInput((Game as MoodSwing).OldKeyboardState);
+            HandleMouseInput((Game as MoodSwing).OldMouseState);
+            HandleKeyboardInput((Game as MoodSwing).OldKeyboardState);
         }
     }
 }

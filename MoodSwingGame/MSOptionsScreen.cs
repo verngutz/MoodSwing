@@ -25,12 +25,10 @@ namespace MoodSwingGame
         private MSOptionsScreen(MoodSwing game)
             : base(game.Content.Load<Texture2D>("Options"), 150, 150, 150, 150, game.SpriteBatch, game) 
         {
-            AddElement(
-                new MSButton(
+            AddComponent(new MSButton(
                     null,
                     new ReturnFromOptionsScreen(),
-                    Vector2.Zero,
-                    new Vector2(574, 60),
+                    new Rectangle(0, 0, 574, 60),
                     game.Content.Load<Texture2D>("exit"),
                     game.Content.Load<Texture2D>("exitclicked"),
                     game.Content.Load<Texture2D>("exit"),
@@ -44,7 +42,8 @@ namespace MoodSwingGame
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            CheckMouseClick((Game as MoodSwing).OldMouseState);
+            HandleMouseInput((Game as MoodSwing).OldMouseState);
+            HandleKeyboardInput((Game as MoodSwing).OldKeyboardState);
         }
     }
 }

@@ -14,25 +14,74 @@ using Microsoft.Xna.Framework.Storage;
 namespace MoodSwingCoreComponents
 {
     /// <summary>
-    /// MS2DComponent is a two-dimensional DrawableGameComponent with an (x, y) position, an (x, y) size.
+    /// MS2DComponent is a two-dimensional DrawableGameComponent with a bounding Rectangle
     /// </summary>
     public abstract class MS2DComponent : DrawableGameComponent
     {
         protected SpriteBatch spriteBatch;
+        /// <summary>
+        /// Gets the SpriteBatch that will draw this MS2DComponent
+        /// </summary>
         public SpriteBatch SpriteBatch { get { return spriteBatch; } }
 
+        protected Rectangle boundingRectangle;
         /// <summary>
-        /// Gets and sets the position of this MS2DComponent, in screen coordinates
+        /// Gets or Sets the bounding Rectangle of this MS2DComponent
         /// </summary>
-        /// <value>X corresponds to the x-position, Y corresponds to the y-position</value>
-        public virtual Vector2 Position { set; get; }
+        public virtual Rectangle BoundingRectangle
+        {
+            set 
+            { 
+                boundingRectangle = value;
+                position = new Vector2(value.X, value.Y);
+                size = new Vector2(value.Width, value.Height);
+            }
+            get { return boundingRectangle; }
+        }
 
+        protected Vector2 position;
         /// <summary>
-        /// Gets and sets the size of this MS2DComponent, in pixels
+        /// Gets or Sets the position of this MS2DComponent, in screen coordinates
         /// </summary>
-        /// <value>X corresponds to the width, Y corresponds to the height</value>
-        public virtual Vector2 Size { set; get; }
-      
+        public virtual Vector2 Position 
+        {
+            set 
+            { 
+                position = value;
+                boundingRectangle = new Rectangle(
+                    (int)Math.Round(value.X),
+                    (int)Math.Round(value.Y),
+                    boundingRectangle.Width,
+                    boundingRectangle.Height);
+            }
+            get { return position; }
+        }
+
+        protected Vector2 size;
+        /// <summary>
+        /// Gets or Sets the size of this MS2DComponent, in pixels
+        /// </summary>
+        public virtual Vector2 Size 
+        {
+            set 
+            { 
+                size = value;
+                boundingRectangle = new Rectangle(
+                    boundingRectangle.X,
+                    boundingRectangle.Y,
+                    (int)Math.Round(value.X),
+                    (int)Math.Round(value.Y));
+            }
+            get { return size; }
+        }
+
+        public MS2DComponent(Rectangle boundingRectangle, SpriteBatch spriteBatch, Game game)
+            : base(game)
+        {
+            BoundingRectangle = boundingRectangle;
+            this.spriteBatch = spriteBatch;
+        }
+
         public MS2DComponent(Vector2 position, Vector2 size, SpriteBatch spriteBatch, Game game)
             : base(game)
         {
