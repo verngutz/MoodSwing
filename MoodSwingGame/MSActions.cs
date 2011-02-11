@@ -10,14 +10,14 @@ namespace MoodSwingGame
 {
     public class Exit : MSAction
     {
-        public override void PerformAction(Game game)
+        public void PerformAction(Game game)
         {
             game.Exit();
         }
     }
     public class OpenMainScreen : MSAction
     {
-        public override void PerformAction(Game game)
+        public void PerformAction(Game game)
         {
             MoodSwing moodSwing = (MoodSwing)game;
             moodSwing.CurrentScreen = MSMainScreen.getInstance();
@@ -26,7 +26,7 @@ namespace MoodSwingGame
 
     public class OpenCityScreen : MSAction
     {
-        public override void PerformAction(Game game)
+        public void PerformAction(Game game)
         {
             MoodSwing moodSwing = (MoodSwing)game;
             moodSwing.CurrentScreen = MSCityScreen.getInstance();
@@ -35,7 +35,7 @@ namespace MoodSwingGame
 
     public class OpenOptionsScreen : MSAction
     {
-        public override void PerformAction(Game game)
+        public void PerformAction(Game game)
         {
             MoodSwing moodSwing = (MoodSwing)game;
             MSOptionsScreen.getInstance().ReturnScreen = moodSwing.CurrentScreen;
@@ -45,7 +45,7 @@ namespace MoodSwingGame
 
     public class ReturnFromOptionsScreen : MSAction
     {
-        public override void PerformAction(Game game)
+        public void PerformAction(Game game)
         {
             MoodSwing moodSwing = (MoodSwing)game;
             moodSwing.CurrentScreen = MSOptionsScreen.getInstance().ReturnScreen;
@@ -54,7 +54,7 @@ namespace MoodSwingGame
 
     public class OpenDistrictScreen : MSAction
     {
-        public override void PerformAction(Game game)
+        public void PerformAction(Game game)
         {
             MoodSwing moodSwing = (MoodSwing)game;
             moodSwing.CurrentScreen = MSDistrictScreen.getInstance();

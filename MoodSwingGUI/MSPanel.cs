@@ -18,23 +18,16 @@ namespace MoodSwingGUI
     {
         private Texture2D background;
 
-
-        private List<MSGUIComponent> elements;
-        public List<MSGUIComponent> Elements
+        private List<MSGUIUnclickable> components;
+        public List<MSGUIUnclickable> Components
         {
-            get { return elements; }
+            get { return components; }
         }
 
-        private Stack<MSGUIClickable> clickableElements;
-        public Stack<MSGUIClickable> ClickableElements
+        private Stack<MSGUIClickable> clickableComponents;
+        public Stack<MSGUIClickable> ClickableComponents
         {
-            get { return clickableElements; }
-        }
-
-        private Stack<MSGUITypable> focusableElements;
-        public Stack<MSGUITypable> FocusableElements 
-        { 
-            get { return focusableElements; } 
+            get { return clickableComponents; }
         }
 
         public override Vector2 Position
@@ -51,212 +44,133 @@ namespace MoodSwingGUI
         private Vector2 boundedPosition;
         private Vector2 boundedSize;
         private Color highlight;
-        private Vector2 scale;
 
-        public MSPanel(Texture2D background, float x, float y, float width, float height, SpriteBatch spriteBatch, Game game)
-            : this(background, x, y, width, height, 0, 0, 0, 0, Color.White, spriteBatch, game) { }
 
-        public MSPanel(Texture2D background, float x, float y, float width, float height, Color highlight, SpriteBatch spriteBatch, Game game)
-            : this(background, new Vector2(x, y), new Vector2(width, height), 0, 0, 0, 0, highlight, spriteBatch, game) { }
+        public MSPanel(Texture2D background, Rectangle boundingRectangle, Shape shape, SpriteBatch spriteBatch, Game game)
+            : this(background, boundingRectangle, 0, 0, 0, 0, Color.White, shape, spriteBatch, game) { }
 
-        public MSPanel(Texture2D background, float x, float y, float width, float height, float topPadding, float bottomPadding, float leftPadding, float rightPadding, SpriteBatch spriteBatch, Game game)
-            : this(background, x, y, width, height, topPadding, bottomPadding, leftPadding, rightPadding, Color.White, spriteBatch, game) { }
+        public MSPanel(Texture2D background, Rectangle boundingRectangle, Color highlight, Shape shape, SpriteBatch spriteBatch, Game game)
+            : this(background, boundingRectangle, 0, 0, 0, 0, shape, spriteBatch, game) { }
 
-        public MSPanel(Texture2D background, float x, float y, float width, float height, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Color highlight, SpriteBatch spriteBatch, Game game)
-            : this(background, new Vector2(x, y), new Vector2(width, height), topPadding, bottomPadding, leftPadding, rightPadding, highlight, spriteBatch, game) { }
+        public MSPanel(Texture2D background, Rectangle boundingRectangle, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Shape shape, SpriteBatch spriteBatch, Game game)
+            : this(background, boundingRectangle, topPadding, bottomPadding, leftPadding, rightPadding, Color.White, shape, spriteBatch, game) { }
 
-        public MSPanel(Texture2D background, Rectangle boundingRectangle, SpriteBatch spriteBatch, Game game)
-            : this(background, boundingRectangle, 0, 0, 0, 0, Color.White, spriteBatch, game) { }
-
-        public MSPanel(Texture2D background, Rectangle boundingRectangle, Color highlight, SpriteBatch spriteBatch, Game game)
-            : this(background, new Vector2(boundingRectangle.X, boundingRectangle.Y), new Vector2(boundingRectangle.Width, boundingRectangle.Height), 0, 0, 0, 0, spriteBatch, game) { }
-
-        public MSPanel(Texture2D background, Rectangle boundingRectangle, float topPadding, float bottomPadding, float leftPadding, float rightPadding, SpriteBatch spriteBatch, Game game)
-            : this(background, boundingRectangle, topPadding, bottomPadding, leftPadding, rightPadding, Color.White, spriteBatch, game) { }
-
-        public MSPanel(Texture2D background, Rectangle boundingRectangle, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Color highlight, SpriteBatch spriteBatch, Game game)
-            : this(background, new Vector2(boundingRectangle.X, boundingRectangle.Y), new Vector2(boundingRectangle.Width, boundingRectangle.Height), topPadding, bottomPadding, leftPadding, rightPadding, spriteBatch, game) { }
-
-        public MSPanel(Texture2D background, Vector2 position, Vector2 size, SpriteBatch spriteBatch, Game game)
-            : this(background, position, size, 0, 0, 0, 0, Color.White, spriteBatch, game) { }
-
-        public MSPanel(Texture2D background, Vector2 position, Vector2 size, Color highlight, SpriteBatch spriteBatch, Game game)
-            : this(background, position, size, 0, 0, 0, 0, highlight, spriteBatch, game) { }
-
-        public MSPanel(Texture2D background, Vector2 position, Vector2 size, float topPadding, float bottomPadding, float leftPadding, float rightPadding, SpriteBatch spriteBatch, Game game)
-            : this(background, position, size, topPadding, bottomPadding, leftPadding, rightPadding, Color.White, spriteBatch, game) { }
-
-        public MSPanel(Texture2D background, Vector2 position, Vector2 size, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Color highlight, SpriteBatch spriteBatch, Game game)
-            : base(position, size, Shape.RECTANGULAR, spriteBatch, game)
+        public MSPanel(Texture2D background, Rectangle boundingRectangle, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Color highlight, Shape shape, SpriteBatch spriteBatch, Game game)
+            : base(boundingRectangle, shape, spriteBatch, game) 
         {
             this.background = background;
-            elements = new List<MSGUIComponent>();
-            clickableElements = new Stack<MSGUIClickable>();
-            focusableElements = new Stack<MSGUITypable>();
+            components = new List<MSGUIUnclickable>();
+            clickableComponents = new Stack<MSGUIClickable>();
 
             boundedPosition = Position + new Vector2(leftPadding, topPadding);
             boundedSize = Size - new Vector2(leftPadding, topPadding) - new Vector2(rightPadding, bottomPadding);
 
-            if(background == null)
-                scale = Vector2.Zero;
-            else
-                scale = Size / new Vector2(background.Width, background.Height);
-
             this.highlight = highlight;
         }
 
-        public void AddElement(MSGUIComponent element)
+        public void AddComponent(MSGUIUnclickable component)
         {
-            AddElement(element, Alignment.MANUAL);
+            AddComponent(component, Alignment.MANUAL);
         }
         
-        public void AddElement(MSGUIComponent element, Alignment alignment)
+        public void AddComponent(MSGUIUnclickable component, Alignment alignment)
         {
             switch (alignment)
             {
                 case Alignment.TOP_LEFT:
-                    element.Position = boundedPosition;
+                    component.Position = boundedPosition;
                     break;
                 case Alignment.TOP_CENTER:
-                    element.Position = boundedPosition + new Vector2((boundedSize.X - element.Size.X) / 2, 0);
+                    component.Position = boundedPosition + new Vector2((boundedSize.X - component.Size.X) / 2, 0);
 
                     break;
                 case Alignment.TOP_RIGHT:
-                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, 0);
+                    component.Position = boundedPosition + new Vector2(boundedSize.X - component.Size.X, 0);
                     break;
                 case Alignment.MIDDLE_LEFT:
-                    element.Position = boundedPosition + new Vector2(0, (boundedSize.Y - element.Size.Y) / 2);
+                    component.Position = boundedPosition + new Vector2(0, (boundedSize.Y - component.Size.Y) / 2);
                     break;
                 case Alignment.MIDDLE_CENTER:
-                    element.Position = boundedPosition + (boundedSize - element.Size) / 2;
+                    component.Position = boundedPosition + (boundedSize - component.Size) / 2;
                     break;
                 case Alignment.MIDDLE_RIGHT:
-                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, (boundedSize.Y - element.Size.Y) / 2);
+                    component.Position = boundedPosition + new Vector2(boundedSize.X - component.Size.X, (boundedSize.Y - component.Size.Y) / 2);
                     break;
                 case Alignment.BOTTOM_LEFT:
-                    element.Position = boundedPosition + new Vector2(0, boundedSize.Y - element.Size.Y);
+                    component.Position = boundedPosition + new Vector2(0, boundedSize.Y - component.Size.Y);
                     break;
                 case Alignment.BOTTOM_CENTER:
-                    element.Position = boundedPosition + new Vector2((boundedSize.X - element.Size.X) / 2, boundedSize.Y - element.Size.Y);
+                    component.Position = boundedPosition + new Vector2((boundedSize.X - component.Size.X) / 2, boundedSize.Y - component.Size.Y);
                     break;
                 case Alignment.BOTTOM_RIGHT:
-                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, boundedSize.Y - element.Size.Y);
+                    component.Position = boundedPosition + new Vector2(boundedSize.X - component.Size.X, boundedSize.Y - component.Size.Y);
                     break;
             }
-            elements.Add(element);
+            components.Add(component);
         }
 
-        public void AddElement(MSGUIClickable element)
+        public void AddComponent(MSGUIClickable component)
         {
-            AddElement(element, Alignment.MANUAL);
+            AddComponent(component, Alignment.MANUAL);
         }
 
-        public void AddElement(MSGUIClickable element, Alignment alignment)
+        public void AddComponent(MSGUIClickable component, Alignment alignment)
         {
             switch (alignment)
             {
                 case Alignment.TOP_LEFT:
-                    element.Position = boundedPosition;
+                    component.Position = boundedPosition;
                     break;
                 case Alignment.TOP_CENTER:
-                    element.Position = boundedPosition + new Vector2((boundedSize.X - element.Size.X) / 2, 0);
+                    component.Position = boundedPosition + new Vector2((boundedSize.X - component.Size.X) / 2, 0);
 
                     break;
                 case Alignment.TOP_RIGHT:
-                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, 0);
+                    component.Position = boundedPosition + new Vector2(boundedSize.X - component.Size.X, 0);
                     break;
                 case Alignment.MIDDLE_LEFT:
-                    element.Position = boundedPosition + new Vector2(0, (boundedSize.Y - element.Size.Y) / 2);
+                    component.Position = boundedPosition + new Vector2(0, (boundedSize.Y - component.Size.Y) / 2);
                     break;
                 case Alignment.MIDDLE_CENTER:
-                    element.Position = boundedPosition + (boundedSize - element.Size) / 2;
+                    component.Position = boundedPosition + (boundedSize - component.Size) / 2;
                     break;
                 case Alignment.MIDDLE_RIGHT:
-                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, (boundedSize.Y - element.Size.Y) / 2);
+                    component.Position = boundedPosition + new Vector2(boundedSize.X - component.Size.X, (boundedSize.Y - component.Size.Y) / 2);
                     break;
                 case Alignment.BOTTOM_LEFT:
-                    element.Position = boundedPosition + new Vector2(0, boundedSize.Y - element.Size.Y);
+                    component.Position = boundedPosition + new Vector2(0, boundedSize.Y - component.Size.Y);
                     break;
                 case Alignment.BOTTOM_CENTER:
-                    element.Position = boundedPosition + new Vector2((boundedSize.X - element.Size.X) / 2, boundedSize.Y - element.Size.Y);
+                    component.Position = boundedPosition + new Vector2((boundedSize.X - component.Size.X) / 2, boundedSize.Y - component.Size.Y);
                     break;
                 case Alignment.BOTTOM_RIGHT:
-                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, boundedSize.Y - element.Size.Y);
+                    component.Position = boundedPosition + new Vector2(boundedSize.X - component.Size.X, boundedSize.Y - component.Size.Y);
                     break;
             }
-            clickableElements.Push(element);
+            clickableComponents.Push(component);
         }
 
-        public void AddElement(MSGUITypable element)
+        public void AddComponent(MSPanel panel)
         {
-            AddElement(element, Alignment.MANUAL);
+            AddComponent(panel, Alignment.MANUAL);
         }
 
-        public void AddElement(MSGUITypable element, Alignment alignment)
+        public void AddComponent(MSPanel panel, Alignment alignment)
         {
-            switch (alignment)
-            {
-                case Alignment.TOP_LEFT:
-                    element.Position = boundedPosition;
-                    break;
-                case Alignment.TOP_CENTER:
-                    element.Position = boundedPosition + new Vector2((boundedSize.X - element.Size.X) / 2, 0);
-
-                    break;
-                case Alignment.TOP_RIGHT:
-                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, 0);
-                    break;
-                case Alignment.MIDDLE_LEFT:
-                    element.Position = boundedPosition + new Vector2(0, (boundedSize.Y - element.Size.Y) / 2);
-                    break;
-                case Alignment.MIDDLE_CENTER:
-                    element.Position = boundedPosition + (boundedSize - element.Size) / 2;
-                    break;
-                case Alignment.MIDDLE_RIGHT:
-                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, (boundedSize.Y - element.Size.Y) / 2);
-                    break;
-                case Alignment.BOTTOM_LEFT:
-                    element.Position = boundedPosition + new Vector2(0, boundedSize.Y - element.Size.Y);
-                    break;
-                case Alignment.BOTTOM_CENTER:
-                    element.Position = boundedPosition + new Vector2((boundedSize.X - element.Size.X) / 2, boundedSize.Y - element.Size.Y);
-                    break;
-                case Alignment.BOTTOM_RIGHT:
-                    element.Position = boundedPosition + new Vector2(boundedSize.X - element.Size.X, boundedSize.Y - element.Size.Y);
-                    break;
-            }
-            clickableElements.Push(element);
-            focusableElements.Push(element);
-        }
-
-        public override bool CheckMouseClick(MouseState oldMouseState)
-        {
-            System.Console.WriteLine("Panel " + Position + " is checked.");
-            foreach (MSGUIClickable element in clickableElements)
-                if (element.CheckMouseClick(oldMouseState))
-                    return true;
-
-            hasFocus = CollidesWithMouse();
-            return hasFocus;
-        }
-
-        public override bool CheckKeyboardInput(KeyboardState oldKeyboardState)
-        {
-            if(hasFocus)
-                foreach (MSGUITypable element in focusableElements)
-                    if (element.CheckKeyboardInput(oldKeyboardState))
-                        return true;
-
-            return false;
+            AddComponent(panel as MSGUIClickable, alignment);
+            foreach (MSGUIUnclickable component in panel.Components)
+                AddComponent(component);
+            foreach (MSGUIClickable component in panel.ClickableComponents)
+                AddComponent(component);
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            foreach (MSGUIComponent element in elements)
+            foreach (MSGUIUnclickable element in components)
                 element.Update(gameTime);
-            foreach (MSGUIClickable element in clickableElements)
+            foreach (MSGUIClickable element in clickableComponents)
                 element.Update(gameTime);
         }
 
@@ -265,13 +179,23 @@ namespace MoodSwingGUI
             base.Draw(gameTime);
 
             if (background != null)
-                SpriteBatch.Draw(background, Position, null, highlight, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+                SpriteBatch.Draw(background, BoundingRectangle, highlight);
 
-            foreach(MSGUIComponent element in elements)
+            foreach(MSGUIUnclickable element in components)
                 element.Draw(gameTime);
 
-            foreach (MSGUIClickable element in clickableElements.Reverse<MSGUIClickable>())
+            foreach (MSGUIClickable element in clickableComponents.Reverse<MSGUIClickable>())
                 element.Draw(gameTime);
         }
+
+        public override void LeftClick() { }
+        public override void UnLeftClick() { }
+        public override void MiddleClick() { }
+        public override void UnMiddleClick() { }
+        public override void RightClick() { }
+        public override void UnRightClick() { }
+        public override void Hover() { }
+        public override void UnHover() { }
+        public override void HandleKeyboardInput(KeyboardState oldKeyboardState) { }
     }
 }

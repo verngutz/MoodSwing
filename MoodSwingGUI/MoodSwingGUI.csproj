@@ -83,7 +83,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MSGUIClickable.cs" />
-    <Compile Include="MSGUIComponent.cs" />
+    <Compile Include="MSGUIUnclickable.cs" />
+    <Compile Include="MSGUIKeyboardParser.cs" />
     <Compile Include="MSGUITypable.cs" />
     <Compile Include="MSImageHolder.cs" />
     <Compile Include="MSMiscellaneous.cs" />

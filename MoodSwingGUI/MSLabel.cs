@@ -15,9 +15,16 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGUI
 {
-    public class MSLabel : MSGUIComponent
+    /// <summary>
+    /// MSLabel is an MSGUIUnclickable component that displays text with the use of a SpriteFont. The text is always scaled to fit the bounding Rectangle of this MSLabel.
+    /// </summary>
+    public class MSLabel : MSGUIUnclickable
     {
         private String text;
+
+        /// <summary>
+        /// Gets or sets the text stored in this MSLabel
+        /// </summary>
         public String Text
         {
             set
@@ -32,23 +39,28 @@ namespace MoodSwingGUI
         private Color color;
         private Vector2 fontScale;
 
-        public MSLabel(String text, int x, int y, int width, int height, SpriteFont spriteFont, SpriteBatch spriteBatch, Game game)
-            : this(text, x, y, width, height, spriteFont, Color.Black, spriteBatch, game) { }
-
-        public MSLabel(String text, int x, int y, int width, int height, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
-            : this(text, new Vector2(x, y), new Vector2(width, height), spriteFont, color, spriteBatch, game) { }
-
+        /// <summary>
+        /// Constructs a new MSLabel with default Color.Black text.
+        /// </summary>
+        /// <param name="text">the text that this MSLabel will display</param>
+        /// <param name="boundingRectangle">the bounding Rectangle of this MSLabel</param>
+        /// <param name="spriteFont">the SpriteFont used to draw the text</param>
+        /// <param name="spriteBatch">the SpriteBatch that will draw this MSLabel</param>
+        /// <param name="game">the Game where this MSLabel is used</param>
         public MSLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, SpriteBatch spriteBatch, Game game)
             : this(text, boundingRectangle, spriteFont, Color.Black, spriteBatch, game) { }
 
+        /// <summary>
+        /// Constructs a new MSLabel.
+        /// </summary>
+        /// <param name="text">the text that this MSLabel will display</param>
+        /// <param name="boundingRectangle">the bounding Rectangle of this MSLabel</param>
+        /// <param name="spriteFont">the SpriteFont used to draw the text</param>
+        /// <param name="color">the text color of this MSLabel</param>
+        /// <param name="spriteBatch">the SpriteBatch that will draw this MSLabel</param>
+        /// <param name="game">the Game where this MSLabel is used</param>
         public MSLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
-            : this(text, new Vector2(boundingRectangle.X, boundingRectangle.Y), new Vector2(boundingRectangle.Width, boundingRectangle.Height), spriteFont, color, spriteBatch, game) { }
-
-        public MSLabel(String text, Vector2 position, Vector2 size, SpriteFont spriteFont, SpriteBatch spriteBatch, Game game)
-            : this(text, position, size, spriteFont, Color.Black, spriteBatch, game) { }
-
-        public MSLabel(String text, Vector2 position, Vector2 size, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
-            : base(position, size, spriteBatch, game)
+            : base(boundingRectangle, spriteBatch, game)
         {
             this.spriteFont = spriteFont;
             Text = text;

@@ -15,9 +15,52 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGUI
 {
+    /// <summary>
+    /// MSGUIClickable is a GUI component that is both drawable and clickable
+    /// </summary>
     public abstract class MSGUIClickable : MS2DClickable
     {
-        public MSGUIClickable(Vector2 position, Vector2 size, Shape shape, SpriteBatch spriteBatch, Game game)
-            : base(position, size, shape, spriteBatch, game) { }
+        public MSGUIClickable(Rectangle boundingRectangle, Shape shape, SpriteBatch spriteBatch, Game game)
+            : base(boundingRectangle, shape, spriteBatch, game) { }
+
+        /// <summary>
+        /// What to do when this MSGUIClickable has been left-clicked.
+        /// </summary>
+        public abstract void LeftClick();
+
+        /// <summary>
+        /// What to do when this MSGUIClickable has been middle-clicked.
+        /// </summary>
+        public abstract void MiddleClick();
+
+        /// <summary>
+        /// What to do when this MSGUIClickable has been right-clicked.
+        /// </summary>
+        public abstract void RightClick();
+
+        /// <summary>
+        /// What to do when this MSGUIClickable has been hovered.
+        /// </summary>
+        public abstract void Hover();
+
+        /// <summary>
+        /// What to do when this MSGUIClickable has previously been hovered but now isn't.
+        /// </summary>
+        public abstract void UnHover();
+
+        /// <summary>
+        /// What to do when this MSGUIClickable has previously been left-clicked and is now released.
+        /// </summary>
+        public abstract void UnLeftClick();
+
+        /// <summary>
+        /// What to do when this MSGUIClickable has previously been right-clicked and is now released.
+        /// </summary>
+        public abstract void UnRightClick();
+
+        /// <summary>
+        /// What to do when this MSGUIClickable has previously been middle-clicked and is now released.
+        /// </summary>
+        public abstract void UnMiddleClick();
     }
 }

@@ -19,6 +19,9 @@ namespace MoodSwingCoreComponents
     /// </summary>
     public abstract class MS2DClickable : MS2DCollidable
     {
+        public MS2DClickable(Rectangle boundingRectangle, Shape shape, SpriteBatch spriteBatch, Game game)
+            : base(boundingRectangle, shape, spriteBatch, game) { }
+
         public MS2DClickable(Vector2 position, Vector2 size, Shape shape, SpriteBatch spriteBatch, Game game)
             : base(position, size, shape, spriteBatch, game) { }
 
@@ -30,11 +33,5 @@ namespace MoodSwingCoreComponents
         {
             return base.EnclosesPoint(new Point(Mouse.GetState().X, Mouse.GetState().Y));
         }
-
-        /// <summary>
-        /// Override this method to tell how an MS2DClickable should interact with the Mouse frame by frame.
-        /// </summary>
-        /// <param name="oldMouseState">the previous MouseState of the Mouse</param>
-        public abstract bool CheckMouseClick(MouseState oldMouseState);
     }
 }

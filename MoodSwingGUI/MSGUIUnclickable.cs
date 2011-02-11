@@ -15,9 +15,12 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGUI
 {
-    public abstract class MSGUIComponent : MS2DComponent
+    /// <summary>
+    /// MSGUIUnclickable is a GUI component that is drawable but not clickable.
+    /// </summary>
+    public abstract class MSGUIUnclickable : MS2DComponent
     {
-        public MSGUIComponent(Vector2 position, Vector2 size, SpriteBatch spriteBatch, Game game)
-            : base(position, size, spriteBatch, game) { }
+        public MSGUIUnclickable(Rectangle boundingRectangle, SpriteBatch spriteBatch, Game game)
+            : base(boundingRectangle, spriteBatch, game) { }
     }
 }
