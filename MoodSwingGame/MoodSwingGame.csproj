@@ -87,7 +87,7 @@
     <Compile Include="MS3DTile.cs" />
     <Compile Include="MSBuilding.cs" />
     <Compile Include="MSCitizen.cs" />
-    <Compile Include="MSCitizenHandler.cs" />
+    <Compile Include="MSUnitHandler.cs" />
     <Compile Include="MSCityScreen.cs" />
     <Compile Include="MSDistrictHall.cs" />
     <Compile Include="MSDistrictScreen.cs" />
@@ -95,9 +95,11 @@
     <Compile Include="MSIntroScreen.cs" />
     <Compile Include="MSActions.cs" />
     <Compile Include="MSMap.cs" />
+    <Compile Include="MSMob.cs" />
     <Compile Include="MSOptionsScreen.cs" />
     <Compile Include="MSTile.cs" />
     <Compile Include="MSTileFactory.cs" />
+    <Compile Include="MSUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="MoodSwing.cs" />

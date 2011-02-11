@@ -50,7 +50,7 @@ namespace MoodSwingGame
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = false ;
+            graphics.IsFullScreen = false;
             Content.RootDirectory = "Content";
 
             IsMouseVisible = true;
@@ -116,7 +116,6 @@ namespace MoodSwingGame
                 }
                 Vector2 movement = new Vector2(newMouseState.X, newMouseState.Y) - mouseRHoldButton;
                 movement.Y *= -1;
-                System.Console.WriteLine(movement);
                 camera.rotate(movement);
             }
             else

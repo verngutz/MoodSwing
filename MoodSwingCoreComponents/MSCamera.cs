@@ -78,7 +78,7 @@ namespace MoodSwingCoreComponents
         {
             float angle = .001f;
             Vector3 transformedReference;
-            Matrix pitchRotationMatrix = Matrix.CreateFromAxisAngle(pitchAxis, angle* rotation.Y);
+            Matrix pitchRotationMatrix = Matrix.CreateFromAxisAngle(pitchAxis, 0);
             
             transformedReference = Vector3.Transform(cameraPosition, pitchRotationMatrix);
             Vector3 transformedUpCamera = Vector3.Transform(upCamera, pitchRotationMatrix);
