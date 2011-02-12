@@ -54,8 +54,13 @@ namespace MoodSwingGame
             if (targetLocation == Vector2.Zero )
             {
                 Vector3 targetVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
-                targetLocation = new Vector2(targetVector3.X + MSRandom.random.Next(MSMap.tileDimension / 2) ,
-                                              targetVector3.Y + MSRandom.random.Next(MSMap.tileDimension / 2));
+                if (path.next != null || path.parent != null)
+                {
+                    targetLocation = new Vector2(targetVector3.X + MSRandom.random.Next(MSMap.tileDimension / 2),
+                                                  targetVector3.Y + MSRandom.random.Next(MSMap.tileDimension / 2));
+                }
+                else
+                    targetLocation = new Vector2(targetVector3.X, targetVector3.Y);
 
             }
             Vector2 unit = targetLocation-pos;

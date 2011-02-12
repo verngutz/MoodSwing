@@ -96,7 +96,6 @@
     <Compile Include="MSIntroScreen.cs" />
     <Compile Include="MSActions.cs" />
     <Compile Include="MSMap.cs" />
-    <Compile Include="MSMob.cs" />
     <Compile Include="MSOptionsScreen.cs" />
     <Compile Include="MSTile.cs" />
     <Compile Include="MSTileFactory.cs" />
