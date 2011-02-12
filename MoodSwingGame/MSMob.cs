@@ -43,12 +43,11 @@ namespace MoodSwingGame
 
         public bool IsThere()
         {
-            bool toReturn = true;
+            //bool toReturn = true;
             List<MSUnit> toReplace = new List<MSUnit>();
             foreach (MSUnit unit in minions)
             {
-                if (!unit.IsThere()) toReturn = false;
-                else
+                if (unit.IsThere())
                     toReplace.Add(unit);
             }
 
@@ -56,7 +55,7 @@ namespace MoodSwingGame
             {
                 minions.Remove(unit);
             }
-            return toReturn;
+            return headMob.IsThere();
         }
 
         public MS3DComponent Get3DComponent()
