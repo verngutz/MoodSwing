@@ -33,6 +33,11 @@ namespace MoodSwingGUI
         public MS2DParametricEquation UnclickSize { set; get; }
         private int unclickTimer;
 
+        private int x0;
+        private int y0;
+        private int w0;
+        private int h0;
+
         /// <summary>
         /// Constructs an MSButton with no highlight.
         /// </summary>
@@ -76,58 +81,71 @@ namespace MoodSwingGUI
             UnclickSize = new ConstantParametricCurve();
             UnhoverPosition = new ConstantParametricCurve();
             UnhoverSize = new ConstantParametricCurve();
+            x0 = boundingRectangle.X;
+            y0 = boundingRectangle.Y;
+            w0 = boundingRectangle.Width;
+            h0 = boundingRectangle.Height;
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            switch (currentState)
+            switch (CurrentState)
             {
-                case MSButtonState.CLICKED:
+                case MSGUIClickableState.LEFTCLICKED:
                     boundingRectangle = new Rectangle(
-                        boundingRectangle.X + ClickPosition.Dx(clickTimer),
-                        boundingRectangle.Y + ClickPosition.Dy(clickTimer),
-                        boundingRectangle.Width + ClickSize.Dx(clickTimer),
-                        boundingRectangle.Height + ClickSize.Dy(clickTimer));
+                        ClickPosition.X(clickTimer, x0),
+                        ClickPosition.Y(clickTimer, y0),
+                        ClickSize.X(clickTimer, w0),
+                        ClickSize.Y(clickTimer, h0));
                     clickTimer++;
-                    unclickTimer = 0;
-                    hoverTimer = 0;
-                    unhoverTimer = 0;
                     break;
-                case MSButtonState.HOVERED:
+                case MSGUIClickableState.HOVERED:
                     boundingRectangle = new Rectangle(
-                        boundingRectangle.X + HoverPosition.Dx(hoverTimer),
-                        boundingRectangle.Y + HoverPosition.Dy(hoverTimer),
-                        boundingRectangle.Width + HoverSize.Dx(hoverTimer),
-                        boundingRectangle.Height + HoverSize.Dy(hoverTimer));
-                    clickTimer = 0;
-                    unclickTimer = 0;
+                        HoverPosition.X(hoverTimer, x0),
+                        HoverPosition.Y(hoverTimer, y0),
+                        HoverSize.X(hoverTimer, w0),
+                        HoverSize.Y(hoverTimer, h0));
                     hoverTimer++;
-                    unhoverTimer = 0;
                     break;
-                case MSButtonState.UNCLICKED:
+                case MSGUIClickableState.UNLEFTCLICKED:
                     boundingRectangle = new Rectangle(
-                        boundingRectangle.X + UnclickPosition.Dx(unclickTimer),
-                        boundingRectangle.Y + UnclickPosition.Dy(unclickTimer),
-                        boundingRectangle.Width + UnclickSize.Dx(unclickTimer),
-                        boundingRectangle.Height + UnclickSize.Dy(unclickTimer));
-                    clickTimer = 0;
+                        UnclickPosition.X(unclickTimer, x0),
+                        UnclickPosition.Y(unclickTimer, y0),
+                        UnclickSize.X(unclickTimer, w0),
+                        UnclickSize.Y(unclickTimer, h0));
                     unclickTimer++;
-                    hoverTimer = 0;
-                    unhoverTimer = 0;
                     break;
-                case MSButtonState.UNHOVERED:
+                case MSGUIClickableState.UNHOVERED:
                     boundingRectangle = new Rectangle(
-                        boundingRectangle.X + UnhoverPosition.Dx(unhoverTimer),
-                        boundingRectangle.Y + UnhoverPosition.Dy(unhoverTimer),
-                        boundingRectangle.Width + UnhoverSize.Dx(unhoverTimer),
-                        boundingRectangle.Height + UnhoverSize.Dy(unhoverTimer));
-                    clickTimer = 0;
-                    unclickTimer = 0;
-                    hoverTimer = 0;
+                        UnhoverPosition.X(unhoverTimer, x0),
+                        UnhoverPosition.Y(unhoverTimer, y0),
+                        UnhoverSize.X(unhoverTimer, w0),
+                        UnhoverSize.Y(unhoverTimer, h0));
                     unhoverTimer++;
                     break;
             }
+        }
+
+        public override void LeftClick()
+        {
+            base.LeftClick();
+            clickTimer = 0;
+        }
+        public override void UnLeftClick()
+        {
+            base.UnLeftClick();
+            unclickTimer = 0;
+        }
+        public override void Hover()
+        {
+            base.Hover();
+            hoverTimer = 0;
+        }
+        public override void UnHover()
+        {
+            base.UnHover();
+            unhoverTimer = 0;
         }
     }
 }

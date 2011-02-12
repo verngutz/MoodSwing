@@ -26,7 +26,7 @@ namespace MoodSwingGame
             MSAnimatingButton startGameButton = new MSAnimatingButton(
                     null,
                     new OpenCityScreen(),
-                    new Rectangle(0, 0, 559, 60),
+                    new Rectangle(300, 200, 559, 60),
                     game.Content.Load<Texture2D>("startgame"),
                     game.Content.Load<Texture2D>("startgameclicked"),
                     game.Content.Load<Texture2D>("startgameclicked"),
@@ -35,8 +35,8 @@ namespace MoodSwingGame
                     SpriteBatch,
                     Game);
 
-            startGameButton.HoverPosition = new Shift50pxRight();
-            startGameButton.UnhoverPosition = new Shift50pxLeft();
+            startGameButton.HoverPosition = new StartGameButtonHoverPosition();
+            startGameButton.UnhoverPosition = new StartGameButtonUnhoverPosition();
 
             /**
             MSAnimatingButton optionsButton = new MSAnimatingButton(
@@ -50,7 +50,6 @@ namespace MoodSwingGame
                     Shape.AMORPHOUS,
                     SpriteBatch,
                     Game);
-             */
 
             MSAnimatingButton exitButton = new MSAnimatingButton(
                     null,
@@ -63,19 +62,20 @@ namespace MoodSwingGame
                     Shape.AMORPHOUS,
                     SpriteBatch, 
                     Game);
+            */
 
-            AddComponent(startGameButton, Alignment.TOP_CENTER);
+            AddComponent(startGameButton, Alignment.MANUAL);
 
             //AddComponent(optionsButton, Alignment.MIDDLE_CENTER);
 
-            AddComponent(exitButton, Alignment.BOTTOM_CENTER);
+            //AddComponent(exitButton, Alignment.BOTTOM_CENTER);
         }
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
             HandleMouseInput((Game as MoodSwing).OldMouseState);
             HandleKeyboardInput((Game as MoodSwing).OldKeyboardState);
+            base.Update(gameTime);
         }
     }
 }
