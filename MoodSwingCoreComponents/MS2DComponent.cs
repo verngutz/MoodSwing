@@ -30,16 +30,10 @@ namespace MoodSwingCoreComponents
         /// </summary>
         public virtual Rectangle BoundingRectangle
         {
-            set 
-            { 
-                boundingRectangle = value;
-                position = new Vector2(value.X, value.Y);
-                size = new Vector2(value.Width, value.Height);
-            }
+            set { boundingRectangle = value; }
             get { return boundingRectangle; }
         }
 
-        protected Vector2 position;
         /// <summary>
         /// Gets or Sets the position of this MS2DComponent, in screen coordinates
         /// </summary>
@@ -47,17 +41,15 @@ namespace MoodSwingCoreComponents
         {
             set 
             { 
-                position = value;
                 boundingRectangle = new Rectangle(
                     (int)Math.Round(value.X),
                     (int)Math.Round(value.Y),
                     boundingRectangle.Width,
                     boundingRectangle.Height);
             }
-            get { return position; }
+            get { return new Vector2(boundingRectangle.X, boundingRectangle.Y); }
         }
 
-        protected Vector2 size;
         /// <summary>
         /// Gets or Sets the size of this MS2DComponent, in pixels
         /// </summary>
@@ -65,14 +57,13 @@ namespace MoodSwingCoreComponents
         {
             set 
             { 
-                size = value;
                 boundingRectangle = new Rectangle(
                     boundingRectangle.X,
                     boundingRectangle.Y,
                     (int)Math.Round(value.X),
                     (int)Math.Round(value.Y));
             }
-            get { return size; }
+            get { return new Vector2(boundingRectangle.Width, boundingRectangle.Height); }
         }
 
         public MS2DComponent(Rectangle boundingRectangle, SpriteBatch spriteBatch, Game game)

@@ -20,6 +20,19 @@ namespace MoodSwingGUI
     /// </summary>
     public abstract class MSGUIClickable : MS2DClickable
     {
+        public enum MSGUIClickableState 
+        { 
+            LEFTCLICKED, 
+            UNLEFTCLICKED, 
+            RIGHTCLICKED, 
+            UNRIGHTCLICKED, 
+            MIDDLECLICKED,
+            UNMIDDLECLICKED,
+            HOVERED, 
+            UNHOVERED 
+        }
+        public MSGUIClickableState CurrentState { set; get; }
+
         public MSGUIClickable(Rectangle boundingRectangle, Shape shape, SpriteBatch spriteBatch, Game game)
             : base(boundingRectangle, shape, spriteBatch, game) { }
 

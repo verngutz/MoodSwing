@@ -31,10 +31,10 @@ namespace MoodSwingGame
                     new Rectangle(0, 0, 574, 60),
                     game.Content.Load<Texture2D>("exit"),
                     game.Content.Load<Texture2D>("exitclicked"),
-                    game.Content.Load<Texture2D>("exit"),
-                    SpriteBatch,
+                    game.Content.Load<Texture2D>("exit"),   
                     Color.White,
                     Shape.RECTANGULAR,
+                    SpriteBatch,
                     Game)
                     , Alignment.BOTTOM_CENTER);
         }

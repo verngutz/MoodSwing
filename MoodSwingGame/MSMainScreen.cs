@@ -21,64 +21,61 @@ namespace MoodSwingGame
         }
 
         private MSMainScreen(MoodSwing game)
-            : base(game.Content.Load<Texture2D>("gamescreenbg"), 150, 150, 150, 150, Color.White, game.SpriteBatch, game)
+            : base(game.Content.Load<Texture2D>("gamescreenbg"), 200, 200, 200, 200, Color.White, game.SpriteBatch, game)
         {
-            new MSButton(
+            MSAnimatingButton startGameButton = new MSAnimatingButton(
                     null,
                     new OpenCityScreen(),
-                    new Rectangle(0, 0, 559, 60),
+                    new Rectangle(300, 200, 559, 60),
                     game.Content.Load<Texture2D>("startgame"),
                     game.Content.Load<Texture2D>("startgameclicked"),
                     game.Content.Load<Texture2D>("startgameclicked"),
-                    SpriteBatch,
                     Color.White,
                     Shape.AMORPHOUS,
+                    SpriteBatch,
                     Game);
-            AddComponent(new MSButton(
-                    null,
-                    new OpenCityScreen(),
-                    new Rectangle(0, 0, 559, 60),
-                    game.Content.Load<Texture2D>("startgame"),
-                    game.Content.Load<Texture2D>("startgameclicked"),
-                    game.Content.Load<Texture2D>("startgameclicked"),
-                    SpriteBatch,
-                    Color.White,
-                    Shape.AMORPHOUS,
-                    Game)
-                    , Alignment.TOP_CENTER);
 
-            AddComponent(new MSButton(
+            startGameButton.HoverPosition = new StartGameButtonHoverPosition();
+            startGameButton.UnhoverPosition = new StartGameButtonUnhoverPosition();
+
+            /**
+            MSAnimatingButton optionsButton = new MSAnimatingButton(
                     null,
                     new OpenOptionsScreen(),
                     new Rectangle(0, 0, 472, 60),
                     game.Content.Load<Texture2D>("options"),
                     game.Content.Load<Texture2D>("optionsclicked"),
                     game.Content.Load<Texture2D>("optionsclicked"),
-                    SpriteBatch,
                     Color.White,
                     Shape.AMORPHOUS,
-                    Game)
-                    , Alignment.MIDDLE_CENTER);
+                    SpriteBatch,
+                    Game);
 
-            AddComponent(new MSButton(
+            MSAnimatingButton exitButton = new MSAnimatingButton(
                     null,
                     new Exit(),
                     new Rectangle(0, 0, 574, 60),
                     game.Content.Load<Texture2D>("exit"), 
                     game.Content.Load<Texture2D>("exitclicked"), 
                     game.Content.Load<Texture2D>("exitclicked"), 
-                    SpriteBatch, 
                     Color.White, 
-                    Shape.AMORPHOUS, 
-                    Game)
-                    , Alignment.BOTTOM_CENTER);
+                    Shape.AMORPHOUS,
+                    SpriteBatch, 
+                    Game);
+            */
+
+            AddComponent(startGameButton, Alignment.MANUAL);
+
+            //AddComponent(optionsButton, Alignment.MIDDLE_CENTER);
+
+            //AddComponent(exitButton, Alignment.BOTTOM_CENTER);
         }
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
             HandleMouseInput((Game as MoodSwing).OldMouseState);
             HandleKeyboardInput((Game as MoodSwing).OldKeyboardState);
+            base.Update(gameTime);
         }
     }
 }

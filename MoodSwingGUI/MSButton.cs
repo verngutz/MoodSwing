@@ -63,8 +63,8 @@ namespace MoodSwingGUI
         /// <param name="spriteBatch">the SpriteBatch that will draw this MSButton</param>
         /// <param name="shape">the Shape of this MSButton<seealso cref="MoodSwingCoreComponents.Shape"/></param>
         /// <param name="game">the Game where this MSButton will be used</param>
-        public MSButton(MSLabel label, MSAction action, Rectangle boundingRectangle, Texture2D unhovered, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Shape shape, Game game)
-            : this(label, action, boundingRectangle, unhovered, clicked, hovered, spriteBatch, Color.White, shape, game) { }
+        public MSButton(MSLabel label, MSAction action, Rectangle boundingRectangle, Texture2D unhovered, Texture2D clicked, Texture2D hovered, Shape shape, SpriteBatch spriteBatch, Game game)
+            : this(label, action, boundingRectangle, unhovered, clicked, hovered, Color.White, shape, spriteBatch, game) { }
 
         /// <summary>
         /// Constructs an MSButton.
@@ -79,7 +79,7 @@ namespace MoodSwingGUI
         /// <param name="highlight">the Color to overlay this MSButton with</param>
         /// <param name="shape">the Shape of this MSButton<seealso cref="MoodSwingCoreComponents.Shape"/></param>
         /// <param name="game">the Game where this MSButton will be used</param>
-        public MSButton(MSLabel label, MSAction action, Rectangle boundingRectangle, Texture2D unhovered, Texture2D clicked, Texture2D hovered, SpriteBatch spriteBatch, Color highlight, Shape shape, Game game)
+        public MSButton(MSLabel label, MSAction action, Rectangle boundingRectangle, Texture2D unhovered, Texture2D clicked, Texture2D hovered, Color highlight, Shape shape, SpriteBatch spriteBatch, Game game)
             : base(boundingRectangle, shape, spriteBatch, game)
         {
             unhoveredTexture = unhovered;
@@ -127,22 +127,26 @@ namespace MoodSwingGUI
         public override void LeftClick()
         {
             collisionTexture = clickedTexture;
+            CurrentState = MSGUIClickableState.LEFTCLICKED;
         }
 
         public override void UnLeftClick()
         {
             action.PerformAction(Game);
             collisionTexture = hoveredTexture;
+            CurrentState = MSGUIClickableState.UNLEFTCLICKED;
         }
 
         public override void Hover()
         {
             collisionTexture = hoveredTexture;
+            CurrentState = MSGUIClickableState.HOVERED;
         }
 
         public override void UnHover()
         {
             collisionTexture = unhoveredTexture;
+            CurrentState = MSGUIClickableState.UNHOVERED;
         }
 
         public override void RightClick() { }
