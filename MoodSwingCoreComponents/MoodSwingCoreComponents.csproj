@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MS2DCollidable.cs" />
+    <Compile Include="MS2DParametricEquation.cs" />
     <Compile Include="MSCamera.cs" />
     <Compile Include="MSLevel.cs" />
     <Compile Include="MS2DClickable.cs" />

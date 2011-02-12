@@ -36,10 +36,10 @@ namespace MoodSwingGame
                     new Rectangle(0, 0, 574, 60),
                     game.Content.Load<Texture2D>("exit"),
                     game.Content.Load<Texture2D>("exitClicked"),
-                    game.Content.Load<Texture2D>("exit"),
-                    SpriteBatch,
+                    game.Content.Load<Texture2D>("exit"),   
                     Color.White,
                     Shape.RECTANGULAR,
+                    SpriteBatch,
                     Game)
                     , Alignment.BOTTOM_CENTER);
 
@@ -50,9 +50,9 @@ namespace MoodSwingGame
                     game.Content.Load<Texture2D>("startgame"),
                     game.Content.Load<Texture2D>("startgameclicked"),
                     game.Content.Load<Texture2D>("startgame"),
-                    SpriteBatch,
                     Color.White,
                     Shape.RECTANGULAR,
+                    SpriteBatch,
                     Game)
                     , Alignment.MIDDLE_CENTER);
         }

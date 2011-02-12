@@ -84,6 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MS2DParametricEquations.cs" />
     <Compile Include="MS3DTile.cs" />
     <Compile Include="MSBuilding.cs" />
     <Compile Include="MSCitizen.cs" />
