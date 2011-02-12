@@ -116,7 +116,7 @@ namespace MoodSwingCoreComponents
                     case Shape.AMORPHOUS:
                         RenderTarget2D renderTarget = new RenderTarget2D(Game.GraphicsDevice, 1, 1, 1, SurfaceFormat.Color);
                         Game.GraphicsDevice.SetRenderTarget(0, renderTarget);
-                        Game.GraphicsDevice.Clear(ClearOptions.Target, Color.Red, 0, 0);
+                        Game.GraphicsDevice.Clear(ClearOptions.Target, Color.TransparentWhite, 0, 0);
                         spriteBatch.Begin();
                         spriteBatch.Draw(CollisionTexture,
                             new Rectangle(0, 0, 1, 1),
@@ -126,8 +126,8 @@ namespace MoodSwingCoreComponents
                         Game.GraphicsDevice.SetRenderTarget(0, null);
                         Color[] collisionColorInformation = new Color[1];
                         renderTarget.GetTexture().GetData<Color>(0, new Rectangle(0, 0, 1, 1), collisionColorInformation, 0, 1);
-
-                        if (collisionColorInformation[0].A != 0)
+                        System.Console.WriteLine(collisionColorInformation[0].A);
+                        if (collisionColorInformation[0].A != 0)                           
                             return true;
 
                         else return false;
