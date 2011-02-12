@@ -114,8 +114,8 @@ namespace MoodSwingGame
                     mouseRHoldButton = new Vector2(newMouseState.X, newMouseState.Y);
                     camera.adjustPitchAxis(); 
                 }
-                Vector2 movement = new Vector2(newMouseState.X, newMouseState.Y) - mouseRHoldButton;
-                movement.Y *= -1;
+                Vector2 movement = new Vector2(newMouseState.X, newMouseState.Y) - new Vector2(oldMouseState.X, oldMouseState.Y);
+                movement.X *= -1;
                 camera.rotate(movement);
             }
             else

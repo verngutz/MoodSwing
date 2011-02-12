@@ -73,12 +73,11 @@ namespace MoodSwingCoreComponents
         {
             Vector3 shift = dV.X * pitchAxis + dV.Y * Vector3.Normalize(Vector3.Cross(upCamera,pitchAxis));
             shiftVector += shift * SHIFT_SPEED;
-            //cameraTarget += shift * SHIFT_SPEED;
         }
 
         public void rotate( Vector2 rotation )
         {
-            float angle = .001f;
+            float angle = .005f;
             Vector3 transformedReference;
             Matrix pitchRotationMatrix = Matrix.CreateFromAxisAngle(pitchAxis, angle * rotation.Y);
             
