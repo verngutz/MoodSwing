@@ -86,10 +86,11 @@ namespace MoodSwingCoreComponents
             Vector3 transformedUpCamera = Vector3.Transform(upCamera, pitchRotationMatrix);
             upCamera = transformedUpCamera;
 
-            Matrix yawRotationMatrix = Matrix.CreateFromAxisAngle(upCamera, angle * rotation.X);
+            Matrix yawRotationMatrix = Matrix.CreateFromAxisAngle(Vector3.UnitZ, angle * rotation.X);
 
             
             transformedReference = Vector3.Transform(transformedReference, yawRotationMatrix);
+            upCamera = Vector3.Transform(upCamera, yawRotationMatrix);
             cameraPosition = transformedReference ;
             adjustPitchAxis();
 
