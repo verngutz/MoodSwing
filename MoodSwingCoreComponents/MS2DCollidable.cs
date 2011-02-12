@@ -126,7 +126,6 @@ namespace MoodSwingCoreComponents
                         Game.GraphicsDevice.SetRenderTarget(0, null);
                         Color[] collisionColorInformation = new Color[1];
                         renderTarget.GetTexture().GetData<Color>(0, new Rectangle(0, 0, 1, 1), collisionColorInformation, 0, 1);
-                        System.Console.WriteLine(collisionColorInformation[0].A);
                         if (collisionColorInformation[0].A != 0)                           
                             return true;
 

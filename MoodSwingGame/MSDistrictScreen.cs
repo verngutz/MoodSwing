@@ -48,9 +48,9 @@ namespace MoodSwingGame
                     game.Content.Load<Texture2D>("exit"),
                     game.Content.Load<Texture2D>("exitclicked"),
                     game.Content.Load<Texture2D>("exit"),
-                    SpriteBatch,
                     Color.White,
                     Shape.RECTANGULAR,
+                    SpriteBatch,
                     Game)
                     , Alignment.TOP_CENTER);
         }
