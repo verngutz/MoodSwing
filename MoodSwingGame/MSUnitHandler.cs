@@ -84,7 +84,7 @@ namespace MoodSwingGame
                 {
                     MSCitizen citizen = person as MSCitizen;
                     int rnd = MSRandom.random.Next(5000);
-                    if (rnd <= 3000 && !citizen.IsFollowing)
+                    if (rnd <= 5000 && !citizen.IsFollowing)
                     {
                         foreach (MSUnit p in citizens)
                         {

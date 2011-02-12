@@ -29,6 +29,7 @@ namespace MoodSwingCoreComponents
         private Vector3 cameraPosition;
         public Vector3 Position { get { return cameraPosition+shiftVector; } }
         private Vector3 cameraTarget;
+        public Vector3 CameraTarget { get { return cameraTarget; } }
         private Vector3 pitchAxis;
         private Vector3 shiftVector;
         public void adjustPitchAxis()

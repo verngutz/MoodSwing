@@ -30,7 +30,7 @@ namespace MoodSwingCoreComponents
         }
 
         protected Matrix projection;
-        public Matrix ProjectionMatrix { get { return projection; } }
+        public  Matrix ProjectionMatrix { get { return projection; } }
 
         public MS3DComponent(Vector3 position, Game game)
             : base(game)

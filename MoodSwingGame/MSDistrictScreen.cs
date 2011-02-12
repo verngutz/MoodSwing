@@ -95,6 +95,7 @@ namespace MoodSwingGame
             }
         }
 
+        private Vector2 mouseMidHold;
         public override void HandleMouseInput(MouseState oldMouseState)
         {
             //Camera rotation handler
@@ -104,10 +105,21 @@ namespace MoodSwingGame
                 MSCamera camera = MSCamera.getInstance();
                 if (oldMouseState.MiddleButton == ButtonState.Released)
                 {
+                    mouseMidHold = new Vector2(newMouseState.X, newMouseState.Y);
                     camera.adjustPitchAxis();
                 }
                 Vector2 movement = new Vector2(newMouseState.X, newMouseState.Y) - new Vector2(oldMouseState.X, oldMouseState.Y);
                 movement.X *= -1;
+                if (mouseMidHold.Y < MoodSwing.getInstance().GraphicsDevice.DisplayMode.Height / 2)
+                    movement *= -1;
+
+                Vector2 midVector = new Vector2((MoodSwing.getInstance().GraphicsDevice.DisplayMode.Width / 2),
+                    (MoodSwing.getInstance().GraphicsDevice.DisplayMode.Height / 2));
+
+                float distance = Vector2.Distance(midVector, mouseMidHold);
+
+                movement *= 100;
+                movement /= distance;
                 camera.rotate(movement);
             }
             else
