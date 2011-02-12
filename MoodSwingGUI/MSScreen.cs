@@ -74,8 +74,11 @@ namespace MoodSwingGUI
                 {
                     if (component.CollidesWithMouse())
                     {
-                        currentHovered = component;
-                        currentHovered.Hover();
+                        if (component.CurrentState != MSGUIClickableState.HOVERED)
+                        {
+                            currentHovered = component;
+                            currentHovered.Hover();
+                        }
                         hasHovered = true;
                         break;
                     }
@@ -93,35 +96,43 @@ namespace MoodSwingGUI
             {
                 if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
                 {
-                    currentHovered.LeftClick();
+                    if(currentHovered.CurrentState != MSGUIClickableState.LEFTCLICKED)
+                        currentHovered.LeftClick();
                 }
                 else if (currentMouseState.LeftButton == ButtonState.Released && oldMouseState.LeftButton == ButtonState.Pressed)
                 {
-                    currentHovered.UnLeftClick();
-                    if (currentHovered is MSGUITypable)
+                    if (currentHovered.CurrentState != MSGUIClickableState.UNLEFTCLICKED)
                     {
-                        if(currentFocused != null) currentFocused.HasFocus = false;
-                        currentFocused = (MSGUITypable)currentHovered;
-                        currentFocused.HasFocus = true;
+                        currentHovered.UnLeftClick();
+                        if (currentHovered is MSGUITypable)
+                        {
+                            if (currentFocused != null) currentFocused.HasFocus = false;
+                            currentFocused = (MSGUITypable)currentHovered;
+                            currentFocused.HasFocus = true;
+                        }
                     }
                 }
 
                 if (currentMouseState.RightButton == ButtonState.Pressed && oldMouseState.RightButton == ButtonState.Released)
                 {
-                    currentHovered.RightClick();
+                    if (currentHovered.CurrentState != MSGUIClickableState.RIGHTCLICKED)
+                        currentHovered.RightClick();
                 }
                 else if (currentMouseState.RightButton == ButtonState.Released && oldMouseState.RightButton == ButtonState.Pressed)
                 {
-                    currentHovered.UnRightClick();
+                    if (currentHovered.CurrentState != MSGUIClickableState.UNRIGHTCLICKED)
+                        currentHovered.UnRightClick();
                 }
 
                 if (currentMouseState.MiddleButton == ButtonState.Pressed && oldMouseState.MiddleButton == ButtonState.Released)
                 {
-                    currentHovered.MiddleClick();
+                    if (currentHovered.CurrentState != MSGUIClickableState.MIDDLECLICKED)
+                        currentHovered.MiddleClick();
                 }
                 else if (currentMouseState.MiddleButton == ButtonState.Released && oldMouseState.MiddleButton == ButtonState.Pressed)
                 {
-                    currentHovered.UnMiddleClick();
+                    if (currentHovered.CurrentState != MSGUIClickableState.UNMIDDLECLICKED)
+                        currentHovered.UnMiddleClick();
                 }
             }
         }

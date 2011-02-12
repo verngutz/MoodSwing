@@ -15,49 +15,35 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGame
 {
-    public class Shift50pxRight : MS2DParametricEquation
+    public class StartGameButtonHoverPosition : MS2DParametricEquation
     {
-        public int X(int t)
+        public int X(int t) { return X(t, 0); }
+
+        public int X(int t, int x0)
         {
-            if (t < 50) return 3 * t;
-            else return 0;
-        }
-        public int Y(int t)
-        {
-            return 0;
+            int t1 = (int)MathHelper.Clamp(t, 0, 25);
+            return 3 * t1 + x0;
         }
 
-        public int Dx(int t)
-        {
-            if (t < 50) return 3;
-            else return 0;
-        }
-        public int Dy(int t)
-        {
-            return 0;
-        }
+        public int Y(int t) { return 0; }
+        public int Y(int t, int y0) { return y0; }
+        public int Dx(int t) { return 3; }
+        public int Dy(int t) { return 0; }
     }
 
-    public class Shift50pxLeft : MS2DParametricEquation
+    public class StartGameButtonUnhoverPosition : MS2DParametricEquation
     {
-        public int X(int t)
+        public int X(int t) { return X(t, 0); }
+
+        public int X(int t, int x0)
         {
-            if (t < 50) return -3 * t;
-            else return 0;
-        }
-        public int Y(int t)
-        {
-            return 0;
+            int t1 = (int)MathHelper.Clamp(t, 0, 25);
+            return -3 * t1 + x0;
         }
 
-        public int Dx(int t)
-        {
-            if (t < 50) return -3;
-            else return 0;
-        }
-        public int Dy(int t)
-        {
-            return 0;
-        }
+        public int Y(int t) { return 0; }
+        public int Y(int t, int y0) { return y0; }
+        public int Dx(int t) { return -3; }
+        public int Dy(int t) { return 0; }
     }
 }

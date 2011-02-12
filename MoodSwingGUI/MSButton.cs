@@ -19,9 +19,6 @@ namespace MoodSwingGUI
     /// </summary>
     public class MSButton : MSGUITypable
     {
-        public enum MSButtonState { CLICKED, UNCLICKED, HOVERED, UNHOVERED }
-        protected MSButtonState currentState;
-
         private Texture2D clickedTexture;
         private Texture2D hoveredTexture;
         private Texture2D unhoveredTexture;
@@ -130,26 +127,26 @@ namespace MoodSwingGUI
         public override void LeftClick()
         {
             collisionTexture = clickedTexture;
-            currentState = MSButtonState.CLICKED;
+            CurrentState = MSGUIClickableState.LEFTCLICKED;
         }
 
         public override void UnLeftClick()
         {
             action.PerformAction(Game);
             collisionTexture = hoveredTexture;
-            currentState = MSButtonState.UNCLICKED;
+            CurrentState = MSGUIClickableState.UNLEFTCLICKED;
         }
 
         public override void Hover()
         {
             collisionTexture = hoveredTexture;
-            currentState = MSButtonState.HOVERED;
+            CurrentState = MSGUIClickableState.HOVERED;
         }
 
         public override void UnHover()
         {
             collisionTexture = unhoveredTexture;
-            currentState = MSButtonState.UNHOVERED;
+            CurrentState = MSGUIClickableState.UNHOVERED;
         }
 
         public override void RightClick() { }
