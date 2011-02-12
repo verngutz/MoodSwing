@@ -25,7 +25,6 @@ namespace MoodSwingGame
         public static int tileDimension = 32;
         private int rows;
         private int columns;
-        private static Random random = new Random();
         public MSMap(String filename) : base( MoodSwing.getInstance() )
         {
             StreamReader sr = new StreamReader(filename);
@@ -55,8 +54,8 @@ namespace MoodSwingGame
             int y = 0;
             do
             {
-                x = random.Next(rows);
-                y = random.Next(columns);
+                x = MSRandom.random.Next(rows);
+                y = MSRandom.random.Next(columns);
 
             } while (!(mapArray[x, y] is MSBuilding) );
             return new Vector2(x,y);

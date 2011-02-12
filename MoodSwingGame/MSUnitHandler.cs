@@ -34,12 +34,10 @@ namespace MoodSwingGame
         private const int MOB_PROBABILITY = 10;
         //list of citizens
         private List<MSUnit> citizens;
-        private Random random;
 
         private MSUnitHandler() 
         {
             citizens = new List<MSUnit>();
-            random = new Random();
         }
 
         //something to remove. Make oneOnly = true if you want only one citizen to exist.
@@ -48,7 +46,7 @@ namespace MoodSwingGame
         private bool checkOne = false;
         public MSUnit TryForBaby( MSMap map )
         {
-            int rnd = random.Next(5000);
+            int rnd = MSRandom.random.Next(5000);
 
             if (oneOnly && checkOne)
                 return null;
@@ -85,7 +83,7 @@ namespace MoodSwingGame
                 if (person is MSCitizen)
                 {
                     MSCitizen citizen = person as MSCitizen;
-                    int rnd = random.Next(5000);
+                    int rnd = MSRandom.random.Next(5000);
                     if (rnd <= 3000 && !citizen.IsFollowing)
                     {
                         foreach (MSUnit p in citizens)

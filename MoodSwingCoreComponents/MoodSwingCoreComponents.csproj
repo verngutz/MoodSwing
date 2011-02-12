@@ -91,6 +91,7 @@
     <Compile Include="MS3DComponent.cs" />
     <Compile Include="MSAction.cs" />
     <Compile Include="MSLevelReader.cs" />
+    <Compile Include="MSRandom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
