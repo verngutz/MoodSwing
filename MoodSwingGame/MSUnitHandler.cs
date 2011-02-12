@@ -29,7 +29,7 @@ namespace MoodSwingGame
         }
 
         //probability constant that handles unit generation
-        private const int PROBABILITY = 300;
+        private const int PROBABILITY = 4000;
         //probability constant that handles mob generation
         private const int MOB_PROBABILITY = 10;
         //list of citizens

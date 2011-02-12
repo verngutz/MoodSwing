@@ -68,6 +68,8 @@ namespace MoodSwingGame
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            
+            
             checkCollision();
             HandleMouseInput((Game as MoodSwing).OldMouseState);
             map.Update(gameTime);
@@ -91,6 +93,44 @@ namespace MoodSwingGame
             {
                 map.CheckCollision();
             }
+        }
+
+        public override void HandleMouseInput(MouseState oldMouseState)
+        {
+            //Camera rotation handler
+            MouseState newMouseState = Mouse.GetState();
+            if (newMouseState.MiddleButton == ButtonState.Pressed)
+            {
+                MSCamera camera = MSCamera.getInstance();
+                if (oldMouseState.MiddleButton == ButtonState.Released)
+                {
+                    camera.adjustPitchAxis();
+                }
+                Vector2 movement = new Vector2(newMouseState.X, newMouseState.Y) - new Vector2(oldMouseState.X, oldMouseState.Y);
+                movement.X *= -1;
+                camera.rotate(movement);
+            }
+            else
+            {
+                //Camera movement using mouse
+                if (newMouseState.X >= 0 && newMouseState.X <= 5)
+                    MSCamera.getInstance().shift(new Vector2(1, 0));
+                else if (newMouseState.X <= MoodSwing.getInstance().GraphicsDevice.Viewport.Width &&
+                    newMouseState.X >= MoodSwing.getInstance().GraphicsDevice.Viewport.Width - 5)
+                    MSCamera.getInstance().shift(new Vector2(-1, 0));
+                else if (newMouseState.Y >= 0 && newMouseState.Y <= 5)
+                    MSCamera.getInstance().shift(new Vector2(0, -1));
+                else if (newMouseState.Y <= MoodSwing.getInstance().GraphicsDevice.Viewport.Height &&
+                    newMouseState.Y >= MoodSwing.getInstance().GraphicsDevice.Viewport.Height - 5)
+                    MSCamera.getInstance().shift(new Vector2(0, 1));
+
+                int delta = (newMouseState.ScrollWheelValue - oldMouseState.ScrollWheelValue);
+                if (delta != 0)
+                    MSCamera.getInstance().zoom(delta / Math.Abs(delta));
+
+
+            }
+            base.HandleMouseInput(oldMouseState);
         }
     }
 }
