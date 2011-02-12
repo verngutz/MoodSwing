@@ -43,8 +43,6 @@ namespace MoodSwingGame
         private MouseState oldMouseState;
         public MouseState OldMouseState { get { return oldMouseState; } }
 
-        private Vector2 mouseRHoldButton;
-
         private MoodSwing()
         {
             graphics = new GraphicsDeviceManager(this);

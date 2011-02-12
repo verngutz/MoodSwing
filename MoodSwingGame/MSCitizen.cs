@@ -25,31 +25,25 @@ namespace MoodSwingGame
         public bool IsThere() { return isThere; }
         private Vector2 targetLocation;
         public Vector2 TargetLocation { get { return targetLocation; } }
-        private bool isFollowing;
-        public bool IsFollowing { get { return isFollowing; } }
+        private bool isMobbing;
+        public bool IsMobbing { get { return isMobbing; } }
         public Vector2 TileCoordinate { get { return new Vector2(position.Y / MSMap.tileDimension, position.X / MSMap.tileDimension); } }
 
-        public MSCitizen( Model m, Vector3 position, Node p )
+        public MSCitizen(Model m, Vector3 position, Node p, bool mob)
             : base(position, MoodSwing.getInstance())
         {
             this.model = m;
-            this.path = p;
             this.isThere = false;
-            isFollowing = false;
+            this.isMobbing = mob;
+            this.path = p;
         }
 
         public void Follow(MSCitizen citizen)
         {
             path = citizen.Path;
             targetLocation = citizen.TargetLocation;
-            isFollowing = true;
-        }
-
-        public void Revolt( MSMap map)
-        {
-            this.path = map.GetPath( TileCoordinate, MSDistrictHall.getInstance().TileCoordinate );
-            this.targetLocation = Vector2.Zero;
-            isFollowing = true;
+            this.model = MoodSwing.getInstance().Content.Load<Model>("mob");
+            isMobbing = true;
         }
 
         private const float WALK_SPEED = 0.55f;

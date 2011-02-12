@@ -38,7 +38,8 @@ namespace MoodSwingCoreComponents
             this.position = position;
             world = Matrix.CreateTranslation(position);
             projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), game.GraphicsDevice.Viewport.AspectRatio, 5, 5000);
-           
+
+            
         }
 
         public int CompareTo(object ob)
