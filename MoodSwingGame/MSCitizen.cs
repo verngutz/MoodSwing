@@ -40,6 +40,7 @@ namespace MoodSwingGame
         private bool isWaiting;
         public bool IsWaiting { get { return isWaiting; } set { isWaiting = value; } }
         public Vector2 TileCoordinate { get { return new Vector2((int)(Math.Round(position.Y / MSMap.tileDimension)),(int) (Math.Round((position.X / MSMap.tileDimension))) ); } }
+        private MSMoodManager moodManager;
 
         public MSCitizen(Model m, Vector3 position, Node p, State s)
             : base(position, MoodSwing.getInstance())
@@ -50,6 +51,7 @@ namespace MoodSwingGame
             //this.isWaiting = false;
             state = s;
             this.path = p;
+            this.moodManager = MSMoodManager.getInstance();
         }
 
         public void Follow(MSCitizen citizen)
@@ -98,6 +100,8 @@ namespace MoodSwingGame
                 else
                     this.position += new Vector3(unit.X * WALK_SPEED, unit.Y * WALK_SPEED, 0);
 
+                if (isThere && state == State.MOB)
+                    moodManager.takeDamage(1);
 
                 adjustWorldMatrix();
             }

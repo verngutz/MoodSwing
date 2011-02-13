@@ -29,12 +29,15 @@ namespace MoodSwingGame
         private MSMap map;
         private List<MS3DComponent> elementsList;
         private MSUnitHandler unitHandler;
+        private MSMoodManager moodManager;
+
         private MSDistrictScreen(MoodSwing game)
             : base(null, 150, 150, 150, 150, game.SpriteBatch, game) 
         {
             map = new MSMap(@"Content\mapinfo.txt");
             elementsList = new List<MS3DComponent>();
             unitHandler = MSUnitHandler.getInstance();
+            moodManager = MSMoodManager.getInstance();
 
             foreach (MSTile tile in map.MapArray)
             {
@@ -53,6 +56,7 @@ namespace MoodSwingGame
                     SpriteBatch,
                     Game)
                     , Alignment.TOP_CENTER);
+
         }
 
         public override void Draw(GameTime gameTime)
@@ -63,6 +67,7 @@ namespace MoodSwingGame
             {
                 temp.Draw(gameTime);
             }
+            spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "" + moodManager.Mood, new Vector2(10, 10), new Color(0, 0, 0));
         }
 
         public override void Update(GameTime gameTime)
