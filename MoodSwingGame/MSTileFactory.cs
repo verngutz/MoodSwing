@@ -24,6 +24,19 @@ namespace MoodSwingGame
         }
         public static MSTile CreateMSTile(int tileKey, Vector3 position)
         {
+            /*
+             * Legend:
+             * 0    -   basic building
+             * 10   -   tower
+             * 20   -   district hall
+             * 1    -   empty passable land
+             * 11   -   road end, prefix with 0 to 3 for counterclockwise rotation
+             * 021  -   L road bending from top to left, prefix with 0 to 3 for counterclockwise rotation
+             * 121  -   straight vertical road, prefix with 0 to 1 for rotation
+             * 31   -   T road vertical with branch to the left, prefix with 0 to 3 for counterclockwise rotation
+             * 41   -   crossroads
+             */
+
             ContentManager c = MoodSwing.getInstance().Content;
             switch (tileKey - ((tileKey / 10) * 10))
             {
