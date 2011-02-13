@@ -31,7 +31,9 @@ namespace MoodSwingGUI
 
         public MS2DParametricEquation UnclickPosition { set; get; }
         public MS2DParametricEquation UnclickSize { set; get; }
+        private bool unclickTriggered;
         private int unclickTimer;
+        private const int UNCLICK_TIMER_LIMIT = 16;
 
         private int x0;
         private int y0;
@@ -71,6 +73,7 @@ namespace MoodSwingGUI
         {
             clickTimer = 0;
             unclickTimer = 0;
+            unclickTriggered = false;
             hoverTimer = 0;
             unhoverTimer = 0;
             ClickPosition = new ConstantParametricCurve();
@@ -90,40 +93,50 @@ namespace MoodSwingGUI
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            switch (CurrentState)
+            if (unclickTriggered)
             {
-                case MSGUIClickableState.LEFTCLICKED:
-                    boundingRectangle = new Rectangle(
-                        ClickPosition.X(clickTimer, x0),
-                        ClickPosition.Y(clickTimer, y0),
-                        ClickSize.X(clickTimer, w0),
-                        ClickSize.Y(clickTimer, h0));
-                    clickTimer++;
-                    break;
-                case MSGUIClickableState.HOVERED:
-                    boundingRectangle = new Rectangle(
-                        HoverPosition.X(hoverTimer, x0),
-                        HoverPosition.Y(hoverTimer, y0),
-                        HoverSize.X(hoverTimer, w0),
-                        HoverSize.Y(hoverTimer, h0));
-                    hoverTimer++;
-                    break;
-                case MSGUIClickableState.UNLEFTCLICKED:
-                    boundingRectangle = new Rectangle(
-                        UnclickPosition.X(unclickTimer, x0),
-                        UnclickPosition.Y(unclickTimer, y0),
-                        UnclickSize.X(unclickTimer, w0),
-                        UnclickSize.Y(unclickTimer, h0));
-                    unclickTimer++;
-                    break;
-                case MSGUIClickableState.UNHOVERED:
-                    boundingRectangle = new Rectangle(
-                        UnhoverPosition.X(unhoverTimer, x0),
-                        UnhoverPosition.Y(unhoverTimer, y0),
-                        UnhoverSize.X(unhoverTimer, w0),
-                        UnhoverSize.Y(unhoverTimer, h0));
-                    unhoverTimer++;
-                    break;
+                boundingRectangle = new Rectangle(
+                           UnclickPosition.X(unclickTimer, x0),
+                           UnclickPosition.Y(unclickTimer, y0),
+                           UnclickSize.X(unclickTimer, w0),
+                           UnclickSize.Y(unclickTimer, h0));
+
+                unclickTimer++;
+                if (unclickTimer > UNCLICK_TIMER_LIMIT)
+                {
+                    unclickTriggered = false;
+                    UnHover();
+                }
+            }
+            else
+            {
+                switch (CurrentState)
+                {
+                    case MSGUIClickableState.LEFTCLICKED:
+                        boundingRectangle = new Rectangle(
+                            ClickPosition.X(clickTimer, x0),
+                            ClickPosition.Y(clickTimer, y0),
+                            ClickSize.X(clickTimer, w0),
+                            ClickSize.Y(clickTimer, h0));
+                        clickTimer++;
+                        break;
+                    case MSGUIClickableState.HOVERED:
+                        boundingRectangle = new Rectangle(
+                            HoverPosition.X(hoverTimer, x0),
+                            HoverPosition.Y(hoverTimer, y0),
+                            HoverSize.X(hoverTimer, w0),
+                            HoverSize.Y(hoverTimer, h0));
+                        hoverTimer++;
+                        break;
+                    case MSGUIClickableState.UNHOVERED:
+                        boundingRectangle = new Rectangle(
+                            UnhoverPosition.X(unhoverTimer, x0),
+                            UnhoverPosition.Y(unhoverTimer, y0),
+                            UnhoverSize.X(unhoverTimer, w0),
+                            UnhoverSize.Y(unhoverTimer, h0));
+                        unhoverTimer++;
+                        break;
+                }
             }
         }
 
@@ -135,6 +148,7 @@ namespace MoodSwingGUI
         public override void UnLeftClick()
         {
             base.UnLeftClick();
+            unclickTriggered = true;
             unclickTimer = 0;
         }
         public override void Hover()

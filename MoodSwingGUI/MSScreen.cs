@@ -12,7 +12,7 @@ namespace MoodSwingGUI
     /// <summary>
     /// MSScreen is an MSPanel that covers the entire computer screen.
     /// </summary>
-    public class MSScreen : MSPanel
+    public abstract class MSScreen : MSPanel
     {
         private MSGUIClickable currentHovered;
         private MSGUITypable currentFocused;
@@ -66,16 +66,16 @@ namespace MoodSwingGUI
         public virtual void HandleMouseInput(MouseState oldMouseState)
         {
             MouseState currentMouseState = Mouse.GetState();
-            if (currentMouseState.X != oldMouseState.X || currentMouseState.Y != oldMouseState.Y)
+            if (currentMouseState != oldMouseState)
             {
-                if (currentHovered != null) currentHovered.UnHover();
                 bool hasHovered = false;
                 foreach (MSGUIClickable component in ClickableComponents)
                 {
                     if (component.CollidesWithMouse())
                     {
-                        if (component.CurrentState != MSGUIClickableState.HOVERED)
+                        if (currentHovered != component)
                         {
+                            if (currentHovered != null) currentHovered.UnHover();
                             currentHovered = component;
                             currentHovered.Hover();
                         }
@@ -91,48 +91,41 @@ namespace MoodSwingGUI
                         currentHovered = null;
                     }
                 }
-            }
-            if (currentHovered != null)
-            {
-                if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+                if (currentHovered != null)
                 {
-                    if(currentHovered.CurrentState != MSGUIClickableState.LEFTCLICKED)
-                        currentHovered.LeftClick();
-                }
-                else if (currentMouseState.LeftButton == ButtonState.Released && oldMouseState.LeftButton == ButtonState.Pressed)
-                {
-                    if (currentHovered.CurrentState != MSGUIClickableState.UNLEFTCLICKED)
+                    if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
                     {
-                        currentHovered.UnLeftClick();
+                        currentHovered.LeftClick();
+                    }
+                    else if (currentMouseState.LeftButton == ButtonState.Released && oldMouseState.LeftButton == ButtonState.Pressed)
+                    {
                         if (currentHovered is MSGUITypable)
                         {
                             if (currentFocused != null) currentFocused.HasFocus = false;
                             currentFocused = (MSGUITypable)currentHovered;
                             currentFocused.HasFocus = true;
                         }
+                        currentHovered.UnLeftClick();
+                        currentHovered = null;
                     }
-                }
 
-                if (currentMouseState.RightButton == ButtonState.Pressed && oldMouseState.RightButton == ButtonState.Released)
-                {
-                    if (currentHovered.CurrentState != MSGUIClickableState.RIGHTCLICKED)
+                    if (currentMouseState.RightButton == ButtonState.Pressed && oldMouseState.RightButton == ButtonState.Released)
+                    {
                         currentHovered.RightClick();
-                }
-                else if (currentMouseState.RightButton == ButtonState.Released && oldMouseState.RightButton == ButtonState.Pressed)
-                {
-                    if (currentHovered.CurrentState != MSGUIClickableState.UNRIGHTCLICKED)
+                    }
+                    else if (currentMouseState.RightButton == ButtonState.Released && oldMouseState.RightButton == ButtonState.Pressed)
+                    {
                         currentHovered.UnRightClick();
-                }
+                    }
 
-                if (currentMouseState.MiddleButton == ButtonState.Pressed && oldMouseState.MiddleButton == ButtonState.Released)
-                {
-                    if (currentHovered.CurrentState != MSGUIClickableState.MIDDLECLICKED)
+                    if (currentMouseState.MiddleButton == ButtonState.Pressed && oldMouseState.MiddleButton == ButtonState.Released)
+                    {
                         currentHovered.MiddleClick();
-                }
-                else if (currentMouseState.MiddleButton == ButtonState.Released && oldMouseState.MiddleButton == ButtonState.Pressed)
-                {
-                    if (currentHovered.CurrentState != MSGUIClickableState.UNMIDDLECLICKED)
+                    }
+                    else if (currentMouseState.MiddleButton == ButtonState.Released && oldMouseState.MiddleButton == ButtonState.Pressed)
+                    {
                         currentHovered.UnMiddleClick();
+                    }
                 }
             }
         }
@@ -152,6 +145,15 @@ namespace MoodSwingGUI
                 currentFocused.TabIsFired = false;
                 currentFocused = currentFocused.OnTab;
                 currentFocused.HasFocus = true;
+            }
+        }
+
+        public void ResetHovers()
+        {
+            if (currentHovered != null)
+            {
+                currentHovered.UnHover();
+                currentHovered = null;
             }
         }
     }

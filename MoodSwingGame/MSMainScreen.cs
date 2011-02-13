@@ -26,7 +26,7 @@ namespace MoodSwingGame
             MSAnimatingButton startGameButton = new MSAnimatingButton(
                     null,
                     new OpenCityScreen(),
-                    new Rectangle(300, 200, 559, 60),
+                    new Rectangle(330, 250, 559, 60),
                     game.Content.Load<Texture2D>("startgame"),
                     game.Content.Load<Texture2D>("startgameclicked"),
                     game.Content.Load<Texture2D>("startgameclicked"),
@@ -35,14 +35,13 @@ namespace MoodSwingGame
                     SpriteBatch,
                     Game);
 
-            startGameButton.HoverPosition = new StartGameButtonHoverPosition();
-            startGameButton.UnhoverPosition = new StartGameButtonUnhoverPosition();
+            startGameButton.HoverPosition = new ShiftRight75();
+            startGameButton.UnhoverPosition = new ShiftLeft75();
 
-            /**
             MSAnimatingButton optionsButton = new MSAnimatingButton(
                     null,
                     new OpenOptionsScreen(),
-                    new Rectangle(0, 0, 472, 60),
+                    new Rectangle(350, 350, 472, 60),
                     game.Content.Load<Texture2D>("options"),
                     game.Content.Load<Texture2D>("optionsclicked"),
                     game.Content.Load<Texture2D>("optionsclicked"),
@@ -51,10 +50,13 @@ namespace MoodSwingGame
                     SpriteBatch,
                     Game);
 
+            optionsButton.HoverPosition = new ShiftRight75();
+            optionsButton.UnhoverPosition = new ShiftLeft75();
+
             MSAnimatingButton exitButton = new MSAnimatingButton(
                     null,
                     new Exit(),
-                    new Rectangle(0, 0, 574, 60),
+                    new Rectangle(300, 450, 574, 60),
                     game.Content.Load<Texture2D>("exit"), 
                     game.Content.Load<Texture2D>("exitclicked"), 
                     game.Content.Load<Texture2D>("exitclicked"), 
@@ -62,13 +64,15 @@ namespace MoodSwingGame
                     Shape.AMORPHOUS,
                     SpriteBatch, 
                     Game);
-            */
 
-            AddComponent(startGameButton, Alignment.MANUAL);
+            exitButton.HoverPosition = new ShiftRight75();
+            exitButton.UnhoverPosition = new ShiftLeft75();
 
-            //AddComponent(optionsButton, Alignment.MIDDLE_CENTER);
+            AddComponent(startGameButton);
 
-            //AddComponent(exitButton, Alignment.BOTTOM_CENTER);
+            AddComponent(optionsButton);
+
+            AddComponent(exitButton);
         }
 
         public override void Update(GameTime gameTime)
