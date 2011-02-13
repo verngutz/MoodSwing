@@ -31,7 +31,7 @@ namespace MoodSwingGame
         //probability constant that handles unit generation
         private const int PROBABILITY = 500;
         //probability constant that handles mob generation
-        private const int MOB_PROBABILITY = 10;
+        private const int MOB_PROBABILITY = 100;
         //list of citizens
         private List<MSUnit> citizens;
 
@@ -62,11 +62,11 @@ namespace MoodSwingGame
                     person = new MSCitizen(MoodSwing.getInstance().Content.Load<Model>("mob"),
                         (map.MapArray[(int)start.X, (int)start.Y] as MS3DComponent).Position + new Vector3(0, 0, 20),
                         map.GetPath(start, MSDistrictHall.getInstance().TileCoordinate),
-                        true);
+                        MSCitizen.State.MOB);
                 else
                     person =  new MSCitizen(MoodSwing.getInstance().Content.Load<Model>("person"), 
                         (map.MapArray[(int)start.X, (int)start.Y] as MS3DComponent).Position + new Vector3(0, 0, 20),
-                        path,false);
+                        path, MSCitizen.State.CIVILIAN);
 
                 citizens.Add(person);
                 return person;
@@ -75,6 +75,28 @@ namespace MoodSwingGame
             return null;
         }
 
+        public void AddVolunteer(MSVolunteer volunteer)
+        {
+            citizens.Add(volunteer);
+        }
+
+        public MSCitizen GetTarget(Vector3 position, int range)
+        {
+            foreach (MSUnit unit in citizens)
+            {
+                if (unit is MSCitizen)
+                {
+                    MSCitizen citizen = unit as MSCitizen;
+                    if (citizen.state == MSCitizen.State.MOB &&
+                        Vector3.Distance(position, unit.Get3DComponent().Position) <= range)
+                    {
+                        System.Console.WriteLine("BLAH");
+                        return unit as MSCitizen;
+                    }
+                }
+            }
+            return null;
+        }
         public List<MS3DComponent> Update(MSMap map)
         {
             List<MS3DComponent> list = new List<MS3DComponent>();
@@ -86,15 +108,18 @@ namespace MoodSwingGame
                     MSCitizen citizen = person as MSCitizen;
                     int rnd = MSRandom.random.Next(5000);
 
-                    if (rnd <= 3000 && !citizen.IsMobbing)
+                    if (rnd <= 3000 && citizen.state == MSCitizen.State.CIVILIAN && 
+                        !(citizen is MSVolunteer))
                     {
                         foreach (MSUnit p in citizens)
                         {
-                            if (p is MSCitizen && (p as MSCitizen).IsMobbing)
+                            if (p is MSCitizen && !(p is MSVolunteer) && (p as MSCitizen).state == MSCitizen.State.MOB)
                             {
                                 if (Vector3.Distance(citizen.Position, p.Get3DComponent().Position) <= 5)
                                 {
                                     citizen.Follow(p as MSCitizen);
+                                    citizen.state = MSCitizen.State.MOB;
+                                    citizen.changeModel("mob");
                                     break;
                                 }
                             }

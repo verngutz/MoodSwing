@@ -18,71 +18,89 @@ namespace MoodSwingGame
 {
     public class MSCitizen : MS3DComponent, MSUnit
     {
+        public enum State
+        {
+            CIVILIAN = 0,
+            MOB,
+            WAITING,
+            SUPPRESSED
+
+        };
+
+        public State state;
         private Model model;
         private Node path;
-        public Node Path { get { return path; } }
+        public Node Path { get { return path; } set { path = value; targetLocation = Vector2.Zero; isThere = false; } }
         private bool isThere;
-        public bool IsThere() { return isThere; }
+        public virtual bool IsThere() { return isThere; }
         private Vector2 targetLocation;
         public Vector2 TargetLocation { get { return targetLocation; } }
-        private bool isMobbing;
-        public bool IsMobbing { get { return isMobbing; } }
-        public Vector2 TileCoordinate { get { return new Vector2(position.Y / MSMap.tileDimension, position.X / MSMap.tileDimension); } }
+        //private bool isMobbing;
+        //public bool IsMobbing { get { return isMobbing; }  }
+        private bool isWaiting;
+        public bool IsWaiting { get { return isWaiting; } set { isWaiting = value; } }
+        public Vector2 TileCoordinate { get { return new Vector2((int)(Math.Round(position.Y / MSMap.tileDimension)),(int) (Math.Round((position.X / MSMap.tileDimension))) ); } }
 
-        public MSCitizen(Model m, Vector3 position, Node p, bool mob)
+        public MSCitizen(Model m, Vector3 position, Node p, State s)
             : base(position, MoodSwing.getInstance())
         {
             this.model = m;
             this.isThere = false;
-            this.isMobbing = mob;
+            //this.isMobbing = mob;
+            //this.isWaiting = false;
+            state = s;
             this.path = p;
         }
 
         public void Follow(MSCitizen citizen)
         {
+            //IsWaiting = false;
             path = citizen.Path;
             targetLocation = citizen.TargetLocation;
-            this.model = MoodSwing.getInstance().Content.Load<Model>("mob");
-            isMobbing = true;
+            //this.model = MoodSwing.getInstance().Content.Load<Model>("mob");
+            //state = State.MOB
         }
 
         private const float WALK_SPEED = 0.55f;
-        public void Walk( MSTile[,] mapArray )
+        public virtual void Walk( MSTile[,] mapArray )
         {
-            Vector2 pos = new Vector2(Position.X, Position.Y);
-
-            if (targetLocation == Vector2.Zero )
+            if ( state != State.WAITING)
             {
-                Vector3 targetVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
-                if (path.next != null || path.parent != null)
+                Vector2 pos = new Vector2(Position.X, Position.Y);
+
+                if (targetLocation == Vector2.Zero)
                 {
-                    targetLocation = new Vector2(targetVector3.X + MSRandom.random.Next(MSMap.tileDimension / 2),
-                                                  targetVector3.Y + MSRandom.random.Next(MSMap.tileDimension / 2));
+                    Vector3 targetVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
+                    if (path.next != null || path.parent != null)
+                    {
+                        targetLocation = new Vector2(targetVector3.X + MSRandom.random.Next(MSMap.tileDimension / 2),
+                                                      targetVector3.Y + MSRandom.random.Next(MSMap.tileDimension / 2));
+                    }
+                    else
+                        targetLocation = new Vector2(targetVector3.X, targetVector3.Y);
+
+                }
+                Vector2 unit = targetLocation - pos;
+                unit = Vector2.Normalize(unit);
+
+                if (Vector2.Distance(pos, targetLocation) < 1)
+                {
+                    this.position = new Vector3(targetLocation.X, targetLocation.Y, position.Z);
+                    if (path.next != null)
+                    {
+                        path = path.next;
+                        Vector3 targetVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
+                        targetLocation = new Vector2(targetVector3.X + MSRandom.random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4,
+                                                      targetVector3.Y + MSRandom.random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4);
+                    }
+                    else isThere = true;
                 }
                 else
-                    targetLocation = new Vector2(targetVector3.X, targetVector3.Y);
+                    this.position += new Vector3(unit.X * WALK_SPEED, unit.Y * WALK_SPEED, 0);
 
+
+                adjustWorldMatrix();
             }
-            Vector2 unit = targetLocation-pos;
-            unit = Vector2.Normalize(unit);
-
-            if (Vector2.Distance(pos, targetLocation) < 1)
-            {
-                this.position = new Vector3(targetLocation.X, targetLocation.Y, position.Z);
-                if (path.next != null)
-                {
-                    path = path.next;
-                    Vector3 targetVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
-                    targetLocation = new Vector2(targetVector3.X + MSRandom.random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4,
-                                                  targetVector3.Y + MSRandom.random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4);
-                }
-                else isThere = true;
-            }
-            else
-                this.position += new Vector3(unit.X * WALK_SPEED, unit.Y * WALK_SPEED, 0);
-
-
-            adjustWorldMatrix();
 
         }
 
@@ -107,5 +125,9 @@ namespace MoodSwingGame
             base.Draw(gameTime);
         }
 
+        public void changeModel(String name)
+        {
+            model = MoodSwing.getInstance().Content.Load<Model>(name);
+        }
     }
 }
