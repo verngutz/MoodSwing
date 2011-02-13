@@ -79,6 +79,8 @@ namespace MoodSwingGame
                             break;
                     }
                     return new MSRoad(c.Load<Model>(modelname), position, rotation);
+                case 3:
+                    return new MSTower(c.Load<Model>("districthall"), position);
             }
             return null;
         }

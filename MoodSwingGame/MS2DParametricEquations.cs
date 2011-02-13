@@ -15,7 +15,7 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGame
 {
-    public class StartGameButtonHoverPosition : MS2DParametricEquation
+    public class ShiftRight75 : MS2DParametricEquation
     {
         public int X(int t) { return X(t, 0); }
 
@@ -31,7 +31,7 @@ namespace MoodSwingGame
         public int Dy(int t) { return 0; }
     }
 
-    public class StartGameButtonUnhoverPosition : MS2DParametricEquation
+    public class ShiftLeft75 : MS2DParametricEquation
     {
         public int X(int t) { return X(t, 0); }
 

@@ -57,7 +57,7 @@ namespace MoodSwingGame
                 x = MSRandom.random.Next(rows);
                 y = MSRandom.random.Next(columns);
 
-            } while (!(mapArray[x, y] is MSBuilding) );
+            } while (!(mapArray[x, y] is MSBuilding) || (mapArray[x,y] is MSTower) );
             return new Vector2(x,y);
         }
         
@@ -159,7 +159,6 @@ namespace MoodSwingGame
                 {
                     int x = (int)visiting.Position.X;
                     int y = (int)visiting.Position.Y;
-
                     if (y + 1 < columns && mapArray[x, y + 1] is MSRoad || new Vector2(x,y+1) == end ) 
                     {
                         if (hasVis[x, y + 1] == false)

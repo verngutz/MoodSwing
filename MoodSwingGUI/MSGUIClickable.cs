@@ -29,7 +29,7 @@ namespace MoodSwingGUI
             MIDDLECLICKED,
             UNMIDDLECLICKED,
             HOVERED, 
-            UNHOVERED 
+            UNHOVERED
         }
         public MSGUIClickableState CurrentState { set; get; }
 

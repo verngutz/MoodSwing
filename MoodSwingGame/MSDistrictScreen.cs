@@ -84,6 +84,18 @@ namespace MoodSwingGame
             {
                 elementsList.Remove(temp);
             }
+            foreach (MSTile tile in map.MapArray)
+            {
+                if (tile is MSTower)
+                {
+                    MSTower tower = tile as MSTower;
+                    MSVolunteer volunteer = tower.sentinel(map);
+                    if (volunteer != null)
+                    {
+                        elementsList.Add(volunteer);
+                    }
+                }
+            }
         }
 
         public void checkCollision()
