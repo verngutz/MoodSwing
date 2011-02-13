@@ -29,7 +29,7 @@ namespace MoodSwingGame
         }
 
         //probability constant that handles unit generation
-        private const int PROBABILITY = 500;
+        private const int PROBABILITY = 3500;
         //probability constant that handles mob generation
         private const int MOB_PROBABILITY = 100;
         //list of citizens
@@ -55,7 +55,11 @@ namespace MoodSwingGame
                 checkOne = true;
                 MSUnit person;
                 Vector2 start = map.GetRandomBuilding();
-                Vector2 end = map.GetRandomBuilding();
+                Vector2 end;
+                do
+                {
+                    end = map.GetRandomBuilding();
+                } while (end == start);
                 Node path = map.GetPath(start, end);
 
                 if (rnd < MOB_PROBABILITY)

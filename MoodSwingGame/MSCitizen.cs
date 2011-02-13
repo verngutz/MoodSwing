@@ -35,8 +35,6 @@ namespace MoodSwingGame
         public virtual bool IsThere() { return isThere; }
         private Vector2 targetLocation;
         public Vector2 TargetLocation { get { return targetLocation; } }
-        //private bool isMobbing;
-        //public bool IsMobbing { get { return isMobbing; }  }
         private bool isWaiting;
         public bool IsWaiting { get { return isWaiting; } set { isWaiting = value; } }
         public Vector2 TileCoordinate { get { return new Vector2((int)(Math.Round(position.Y / MSMap.tileDimension)),(int) (Math.Round((position.X / MSMap.tileDimension))) ); } }
@@ -46,19 +44,14 @@ namespace MoodSwingGame
         {
             this.model = m;
             this.isThere = false;
-            //this.isMobbing = mob;
-            //this.isWaiting = false;
             state = s;
             this.path = p;
         }
 
         public void Follow(MSCitizen citizen)
         {
-            //IsWaiting = false;
             path = citizen.Path;
             targetLocation = citizen.TargetLocation;
-            //this.model = MoodSwing.getInstance().Content.Load<Model>("mob");
-            //state = State.MOB
         }
 
         private const float WALK_SPEED = 0.55f;

@@ -74,6 +74,7 @@ namespace MoodSwingCoreComponents
         {
             Vector3 shift = dV.X * pitchAxis + dV.Y * Vector3.Normalize(Vector3.Cross(Vector3.UnitZ, pitchAxis));
             shiftVector += shift * SHIFT_SPEED;
+            
         }
 
         public void rotate( Vector2 rotation )
