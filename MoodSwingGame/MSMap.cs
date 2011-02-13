@@ -22,7 +22,7 @@ namespace MoodSwingGame
     {
         private MSTile[,] mapArray;
         public MSTile[,] MapArray { get { return mapArray; } }
-        public static int tileDimension = 32;
+        public static int tileDimension = 31;
         private int rows;
         private int columns;
         public MSMap(String filename) : base( MoodSwing.getInstance() )
@@ -32,12 +32,12 @@ namespace MoodSwingGame
             rows = Int32.Parse(line[0]);
             columns = Int32.Parse(line[1]);
             mapArray = new MSTile[rows,columns];
-            for(int i = 0; i < rows; i++)
+            for(int j = 0; j < columns; j++)
             {
                 line = sr.ReadLine().Split(' ');
-                for(int j = 0; j < columns; j++)
+                for (int i = 0; i < rows; i++)
                 {
-                    mapArray[i, j] = MSTileFactory.CreateMSTile(Int32.Parse(line[j]), new Vector3(j * tileDimension, i * tileDimension, 0));
+                    mapArray[i, j] = MSTileFactory.CreateMSTile(Int32.Parse(line[i]), new Vector3(j * tileDimension, i * tileDimension, 0));
                 } 
             }
         }
