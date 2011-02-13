@@ -29,7 +29,7 @@ namespace MoodSwingGame
         }
 
         //probability constant that handles unit generation
-        private const int PROBABILITY = 4000;
+        private const int PROBABILITY = 500;
         //probability constant that handles mob generation
         private const int MOB_PROBABILITY = 10;
         //list of citizens
@@ -59,13 +59,14 @@ namespace MoodSwingGame
                 Node path = map.GetPath(start, end);
 
                 if (rnd < MOB_PROBABILITY)
-                    person = new MSMob(MoodSwing.getInstance().Content.Load<Model>("mob"),
+                    person = new MSCitizen(MoodSwing.getInstance().Content.Load<Model>("mob"),
                         (map.MapArray[(int)start.X, (int)start.Y] as MS3DComponent).Position + new Vector3(0, 0, 20),
-                        map.GetPath(start, MSDistrictHall.getInstance().TileCoordinate));
+                        map.GetPath(start, MSDistrictHall.getInstance().TileCoordinate),
+                        true);
                 else
                     person =  new MSCitizen(MoodSwing.getInstance().Content.Load<Model>("person"), 
                         (map.MapArray[(int)start.X, (int)start.Y] as MS3DComponent).Position + new Vector3(0, 0, 20),
-                        path);
+                        path,false);
 
                 citizens.Add(person);
                 return person;
@@ -84,15 +85,16 @@ namespace MoodSwingGame
                 {
                     MSCitizen citizen = person as MSCitizen;
                     int rnd = MSRandom.random.Next(5000);
-                    if (rnd <= 3000 && !citizen.IsFollowing)
+
+                    if (rnd <= 3000 && !citizen.IsMobbing)
                     {
                         foreach (MSUnit p in citizens)
                         {
-                            if (p is MSMob)
+                            if (p is MSCitizen && (p as MSCitizen).IsMobbing)
                             {
                                 if (Vector3.Distance(citizen.Position, p.Get3DComponent().Position) <= 5)
                                 {
-                                    (p as MSMob).Add(citizen);
+                                    citizen.Follow(p as MSCitizen);
                                     break;
                                 }
                             }
@@ -111,6 +113,7 @@ namespace MoodSwingGame
             foreach (MSCitizen person in list)
             {
                 citizens.Remove(person);
+                person.Dispose();
             }
             return list;
         }

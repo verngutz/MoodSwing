@@ -29,6 +29,7 @@ namespace MoodSwingCoreComponents
         private Vector3 cameraPosition;
         public Vector3 Position { get { return cameraPosition+shiftVector; } }
         private Vector3 cameraTarget;
+        public Vector3 CameraTarget { get { return cameraTarget; } }
         private Vector3 pitchAxis;
         private Vector3 shiftVector;
         public void adjustPitchAxis()
@@ -71,7 +72,7 @@ namespace MoodSwingCoreComponents
         private const int SHIFT_SPEED = 3;
         public void shift(Vector2 dV)
         {
-            Vector3 shift = dV.X * pitchAxis + dV.Y * Vector3.Normalize(Vector3.Cross(upCamera,pitchAxis));
+            Vector3 shift = dV.X * pitchAxis + dV.Y * Vector3.Normalize(Vector3.Cross(Vector3.UnitZ, pitchAxis));
             shiftVector += shift * SHIFT_SPEED;
         }
 
