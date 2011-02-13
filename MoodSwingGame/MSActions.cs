@@ -20,6 +20,7 @@ namespace MoodSwingGame
         public void PerformAction(Game game)
         {
             MoodSwing moodSwing = (MoodSwing)game;
+            moodSwing.CurrentScreen.ResetHovers();
             moodSwing.CurrentScreen = MSMainScreen.getInstance();
         }
     }
@@ -29,6 +30,7 @@ namespace MoodSwingGame
         public void PerformAction(Game game)
         {
             MoodSwing moodSwing = (MoodSwing)game;
+            moodSwing.CurrentScreen.ResetHovers();
             moodSwing.CurrentScreen = MSCityScreen.getInstance();
         }
     }
@@ -39,6 +41,7 @@ namespace MoodSwingGame
         {
             MoodSwing moodSwing = (MoodSwing)game;
             MSOptionsScreen.getInstance().ReturnScreen = moodSwing.CurrentScreen;
+            moodSwing.CurrentScreen.ResetHovers();
             moodSwing.CurrentScreen = MSOptionsScreen.getInstance();
         }
     }
@@ -48,6 +51,7 @@ namespace MoodSwingGame
         public void PerformAction(Game game)
         {
             MoodSwing moodSwing = (MoodSwing)game;
+            moodSwing.CurrentScreen.ResetHovers();
             moodSwing.CurrentScreen = MSOptionsScreen.getInstance().ReturnScreen;
         }
     }
@@ -57,8 +61,8 @@ namespace MoodSwingGame
         public void PerformAction(Game game)
         {
             MoodSwing moodSwing = (MoodSwing)game;
-            moodSwing.CurrentScreen = MSDistrictScreen.getInstance();
-                
+            moodSwing.CurrentScreen.ResetHovers();
+            moodSwing.CurrentScreen = MSDistrictScreen.getInstance();  
         }
     }
 }

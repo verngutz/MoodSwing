@@ -115,7 +115,6 @@ namespace MoodSwingGUI
                 }
                 else if (currentState.IsKeyUp(Keys.Enter))
                 {
-                    Hover();
                     if (oldKeyboardState.IsKeyDown(Keys.Enter))
                     {
                         UnLeftClick();
@@ -132,9 +131,9 @@ namespace MoodSwingGUI
 
         public override void UnLeftClick()
         {
-            action.PerformAction(Game);
             collisionTexture = hoveredTexture;
             CurrentState = MSGUIClickableState.UNLEFTCLICKED;
+            action.PerformAction(Game);
         }
 
         public override void Hover()
