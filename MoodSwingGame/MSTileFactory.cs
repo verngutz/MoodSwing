@@ -49,32 +49,32 @@ namespace MoodSwingGame
                     switch((tileKey / 10) - ((tileKey / 100) * 10))
                     {
                         case 0:
-                            modelname = "cubeWithColors";
+                            modelname = "Floors/1";
                             rotation = 0;
                             break;
                         case 1:
-                            modelname = "cubeWithColors";
+                            modelname = "Floors/11";
                             rotation = MathHelper.ToRadians(((tileKey / 100) - ((tileKey / 1000) * 10)) * 90);
                             break;
                         case 2:
                             switch((tileKey / 100) - ((tileKey / 1000) * 10))
                             {
                                 case 0:
-                                    modelname = "cubeWithColors";
+                                    modelname = "Floors/21";
                                     rotation = MathHelper.ToRadians(((tileKey / 1000) - ((tileKey / 10000) * 10)) * 90);
                                     break;
                                 case 1:
-                                    modelname = "cubeWithColors";
+                                    modelname = "Floors/121";
                                     rotation = MathHelper.ToRadians(((tileKey / 1000) - ((tileKey / 10000) * 10)) * 90);
                                     break;
                             }
                             break;
                         case 3:
-                            modelname = "cubeWithColors";
+                            modelname = "Floors/31";
                             rotation = MathHelper.ToRadians(((tileKey / 100) - ((tileKey / 1000) * 10)) * 90);
                             break;
                         case 4:
-                            modelname = "cubeWithColors";
+                            modelname = "Floors/41";
                             rotation = 0;
                             break;
                     }

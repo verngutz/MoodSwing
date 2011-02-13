@@ -22,7 +22,7 @@ namespace MoodSwingGame
     {
         private MSTile[,] mapArray;
         public MSTile[,] MapArray { get { return mapArray; } }
-        public static int tileDimension = 32;
+        public static int tileDimension = 31;
         private int rows;
         private int columns;
         public MSMap(String filename) : base( MoodSwing.getInstance() )
