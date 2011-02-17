@@ -24,6 +24,19 @@ namespace MoodSwingGame
         }
         public static MS3DTile CreateMSTile(int tileKey, Vector3 position)
         {
+            /*
+             * Legend:
+             * 0    -   basic building
+             * 10   -   tower
+             * 20   -   district hall
+             * 1    -   empty passable land
+             * 11   -   road end, prefix with 0 to 3 for counterclockwise rotation
+             * 021  -   L road bending from top to left, prefix with 0 to 3 for counterclockwise rotation
+             * 121  -   straight vertical road, prefix with 0 to 1 for rotation
+             * 31   -   T road vertical with branch to the left, prefix with 0 to 3 for counterclockwise rotation
+             * 41   -   crossroads
+             */
+
             ContentManager c = MoodSwing.getInstance().Content;
             switch (tileKey - ((tileKey / 10) * 10))
             {
@@ -36,20 +49,14 @@ namespace MoodSwingGame
                                 c.Load<Effect>("Mood"), 
                                 position);
                         case 1:
-                            return new MSBuilding(c.Load<Model>("cubeWithColors"), 
-                                c.Load<Texture2D>("MTextures/cube1_auv"),
-                                c.Load<Effect>("Mood"),
-                                position);
+                            return new MSTower(c.Load<Model>("districthall"), c.Load<Texture2D>("MTextures/cube3_auv"), c.Load<Effect>("Mood"), position);
                         case 2:
                             MSDistrictHall.instantiate(c.Load<Model>("districthall"), 
                                 c.Load<Texture2D>("MTextures/districthall"),
                                 c.Load<Effect>("Mood"),
                                 position);
                             MSDistrictHall hall = MSDistrictHall.getInstance();
-                            
-                            
                             return hall;
-                            
                     }
                     break;
                 case 1:
@@ -95,8 +102,6 @@ namespace MoodSwingGame
                             break;
                     }
                     return new MSRoad(c.Load<Model>(modelname), c.Load<Texture2D>(textureName), c.Load<Effect>("Mood"), position, rotation);
-                case 3:
-                    return new MSTower(c.Load<Model>("districthall"), c.Load<Texture2D>("MTextures/cube3_auv"), c.Load<Effect>("Mood"), position);
             }
             return null;
         }

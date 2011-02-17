@@ -94,7 +94,6 @@ namespace MoodSwingGame
                     if (citizen.state == MSCitizen.State.MOB &&
                         Vector3.Distance(position, citizen.Position) <= range)
                     {
-                        System.Console.WriteLine("BLAH");
                         return unit as MSCitizen;
                     }
                 }
