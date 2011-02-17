@@ -20,26 +20,25 @@ namespace MoodSwingGame
     {
         private static MSMoodManager moodManager = null;
 
-        public static MSMoodManager getInstance()
+        public static MSMoodManager GetInstance()
         {
             if (moodManager == null)
                 moodManager = new MSMoodManager();
             return moodManager;
         }
 
-        private const int MAX_MOOD = 100;
-        private int mood;
-        public int Mood { get { return mood; } }
+        private float mood;
+        public float Mood { get { return mood; } }
         private bool isAlive;
         public bool IsAlive { get { return isAlive; } }
 
         private MSMoodManager()
         {
-            mood = MAX_MOOD;
+            mood = 1;
             isAlive = true;
         }
 
-        public void takeDamage(int amount)
+        public void takeDamage(float amount)
         {
             mood -= amount;
             if (mood <= 0)
@@ -48,11 +47,11 @@ namespace MoodSwingGame
             }
         }
 
-        public void takeHealth(int amount)
+        public void takeHealth(float amount)
         {
             mood += amount;
-            if (mood > MAX_MOOD)
-                mood = MAX_MOOD;
+            if (mood > 1)
+                mood = 1;
         }
     }
 }

@@ -22,9 +22,9 @@ namespace MoodSwingGame
         private MSTower office;
         private bool targetLocked;
         Node pathBack;
-        public MSVolunteer( Model model, Vector3 position, Node path1,
+        public MSVolunteer( Model model, Texture2D texture, Effect effect, Vector3 position, Node path1,
             Node path2, MSCitizen t, MSTower o )
-            : base(model, position, path1, MSCitizen.State.CIVILIAN)
+            : base(model, texture, effect, position, path1, MSCitizen.State.CIVILIAN)
         {
             target = t;
             office = o;
@@ -32,7 +32,7 @@ namespace MoodSwingGame
             pathBack = path2;
         }
 
-        public override void Walk(MSTile[,] mapArray)
+        public override void Walk(MS3DTile[,] mapArray)
         {
             base.Walk(mapArray);
         }
@@ -44,7 +44,7 @@ namespace MoodSwingGame
                 targetLocked = true;
                 Path = pathBack;
                 target.Follow(this);
-                target.changeModel("person");
+                target.changeModel("person", null);
                 target.state = State.SUPPRESSED;
             }
             else if (base.IsThere() && targetLocked && target.IsThere() )

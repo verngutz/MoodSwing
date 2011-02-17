@@ -28,7 +28,11 @@ namespace MoodSwingGame
         };
 
         public State state;
+
         private Model model;
+        private Texture2D texture;
+        private Effect effect;
+
         private Node path;
         public Node Path { get { return path; } set { path = value; targetLocation = Vector2.Zero; isThere = false; } }
         private bool isThere;
@@ -42,16 +46,18 @@ namespace MoodSwingGame
         public Vector2 TileCoordinate { get { return new Vector2((int)(Math.Round(position.Y / MSMap.tileDimension)),(int) (Math.Round((position.X / MSMap.tileDimension))) ); } }
         private MSMoodManager moodManager;
 
-        public MSCitizen(Model m, Vector3 position, Node p, State s)
+        public MSCitizen(Model m, Texture2D texture, Effect effect, Vector3 position, Node p, State s)
             : base(position, MoodSwing.getInstance())
         {
             this.model = m;
+            this.texture = texture;
+            this.effect = effect;
             this.isThere = false;
             //this.isMobbing = mob;
             //this.isWaiting = false;
             state = s;
             this.path = p;
-            this.moodManager = MSMoodManager.getInstance();
+            this.moodManager = MSMoodManager.GetInstance();
         }
 
         public void Follow(MSCitizen citizen)
@@ -64,7 +70,7 @@ namespace MoodSwingGame
         }
 
         private const float WALK_SPEED = 0.55f;
-        public virtual void Walk( MSTile[,] mapArray )
+        public virtual void Walk( MS3DTile[,] mapArray )
         {
             if ( state != State.WAITING)
             {
@@ -101,37 +107,43 @@ namespace MoodSwingGame
                     this.position += new Vector3(unit.X * WALK_SPEED, unit.Y * WALK_SPEED, 0);
 
                 if (isThere && state == State.MOB)
-                    moodManager.takeDamage(1);
+                    moodManager.takeDamage(0.01f);
 
                 adjustWorldMatrix();
             }
 
         }
 
-        public MS3DComponent Get3DComponent()
-        {
-            return this;
-        }
         public override void Draw(GameTime gameTime)
         {
             foreach (ModelMesh mesh in model.Meshes)
             {
-                foreach (BasicEffect effect in mesh.Effects)
+                foreach (ModelMeshPart part in mesh.MeshParts)
                 {
-                    effect.EnableDefaultLighting();
-                    effect.World = world;
-                    effect.View = MSCamera.getInstance().getView();
-                    effect.Projection = projection;
-                    effect.TextureEnabled = true;
+                    part.Effect = effect;
+                    effect.Parameters["World"].SetValue(world);
+                    effect.Parameters["View"].SetValue(MSCamera.GetInstance().GetView());
+                    effect.Parameters["Projection"].SetValue(projection);
+                    Matrix worldInverseTransposeMatrix = Matrix.Transpose(Matrix.Invert(mesh.ParentBone.Transform * world));
+                    effect.Parameters["WorldInverseTranspose"].SetValue(worldInverseTransposeMatrix);
+                    //effect.Parameters["ViewVector"].SetValue(MSCamera.GetInstance().NormalizedViewVector);
+                    effect.Parameters["DiffuseLightDirection"].SetValue(MSCamera.GetInstance().Position);
+                    effect.Parameters["Saturation"].SetValue(MSMoodManager.GetInstance().Mood);
+                    effect.Parameters["ModelTexture"].SetValue(texture);
+
                 }
                 mesh.Draw();
             }
             base.Draw(gameTime);
         }
 
-        public void changeModel(String name)
+        public void changeModel(String modelName, String textureName)
         {
-            model = MoodSwing.getInstance().Content.Load<Model>(name);
+            model = MoodSwing.getInstance().Content.Load<Model>(modelName);
+            if (textureName == null)
+                texture = null;
+            else
+                texture = MoodSwing.getInstance().Content.Load<Texture2D>(textureName);
         }
     }
 }

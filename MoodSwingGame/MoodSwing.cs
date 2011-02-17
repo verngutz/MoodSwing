@@ -48,7 +48,7 @@ namespace MoodSwingGame
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
 
             IsMouseVisible = true;
@@ -112,9 +112,13 @@ namespace MoodSwingGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
             CurrentScreen.Draw(gameTime);
+
+            int frameRate = (int)(1 / (float)gameTime.ElapsedGameTime.TotalSeconds);
+            spriteBatch.DrawString(Content.Load<SpriteFont>("Temp"), "Frame Rate: " + frameRate + "fps", new Vector2(5, 735), Color.White);
+
             spriteBatch.End();
             base.Draw(gameTime);
         }
