@@ -100,7 +100,6 @@
     <Compile Include="MSActions.cs" />
     <Compile Include="MSMap.cs" />
     <Compile Include="MSOptionsScreen.cs" />
-    <Compile Include="MSTile.cs" />
     <Compile Include="MSTileFactory.cs" />
     <Compile Include="MSUnit.cs" />
     <Compile Include="MSVolunteer.cs" />

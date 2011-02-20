@@ -66,13 +66,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DistrictView.png">
-      <Name>DistrictView</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\MoodSwingLevelContentPipelineExtension\MoodSwingLevelContentPipelineExtension.csproj">
       <Project>{DA3A38B2-9C1F-4046-B53F-BE3244A60B4F}</Project>
       <Name>MoodSwingLevelContentPipelineExtension</Name>
@@ -103,42 +96,47 @@
       <Name>1</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>1.5</ProcessorParameters_Scale>
+      <ProcessorParameters_Scale>1.6</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Floors\11.fbx">
       <Name>11</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>1.5</ProcessorParameters_Scale>
+      <ProcessorParameters_Scale>1.6</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Floors\121.fbx">
       <Name>121</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>1.5</ProcessorParameters_Scale>
+      <ProcessorParameters_Scale>1.6</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Floors\21.fbx">
       <Name>21</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>1.5</ProcessorParameters_Scale>
+      <ProcessorParameters_Scale>1.6</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Floors\31.fbx">
       <Name>31</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>1.5</ProcessorParameters_Scale>
+      <ProcessorParameters_Scale>1.6</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Floors\41.fbx">
       <Name>41</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>1.5</ProcessorParameters_Scale>
+      <ProcessorParameters_Scale>1.6</ProcessorParameters_Scale>
     </Compile>
     <None Include="mapinfo.txt">
       <Name>mapinfo</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="Mood.fx">
+      <Name>Mood</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
     <Compile Include="mob.fbx">
       <Name>mob</Name>
       <Importer>FbxImporter</Importer>
@@ -190,6 +188,63 @@
     </Compile>
     <Compile Include="startgameclicked.png">
       <Name>startgameclicked</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MTextures\1.png">
+      <Name>1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\11.png">
+      <Name>11</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\121.png">
+      <Name>121</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\21.png">
+      <Name>21</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\31.png">
+      <Name>31</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\41.png">
+      <Name>41</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\building_texture.png">
+      <Name>building_texture</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\cube1_auv.png">
+      <Name>cube1_auv</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\cube3_auv.png">
+      <Name>cube3_auv</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\districthall.png">
+      <Name>districthall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\mob.png">
+      <Name>mob</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -8,8 +8,7 @@ namespace MoodSwingGame
 {
     public interface MSUnit 
     {
-        void Walk(MSTile[,] mapArray);
+        void Walk(MS3DTile[,] mapArray);
         bool IsThere();
-        MS3DComponent Get3DComponent();
     }
 }

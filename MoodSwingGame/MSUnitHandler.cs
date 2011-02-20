@@ -29,9 +29,11 @@ namespace MoodSwingGame
         }
 
         //probability constant that handles unit generation
+
         private const int PROBABILITY = 200;
         //probability constant that handles mob generation
         private const int MOB_PROBABILITY = 10;
+
         //list of citizens
         private List<MSUnit> citizens;
 
@@ -64,11 +66,15 @@ namespace MoodSwingGame
 
                 if (rnd < MOB_PROBABILITY)
                     person = new MSCitizen(MoodSwing.getInstance().Content.Load<Model>("mob"),
+                        MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/mob"),
+                        MoodSwing.getInstance().Content.Load<Effect>("Mood"),
                         (map.MapArray[(int)start.X, (int)start.Y] as MS3DComponent).Position + new Vector3(0, 0, 20),
                         map.GetPath(start, MSDistrictHall.getInstance().TileCoordinate),
                         MSCitizen.State.MOB);
                 else
-                    person =  new MSCitizen(MoodSwing.getInstance().Content.Load<Model>("person"), 
+                    person = new MSCitizen(MoodSwing.getInstance().Content.Load<Model>("person"),
+                        null,
+                        MoodSwing.getInstance().Content.Load<Effect>("Mood"),
                         (map.MapArray[(int)start.X, (int)start.Y] as MS3DComponent).Position + new Vector3(0, 0, 20),
                         path, MSCitizen.State.CIVILIAN);
 
@@ -92,7 +98,7 @@ namespace MoodSwingGame
                 {
                     MSCitizen citizen = unit as MSCitizen;
                     if (citizen.state == MSCitizen.State.MOB &&
-                        Vector3.Distance(position, unit.Get3DComponent().Position) <= range)
+                        Vector3.Distance(position, citizen.Position) <= range)
                     {
                         return unit as MSCitizen;
                     }
@@ -118,11 +124,11 @@ namespace MoodSwingGame
                         {
                             if (p is MSCitizen && !(p is MSVolunteer) && (p as MSCitizen).state == MSCitizen.State.MOB)
                             {
-                                if (Vector3.Distance(citizen.Position, p.Get3DComponent().Position) <= 5)
+                                if (Vector3.Distance(citizen.Position, (p as MSCitizen).Position) <= 5)
                                 {
                                     citizen.Follow(p as MSCitizen);
                                     citizen.state = MSCitizen.State.MOB;
-                                    citizen.changeModel("mob");
+                                    citizen.changeModel("mob", "MTextures/mob");
                                     break;
                                 }
                             }
@@ -135,7 +141,7 @@ namespace MoodSwingGame
                 if( !person.IsThere() )
                     person.Walk(map.MapArray);
                 else
-                    list.Add(person.Get3DComponent());
+                    list.Add(person as MSCitizen);
             }
 
             foreach (MSCitizen person in list)

@@ -19,10 +19,11 @@ namespace MoodSwingGame
         private int capacity;
         private int range;
         public Vector2 TileCoordinate { get { return new Vector2(position.Y / MSMap.tileDimension, position.X / MSMap.tileDimension); } }
-        public MSTower( Model model, Vector3 position )
-            : base(model, position)
+        public MSTower( Model model, Texture2D texture, Effect effect, Vector3 position )
+            : base(model, texture, effect, position)
         {
             capacity = 5;
+
             range = 50;
         }
 
@@ -38,6 +39,8 @@ namespace MoodSwingGame
                 Node path2 = map.GetPath(target.TileCoordinate, TileCoordinate).next;
 
                 MSVolunteer volunteer = new MSVolunteer(MoodSwing.getInstance().Content.Load<Model>("person"),
+                    null,
+                    MoodSwing.getInstance().Content.Load<Effect>("Mood"),
                     Position + new Vector3(0,0,20), path1, path2, target as MSCitizen, this);
                 MSUnitHandler.getInstance().AddVolunteer(volunteer);
                 return volunteer;

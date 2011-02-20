@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace MoodSwingCoreComponents
 {
-    public abstract class MS3DComponent : DrawableGameComponent, IComparable
+    public abstract class MS3DComponent : DrawableGameComponent
     {
         protected Vector3 position;
         public Vector3 Position { get { return position; } }
@@ -38,15 +38,12 @@ namespace MoodSwingCoreComponents
             this.position = position;
             world = Matrix.CreateTranslation(position);
             projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), game.GraphicsDevice.Viewport.AspectRatio, 5, 5000);
-
-            
         }
 
-        public int CompareTo(object ob)
+        public static Comparison<MS3DComponent> DistanceComparator = new Comparison<MS3DComponent>(CompareNearnessToCamera);
+        public static int CompareNearnessToCamera(MS3DComponent a, MS3DComponent b)
         {
-            MS3DComponent t = (ob as MS3DComponent);
-            return (int)(Vector3.Distance(t.Position, MSCamera.getInstance().Position) -
-                    Vector3.Distance(Position, MSCamera.getInstance().Position));
+            return (int)(Vector3.DistanceSquared(b.Position, MSCamera.GetInstance().Position) - Vector3.DistanceSquared(a.Position, MSCamera.GetInstance().Position));
         }
     }
 }

@@ -18,8 +18,8 @@ namespace MoodSwingGame
 {
     public class MSBuyableBuilding : MSBuilding
     {
-        public MSBuyableBuilding(Model model, Vector3 position)
-            : base(model, position)
+        public MSBuyableBuilding(Model model, Texture2D texture, Effect effect, Vector3 position)
+            : base(model, texture, effect, position)
         {
 
         }

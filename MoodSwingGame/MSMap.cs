@@ -20,9 +20,10 @@ namespace MoodSwingGame
 {
     public class MSMap : DrawableGameComponent
     {
-        private MSTile[,] mapArray;
-        public MSTile[,] MapArray { get { return mapArray; } }
-        public static int tileDimension = 32;
+        private MS3DTile[,] mapArray;
+        public MS3DTile[,] MapArray { get { return mapArray; } }
+        public static int tileDimension = 31;
+
         private int rows;
         private int columns;
         public MSMap(String filename) : base( MoodSwing.getInstance() )
@@ -31,7 +32,7 @@ namespace MoodSwingGame
             string[] line = sr.ReadLine().Split(' ');
             rows = Int32.Parse(line[0]);
             columns = Int32.Parse(line[1]);
-            mapArray = new MSTile[rows,columns];
+            mapArray = new MS3DTile[rows,columns];
             for(int j = 0; j < columns; j++)
             {
                 line = sr.ReadLine().Split(' ');
@@ -61,7 +62,7 @@ namespace MoodSwingGame
             return new Vector2(x,y);
         }
 
-        public void Change(MSTile tile, MSTile newTile)
+        public void Change(MS3DTile tile, MS3DTile newTile)
         {
             for (int i = 0; i < rows; i++)
             {
@@ -76,32 +77,26 @@ namespace MoodSwingGame
         }
 
         //note: This needs revision when the 'dummy' tiles have been implemented.
-        public MSTile CheckCollision()
+        public MS3DTile CheckCollision()
         {
             System.Console.WriteLine("CHECKING...");
             float? minDistance = null;
             MS3DTile tile = null;
 
-            foreach ( MSTile t in mapArray )
+            foreach ( MS3DTile t in mapArray )
             {
-                if ( t is MS3DTile)
-                {
-                    MS3DTile tempTile = t as MS3DTile;
-                    BoundingBox b = new BoundingBox(tempTile.Position, tempTile.Position + new Vector3(tileDimension, tileDimension, tileDimension));
-                    float? dist = Intersects(b, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), MSCamera.getInstance().getView(),
-                        tempTile.ProjectionMatrix, MoodSwing.getInstance().GraphicsDevice.Viewport);
+                BoundingBox b = new BoundingBox(t.Position, t.Position + new Vector3(tileDimension, tileDimension, tileDimension));
+                float? dist = Intersects(b, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), MSCamera.GetInstance().GetView(),
+                    t.ProjectionMatrix, MoodSwing.getInstance().GraphicsDevice.Viewport);
 
-                    if (dist != null)
+                if (dist != null)
+                {
+                    if (minDistance == null || minDistance > dist)
                     {
-                        if (minDistance == null || minDistance > dist)
-                        {
-                            minDistance = dist;
-                            tile = tempTile;
-                        }
+                        minDistance = dist;
+                        tile = t;
                     }
-                }
-                
-                
+                }   
             }
             if(tile!=null) System.Console.WriteLine(tile.Position / new Vector3(tileDimension, tileDimension, tileDimension));
             return tile;
