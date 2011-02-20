@@ -49,6 +49,8 @@ namespace MoodSwingGame
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
             graphics.IsFullScreen = true;
+            //graphics.PreferMultiSampling = true; ANTI-ALIASING
+
             Content.RootDirectory = "Content";
 
             IsMouseVisible = true;
@@ -68,6 +70,12 @@ namespace MoodSwingGame
             oldKeyboardState = Keyboard.GetState();
             oldMouseState = Mouse.GetState();
             CurrentScreen = MSIntroScreen.getInstance();
+
+            //GraphicsDevice.RenderState.DepthBufferEnable = true;
+            //GraphicsDevice.RenderState.DepthBufferFunction = CompareFunction.LessEqual;
+            //GraphicsDevice.RenderState.DepthBufferWriteEnable = true;
+            //GraphicsDevice.DepthStencilBuffer = new DepthStencilBuffer(GraphicsDevice, GraphicsDevice.PresentationParameters.BackBufferWidth, GraphicsDevice.PresentationParameters.BackBufferHeight, DepthFormat.Depth24Stencil8);
+            //DepthStencilBuffer old = GraphicsDevice.DepthStencilBuffer;
         }
 
         /// <summary>
@@ -112,7 +120,7 @@ namespace MoodSwingGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
             spriteBatch.Begin();
             CurrentScreen.Draw(gameTime);
 

@@ -127,7 +127,7 @@ namespace MoodSwingGame
                     Matrix worldInverseTransposeMatrix = Matrix.Transpose(Matrix.Invert(mesh.ParentBone.Transform * world));
                     effect.Parameters["WorldInverseTranspose"].SetValue(worldInverseTransposeMatrix);
                     //effect.Parameters["ViewVector"].SetValue(MSCamera.GetInstance().NormalizedViewVector);
-                    effect.Parameters["DiffuseLightDirection"].SetValue(MSCamera.GetInstance().Position);
+                    effect.Parameters["DiffuseLightDirection"].SetValue(MSCamera.UNIVERSAL_LIGHT_SOURCE - Position);
                     effect.Parameters["Saturation"].SetValue(MSMoodManager.GetInstance().Mood);
                     effect.Parameters["ModelTexture"].SetValue(texture);
 
