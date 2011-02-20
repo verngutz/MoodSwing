@@ -29,9 +29,9 @@ namespace MoodSwingGame
         }
 
         //probability constant that handles unit generation
-        private const int PROBABILITY = 3500;
+        private const int PROBABILITY = 200;
         //probability constant that handles mob generation
-        private const int MOB_PROBABILITY = 100;
+        private const int MOB_PROBABILITY = 10;
         //list of citizens
         private List<MSUnit> citizens;
 
@@ -94,7 +94,6 @@ namespace MoodSwingGame
                     if (citizen.state == MSCitizen.State.MOB &&
                         Vector3.Distance(position, unit.Get3DComponent().Position) <= range)
                     {
-                        System.Console.WriteLine("BLAH");
                         return unit as MSCitizen;
                     }
                 }

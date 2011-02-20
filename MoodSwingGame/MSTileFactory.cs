@@ -33,7 +33,7 @@ namespace MoodSwingGame
                         case 0:
                             return new MSBuilding(c.Load<Model>("building"), position );
                         case 1:
-                            return new MSTower(c.Load<Model>("districthall"), position);
+                            return new MSBuyableBuilding(c.Load<Model>("floors/1"), position);
                         case 2:
                             MSDistrictHall.instantiate(c.Load<Model>("districthall"), position);
                             MSDistrictHall hall = MSDistrictHall.getInstance();

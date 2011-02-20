@@ -22,7 +22,7 @@ namespace MoodSwingGame
     {
         private MSTile[,] mapArray;
         public MSTile[,] MapArray { get { return mapArray; } }
-        public static int tileDimension = 31;
+        public static int tileDimension = 32;
         private int rows;
         private int columns;
         public MSMap(String filename) : base( MoodSwing.getInstance() )
@@ -60,10 +60,23 @@ namespace MoodSwingGame
             } while (!(mapArray[x, y] is MSBuilding) || (mapArray[x,y] is MSTower) );
             return new Vector2(x,y);
         }
-        
-        
+
+        public void Change(MSTile tile, MSTile newTile)
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    if (mapArray[i, j] == tile)
+                    {
+                        mapArray[i, j] = newTile;
+                    }
+                }
+            }
+        }
+
         //note: This needs revision when the 'dummy' tiles have been implemented.
-        public void CheckCollision()
+        public MSTile CheckCollision()
         {
             System.Console.WriteLine("CHECKING...");
             float? minDistance = null;
@@ -90,12 +103,8 @@ namespace MoodSwingGame
                 
                 
             }
-
-            if (tile != null) 
-            {
-                System.Console.WriteLine("found: " + tile.Position.Y / tileDimension + " " + tile.Position.X / tileDimension);
-            }
-                
+            if(tile!=null) System.Console.WriteLine(tile.Position / new Vector3(tileDimension, tileDimension, tileDimension));
+            return tile;
          
         }
 

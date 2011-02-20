@@ -108,7 +108,16 @@ namespace MoodSwingGame
             if (Mouse.GetState().LeftButton == ButtonState.Released 
                 && MoodSwing.getInstance().OldMouseState.LeftButton == ButtonState.Pressed)
             {
-                map.CheckCollision();
+                MSTile tile = map.CheckCollision();
+                if (tile is MSBuyableBuilding)
+                {
+
+                    elementsList.Remove(tile as MS3DComponent);
+                    System.Console.WriteLine( (tile as MSBuyableBuilding).TileModel.ToString() );
+                    MSTile newTile =  new MSTower(MoodSwing.getInstance().Content.Load<Model>("districthall"), (tile as MS3DComponent).Position);
+                    map.Change(tile,newTile );
+                    elementsList.Add(newTile as MS3DComponent);
+                }
             }
         }
 
