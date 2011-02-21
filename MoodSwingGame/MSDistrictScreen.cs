@@ -98,8 +98,28 @@ namespace MoodSwingGame
                     }
                 }
             }
+        }
 
+        public void checkCollision()
+        {
+            if (Mouse.GetState().LeftButton == ButtonState.Released 
+                && MoodSwing.getInstance().OldMouseState.LeftButton == ButtonState.Pressed)
+            {
+                MS3DTile tile = map.CheckCollision();
+                if (tile is MSBuyableBuilding)
+                {
+
+                    elementsList.Remove(tile as MS3DComponent);
+                    System.Console.WriteLine( (tile as MSBuyableBuilding).TileModel.ToString() );
+                    MS3DTile newTile = new MSTower(MoodSwing.getInstance().Content.Load<Model>("districthall"), MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/building_texture"),
+                        MoodSwing.getInstance().Content.Load<Effect>("Mood"), (tile as MS3DComponent).Position);
+                    map.Change(tile,newTile );
+                    elementsList.Add(newTile as MS3DComponent);
+                }
+            }
             //elementsList.Sort(MS3DComponent.DistanceComparator);
+
+
         }
 
         private Vector2 mouseMidHold;

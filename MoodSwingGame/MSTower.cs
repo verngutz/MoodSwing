@@ -22,7 +22,8 @@ namespace MoodSwingGame
         public MSTower( Model model, Texture2D texture, Effect effect, Vector3 position )
             : base(model, texture, effect, position)
         {
-            capacity = 2;
+            capacity = 5;
+
             range = 50;
         }
 
@@ -35,7 +36,7 @@ namespace MoodSwingGame
                 target.state = MSCitizen.State.WAITING;
                
                 Node path1 = map.GetPath(TileCoordinate, target.TileCoordinate);
-                Node path2 = map.GetPath(target.TileCoordinate, TileCoordinate);
+                Node path2 = map.GetPath(target.TileCoordinate, TileCoordinate).next;
 
                 MSVolunteer volunteer = new MSVolunteer(MoodSwing.getInstance().Content.Load<Model>("person"),
                     null,
