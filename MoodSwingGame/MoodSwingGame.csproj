@@ -89,6 +89,7 @@
     <Compile Include="MSBuilding.cs" />
     <Compile Include="MSCitizen.cs" />
     <Compile Include="MSMoodManager.cs" />
+    <Compile Include="MSResourceManager.cs" />
     <Compile Include="MSTower.cs" />
     <Compile Include="MSUnitHandler.cs" />
     <Compile Include="MSCityScreen.cs" />

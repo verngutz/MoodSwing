@@ -32,6 +32,7 @@ namespace MoodSwingGame
         private Model model;
         private Texture2D texture;
         private Effect effect;
+        private Vector3 lightSource;
 
         private Node path;
         public Node Path { get { return path; } set { path = value; targetLocation = Vector2.Zero; isThere = false; } }

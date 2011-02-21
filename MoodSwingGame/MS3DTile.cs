@@ -21,6 +21,7 @@ namespace MoodSwingGame
         private Model model;
         private Texture2D texture;
         private Effect effect;
+        private Vector3 lightSource;
 
         public Model TileModel { get { return model; } }
         public MS3DTile(Model model, Texture2D texture, Effect effect, Vector3 position)
