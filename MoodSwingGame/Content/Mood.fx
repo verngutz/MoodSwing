@@ -3,12 +3,11 @@ float4x4 View;
 float4x4 Projection;
 float4x4 WorldInverseTranspose;
  
-float4 AmbientColor = float4(1, 1, 1, 1);
-float AmbientIntensity = 0.2;
+float4 AmbientColor = float4(0.15, 0.15, 0.15, 1);
  
 float3 DiffuseLightDirection = float3(0, 0, 0);
 float4 DiffuseColor = float4(1, 1, 1, 1);
-float DiffuseIntensity = 2.0;
+float DiffuseIntensity = 1000.0;
  
 float Shininess = 100;
 float4 SpecularColor = float4(1, 1, 1, 1);
@@ -77,14 +76,18 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
     color.g = Saturation * (color.g - value) + value;
     color.b = Saturation * (color.b - value) + value;
     
-    return saturate(color * (input.Color) + AmbientColor * AmbientIntensity); //+ specular);
+    return saturate(color * (input.Color) + AmbientColor); //+ specular);
 }
  
 technique Mood
 {
     pass Pass1
     {
-		AlphaBlendEnable = FALSE;
+		CullMode = NONE;
+        ZEnable = TRUE;
+        ZWriteEnable = TRUE;
+        AlphaBlendEnable = FALSE;
+
         VertexShader = compile vs_1_1 VertexShaderFunction();
         PixelShader = compile ps_2_0 PixelShaderFunction();
     }

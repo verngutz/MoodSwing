@@ -43,12 +43,6 @@ namespace MoodSwingGame
             }
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            
-            base.Update(gameTime);
-        }
-
         public Vector2 GetRandomBuilding()
         {
             int x = 0;

@@ -35,7 +35,7 @@ namespace MoodSwingGame
         private MSMoodManager moodManager;
 
         private MSDistrictScreen(MoodSwing game)
-            : base(null, 150, 150, 150, 150, game.SpriteBatch, game) 
+            : base(null /*game.Content.Load<Texture2D>("space")*/, 150, 150, 150, 150, game.SpriteBatch, game) 
         {
             map = new MSMap(@"Content\mapinfo.txt");
             elementsList = new List<MS3DComponent>();
@@ -75,7 +75,6 @@ namespace MoodSwingGame
         {
             base.Update(gameTime);
             HandleMouseInput((Game as MoodSwing).OldMouseState);
-            map.Update(gameTime);
             MSUnit person = unitHandler.TryForBaby(map);
             if (person as MSCitizen != null)
             {
@@ -118,7 +117,8 @@ namespace MoodSwingGame
                     elementsList.Add(newTile as MS3DComponent);
                 }
             }
-            elementsList.Sort(MS3DComponent.DistanceComparator);
+            //elementsList.Sort(MS3DComponent.DistanceComparator);
+
 
         }
 
