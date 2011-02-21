@@ -19,8 +19,8 @@ namespace MoodSwingCoreComponents
         protected Vector3 position;
         public Vector3 Position { get { return position; } }
 
-        private BoundingBox boundingBox;
-        public BoundingBox BoundingBox { get { return boundingBox; } }
+        protected BoundingSphere boundingSphere;
+        public BoundingSphere BoundingSphere { get { return boundingSphere; } }
 
         protected Matrix world;
         public Matrix WorldMatrix { get { return world; } }
@@ -38,12 +38,6 @@ namespace MoodSwingCoreComponents
             this.position = position;
             world = Matrix.CreateTranslation(position);
             projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), game.GraphicsDevice.Viewport.AspectRatio, 5, 5000);
-        }
-
-        public static Comparison<MS3DComponent> DistanceComparator = new Comparison<MS3DComponent>(CompareNearnessToCamera);
-        public static int CompareNearnessToCamera(MS3DComponent a, MS3DComponent b)
-        {
-            return (int)(Vector3.DistanceSquared(b.Position, MSCamera.GetInstance().Position) - Vector3.DistanceSquared(a.Position, MSCamera.GetInstance().Position));
         }
     }
 }

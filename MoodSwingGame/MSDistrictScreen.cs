@@ -18,26 +18,15 @@ namespace MoodSwingGame
 {
     public class MSDistrictScreen: MSScreen
     {
-        private static MSDistrictScreen districtScreen;
-        public static MSDistrictScreen getInstance()
-        {
-            if (districtScreen == null)
-            {
-                districtScreen = new MSDistrictScreen(MoodSwing.getInstance());
-                districtScreen.Initialize();
-            }
-            return districtScreen;
-        }
-
         private MSMap map;
         private List<MS3DComponent> elementsList;
         private MSUnitHandler unitHandler;
         private MSMoodManager moodManager;
 
-        private MSDistrictScreen(MoodSwing game)
+        public MSDistrictScreen(String filename, MoodSwing game)
             : base(null /*game.Content.Load<Texture2D>("space")*/, 150, 150, 150, 150, game.SpriteBatch, game) 
         {
-            map = new MSMap(@"Content\mapinfo.txt");
+            map = new MSMap(filename);
             elementsList = new List<MS3DComponent>();
             unitHandler = MSUnitHandler.getInstance();
             moodManager = MSMoodManager.GetInstance();
@@ -116,6 +105,7 @@ namespace MoodSwingGame
                     MoodSwing.getInstance().Content.Load<Effect>("Mood"), (tile as MS3DComponent).Position);
                 map.Change(tile,newTile );
                 elementsList.Add(newTile as MS3DComponent);
+                newTile.LightSource = map.LightSource;
             }
         }
 

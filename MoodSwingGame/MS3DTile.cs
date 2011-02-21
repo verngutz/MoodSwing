@@ -30,6 +30,11 @@ namespace MoodSwingGame
             this.model = model;
             this.texture = texture;
             this.effect = effect;
+            foreach(ModelMesh mesh in model.Meshes)
+            {
+                boundingSphere = BoundingSphere.CreateMerged(boundingSphere, mesh.BoundingSphere);
+            }
+            boundingSphere = boundingSphere.Transform(world);
         }
 
         public override void Draw(GameTime gameTime)

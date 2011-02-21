@@ -62,7 +62,7 @@ namespace MoodSwingGame
         {
             MoodSwing moodSwing = (MoodSwing)game;
             moodSwing.CurrentScreen.ResetHovers();
-            moodSwing.CurrentScreen = MSDistrictScreen.getInstance();  
+            moodSwing.CurrentScreen = new MSDistrictScreen(@"Content\mapinfo.txt", moodSwing);
         }
     }
 }

@@ -82,8 +82,7 @@ namespace MoodSwingGame
 
             foreach ( MS3DTile t in mapArray )
             {
-                BoundingBox b = new BoundingBox(t.Position, t.Position + new Vector3(tileDimension, tileDimension, tileDimension));
-                float? dist = Intersects(b, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), MSCamera.GetInstance().GetView(),
+                float? dist = Intersects(t.BoundingSphere, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), MSCamera.GetInstance().GetView(),
                     t.ProjectionMatrix, MoodSwing.getInstance().GraphicsDevice.Viewport);
 
                 if (dist != null)
@@ -120,7 +119,7 @@ namespace MoodSwingGame
             return new Ray(nearPoint, direction);
         }
 
-        public float? Intersects(BoundingBox sphere, Vector2 mouseLocation,
+        public float? Intersects(BoundingSphere sphere, Vector2 mouseLocation,
             Matrix view, Matrix projection, Viewport viewport)
         {
             Ray mouseRay = CalculateRay(mouseLocation, view, projection, viewport);

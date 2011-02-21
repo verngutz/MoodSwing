@@ -49,7 +49,7 @@ namespace MoodSwingGame
                                 c.Load<Effect>("Mood"), 
                                 position);
                         case 1:
-                            return new MSBuyableBuilding(c.Load<Model>("floors/1"), c.Load<Texture2D>("MTextures/cube3_auv"), c.Load<Effect>("Mood"), position);
+                            return new MSBuyableBuilding(c.Load<Model>("districthall"), c.Load<Texture2D>("MTextures/cube3_auv"), c.Load<Effect>("Mood"), position);
 
                         case 2:
                             MSDistrictHall.instantiate(c.Load<Model>("districthall"), 

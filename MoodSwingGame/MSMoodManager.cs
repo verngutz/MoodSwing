@@ -27,6 +27,22 @@ namespace MoodSwingGame
             return moodManager;
         }
 
+        private float poverty;
+
+        private float education;
+
+        private float genderEquality;
+
+        private float childHealth;
+
+        private float maternalHealth;
+
+        private float hivAids;
+
+        private float environment;
+
+        private float globalPartnership;
+
         private float mood;
         public float Mood { get { return mood; } }
         private bool isAlive;
