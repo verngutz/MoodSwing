@@ -23,8 +23,14 @@ namespace MoodSwingGame
         private Effect effect;
         public Vector3 LightSource { set; get; }
 
+        private int row;
+        public int Row { get { return row; } }
+
+        private int column;
+        public int Column { get { return column; } }
+
         public Model TileModel { get { return model; } }
-        public MS3DTile(Model model, Texture2D texture, Effect effect, Vector3 position)
+        public MS3DTile(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
             : base(position, MoodSwing.getInstance())
         {
             this.model = model;
@@ -35,6 +41,9 @@ namespace MoodSwingGame
                 boundingSphere = BoundingSphere.CreateMerged(boundingSphere, mesh.BoundingSphere);
             }
             boundingSphere = boundingSphere.Transform(world);
+
+            this.row = row;
+            this.column = column;
         }
 
         public override void Draw(GameTime gameTime)

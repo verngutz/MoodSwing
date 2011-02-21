@@ -24,8 +24,8 @@ namespace MoodSwingGUI
             get { return components; }
         }
 
-        private Stack<MSGUIClickable> clickableComponents;
-        public Stack<MSGUIClickable> ClickableComponents
+        private List<MSGUIClickable> clickableComponents;
+        public List<MSGUIClickable> ClickableComponents
         {
             get { return clickableComponents; }
         }
@@ -60,7 +60,7 @@ namespace MoodSwingGUI
         {
             this.background = background;
             components = new List<MSGUIUnclickable>();
-            clickableComponents = new Stack<MSGUIClickable>();
+            clickableComponents = new List<MSGUIClickable>();
 
             boundedPosition = Position + new Vector2(leftPadding, topPadding);
             boundedSize = Size - new Vector2(leftPadding, topPadding) - new Vector2(rightPadding, bottomPadding);
@@ -109,6 +109,11 @@ namespace MoodSwingGUI
             components.Add(component);
         }
 
+        public void RemoveComponent(MSGUIUnclickable component)
+        {
+            components.Remove(component);
+        }
+
         public void AddComponent(MSGUIClickable component)
         {
             AddComponent(component, Alignment.MANUAL);
@@ -147,7 +152,13 @@ namespace MoodSwingGUI
                     component.Position = boundedPosition + new Vector2(boundedSize.X - component.Size.X, boundedSize.Y - component.Size.Y);
                     break;
             }
-            clickableComponents.Push(component);
+            clickableComponents.Add(component);
+            clickableComponents = clickableComponents.Reverse<MSGUIClickable>().ToList<MSGUIClickable>();
+        }
+
+        public void RemoveComponent(MSGUIClickable component)
+        {
+            clickableComponents.Remove(component);
         }
 
         public void AddComponent(MSPanel panel)
@@ -162,6 +173,16 @@ namespace MoodSwingGUI
                 AddComponent(component);
             foreach (MSGUIClickable component in panel.ClickableComponents)
                 AddComponent(component);
+        }
+
+        public void RemoveComponent(MSPanel panel)
+        {
+            foreach (MSGUIUnclickable component in panel.Components)
+                RemoveComponent(component);
+            foreach (MSGUIClickable component in panel.ClickableComponents)
+                RemoveComponent(component);
+
+            RemoveComponent(panel as MSGUIClickable);
         }
 
         public override void Update(GameTime gameTime)

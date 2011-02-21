@@ -22,16 +22,16 @@ namespace MoodSwingGame
         {
             return districtHall;
         }
-        public static void instantiate(Model model, Texture2D texture, Effect effect, Vector3 position)
+        public static void instantiate(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
         {
-            districtHall = new MSDistrictHall(model, texture, effect, position);
+            districtHall = new MSDistrictHall(model, texture, effect, position, row, column);
         }
 
         public Vector2 TileCoordinate { get { return new Vector2(position.Y / MSMap.tileDimension, position.X / MSMap.tileDimension); } }
 
 
-        private MSDistrictHall( Model model, Texture2D texture, Effect effect, Vector3 position ) 
-            : base( model, texture, effect, position )
+        private MSDistrictHall( Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column) 
+            : base( model, texture, effect, position, row, column)
 
         {
                 

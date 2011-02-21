@@ -19,21 +19,23 @@ namespace MoodSwingGame
     public class MSDistrictScreen: MSScreen
     {
         private MSMap map;
-        private List<MS3DComponent> elementsList;
+        public MSMap Map { get { return map; } }
+
+        private List<MSCitizen> citizensList;
         private MSUnitHandler unitHandler;
         private MSMoodManager moodManager;
+        public MSBuyDialog BuyDialog { set; get; }
 
         public MSDistrictScreen(String filename, MoodSwing game)
             : base(null /*game.Content.Load<Texture2D>("space")*/, 150, 150, 150, 150, game.SpriteBatch, game) 
         {
             map = new MSMap(filename);
-            elementsList = new List<MS3DComponent>();
+            citizensList = new List<MSCitizen>();
             unitHandler = MSUnitHandler.getInstance();
             moodManager = MSMoodManager.GetInstance();
 
             foreach (MS3DTile tile in map.MapArray)
             {
-                elementsList.Add(tile);
                 tile.LightSource = map.LightSource;
             }
             AddComponent(new MSButton(
@@ -52,30 +54,34 @@ namespace MoodSwingGame
 
         public override void Draw(GameTime gameTime)
         {
-            foreach (MS3DComponent temp in elementsList)
+            foreach (MSCitizen citizen in citizensList)
             {
-                temp.Draw(gameTime);
+                citizen.Draw(gameTime);
             }
 
+            map.Draw(gameTime);
+
             base.Draw(gameTime);
+
             spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "" + moodManager.Mood, new Vector2(10, 10), Color.White);
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
             HandleMouseInput((Game as MoodSwing).OldMouseState);
             MSUnit person = unitHandler.TryForBaby(map);
             if (person as MSCitizen != null)
             {
-                elementsList.Add(person as MSCitizen);
+                citizensList.Add(person as MSCitizen);
                 (person as MSCitizen).LightSource = map.LightSource;
             }
 
-            List<MS3DComponent> toRemove = unitHandler.Update(map);
-            foreach (MS3DComponent temp in toRemove)
+            List<MSCitizen> toRemove = unitHandler.Update(map);
+            foreach (MSCitizen citizen in toRemove)
             {
-                elementsList.Remove(temp);
+                citizensList.Remove(citizen);
             }
             foreach (MS3DTile tile in map.MapArray)
             {
@@ -85,7 +91,7 @@ namespace MoodSwingGame
                     MSVolunteer volunteer = tower.sentinel(map);
                     if (volunteer != null)
                     {
-                        elementsList.Add(volunteer);
+                        citizensList.Add(volunteer);
                         volunteer.LightSource = map.LightSource;
                     }
                 }
@@ -95,17 +101,10 @@ namespace MoodSwingGame
         public void CheckCollision()
         {
             MS3DTile tile = map.CheckCollision();
-            if (tile != null)
-                System.Console.WriteLine("Tile Found");
             if (tile is MSBuyableBuilding)
             {
-                elementsList.Remove(tile as MS3DComponent);
-                System.Console.WriteLine( (tile as MSBuyableBuilding).TileModel.ToString() );
-                MS3DTile newTile = new MSTower(MoodSwing.getInstance().Content.Load<Model>("districthall"), MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/building_texture"),
-                    MoodSwing.getInstance().Content.Load<Effect>("Mood"), (tile as MS3DComponent).Position);
-                map.Change(tile,newTile );
-                elementsList.Add(newTile as MS3DComponent);
-                newTile.LightSource = map.LightSource;
+                BuyDialog = new MSBuyDialog(Game.Content.Load<Texture2D>("CityView"), new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 200, 100), tile as MSBuyableBuilding, Shape.RECTANGULAR, spriteBatch, Game);
+                AddComponent(BuyDialog);
             }
         }
 
@@ -114,15 +113,19 @@ namespace MoodSwingGame
         {
             MouseState newMouseState = Mouse.GetState();
 
+            base.HandleMouseInput(oldMouseState);
+
             //Picking
             if (newMouseState.LeftButton == ButtonState.Released
                 && oldMouseState.LeftButton == ButtonState.Pressed)
             {
+                if (BuyDialog != null)
+                    RemoveComponent(BuyDialog);
                 CheckCollision();
             }
 
             //Camera Rotation
-            if (newMouseState.MiddleButton == ButtonState.Pressed)
+            else if (newMouseState.MiddleButton == ButtonState.Pressed)
             {
                 MSCamera camera = MSCamera.GetInstance();
                 if (oldMouseState.MiddleButton == ButtonState.Released)
@@ -143,28 +146,47 @@ namespace MoodSwingGame
                 movement *= 100;
                 movement /= distance;
                 camera.Rotate(movement);
+                if (BuyDialog != null)
+                    RemoveComponent(BuyDialog);
             }
             else
             {
+                bool hasMoved = false;
                 //Camera movement using mouse
                 if (newMouseState.X >= 0 && newMouseState.X <= 5)
+                {
                     MSCamera.GetInstance().Shift(new Vector2(1, 0));
+                    hasMoved = true;
+                }
                 else if (newMouseState.X <= MoodSwing.getInstance().GraphicsDevice.Viewport.Width &&
                     newMouseState.X >= MoodSwing.getInstance().GraphicsDevice.Viewport.Width - 5)
+                {
                     MSCamera.GetInstance().Shift(new Vector2(-1, 0));
+                    hasMoved = true;
+                }
                 else if (newMouseState.Y >= 0 && newMouseState.Y <= 5)
+                {
                     MSCamera.GetInstance().Shift(new Vector2(0, -1));
+                    hasMoved = true;
+                }
                 else if (newMouseState.Y <= MoodSwing.getInstance().GraphicsDevice.Viewport.Height &&
                     newMouseState.Y >= MoodSwing.getInstance().GraphicsDevice.Viewport.Height - 5)
+                {
                     MSCamera.GetInstance().Shift(new Vector2(0, 1));
+                    hasMoved = true;
+                }
 
                 int delta = (newMouseState.ScrollWheelValue - oldMouseState.ScrollWheelValue);
                 if (delta != 0)
+                {
                     MSCamera.GetInstance().Zoom(delta / Math.Abs(delta));
+                    hasMoved = true;
+                }
 
-
+                if (hasMoved && BuyDialog != null)
+                    RemoveComponent(BuyDialog);
+                
             }
-            base.HandleMouseInput(oldMouseState);
         }
 
 

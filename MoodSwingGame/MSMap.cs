@@ -40,7 +40,7 @@ namespace MoodSwingGame
                 line = sr.ReadLine().Split(' ');
                 for (int i = 0; i < rows; i++)
                 {
-                    mapArray[i, j] = MSTileFactory.CreateMSTile(Int32.Parse(line[i]), new Vector3(j * tileDimension, i * tileDimension, 0));
+                    mapArray[i, j] = MSTileFactory.CreateMSTile(Int32.Parse(line[i]), new Vector3(j * tileDimension, i * tileDimension, 0), i, j);
                 } 
             }
             LightSource = new Vector3(tileDimension * rows << 1, tileDimension * columns << 1, 10000);
@@ -57,20 +57,6 @@ namespace MoodSwingGame
 
             } while (!(mapArray[x, y] is MSBuilding) || (mapArray[x,y] is MSTower) );
             return new Vector2(x,y);
-        }
-
-        public void Change(MS3DTile tile, MS3DTile newTile)
-        {
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j < columns; j++)
-                {
-                    if (mapArray[i, j] == tile)
-                    {
-                        mapArray[i, j] = newTile;
-                    }
-                }
-            }
         }
 
         //note: This needs revision when the 'dummy' tiles have been implemented.
@@ -250,7 +236,14 @@ namespace MoodSwingGame
             return last;
         }
 
-
+        public override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
+            foreach (MS3DTile tile in mapArray)
+            {
+                tile.Draw(gameTime);
+            }
+        }
     }
 
     public class Node : IComparable

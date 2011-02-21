@@ -18,11 +18,7 @@ namespace MoodSwingGame
 {
     public class MSTileFactory
     {
-        public MSTileFactory()
-        {
-
-        }
-        public static MS3DTile CreateMSTile(int tileKey, Vector3 position)
+        public static MS3DTile CreateMSTile(int tileKey, Vector3 position, int row, int column)
         {
             /*
              * Legend:
@@ -47,15 +43,15 @@ namespace MoodSwingGame
                             return new MSBuilding(c.Load<Model>("building"),
                                 c.Load<Texture2D>("MTextures/building_texture"),
                                 c.Load<Effect>("Mood"), 
-                                position);
+                                position, row, column);
                         case 1:
-                            return new MSBuyableBuilding(c.Load<Model>("districthall"), c.Load<Texture2D>("MTextures/cube3_auv"), c.Load<Effect>("Mood"), position);
+                            return new MSBuyableBuilding(c.Load<Model>("districthall"), c.Load<Texture2D>("MTextures/cube3_auv"), c.Load<Effect>("Mood"), position, row, column);
 
                         case 2:
                             MSDistrictHall.instantiate(c.Load<Model>("districthall"), 
                                 c.Load<Texture2D>("MTextures/districthall"),
                                 c.Load<Effect>("Mood"),
-                                position);
+                                position, row, column);
                             MSDistrictHall hall = MSDistrictHall.getInstance();
                             return hall;
                     }
@@ -102,7 +98,7 @@ namespace MoodSwingGame
                             rotation = 0;
                             break;
                     }
-                    return new MSRoad(c.Load<Model>(modelname), c.Load<Texture2D>(textureName), c.Load<Effect>("Mood"), position, rotation);
+                    return new MSRoad(c.Load<Model>(modelname), c.Load<Texture2D>(textureName), c.Load<Effect>("Mood"), position, rotation, row, column);
             }
             return null;
         }

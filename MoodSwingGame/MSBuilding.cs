@@ -15,7 +15,7 @@ namespace MoodSwingGame
 {
     public class MSBuilding : MS3DTile
     {
-        public MSBuilding(Model model, Texture2D texture, Effect effect, Vector3 position)
-            : base(model, texture, effect, position) { }
+        public MSBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
+            : base(model, texture, effect, position, row, column) { }
     }
 }

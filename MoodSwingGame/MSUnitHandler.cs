@@ -73,7 +73,7 @@ namespace MoodSwingGame
                         MSCitizen.State.MOB);
                 else
                     person = new MSCitizen(MoodSwing.getInstance().Content.Load<Model>("person"),
-                        null,
+                        MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/tao"),
                         MoodSwing.getInstance().Content.Load<Effect>("Mood"),
                         (map.MapArray[(int)start.X, (int)start.Y] as MS3DComponent).Position + new Vector3(0, 0, 20),
                         path, MSCitizen.State.CIVILIAN);
@@ -106,9 +106,9 @@ namespace MoodSwingGame
             }
             return null;
         }
-        public List<MS3DComponent> Update(MSMap map)
+        public List<MSCitizen> Update(MSMap map)
         {
-            List<MS3DComponent> list = new List<MS3DComponent>();
+            List<MSCitizen> list = new List<MSCitizen>();
 
             foreach (MSUnit person in citizens)
             {

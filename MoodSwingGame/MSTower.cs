@@ -14,13 +14,13 @@ using MoodSwingCoreComponents;
 using MoodSwingGUI;
 namespace MoodSwingGame
 {
-    public class MSTower : MSBuilding
+    public class MSTower : MSBuyableBuilding
     {
         private int capacity;
         private int range;
         public Vector2 TileCoordinate { get { return new Vector2(position.Y / MSMap.tileDimension, position.X / MSMap.tileDimension); } }
-        public MSTower( Model model, Texture2D texture, Effect effect, Vector3 position )
-            : base(model, texture, effect, position)
+        public MSTower( Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
+            : base(model, texture, effect, position, row, column)
         {
             capacity = 5;
 
