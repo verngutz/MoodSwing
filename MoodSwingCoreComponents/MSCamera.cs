@@ -47,8 +47,6 @@ namespace MoodSwingCoreComponents
         private const int ZOOM_MIN_DIST = 100;
         private const int ZOOM_MAX_DIST = 500;
         private const int ZOOM_SPEED = 10;
-
-        public static Vector3 UNIVERSAL_LIGHT_SOURCE = new Vector3(0, 0, 1000);
         
         private MSCamera()
         {

@@ -7,7 +7,7 @@ float4 AmbientColor = float4(0.15, 0.15, 0.15, 1);
  
 float3 DiffuseLightDirection = float3(0, 0, 0);
 float4 DiffuseColor = float4(1, 1, 1, 1);
-float DiffuseIntensity = 1000.0;
+float DiffuseIntensity = 10000.0;
  
 float Shininess = 100;
 float4 SpecularColor = float4(1, 1, 1, 1);

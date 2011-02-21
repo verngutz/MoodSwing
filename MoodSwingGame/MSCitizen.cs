@@ -32,7 +32,7 @@ namespace MoodSwingGame
         private Model model;
         private Texture2D texture;
         private Effect effect;
-        private Vector3 lightSource;
+        public Vector3 LightSource { set; get; }
 
         private Node path;
         public Node Path { get { return path; } set { path = value; targetLocation = Vector2.Zero; isThere = false; } }
@@ -121,7 +121,7 @@ namespace MoodSwingGame
                     Matrix worldInverseTransposeMatrix = Matrix.Transpose(Matrix.Invert(mesh.ParentBone.Transform * world));
                     effect.Parameters["WorldInverseTranspose"].SetValue(worldInverseTransposeMatrix);
                     //effect.Parameters["ViewVector"].SetValue(MSCamera.GetInstance().NormalizedViewVector);
-                    effect.Parameters["DiffuseLightDirection"].SetValue(MSCamera.UNIVERSAL_LIGHT_SOURCE - Position);
+                    effect.Parameters["DiffuseLightDirection"].SetValue(LightSource - Position);
                     effect.Parameters["Saturation"].SetValue(MSMoodManager.GetInstance().Mood);
                     effect.Parameters["ModelTexture"].SetValue(texture);
 

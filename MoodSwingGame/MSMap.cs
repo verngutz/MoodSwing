@@ -24,6 +24,8 @@ namespace MoodSwingGame
         public MS3DTile[,] MapArray { get { return mapArray; } }
         public static int tileDimension = 31;
 
+        public Vector3 LightSource { set; get; }
+
         private int rows;
         private int columns;
         public MSMap(String filename) : base( MoodSwing.getInstance() )
@@ -41,6 +43,7 @@ namespace MoodSwingGame
                     mapArray[i, j] = MSTileFactory.CreateMSTile(Int32.Parse(line[i]), new Vector3(j * tileDimension, i * tileDimension, 0));
                 } 
             }
+            LightSource = new Vector3(tileDimension * rows << 1, tileDimension * columns << 1, 10000);
         }
 
         public Vector2 GetRandomBuilding()

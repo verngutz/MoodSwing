@@ -45,6 +45,7 @@ namespace MoodSwingGame
             foreach (MS3DTile tile in map.MapArray)
             {
                 elementsList.Add(tile);
+                tile.LightSource = map.LightSource;
             }
             AddComponent(new MSButton(
                     null,
@@ -79,6 +80,7 @@ namespace MoodSwingGame
             if (person as MSCitizen != null)
             {
                 elementsList.Add(person as MSCitizen);
+                (person as MSCitizen).LightSource = map.LightSource;
             }
 
             List<MS3DComponent> toRemove = unitHandler.Update(map);
@@ -95,31 +97,26 @@ namespace MoodSwingGame
                     if (volunteer != null)
                     {
                         elementsList.Add(volunteer);
+                        volunteer.LightSource = map.LightSource;
                     }
                 }
             }
         }
 
-        public void checkCollision()
+        public void CheckCollision()
         {
-            if (Mouse.GetState().LeftButton == ButtonState.Released 
-                && MoodSwing.getInstance().OldMouseState.LeftButton == ButtonState.Pressed)
+            MS3DTile tile = map.CheckCollision();
+            if (tile != null)
+                System.Console.WriteLine("Tile Found");
+            if (tile is MSBuyableBuilding)
             {
-                MS3DTile tile = map.CheckCollision();
-                if (tile is MSBuyableBuilding)
-                {
-
-                    elementsList.Remove(tile as MS3DComponent);
-                    System.Console.WriteLine( (tile as MSBuyableBuilding).TileModel.ToString() );
-                    MS3DTile newTile = new MSTower(MoodSwing.getInstance().Content.Load<Model>("districthall"), MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/building_texture"),
-                        MoodSwing.getInstance().Content.Load<Effect>("Mood"), (tile as MS3DComponent).Position);
-                    map.Change(tile,newTile );
-                    elementsList.Add(newTile as MS3DComponent);
-                }
+                elementsList.Remove(tile as MS3DComponent);
+                System.Console.WriteLine( (tile as MSBuyableBuilding).TileModel.ToString() );
+                MS3DTile newTile = new MSTower(MoodSwing.getInstance().Content.Load<Model>("districthall"), MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/building_texture"),
+                    MoodSwing.getInstance().Content.Load<Effect>("Mood"), (tile as MS3DComponent).Position);
+                map.Change(tile,newTile );
+                elementsList.Add(newTile as MS3DComponent);
             }
-            //elementsList.Sort(MS3DComponent.DistanceComparator);
-
-
         }
 
         private Vector2 mouseMidHold;
@@ -131,7 +128,7 @@ namespace MoodSwingGame
             if (newMouseState.LeftButton == ButtonState.Released
                 && oldMouseState.LeftButton == ButtonState.Pressed)
             {
-                map.CheckCollision();
+                CheckCollision();
             }
 
             //Camera Rotation
