@@ -12,6 +12,9 @@ namespace MoodSwingGame
         public int TotalVolunteers { get; set; }
         public int IdleVolunteers { get; set; }
 
-        public MSResourceManager() { }
+        public MSResourceManager(int initial_funds) 
+        {
+            Funds = initial_funds;
+        }
     }
 }

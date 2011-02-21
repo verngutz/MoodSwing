@@ -12,7 +12,6 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-using Microsoft.Xna.Framework;
 using MoodSwingCoreComponents;
 
 namespace MoodSwingGame
@@ -87,10 +86,14 @@ namespace MoodSwingGame
         {
             MoodSwing moodSwing = (MoodSwing)game;
             MSDistrictScreen screen = moodSwing.CurrentScreen as MSDistrictScreen;
-            screen.Map.MapArray[toBuy.Row, toBuy.Column] = new MSTower(MoodSwing.getInstance().Content.Load<Model>("districthall"), MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/building_texture"),
-                    MoodSwing.getInstance().Content.Load<Effect>("Mood"), toBuy.Position, toBuy.Row, toBuy.Column);
-            screen.Map.MapArray[toBuy.Row, toBuy.Column].LightSource = screen.Map.LightSource;
-            screen.RemoveComponent(screen.BuyDialog);
+            if (screen.ResourceManager.Funds >= MSTower.PRICE)
+            {
+                screen.ResourceManager.Funds -= MSTower.PRICE;
+                screen.Map.MapArray[toBuy.Row, toBuy.Column] = new MSTower(MoodSwing.getInstance().Content.Load<Model>("districthall"), MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/building_texture"),
+                        MoodSwing.getInstance().Content.Load<Effect>("Mood"), toBuy.Position, toBuy.Row, toBuy.Column);
+                screen.Map.MapArray[toBuy.Row, toBuy.Column].LightSource = screen.Map.LightSource;
+                screen.RemoveComponent(screen.BuyDialog);
+            }
         }
     }
 }

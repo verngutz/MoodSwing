@@ -16,6 +16,7 @@ namespace MoodSwingGame
 {
     public class MSTower : MSBuyableBuilding
     {
+        public const int PRICE = 200;
         private int capacity;
         private int range;
         public Vector2 TileCoordinate { get { return new Vector2(position.Y / MSMap.tileDimension, position.X / MSMap.tileDimension); } }

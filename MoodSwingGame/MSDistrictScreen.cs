@@ -26,6 +26,9 @@ namespace MoodSwingGame
         private MSMoodManager moodManager;
         public MSBuyDialog BuyDialog { set; get; }
 
+        private MSResourceManager resourceManager;
+        public MSResourceManager ResourceManager { get { return resourceManager; } }
+
         public MSDistrictScreen(String filename, MoodSwing game)
             : base(null /*game.Content.Load<Texture2D>("space")*/, 150, 150, 150, 150, game.SpriteBatch, game) 
         {
@@ -50,6 +53,8 @@ namespace MoodSwingGame
                     SpriteBatch,
                     Game)
                     , Alignment.TOP_CENTER);
+
+            resourceManager = new MSResourceManager(1000);
         }
 
         public override void Draw(GameTime gameTime)
@@ -63,6 +68,7 @@ namespace MoodSwingGame
 
             base.Draw(gameTime);
 
+            spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "" + resourceManager.Funds, new Vector2(10, 35), Color.White);
             spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "" + moodManager.Mood, new Vector2(10, 10), Color.White);
         }
 
