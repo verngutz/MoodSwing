@@ -40,7 +40,7 @@ namespace MoodSwingGame
                     switch ((tileKey / 10) - ((tileKey / 100) * 10))
                     {
                         case 0:
-                            return new MSBuilding(c.Load<Model>("building"),
+                            return new MSUnbuyableBuilding(c.Load<Model>("building"),
                                 c.Load<Texture2D>("MTextures/building_texture"),
                                 c.Load<Effect>("Mood"), 
                                 position, row, column);

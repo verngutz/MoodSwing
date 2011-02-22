@@ -56,12 +56,17 @@ namespace MoodSwingGame
             {
                 checkOne = true;
                 MSUnit person;
-                Vector2 start = map.GetRandomBuilding();
-                Vector2 end;
+
+                MSUnbuyableBuilding source = map.GetRandomCitizenSource();
+                Vector2 start = new Vector2(source.Row, source.Column);
+
+                MSUnbuyableBuilding sink = map.GetRandomCitizenSource();
                 do
                 {
-                    end = map.GetRandomBuilding();
-                } while (end == start);
+                    sink = map.GetRandomCitizenSource();
+                } while (source == sink);
+                Vector2 end = new Vector2(sink.Row, sink.Column);
+                
                 Node path = map.GetPath(start, end);
 
                 if (rnd < MOB_PROBABILITY)

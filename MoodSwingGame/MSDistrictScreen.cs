@@ -68,8 +68,7 @@ namespace MoodSwingGame
 
             base.Draw(gameTime);
 
-            spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "" + resourceManager.Funds, new Vector2(10, 35), Color.White);
-            spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "" + moodManager.Mood, new Vector2(10, 10), Color.White);
+            spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Funds:" + resourceManager.Funds, new Vector2(10, 10), Color.White);
         }
 
         public override void Update(GameTime gameTime)

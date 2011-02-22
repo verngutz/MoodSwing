@@ -26,6 +26,8 @@ namespace MoodSwingGame
 
         public Vector3 LightSource { set; get; }
 
+        private List<MSUnbuyableBuilding> citizenSources;
+
         private int rows;
         private int columns;
         public MSMap(String filename) : base( MoodSwing.getInstance() )
@@ -35,28 +37,24 @@ namespace MoodSwingGame
             rows = Int32.Parse(line[0]);
             columns = Int32.Parse(line[1]);
             mapArray = new MS3DTile[rows,columns];
+            citizenSources = new List<MSUnbuyableBuilding>();
             for(int j = 0; j < columns; j++)
             {
                 line = sr.ReadLine().Split(' ');
                 for (int i = 0; i < rows; i++)
                 {
-                    mapArray[i, j] = MSTileFactory.CreateMSTile(Int32.Parse(line[i]), new Vector3(j * tileDimension, i * tileDimension, 0), i, j);
+                    MS3DTile toAdd = MSTileFactory.CreateMSTile(Int32.Parse(line[i]), new Vector3(j * tileDimension, i * tileDimension, 0), i, j);
+                    mapArray[i, j] = toAdd;
+                    if (toAdd is MSUnbuyableBuilding)
+                        citizenSources.Add(toAdd as MSUnbuyableBuilding);
                 } 
             }
             LightSource = new Vector3(tileDimension * rows << 1, tileDimension * columns << 1, 10000);
         }
 
-        public Vector2 GetRandomBuilding()
+        public MSUnbuyableBuilding GetRandomCitizenSource()
         {
-            int x = 0;
-            int y = 0;
-            do
-            {
-                x = MSRandom.random.Next(rows);
-                y = MSRandom.random.Next(columns);
-
-            } while (!(mapArray[x, y] is MSBuilding) || (mapArray[x,y] is MSTower) );
-            return new Vector2(x,y);
+            return citizenSources.ElementAt<MSUnbuyableBuilding>(MSRandom.random.Next(citizenSources.Count));
         }
 
         //note: This needs revision when the 'dummy' tiles have been implemented.

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -13,9 +14,9 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace MoodSwingGame
 {
-    public abstract class MSBuilding : MS3DTile
+    public class MSUnbuyableBuilding : MSBuilding
     {
-        public MSBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
+        public MSUnbuyableBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
             : base(model, texture, effect, position, row, column) { }
     }
 }

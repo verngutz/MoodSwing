@@ -93,6 +93,7 @@
     <Compile Include="MSMoodManager.cs" />
     <Compile Include="MSResourceManager.cs" />
     <Compile Include="MSTower.cs" />
+    <Compile Include="MSUnbuyableBuilding.cs" />
     <Compile Include="MSUnitHandler.cs" />
     <Compile Include="MSCityScreen.cs" />
     <Compile Include="MSDistrictHall.cs" />
