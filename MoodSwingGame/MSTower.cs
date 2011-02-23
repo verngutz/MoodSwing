@@ -39,9 +39,9 @@ namespace MoodSwingGame
                 Node path1 = map.GetPath(TileCoordinate, target.TileCoordinate);
                 Node path2 = map.GetPath(target.TileCoordinate, TileCoordinate).next;
 
-                MSVolunteer volunteer = new MSVolunteer(MoodSwing.getInstance().Content.Load<Model>("person"),
-                    null,
-                    MoodSwing.getInstance().Content.Load<Effect>("Mood"),
+                MSVolunteer volunteer = new MSVolunteer(Game.Content.Load<Model>("person"),
+                    Game.Content.Load<Texture2D>("MTextures/recruiter"),
+                    Game.Content.Load<Effect>("Mood"),
                     Position + new Vector3(0,0,20), path1, path2, target as MSCitizen, this);
                 MSUnitHandler.getInstance().AddVolunteer(volunteer);
                 return volunteer;

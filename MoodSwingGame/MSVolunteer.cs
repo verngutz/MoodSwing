@@ -44,7 +44,7 @@ namespace MoodSwingGame
                 targetLocked = true;
                 Path = pathBack;
                 target.Follow(this);
-                target.changeModel("person", null);
+                target.changeModel("person", "MTextures/tao");
                 target.state = State.SUPPRESSED;
             }
             else if (base.IsThere() && targetLocked && target.IsThere() )
