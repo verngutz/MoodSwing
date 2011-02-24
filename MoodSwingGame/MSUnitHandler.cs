@@ -70,45 +70,56 @@ namespace MoodSwingGame
                 Node path = map.GetPath(start, end);
 
                 if (rnd < MOB_PROBABILITY)
+                {
                     MSTypes mobmdg = MSTypes.GENERAL;
-                    if (rnd > MOB_PROBABILITY*7/8)
+                    String mobtexture = "MTextures/tao";
+                    if (rnd > MOB_PROBABILITY * 7 / 8)
                     {
                         mobmdg = MSTypes.POVERTY;
+                        mobtexture = "MTextures/mob_A";
                     }
-                    else if (rnd > MOB_PROBABILITY*6/8)
+                    else if (rnd > MOB_PROBABILITY * 6 / 8)
                     {
                         mobmdg = MSTypes.EDUCATION;
+                        mobtexture = "MTextures/mob_B";
                     }
-                    else if (rnd > MOB_PROBABILITY*5/8)
+                    else if (rnd > MOB_PROBABILITY * 5 / 8)
                     {
                         mobmdg = MSTypes.GENDER_EQUALITY;
+                        mobtexture = "MTextures/mob_C";
                     }
-                    else if (rnd > MOB_PROBABILITY*4/8)
+                    else if (rnd > MOB_PROBABILITY * 4 / 8)
                     {
                         mobmdg = MSTypes.CHILD_HEALTH;
+                        mobtexture = "MTextures/mob_D";
                     }
-                    else if (rnd > MOB_PROBABILITY*3/8)
+                    else if (rnd > MOB_PROBABILITY * 3 / 8)
                     {
                         mobmdg = MSTypes.MATERNAL_HEALTH;
+                        mobtexture = "MTextures/mob_E";
                     }
-                    else if (rnd > MOB_PROBABILITY*2/8)
+                    else if (rnd > MOB_PROBABILITY * 2 / 8)
                     {
                         mobmdg = MSTypes.HIV_AIDS;
+                        mobtexture = "MTextures/mob_F";
                     }
-                    else if (rnd > MOB_PROBABILITY*1/8)
+                    else if (rnd > MOB_PROBABILITY * 1 / 8)
                     {
                         mobmdg = MSTypes.ENVIRONMENT;
+                        mobtexture = "MTextures/mob_G";
                     }
                     else
                     {
                         mobmdg = MSTypes.GLOBAL_PARTNERSHIP;
+                        mobtexture = "MTextures/mob_H";
                     }
                     person = new MSCitizen(MoodSwing.getInstance().Content.Load<Model>("mob"),
-                        MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/mob_A"),
+                        MoodSwing.getInstance().Content.Load<Texture2D>(mobtexture),
                         MoodSwing.getInstance().Content.Load<Effect>("Mood"),
                         (map.MapArray[(int)start.X, (int)start.Y] as MS3DComponent).Position + new Vector3(0, 0, 20),
                         map.GetPath(start, MSDistrictHall.getInstance().TileCoordinate),
                         MSCitizen.State.MOB, mobmdg);
+                }
                 else
                     person = new MSCitizen(MoodSwing.getInstance().Content.Load<Model>("person"),
                         MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/tao"),
@@ -166,7 +177,8 @@ namespace MoodSwingGame
                                 {
                                     citizen.Follow(p as MSCitizen);
                                     citizen.state = MSCitizen.State.MOB;
-                                    citizen.changeModel("mob", "MTextures/mob_A");
+                                    citizen.mdg = (p as MSCitizen).mdg;
+                                    citizen.changeModel("mob", (p as MSCitizen).mdg);
                                     break;
                                 }
                             }

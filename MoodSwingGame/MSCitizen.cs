@@ -140,5 +140,38 @@ namespace MoodSwingGame
             else
                 texture = MoodSwing.getInstance().Content.Load<Texture2D>(textureName);
         }
+
+        public void changeModel(String modelName, MSTypes mdg)
+        {
+            String textureName = "MTextures/tao";
+            switch (mdg)
+            {
+                case MSTypes.POVERTY:
+                    textureName = "MTextures/mob_A";
+                    break;
+                case MSTypes.EDUCATION:
+                    textureName = "MTextures/mob_B";
+                    break;
+                case MSTypes.GENDER_EQUALITY:
+                    textureName = "MTextures/mob_C";
+                    break;
+                case MSTypes.CHILD_HEALTH:
+                    textureName = "MTextures/mob_D";
+                    break;
+                case MSTypes.MATERNAL_HEALTH:
+                    textureName = "MTextures/mob_E";
+                    break;
+                case MSTypes.HIV_AIDS:
+                    textureName = "MTextures/mob_F";
+                    break;
+                case MSTypes.ENVIRONMENT:
+                    textureName = "MTextures/mob_G";
+                    break;
+                case MSTypes.GLOBAL_PARTNERSHIP:
+                    textureName = "MTextures/mob_H";
+                    break;
+            }
+            changeModel(modelName, textureName);
+        }
     }
 }
