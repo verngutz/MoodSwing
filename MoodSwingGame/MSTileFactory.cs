@@ -41,11 +41,11 @@ namespace MoodSwingGame
                     {
                         case 0:
                             return new MSUnbuyableBuilding(c.Load<Model>("building"),
-                                c.Load<Texture2D>("MTextures/building_texture"),
+                                c.Load<Texture2D>("MTextures/unbuyable"),
                                 c.Load<Effect>("Mood"), 
                                 position, row, column);
                         case 1:
-                            return new MSBuyableBuilding(c.Load<Model>("districthall"), c.Load<Texture2D>("MTextures/cube3_auv"), c.Load<Effect>("Mood"), position, row, column);
+                            return new MSBuyableBuilding(c.Load<Model>("districthall"), c.Load<Texture2D>("MTextures/buyable"), c.Load<Effect>("Mood"), position, row, column);
 
                         case 2:
                             MSDistrictHall.instantiate(c.Load<Model>("districthall"), 
