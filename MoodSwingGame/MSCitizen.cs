@@ -24,7 +24,6 @@ namespace MoodSwingGame
             MOB,
             WAITING,
             SUPPRESSED
-
         };
 
         public State state;

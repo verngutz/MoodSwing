@@ -153,7 +153,6 @@ namespace MoodSwingGUI
                     break;
             }
             clickableComponents.Add(component);
-            clickableComponents = clickableComponents.Reverse<MSGUIClickable>().ToList<MSGUIClickable>();
         }
 
         public void RemoveComponent(MSGUIClickable component)
@@ -168,11 +167,12 @@ namespace MoodSwingGUI
 
         public void AddComponent(MSPanel panel, Alignment alignment)
         {
-            AddComponent(panel as MSGUIClickable, alignment);
             foreach (MSGUIUnclickable component in panel.Components)
                 AddComponent(component);
             foreach (MSGUIClickable component in panel.ClickableComponents)
                 AddComponent(component);
+
+            AddComponent(panel as MSGUIClickable, alignment);
         }
 
         public void RemoveComponent(MSPanel panel)
@@ -202,10 +202,10 @@ namespace MoodSwingGUI
             if (background != null)
                 SpriteBatch.Draw(background, BoundingRectangle, highlight);
 
-            foreach(MSGUIUnclickable element in components)
+            foreach (MSGUIUnclickable element in components)
                 element.Draw(gameTime);
 
-            foreach (MSGUIClickable element in clickableComponents.Reverse<MSGUIClickable>())
+            foreach (MSGUIClickable element in clickableComponents)
                 element.Draw(gameTime);
         }
 

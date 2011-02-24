@@ -33,8 +33,8 @@ namespace MoodSwingGame
             : base(background, boundingRectangle, topPadding, bottomPadding, leftPadding, rightPadding, shape, spriteBatch, game)
         {
             this.toBuy = toBuy;
-            AddComponent(new MSLabel("Build Tower: Costs 200.", new Rectangle(boundingRectangle.X, boundingRectangle.Y, 100, 50), game.Content.Load<SpriteFont>("Temp"), spriteBatch, game));
-            AddComponent(new MSButton(null, new BuildTower(toBuy), new Rectangle(boundingRectangle.X + 50, boundingRectangle.Y + 50, 100, 50), Game.Content.Load<Texture2D>("exit"), Game.Content.Load<Texture2D>("exitclicked"),Game.Content.Load<Texture2D>("exitclicked"), Shape.AMORPHOUS, spriteBatch, game));
+            AddComponent(new MSButton(null, new BuyTower(toBuy), new Rectangle(boundingRectangle.X + 10, boundingRectangle.Y + 50, 75, 75), Game.Content.Load<Texture2D>("exit"), Game.Content.Load<Texture2D>("exitclicked"), Game.Content.Load<Texture2D>("exitclicked"), Shape.RECTANGULAR, spriteBatch, game));
+            AddComponent(new MSButton(null, new BuyVolunteerCenter(toBuy), new Rectangle(boundingRectangle.X + 100, boundingRectangle.Y + 50, 75, 75), Game.Content.Load<Texture2D>("exit"), Game.Content.Load<Texture2D>("exitclicked"), Game.Content.Load<Texture2D>("exitclicked"), Shape.RECTANGULAR, spriteBatch, game));
         }
     }
 }

@@ -234,6 +234,15 @@ namespace MoodSwingGame
             return last;
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            foreach (MS3DTile tile in mapArray)
+            {
+                tile.Update(gameTime);
+            }
+        }
+
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);

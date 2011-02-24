@@ -16,9 +16,9 @@ using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
-    public class MSBuyableBuilding : MSBuilding
+    public class MSVolunteerCenter : MSBuilding
     {
-        public MSBuyableBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
+        public MSVolunteerCenter(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
             : base(model, texture, effect, position, row, column) { }
     }
 }

@@ -84,6 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MSTypes.cs" />
     <Compile Include="MS2DParametricEquations.cs" />
     <Compile Include="MS3DTile.cs" />
     <Compile Include="MSBuilding.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="MSTileFactory.cs" />
     <Compile Include="MSUnit.cs" />
     <Compile Include="MSVolunteer.cs" />
+    <Compile Include="MSVolunteerCenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="MoodSwing.cs" />

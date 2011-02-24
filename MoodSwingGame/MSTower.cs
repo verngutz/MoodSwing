@@ -12,11 +12,11 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 using MoodSwingCoreComponents;
 using MoodSwingGUI;
+
 namespace MoodSwingGame
 {
-    public class MSTower : MSBuyableBuilding
+    public class MSTower : MSBuilding
     {
-        public const int PRICE = 200;
         private int capacity;
         private int range;
         public Vector2 TileCoordinate { get { return new Vector2(position.Y / MSMap.tileDimension, position.X / MSMap.tileDimension); } }

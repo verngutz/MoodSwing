@@ -47,14 +47,14 @@ namespace MoodSwingGame
                     new Rectangle(0, 0, 574, 60),
                     game.Content.Load<Texture2D>("exit"),
                     game.Content.Load<Texture2D>("exitclicked"),
-                    game.Content.Load<Texture2D>("exit"),
+                    game.Content.Load<Texture2D>("exitclicked"),
                     Color.White,
                     Shape.RECTANGULAR,
                     SpriteBatch,
                     Game)
                     , Alignment.TOP_CENTER);
 
-            resourceManager = new MSResourceManager(1000);
+            resourceManager = new MSResourceManager(1000, game);
         }
 
         public override void Draw(GameTime gameTime)
@@ -68,12 +68,17 @@ namespace MoodSwingGame
 
             base.Draw(gameTime);
 
-            spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Funds:" + resourceManager.Funds, new Vector2(10, 10), Color.White);
+            spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "$: " + resourceManager.Funds, new Vector2(10, 10), Color.White);
+            spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Tulog na Tao: " + resourceManager.IdleVolunteers, new Vector2(10, 35), Color.White);
+            spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Lahat ng Tao/Ilan Lang Pwede: " + resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity, new Vector2(10, 60), Color.White);
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            map.Update(gameTime);
+            resourceManager.Update(gameTime);
 
             HandleMouseInput((Game as MoodSwing).OldMouseState);
             MSUnit person = unitHandler.TryForBaby(map);
@@ -108,7 +113,7 @@ namespace MoodSwingGame
             MS3DTile tile = map.CheckCollision();
             if (tile is MSBuyableBuilding)
             {
-                BuyDialog = new MSBuyDialog(Game.Content.Load<Texture2D>("CityView"), new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 200, 100), tile as MSBuyableBuilding, Shape.RECTANGULAR, spriteBatch, Game);
+                BuyDialog = new MSBuyDialog(Game.Content.Load<Texture2D>("CityView"), new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 200, 150), tile as MSBuyableBuilding, Shape.RECTANGULAR, spriteBatch, Game);
                 AddComponent(BuyDialog);
             }
         }
