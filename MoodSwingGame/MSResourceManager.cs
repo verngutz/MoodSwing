@@ -18,12 +18,16 @@ namespace MoodSwingGame
 {
     public class MSResourceManager : GameComponent
     {
-        public const int TOWER_COST = 200;
+        public const int TOWER_MONEY_COST = 200;
+        public const int TOWER_VOLUNTEER_COST = 5;
+        public const int FUNDRAISER_MONEY_COST = 100;
+        public const int FUNDRAISER_VOLUNTEER_COST = 2;
         public const int VOLUNTEER_CENTER_COST = 250;
         public const int VOLUNTEER_CENTER_GAIN = 10; 
         public const int VOLUNTEER_GENERATION_DIFFICULTY = 100;
 
         private int volunteerGenerationCounter;
+
 
         public int Funds { get; set; }
         public int VolunteerCapacity { get; set; }

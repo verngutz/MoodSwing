@@ -33,8 +33,9 @@ namespace MoodSwingGame
             : base(background, boundingRectangle, topPadding, bottomPadding, leftPadding, rightPadding, shape, spriteBatch, game)
         {
             this.toBuy = toBuy;
-            AddComponent(new MSButton(null, new BuyTower(toBuy), new Rectangle(boundingRectangle.X + 10, boundingRectangle.Y + 50, 75, 75), Game.Content.Load<Texture2D>("exit"), Game.Content.Load<Texture2D>("exitclicked"), Game.Content.Load<Texture2D>("exitclicked"), Shape.RECTANGULAR, spriteBatch, game));
-            AddComponent(new MSButton(null, new BuyVolunteerCenter(toBuy), new Rectangle(boundingRectangle.X + 100, boundingRectangle.Y + 50, 75, 75), Game.Content.Load<Texture2D>("exit"), Game.Content.Load<Texture2D>("exitclicked"), Game.Content.Load<Texture2D>("exitclicked"), Shape.RECTANGULAR, spriteBatch, game));
+            AddComponent(new MSButton(null, new BuyTower(toBuy), new Rectangle(boundingRectangle.X + 10, boundingRectangle.Y + 10, 50, 50), Game.Content.Load<Texture2D>("buildTower"), Game.Content.Load<Texture2D>("buildTowerHovered"), Game.Content.Load<Texture2D>("buildTowerHovered"), Shape.RECTANGULAR, spriteBatch, game));
+            AddComponent(new MSButton(null, new BuyVolunteerCenter(toBuy), new Rectangle(boundingRectangle.X + 70, boundingRectangle.Y + 10, 50, 50), Game.Content.Load<Texture2D>("buildVolunteerCenter"), Game.Content.Load<Texture2D>("buildVolunteerCenterHovered"), Game.Content.Load<Texture2D>("buildVolunteerCenterHovered"), Shape.RECTANGULAR, spriteBatch, game));
+            AddComponent(new MSButton(null, new BuyFundraiser(toBuy), new Rectangle(boundingRectangle.X + 130, boundingRectangle.Y + 10, 50, 50), Game.Content.Load<Texture2D>("buildFundraiser"), Game.Content.Load<Texture2D>("buildFundraiserHovered"), Game.Content.Load<Texture2D>("buildFundraiserHovered"), Shape.RECTANGULAR, spriteBatch, game));
         }
     }
 }

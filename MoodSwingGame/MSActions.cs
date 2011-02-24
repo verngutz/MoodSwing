@@ -87,9 +87,11 @@ namespace MoodSwingGame
         {
             MoodSwing moodSwing = (MoodSwing)game;
             MSDistrictScreen screen = moodSwing.CurrentScreen as MSDistrictScreen;
-            if (screen.ResourceManager.Funds >= MSResourceManager.TOWER_COST)
+            if (screen.ResourceManager.Funds >= MSResourceManager.TOWER_MONEY_COST
+                && screen.ResourceManager.IdleVolunteers >= MSResourceManager.TOWER_VOLUNTEER_COST)
             {
-                screen.ResourceManager.Funds -= MSResourceManager.TOWER_COST;
+                screen.ResourceManager.Funds -= MSResourceManager.TOWER_MONEY_COST;
+                screen.ResourceManager.IdleVolunteers -= MSResourceManager.TOWER_VOLUNTEER_COST;
                 screen.Map.MapArray[toBuy.Row, toBuy.Column] = new MSTower(moodSwing.Content.Load<Model>("districthall"),
                     moodSwing.Content.Load<Texture2D>("MTextures/building_A"),
                     moodSwing.Content.Load<Effect>("Mood"), 
@@ -126,6 +128,37 @@ namespace MoodSwingGame
                     toBuy.Position, 
                     toBuy.Row, 
                     toBuy.Column);
+                screen.Map.MapArray[toBuy.Row, toBuy.Column].LightSource = screen.Map.LightSource;
+                screen.RemoveComponent(screen.BuyDialog);
+            }
+        }
+    }
+
+    public class BuyFundraiser : MSAction
+    {
+        private MSBuyableBuilding toBuy;
+
+        public BuyFundraiser(MSBuyableBuilding toBuy)
+        {
+            this.toBuy = toBuy;
+        }
+
+        public void PerformAction(Game game)
+        {
+            MoodSwing moodSwing = (MoodSwing)game;
+            MSDistrictScreen screen = moodSwing.CurrentScreen as MSDistrictScreen;
+            if (screen.ResourceManager.Funds >= MSResourceManager.FUNDRAISER_MONEY_COST
+                && screen.ResourceManager.IdleVolunteers >= MSResourceManager.FUNDRAISER_VOLUNTEER_COST)
+            {
+                screen.ResourceManager.Funds -= MSResourceManager.FUNDRAISER_MONEY_COST;
+                screen.ResourceManager.IdleVolunteers -= MSResourceManager.FUNDRAISER_VOLUNTEER_COST;
+                screen.Map.MapArray[toBuy.Row, toBuy.Column] = new MSFundraiser(moodSwing.Content.Load<Model>("districthall"),
+                    moodSwing.Content.Load<Texture2D>("MTextures/fundraiser"),
+                    moodSwing.Content.Load<Effect>("Mood"),
+                    toBuy.Position,
+                    toBuy.Row,
+                    toBuy.Column,
+                    screen.ResourceManager);
                 screen.Map.MapArray[toBuy.Row, toBuy.Column].LightSource = screen.Map.LightSource;
                 screen.RemoveComponent(screen.BuyDialog);
             }
