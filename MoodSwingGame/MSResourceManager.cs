@@ -21,7 +21,7 @@ namespace MoodSwingGame
         public const int TOWER_COST = 200;
         public const int VOLUNTEER_CENTER_COST = 250;
         public const int VOLUNTEER_CENTER_GAIN = 10; 
-        public const int VOLUNTEER_GENERATION_TIME = 100;
+        public const int VOLUNTEER_GENERATION_DIFFICULTY = 100;
 
         private int volunteerGenerationCounter;
 
@@ -44,7 +44,7 @@ namespace MoodSwingGame
             base.Update(gameTime);
             if (TotalVolunteers < VolunteerCapacity)
             {
-                if (volunteerGenerationCounter++ > VOLUNTEER_GENERATION_TIME)
+                if (volunteerGenerationCounter++ > VOLUNTEER_GENERATION_DIFFICULTY)
                 {
                     int volunteerGeneration = MSRandom.random.Next(VolunteerCapacity + 1);
                     if (volunteerGeneration > TotalVolunteers)

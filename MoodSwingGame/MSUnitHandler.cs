@@ -104,7 +104,7 @@ namespace MoodSwingGame
                         mobmdg = MSTypes.GLOBAL_PARTNERSHIP;
                     }
                     person = new MSCitizen(MoodSwing.getInstance().Content.Load<Model>("mob"),
-                        MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/mob"),
+                        MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/mob_A"),
                         MoodSwing.getInstance().Content.Load<Effect>("Mood"),
                         (map.MapArray[(int)start.X, (int)start.Y] as MS3DComponent).Position + new Vector3(0, 0, 20),
                         map.GetPath(start, MSDistrictHall.getInstance().TileCoordinate),
@@ -166,7 +166,7 @@ namespace MoodSwingGame
                                 {
                                     citizen.Follow(p as MSCitizen);
                                     citizen.state = MSCitizen.State.MOB;
-                                    citizen.changeModel("mob", "MTextures/mob");
+                                    citizen.changeModel("mob", "MTextures/mob_A");
                                     break;
                                 }
                             }

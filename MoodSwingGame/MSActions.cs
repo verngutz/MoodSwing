@@ -91,7 +91,7 @@ namespace MoodSwingGame
             {
                 screen.ResourceManager.Funds -= MSResourceManager.TOWER_COST;
                 screen.Map.MapArray[toBuy.Row, toBuy.Column] = new MSTower(moodSwing.Content.Load<Model>("districthall"),
-                    moodSwing.Content.Load<Texture2D>("MTextures/building_texture"),
+                    moodSwing.Content.Load<Texture2D>("MTextures/building_A"),
                     moodSwing.Content.Load<Effect>("Mood"), 
                     toBuy.Position, 
                     toBuy.Row, 
