@@ -23,7 +23,7 @@ namespace MoodSwingGame
             /*
              * Legend:
              * 0    -   basic building
-             * 10   -   tower
+             * 10   -   buyable building
              * 20   -   district hall
              * 1    -   empty passable land
              * 11   -   road end, prefix with 0 to 3 for counterclockwise rotation

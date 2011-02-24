@@ -24,7 +24,7 @@ namespace MoodSwingGame
         Node pathBack;
         public MSVolunteer( Model model, Texture2D texture, Effect effect, Vector3 position, Node path1,
             Node path2, MSCitizen t, MSTower o )
-            : base(model, texture, effect, position, path1, MSCitizen.State.CIVILIAN)
+            : base(model, texture, effect, position, path1, MSCitizen.State.CIVILIAN, MSTypes.GENERAL)
         {
             target = t;
             office = o;
