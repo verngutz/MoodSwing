@@ -70,18 +70,51 @@ namespace MoodSwingGame
                 Node path = map.GetPath(start, end);
 
                 if (rnd < MOB_PROBABILITY)
+                    MSTypes mobmdg = MSTypes.GENERAL;
+                    if (rnd > MOB_PROBABILITY*7/8)
+                    {
+                        mobmdg = MSTypes.POVERTY;
+                    }
+                    else if (rnd > MOB_PROBABILITY*6/8)
+                    {
+                        mobmdg = MSTypes.EDUCATION;
+                    }
+                    else if (rnd > MOB_PROBABILITY*5/8)
+                    {
+                        mobmdg = MSTypes.GENDER_EQUALITY;
+                    }
+                    else if (rnd > MOB_PROBABILITY*4/8)
+                    {
+                        mobmdg = MSTypes.CHILD_HEALTH;
+                    }
+                    else if (rnd > MOB_PROBABILITY*3/8)
+                    {
+                        mobmdg = MSTypes.MATERNAL_HEALTH;
+                    }
+                    else if (rnd > MOB_PROBABILITY*2/8)
+                    {
+                        mobmdg = MSTypes.HIV_AIDS;
+                    }
+                    else if (rnd > MOB_PROBABILITY*1/8)
+                    {
+                        mobmdg = MSTypes.ENVIRONMENT;
+                    }
+                    else
+                    {
+                        mobmdg = MSTypes.GLOBAL_PARTNERSHIP;
+                    }
                     person = new MSCitizen(MoodSwing.getInstance().Content.Load<Model>("mob"),
                         MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/mob"),
                         MoodSwing.getInstance().Content.Load<Effect>("Mood"),
                         (map.MapArray[(int)start.X, (int)start.Y] as MS3DComponent).Position + new Vector3(0, 0, 20),
                         map.GetPath(start, MSDistrictHall.getInstance().TileCoordinate),
-                        MSCitizen.State.MOB);
+                        MSCitizen.State.MOB, mobmdg);
                 else
                     person = new MSCitizen(MoodSwing.getInstance().Content.Load<Model>("person"),
                         MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/tao"),
                         MoodSwing.getInstance().Content.Load<Effect>("Mood"),
                         (map.MapArray[(int)start.X, (int)start.Y] as MS3DComponent).Position + new Vector3(0, 0, 20),
-                        path, MSCitizen.State.CIVILIAN);
+                        path, MSCitizen.State.CIVILIAN, MSTypes.GENERAL);
 
                 citizens.Add(person);
                 return person;

@@ -27,6 +27,7 @@ namespace MoodSwingGame
         };
 
         public State state;
+        public MSTypes mdg;
 
         private Model model;
         private Texture2D texture;
@@ -44,7 +45,7 @@ namespace MoodSwingGame
         public Vector2 TileCoordinate { get { return new Vector2((int)(Math.Round(position.Y / MSMap.tileDimension)),(int) (Math.Round((position.X / MSMap.tileDimension))) ); } }
         private MSMoodManager moodManager;
 
-        public MSCitizen(Model m, Texture2D texture, Effect effect, Vector3 position, Node p, State s)
+        public MSCitizen(Model m, Texture2D texture, Effect effect, Vector3 position, Node p, State s, MSTypes mst)
             : base(position, MoodSwing.getInstance())
         {
             this.model = m;
@@ -52,6 +53,7 @@ namespace MoodSwingGame
             this.effect = effect;
             this.isThere = false;
             state = s;
+            mdg = mst;
             this.path = p;
             this.moodManager = MSMoodManager.GetInstance();
         }

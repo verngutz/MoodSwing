@@ -7,6 +7,7 @@ namespace MoodSwingGame
 {
     public enum MSTypes
     {
+        GENERAL,
         POVERTY,
         EDUCATION,
         GENDER_EQUALITY,
