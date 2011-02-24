@@ -129,9 +129,18 @@ namespace MoodSwingGame
             if (newMouseState.LeftButton == ButtonState.Released
                 && oldMouseState.LeftButton == ButtonState.Pressed)
             {
+                bool willCheckCollision = false;
+
+                if (BuyDialog == null)
+                    willCheckCollision = true;
+                else if (!BuyDialog.CollidesWithMouse())
+                    willCheckCollision = true;
+
                 if (BuyDialog != null)
                     RemoveComponent(BuyDialog);
-                CheckCollision();
+
+                if (willCheckCollision)
+                    CheckCollision();
             }
 
             //Camera Rotation
@@ -194,11 +203,8 @@ namespace MoodSwingGame
                 }
 
                 if (hasMoved && BuyDialog != null)
-                    RemoveComponent(BuyDialog);
-                
+                    RemoveComponent(BuyDialog);  
             }
         }
-
-
     }
 }
