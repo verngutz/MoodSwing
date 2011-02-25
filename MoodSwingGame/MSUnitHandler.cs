@@ -21,7 +21,7 @@ namespace MoodSwingGame
     {
         private static MSUnitHandler unitHandler = null;
 
-        public static MSUnitHandler getInstance()
+        public static MSUnitHandler GetInstance()
         {
             if (unitHandler == null)
                 unitHandler = new MSUnitHandler();

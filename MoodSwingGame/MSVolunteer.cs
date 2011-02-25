@@ -23,7 +23,7 @@ namespace MoodSwingGame
         private bool targetLocked;
         Node pathBack;
         public MSVolunteer( Model model, Texture2D texture, Effect effect, Vector3 position, Node path1,
-            Node path2, MSCitizen t, MSTower o )
+            Node path2, MSCitizen t, MSTower o)
             : base(model, texture, effect, position, path1, MSCitizen.State.CIVILIAN, MSTypes.GENERAL)
         {
             target = t;

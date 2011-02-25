@@ -29,6 +29,8 @@ namespace MoodSwingGame
         private int column;
         public int Column { get { return column; } }
 
+        protected MSMoodManager moodManager;
+
         public Model TileModel { get { return model; } }
         public MS3DTile(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
             : base(position, MoodSwing.getInstance())

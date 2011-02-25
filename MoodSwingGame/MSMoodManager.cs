@@ -16,7 +16,7 @@ using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
-    class MSMoodManager
+    public class MSMoodManager
     {
         private static MSMoodManager moodManager = null;
 
@@ -50,22 +50,22 @@ namespace MoodSwingGame
 
         private MSMoodManager()
         {
-            mood = 1;
+            mood = 0.5f;
             isAlive = true;
         }
 
-        public void takeDamage(float amount)
+        public void takeDamage()
         {
-            mood -= amount;
+            mood -= 0.05f;
             if (mood <= 0)
             {
                 mood = 0;
             }
         }
 
-        public void takeHealth(float amount)
+        public void takeHealth()
         {
-            mood += amount;
+            mood += 0.01f;
             if (mood > 1)
                 mood = 1;
         }

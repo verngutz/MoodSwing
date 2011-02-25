@@ -34,7 +34,7 @@ namespace MoodSwingGame
         {
             map = new MSMap(filename);
             citizensList = new List<MSCitizen>();
-            unitHandler = MSUnitHandler.getInstance();
+            unitHandler = MSUnitHandler.GetInstance();
             moodManager = MSMoodManager.GetInstance();
 
             foreach (MS3DTile tile in map.MapArray)

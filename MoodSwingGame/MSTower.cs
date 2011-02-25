@@ -35,7 +35,7 @@ namespace MoodSwingGame
         {
             if (capacity > 0)
             {
-                MSCitizen target = MSUnitHandler.getInstance().GetTarget(Position, range);
+                MSCitizen target = MSUnitHandler.GetInstance().GetTarget(Position, range);
                 if (target != null)
                 {
                     if (stats.GetEffectiveness(target.MDG) > MSRandom.random.Next(100))
@@ -50,7 +50,8 @@ namespace MoodSwingGame
                             Game.Content.Load<Texture2D>("MTextures/recruiter"),
                             Game.Content.Load<Effect>("Mood"),
                             Position + new Vector3(0, 0, 20), path1, path2, target as MSCitizen, this);
-                        MSUnitHandler.getInstance().AddVolunteer(volunteer);
+                        MSUnitHandler.GetInstance().AddVolunteer(volunteer);
+                        MSMoodManager.GetInstance().takeHealth();
                         return volunteer;
                     }
                 }
