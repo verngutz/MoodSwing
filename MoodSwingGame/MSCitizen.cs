@@ -27,7 +27,7 @@ namespace MoodSwingGame
         };
 
         public State state;
-        public MSTypes mdg;
+        public MSTypes MDG { get; set; }
 
         private Model model;
         private Texture2D texture;
@@ -53,7 +53,7 @@ namespace MoodSwingGame
             this.effect = effect;
             this.isThere = false;
             state = s;
-            mdg = mst;
+            MDG = mst;
             this.path = p;
             this.moodManager = MSMoodManager.GetInstance();
         }

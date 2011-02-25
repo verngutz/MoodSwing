@@ -97,7 +97,8 @@ namespace MoodSwingGame
                     moodSwing.Content.Load<Effect>("Mood"), 
                     toBuy.Position, 
                     toBuy.Row, 
-                    toBuy.Column);
+                    toBuy.Column,
+                    MSFoodCenterStats.GetInstance());
 
                 screen.Map.MapArray[toBuy.Row, toBuy.Column].LightSource = screen.Map.LightSource;
                 screen.RemoveComponent(screen.BuyDialog);

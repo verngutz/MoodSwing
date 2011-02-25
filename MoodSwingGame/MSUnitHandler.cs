@@ -177,8 +177,8 @@ namespace MoodSwingGame
                                 {
                                     citizen.Follow(p as MSCitizen);
                                     citizen.state = MSCitizen.State.MOB;
-                                    citizen.mdg = (p as MSCitizen).mdg;
-                                    citizen.changeModel("mob", (p as MSCitizen).mdg);
+                                    citizen.MDG = (p as MSCitizen).MDG;
+                                    citizen.changeModel("mob", (p as MSCitizen).MDG);
                                     break;
                                 }
                             }

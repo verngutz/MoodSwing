@@ -16,7 +16,7 @@ using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
-    public class MSDistrictScreen: MSScreen
+    public class MSDistrictScreen : MSScreen
     {
         private MSMap map;
         public MSMap Map { get { return map; } }
