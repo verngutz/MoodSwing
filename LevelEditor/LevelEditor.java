@@ -167,16 +167,22 @@ class LevelEditorCanvas extends Canvas implements MouseListener, MouseMotionList
 			buffer = createImage(getWidth(), getHeight());
 		}
 		Graphics g = buffer.getGraphics();
-		
 		g.setColor(Color.GRAY);
 		g.fillRect(0,0,getWidth(),getHeight());
-		
 		for(int i = 0; i < rows; i++){
 			for(int j = 0; j < columns; j++){
 				g.drawImage(floors[map[i][j]],j*32,i*32,null);
 			}
 		}
-		
+		g.setColor(Color.BLACK);
+		for(int i = 0; i < columns; i++){
+			g.drawString(""+i,(i*32)+10,10);
+			g.drawString(""+i,(i*32)+10,((rows-1)*32)+30);
+		}
+		for(int i = 0; i < rows; i++){
+			g.drawString(""+i,2,(i*32)+20);
+			g.drawString(""+i,((columns-1)*32)+20,(i*32)+20);
+		}
 		gg.drawImage(buffer, 0, 0, null);
 	}
 	public void update(Graphics g){
