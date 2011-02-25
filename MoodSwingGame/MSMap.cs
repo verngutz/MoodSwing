@@ -86,19 +86,19 @@ namespace MoodSwingGame
         public Ray CalculateRay(Vector2 mouseLocation, Matrix view, Matrix projection, Viewport viewport)
         {
             Vector3 nearPoint = viewport.Unproject(new Vector3(mouseLocation.X,
-                    mouseLocation.Y, 5f),
+                    mouseLocation.Y, 0),
                     projection,
                     view,
                     Matrix.Identity);
             
             Vector3 farPoint = viewport.Unproject(new Vector3(mouseLocation.X,
-                    mouseLocation.Y, 5000.0f),
+                    mouseLocation.Y, 1),
                     projection,
                     view,
                     Matrix.Identity);
 
             Vector3 direction = farPoint - nearPoint;
-            direction.Normalize();
+            direction = Vector3.Normalize(direction);
 
             return new Ray(nearPoint, direction);
         }
