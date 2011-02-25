@@ -29,17 +29,22 @@ namespace MoodSwingGame
         }
 
         //probability constant that handles unit generation
-
-        private const int PROBABILITY = 200;
+        private const int INITIAL_BIRTH_RATE = 200;
+        private const int MAX_PROBABILITY = 5000;
         //probability constant that handles mob generation
         private const int MOB_PROBABILITY = 10;
+        private const int MOB_RECRUIT_RATE = 3000;
+        private const int MOB_RECRUIT_DISTANCE = 5;
 
         //list of citizens
         private List<MSUnit> citizens;
 
+        private float birthRate;
+
         private MSUnitHandler() 
         {
             citizens = new List<MSUnit>();
+            birthRate = INITIAL_BIRTH_RATE;
         }
 
         //something to remove. Make oneOnly = true if you want only one citizen to exist.
@@ -48,12 +53,15 @@ namespace MoodSwingGame
         private bool checkOne = false;
         public MSUnit TryForBaby( MSMap map )
         {
-            int rnd = MSRandom.random.Next(5000);
+            int rnd = MSRandom.random.Next(MAX_PROBABILITY);
 
             if (oneOnly && checkOne)
                 return null;
-            if (rnd < PROBABILITY)
+            if (rnd < birthRate)
             {
+                if (birthRate < MAX_PROBABILITY)
+                    birthRate += 0.05f;
+
                 checkOne = true;
                 MSUnit person;
 
@@ -164,16 +172,16 @@ namespace MoodSwingGame
                 if (person is MSCitizen)
                 {
                     MSCitizen citizen = person as MSCitizen;
-                    int rnd = MSRandom.random.Next(5000);
+                    int rnd = MSRandom.random.Next(MAX_PROBABILITY);
 
-                    if (rnd <= 3000 && citizen.state == MSCitizen.State.CIVILIAN && 
+                    if (rnd <= MOB_RECRUIT_RATE && citizen.state == MSCitizen.State.CIVILIAN && 
                         !(citizen is MSVolunteer))
                     {
                         foreach (MSUnit p in citizens)
                         {
                             if (p is MSCitizen && !(p is MSVolunteer) && (p as MSCitizen).state == MSCitizen.State.MOB)
                             {
-                                if (Vector3.Distance(citizen.Position, (p as MSCitizen).Position) <= 5)
+                                if (Vector3.Distance(citizen.Position, (p as MSCitizen).Position) <= MOB_RECRUIT_DISTANCE)
                                 {
                                     citizen.Follow(p as MSCitizen);
                                     citizen.state = MSCitizen.State.MOB;
