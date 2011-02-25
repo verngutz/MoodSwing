@@ -29,8 +29,12 @@ namespace MoodSwingGame
         private MSResourceManager resourceManager;
         public MSResourceManager ResourceManager { get { return resourceManager; } }
 
+        private MSLabel idleVolunteersLabel;
+        private MSLabel totalVolunteersLabel;
+        private MSLabel fundsLabel;
+
         public MSDistrictScreen(String filename, MoodSwing game)
-            : base(null /*game.Content.Load<Texture2D>("space")*/, 150, 150, 150, 150, game.SpriteBatch, game) 
+            : base(null /*game.Content.Load<Texture2D>("space")*/, 0, 0, 0, 0, game.SpriteBatch, game) 
         {
             map = new MSMap(filename);
             citizensList = new List<MSCitizen>();
@@ -41,18 +45,56 @@ namespace MoodSwingGame
             {
                 tile.LightSource = map.LightSource;
             }
+
+            idleVolunteersLabel = new MSLabel(
+                "0",
+                new Rectangle(125, 15, 10, 12),
+                game.Content.Load<SpriteFont>("TopPanel"),
+                Color.White,
+                spriteBatch,
+                game);
+
+            totalVolunteersLabel = new MSLabel(
+                "0/0",
+                new Rectangle(210, 20, 25, 12),
+                game.Content.Load<SpriteFont>("TopPanel"),
+                Color.White,
+                spriteBatch,
+                game);
+
+            fundsLabel = new MSLabel(
+                "0",
+                new Rectangle(350, 30, 60, 12),
+                game.Content.Load<SpriteFont>("TopPanel"),
+                Color.White,
+                spriteBatch,
+                game);
+
+            MSPanel topPanel = new MSPanel(
+                game.Content.Load<Texture2D>("GamePanel/TopPanel"),
+                new Rectangle(0, 0, 1024, 71),
+                Shape.AMORPHOUS,
+                spriteBatch,
+                game);
+
+            topPanel.AddComponent(idleVolunteersLabel);
+            topPanel.AddComponent(totalVolunteersLabel);
+            topPanel.AddComponent(fundsLabel);
+
+            AddComponent(topPanel, Alignment.TOP_CENTER);
+
+
             AddComponent(new MSButton(
                     null,
                     new Exit(),
-                    new Rectangle(0, 0, 574, 60),
-                    game.Content.Load<Texture2D>("exit"),
-                    game.Content.Load<Texture2D>("exitclicked"),
-                    game.Content.Load<Texture2D>("exitclicked"),
+                    new Rectangle(465, 25, 111, 110),
+                    game.Content.Load<Texture2D>("GamePanel/Logo"),
+                    game.Content.Load<Texture2D>("GamePanel/Logo"),
+                    game.Content.Load<Texture2D>("GamePanel/Logo"),
                     Color.White,
                     Shape.RECTANGULAR,
                     SpriteBatch,
-                    Game)
-                    , Alignment.TOP_CENTER);
+                    Game));
 
             resourceManager = new MSResourceManager(1000, game);
         }
@@ -67,10 +109,6 @@ namespace MoodSwingGame
             map.Draw(gameTime);
 
             base.Draw(gameTime);
-
-            spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "$: " + resourceManager.Funds, new Vector2(10, 10), Color.White);
-            spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Tulog na Tao: " + resourceManager.IdleVolunteers, new Vector2(10, 35), Color.White);
-            spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Lahat ng Tao/Ilan Lang Pwede: " + resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity, new Vector2(10, 60), Color.White);
 
             if(moodManager.Mood > 0.9f)
                 spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Awesome Mood Reached", new Vector2(500, 10), Color.White);
@@ -111,6 +149,10 @@ namespace MoodSwingGame
                     }
                 }
             }
+
+            idleVolunteersLabel.Text = resourceManager.IdleVolunteers + "";
+            totalVolunteersLabel.Text = resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity;
+            fundsLabel.Text = resourceManager.Funds + "";
         }
 
         public void CheckCollision()

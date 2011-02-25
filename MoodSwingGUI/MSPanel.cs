@@ -59,6 +59,8 @@ namespace MoodSwingGUI
             : base(boundingRectangle, shape, spriteBatch, game) 
         {
             this.background = background;
+            if(background != null)
+                collisionTexture = background;
             components = new List<MSGUIUnclickable>();
             clickableComponents = new List<MSGUIClickable>();
 
