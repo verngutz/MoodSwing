@@ -71,6 +71,11 @@ namespace MoodSwingGame
             spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "$: " + resourceManager.Funds, new Vector2(10, 10), Color.White);
             spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Tulog na Tao: " + resourceManager.IdleVolunteers, new Vector2(10, 35), Color.White);
             spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Lahat ng Tao/Ilan Lang Pwede: " + resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity, new Vector2(10, 60), Color.White);
+
+            if(moodManager.Mood > 0.9f)
+                spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Awesome Mood Reached", new Vector2(500, 10), Color.White);
+            else if(moodManager.Mood > 0.75f)
+                spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Good Mood Reached", new Vector2(500, 10), Color.White);
         }
 
         public override void Update(GameTime gameTime)

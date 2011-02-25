@@ -58,9 +58,7 @@ namespace MoodSwingGame
         {
             mood -= 0.05f;
             if (mood <= 0)
-            {
                 mood = 0;
-            }
         }
 
         public void takeHealth()
