@@ -16,15 +16,21 @@ import javax.imageio.*;
 public class LevelEditor extends JFrame{
 	private int rows, columns;
 	private Canvas c;
+	private ScrollPane cpane;
 	private JButton kthxbai;
 	private PrintStream out;
 	private String filename;
     public LevelEditor() {
     	setTitle("MoodSwing Level Editor v1.00");
     	setSize(1024,768);
-    	setLayout(new BorderLayout());
+    	setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		filename = JOptionPane.showInputDialog("Filename:");
+		do{
+			filename = JOptionPane.showInputDialog("Filename:");
+			if(filename == null){
+				System.exit(0);
+			}
+		}while(filename.equals(""));
 		try{
 			out = new PrintStream(new FileOutputStream(filename+".txt"));
 		}catch(Exception e){
@@ -33,6 +39,7 @@ public class LevelEditor extends JFrame{
     	rows = Integer.parseInt(JOptionPane.showInputDialog("Number of rows:"));
     	columns = Integer.parseInt(JOptionPane.showInputDialog("Number of columns:"));
     	c = new LevelEditorCanvas(rows,columns);
+    	cpane = new ScrollPane();
     	kthxbai = new JButton("KTHXBAI");
     	kthxbai.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent ae){
@@ -46,8 +53,12 @@ public class LevelEditor extends JFrame{
     			System.exit(0);
     		}
     	});
-    	add(c,BorderLayout.CENTER);
-    	add(kthxbai,BorderLayout.SOUTH);
+    	cpane.add(c);
+    	cpane.setVisible(true);
+    	add(cpane);
+    	add(kthxbai);
+    	kthxbai.setBounds(0,0,100,20);
+    	cpane.setBounds(0,20,1000,700);
     	setVisible(true);
     }
     public static void main(String[] args) {
@@ -173,7 +184,15 @@ class LevelEditorCanvas extends Canvas implements MouseListener, MouseMotionList
     public void mouseClicked(MouseEvent e){
     	int x = e.getY()/32;
     	int y = e.getX()/32;
-    	map[x][y] = ((map[x][y]+1)%19);
+    	if(e.getButton()==MouseEvent.BUTTON1){
+    		map[x][y] = (mod(map[x][y]+1,19));
+    	}
+    	if(e.getButton()==MouseEvent.BUTTON2){
+    		map[x][y] = 0;
+    	}
+    	if(e.getButton()==MouseEvent.BUTTON3){
+    		map[x][y] = (mod(map[x][y]-1,19));
+    	}
     	repaint();
     }
     public void mousePressed(MouseEvent e){
@@ -187,5 +206,11 @@ class LevelEditorCanvas extends Canvas implements MouseListener, MouseMotionList
     public void mouseEntered(MouseEvent e){
     }
     public void mouseExited(MouseEvent e){
+    }
+    public int mod(int x, int y){
+    	if(x<0){
+    		return ((x%y)+y);
+    	}
+    	return (x%y);
     }
 }
