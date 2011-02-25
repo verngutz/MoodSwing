@@ -163,6 +163,7 @@ namespace MoodSwingGame
             }
             return null;
         }
+
         public List<MSCitizen> Update(MSMap map)
         {
             List<MSCitizen> list = new List<MSCitizen>();
@@ -209,8 +210,5 @@ namespace MoodSwingGame
             }
             return list;
         }
-
-        
-        
     }
 }
