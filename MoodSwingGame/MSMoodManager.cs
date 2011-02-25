@@ -58,7 +58,10 @@ namespace MoodSwingGame
         {
             mood -= 0.05f;
             if (mood <= 0)
+            {
                 mood = 0;
+                isAlive = false;
+            }
         }
 
         public void takeHealth()
@@ -66,6 +69,14 @@ namespace MoodSwingGame
             mood += 0.01f;
             if (mood > 1)
                 mood = 1;
+
+            isAlive = true;
+        }
+
+        public void Reset()
+        {
+            mood = 0.5f;
+            isAlive = true;
         }
     }
 }

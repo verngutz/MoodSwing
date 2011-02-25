@@ -30,6 +30,7 @@ namespace MoodSwingGame
             MoodSwing moodSwing = (MoodSwing)game;
             moodSwing.CurrentScreen.ResetHovers();
             moodSwing.CurrentScreen = MSMainScreen.getInstance();
+            MSMoodManager.GetInstance().Reset();
         }
     }
 
