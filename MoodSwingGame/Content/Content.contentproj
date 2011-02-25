@@ -132,6 +132,11 @@
       <Name>mapinfo</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="TopPanel.spritefont">
+      <Name>TopPanel</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
     <Compile Include="Mood.fx">
       <Name>Mood</Name>
       <Importer>EffectImporter</Importer>
