@@ -19,9 +19,9 @@ namespace MoodSwingGUI
     /// </summary>
     public class MSButton : MSGUITypable
     {
-        private Texture2D clickedTexture;
-        private Texture2D hoveredTexture;
-        private Texture2D unhoveredTexture;
+        protected Texture2D clickedTexture;
+        protected Texture2D hoveredTexture;
+        protected Texture2D unhoveredTexture;
 
         private Color highlight;
 
@@ -31,7 +31,7 @@ namespace MoodSwingGUI
         public Color Highlight { get { return highlight; } }
 
         private MSLabel label;
-        private MSAction action;
+        protected MSAction action;
 
         /// <summary>
         /// Gets and sets the bounding Rectangle of this MSButton

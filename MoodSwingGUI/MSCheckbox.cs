@@ -33,6 +33,10 @@ namespace MoodSwingGUI
                 isTicked = value;
                 if (isTicked) current = ticked;
                 else current = unticked;
+
+                boundingRectangle = current.BoundingRectangle;
+                shape = current.Shape;
+                collisionTexture = current.CollisionTexture;
             }
         }
 
@@ -50,13 +54,13 @@ namespace MoodSwingGUI
         /// </summary>
         /// <param name="unticked">an MSButton representing the unticked state of this MSCheckbox and which will become invisible once this MSCheckbox is ticked</param>
         /// <param name="ticked">an MSButton representing the ticked state of this MSCheckbox and which will become invisible once this MSCheckbox is unticked</param>
-        /// <param name="isTicked"></param>
+        /// <param name="isTicked">true if this MSCheckbox is initially ticked, false otherwise</param>
         public MSCheckbox(MSButton unticked, MSButton ticked, bool isTicked) 
             : base(unticked.BoundingRectangle, unticked.Shape, unticked.SpriteBatch, unticked.Game) 
         {
             this.unticked = unticked;
             this.ticked = ticked;
-            IsTicked = IsTicked;
+            IsTicked = isTicked;
         }
 
         public override void Draw(GameTime gameTime)
@@ -73,7 +77,7 @@ namespace MoodSwingGUI
         public override void UnLeftClick()
         {
             current.UnLeftClick();
-            IsTicked = !IsTicked;
+            IsTicked = !isTicked;
         }
 
         public override void Hover()
