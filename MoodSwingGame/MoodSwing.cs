@@ -49,7 +49,7 @@ namespace MoodSwingGame
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
             graphics.IsFullScreen = true;
-            //graphics.PreferMultiSampling = true; ANTI-ALIASING
+            graphics.PreferMultiSampling = true;
 
             Content.RootDirectory = "Content";
 
@@ -70,12 +70,6 @@ namespace MoodSwingGame
             oldKeyboardState = Keyboard.GetState();
             oldMouseState = Mouse.GetState();
             CurrentScreen = MSIntroScreen.getInstance();
-
-            //GraphicsDevice.RenderState.DepthBufferEnable = true;
-            //GraphicsDevice.RenderState.DepthBufferFunction = CompareFunction.LessEqual;
-            //GraphicsDevice.RenderState.DepthBufferWriteEnable = true;
-            //GraphicsDevice.DepthStencilBuffer = new DepthStencilBuffer(GraphicsDevice, GraphicsDevice.PresentationParameters.BackBufferWidth, GraphicsDevice.PresentationParameters.BackBufferHeight, DepthFormat.Depth24Stencil8);
-            //DepthStencilBuffer old = GraphicsDevice.DepthStencilBuffer;
         }
 
         /// <summary>
