@@ -92,7 +92,6 @@ namespace MoodSwingGame
                     projection,
                     view,
                     Matrix.Identity);
-            
             Vector3 farPoint = viewport.Unproject(new Vector3(mouseLocation.X,
                     mouseLocation.Y, 5000),
                     projection,
@@ -132,6 +131,7 @@ namespace MoodSwingGame
             toCheck.Add(new Node((int)start.X, (int)start.Y, 1, 0, null) );
             hasVis[(int)start.X, (int)start.Y] = true;
             Node last = null;
+            bool isFirst = true;
             while (toCheck.Count != 0)
             {
                 toCheck.Sort();
@@ -148,7 +148,7 @@ namespace MoodSwingGame
                 {
                     int x = (int)visiting.Position.X;
                     int y = (int)visiting.Position.Y;
-                    if (y + 1 < columns && mapArray[x, y + 1] is MSRoad || new Vector2(x,y+1) == end ) 
+                    if (y + 1 < columns && mapArray[x, y + 1] is MSRoad || (!isFirst && new Vector2(x,y+1) == end) ) 
                     {
                         if (hasVis[x, y + 1] == false)
                         {
@@ -168,7 +168,7 @@ namespace MoodSwingGame
                         }
                     }
 
-                    if (y - 1 >= 0 && mapArray[x, y - 1] is MSRoad || new Vector2(x, y - 1) == end) 
+                    if (y - 1 >= 0 && mapArray[x, y - 1] is MSRoad || ( !isFirst && new Vector2(x, y - 1) == end) ) 
                     {
                         if (hasVis[x, y - 1] == false)
                         {
@@ -187,7 +187,7 @@ namespace MoodSwingGame
                             }
                         }
                     }
-                    if (x + 1 < rows && mapArray[x + 1, y] is MSRoad || new Vector2(x + 1, y) == end) 
+                    if (x + 1 < rows && mapArray[x + 1, y] is MSRoad || ( !isFirst && new Vector2(x + 1, y) == end) ) 
                     {
                         if (hasVis[x + 1, y] == false)
                         {
@@ -206,7 +206,7 @@ namespace MoodSwingGame
                             }
                         }
                     }
-                    if (x - 1 >= 0 && mapArray[x - 1, y] is MSRoad || new Vector2(x - 1, y) == end) 
+                    if (x - 1 >= 0 && mapArray[x - 1, y] is MSRoad || (!isFirst && new Vector2(x - 1, y) == end) )
                     {
                         if (hasVis[x - 1, y] == false)
                         {
@@ -225,6 +225,7 @@ namespace MoodSwingGame
                             }
                         }
                     }
+                    if (isFirst == true) isFirst = false;
                 }
             }
 

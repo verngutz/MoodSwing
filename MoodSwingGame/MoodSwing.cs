@@ -43,6 +43,7 @@ namespace MoodSwingGame
         private MouseState oldMouseState;
         public MouseState OldMouseState { get { return oldMouseState; } }
 
+        public GameTime prevGameTime;
         private MoodSwing()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -105,6 +106,7 @@ namespace MoodSwingGame
 
             oldMouseState = newMouseState;
             oldKeyboardState = newKeyBoardState;
+            prevGameTime = gameTime;
             base.Update(gameTime);
         }
 

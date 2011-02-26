@@ -17,5 +17,7 @@ namespace MoodSwingGame
     {
         public MSBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
             : base(model, texture, effect, position, row, column) { }
+
+        public Vector2 TileCoordinate { get { return new Vector2(Position.Y, Position.X) / MSMap.tileDimension; } }
     }
 }

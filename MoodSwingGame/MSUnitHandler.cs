@@ -38,7 +38,7 @@ namespace MoodSwingGame
 
         //list of citizens
         private List<MSUnit> citizens;
-
+        public List<MSUnit> Citizens { get { return citizens; } }
         private float birthRate;
 
         private MSUnitHandler() 
@@ -147,6 +147,10 @@ namespace MoodSwingGame
             citizens.Add(volunteer);
         }
 
+        public void AddWorker(MSWorker worker)
+        {
+            citizens.Add(worker);
+        }
         public MSCitizen GetTarget(Vector3 position, int range)
         {
             foreach (MSUnit unit in citizens)

@@ -21,7 +21,7 @@ namespace MoodSwingGame
         private MSMap map;
         public MSMap Map { get { return map; } }
 
-        private List<MSCitizen> citizensList;
+        //private List<MSCitizen> citizensList;
         private MSUnitHandler unitHandler;
         private MSMoodManager moodManager;
         public MSBuyDialog BuyDialog { set; get; }
@@ -57,7 +57,7 @@ namespace MoodSwingGame
             : base(null /*game.Content.Load<Texture2D>("space")*/, 0, 0, 0, 0, game.SpriteBatch, game) 
         {
             map = new MSMap(filename);
-            citizensList = new List<MSCitizen>();
+            //citizensList = new List<MSCitizen>();
             unitHandler = MSUnitHandler.GetInstance();
             moodManager = MSMoodManager.GetInstance();
 
@@ -204,10 +204,9 @@ namespace MoodSwingGame
 
         public override void Draw(GameTime gameTime)
         {
-            foreach (MSCitizen citizen in citizensList)
+            foreach (MSCitizen citizen in this.unitHandler.Citizens)
             {
                 citizen.Draw(gameTime);
-               
             }
 
             map.Draw(gameTime);
@@ -232,14 +231,14 @@ namespace MoodSwingGame
                 MSUnit person = unitHandler.TryForBaby(map);
                 if (person as MSCitizen != null)
                 {
-                    citizensList.Add(person as MSCitizen);
+                    //citizensList.Add(person as MSCitizen);
                     (person as MSCitizen).LightSource = map.LightSource;
                 }
 
                 List<MSCitizen> toRemove = unitHandler.Update(map);
                 foreach (MSCitizen citizen in toRemove)
                 {
-                    citizensList.Remove(citizen);
+                    //citizensList.Remove(citizen);
                 }
                 foreach (MS3DTile tile in map.MapArray)
                 {
@@ -249,7 +248,7 @@ namespace MoodSwingGame
                         MSVolunteer volunteer = tower.sentinel(map);
                         if (volunteer != null)
                         {
-                            citizensList.Add(volunteer);
+                            //citizensList.Add(volunteer);
                             volunteer.LightSource = map.LightSource;
                         }
                     }
@@ -258,13 +257,22 @@ namespace MoodSwingGame
                 idleVolunteers.Text = resourceManager.IdleVolunteers + "";
                 totalVolunteers.Text = resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity;
                 funds.Text = resourceManager.Funds + "";
+
+                foreach (MS3DTile tile in map.MapArray)
+                {
+                    if (tile is MSBuyableBuilding)
+                    {
+                        MSBuyableBuilding b = tile as MSBuyableBuilding;
+                        b.Update(gameTime);
+                    }
+                }
             }    
         }
 
         public void CheckCollision()
         {
             MS3DTile tile = map.CheckCollision();
-            if (tile is MSBuyableBuilding)
+            if (tile is MSBuyableBuilding && (tile as MSBuyableBuilding).IsTransforming == false )
             {
                 BuyDialog = new MSBuyDialog(Game.Content.Load<Texture2D>("CityView"), new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 190, 190), tile as MSBuyableBuilding, Shape.RECTANGULAR, spriteBatch, Game);
                 AddComponent(BuyDialog);
