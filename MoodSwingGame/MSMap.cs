@@ -30,6 +30,8 @@ namespace MoodSwingGame
 
         private int rows;
         private int columns;
+
+        public Vector2 Dimension { get { return (new Vector2(rows, columns) * tileDimension); } }
         public MSMap(String filename) : base( MoodSwing.getInstance() )
         {
             StreamReader sr = new StreamReader(filename);

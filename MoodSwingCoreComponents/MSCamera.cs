@@ -93,10 +93,13 @@ namespace MoodSwingCoreComponents
             AdjustPitchAxis();
         }
 
-        public void Shift(Vector2 dV)
+        public void Shift(Vector2 dV, Vector2 dim )
         {
             Vector3 shift = dV.X * pitchAxis + dV.Y * Vector3.Normalize(Vector3.Cross(Vector3.UnitZ, pitchAxis));
+            
             shiftVector += shift * SHIFT_SPEED;
+            Vector3 dim3 = new Vector3(dim.X, dim.Y, 0);
+            shiftVector = Vector3.Clamp(shiftVector, Vector3.Zero, dim3);
         }
 
         public void Zoom(int direction)
