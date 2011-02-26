@@ -58,8 +58,8 @@ namespace MoodSwingGame
             MDG = mst;
             this.path = p;
             Vector3 screenProjection = Game.GraphicsDevice.Viewport.Project(Position, ProjectionMatrix, MSCamera.GetInstance().GetView(), WorldMatrix);
-            screenPosition = new Vector2(screenProjection.X, screenProjection.Y);
-            moodFace = new MSImageHolder(new Rectangle((int)screenPosition.X, (int)screenPosition.Y, 50, 50), Game.Content.Load<Texture2D>("moodFace"), (Game as MoodSwing).SpriteBatch, Game);
+            moodFace = new MSImageHolder(new Rectangle(0, 0, 50, 50), Game.Content.Load<Texture2D>("moodFace"), (Game as MoodSwing).SpriteBatch, Game);
+            moodFace.Position = new Vector2(screenProjection.X, screenProjection.Y);
         }
 
         public void Follow(MSCitizen citizen)
@@ -108,9 +108,12 @@ namespace MoodSwingGame
                 if (isThere && state == State.MOB)
                     MSMoodManager.GetInstance().takeDamage();
                 adjustWorldMatrix();
-                Vector3 screenProjection = Game.GraphicsDevice.Viewport.Project(Position, ProjectionMatrix, MSCamera.GetInstance().GetView(), WorldMatrix);
-                screenPosition = new Vector2(screenProjection.X, screenProjection.Y);
-                moodFace.Position = screenPosition;
+
+                if (state == State.MOB)
+                {
+                    Vector3 screenProjection = Game.GraphicsDevice.Viewport.Project(Position, ProjectionMatrix, MSCamera.GetInstance().GetView(), Matrix.Identity);
+                    moodFace.Position = new Vector2(screenProjection.X - moodFace.Size.X / 3, screenProjection.Y - moodFace.Size.Y);
+                }
             }
         }
 
