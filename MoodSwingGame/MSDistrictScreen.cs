@@ -33,6 +33,23 @@ namespace MoodSwingGame
         private MSLabel totalVolunteersLabel;
         private MSLabel fundsLabel;
 
+        public bool Paused { get; set; }
+
+        private MSButton mainMenuButton;
+        public MSButton MainMenuButton { get { return mainMenuButton; } }
+
+        private MSButton optionsButton;
+        public MSButton OptionsButton { get { return optionsButton; } }
+
+        private MSButton exitButton;
+        public MSButton ExitButton { get { return exitButton; } }
+
+        private MSAnimatingButton openInGameMenu;
+        public MSAnimatingButton OpenInGameMenu { get { return openInGameMenu; } }
+
+        private MSAnimatingButton closeInGameMenu;
+        public MSAnimatingButton CloseInGameMenu { get { return closeInGameMenu; } }
+
         public MSDistrictScreen(String filename, MoodSwing game)
             : base(null /*game.Content.Load<Texture2D>("space")*/, 0, 0, 0, 0, game.SpriteBatch, game) 
         {
@@ -83,20 +100,83 @@ namespace MoodSwingGame
 
             AddComponent(topPanel, Alignment.TOP_CENTER);
 
+            mainMenuButton = new MSButton(
+                null,
+                new OpenMainScreen(),
+                new Rectangle(403, 72, 226, 57),
+                game.Content.Load<Texture2D>("GamePanel/MainMenu"),
+                game.Content.Load<Texture2D>("GamePanel/mainmenuhover"),
+                game.Content.Load<Texture2D>("GamePanel/mainmenuhover"),
+                Shape.AMORPHOUS,
+                spriteBatch,
+                game);
 
-            AddComponent(new MSButton(
-                    null,
-                    new Exit(),
-                    new Rectangle(465, 25, 111, 110),
-                    game.Content.Load<Texture2D>("GamePanel/Logo"),
-                    game.Content.Load<Texture2D>("GamePanel/Logo"),
-                    game.Content.Load<Texture2D>("GamePanel/Logo"),
-                    Color.White,
-                    Shape.RECTANGULAR,
-                    SpriteBatch,
-                    Game));
+            optionsButton = new MSButton(
+                null,
+                new OpenOptionsScreen(),
+                new Rectangle(431, 131, 237, 57),
+                game.Content.Load<Texture2D>("GamePanel/Options"),
+                game.Content.Load<Texture2D>("GamePanel/optionshover"),
+                game.Content.Load<Texture2D>("GamePanel/optionshover"),
+                Shape.AMORPHOUS,
+                spriteBatch,
+                game);
+
+            exitButton = new MSButton(
+                null,
+                new Exit(),
+                new Rectangle(460, 190, 277, 57),
+                game.Content.Load<Texture2D>("GamePanel/quit"),
+                game.Content.Load<Texture2D>("GamePanel/quithover"),
+                game.Content.Load<Texture2D>("GamePanel/quithover"),
+                Shape.AMORPHOUS,
+                spriteBatch,
+                game);
+
+            AddComponent(mainMenuButton);
+            AddComponent(optionsButton);
+            AddComponent(exitButton);
+
+            mainMenuButton.Visible = false;
+            optionsButton.Visible = false;
+            exitButton.Visible = false;
+
+            openInGameMenu = new MSAnimatingButton(
+                   null,
+                   new OpenInGameMenu(),
+                   new Rectangle(465, 25, 111, 110),
+                   game.Content.Load<Texture2D>("GamePanel/Logo"),
+                   game.Content.Load<Texture2D>("GamePanel/Logo"),
+                   game.Content.Load<Texture2D>("GamePanel/Logo"),
+                   Color.White,
+                   Shape.RECTANGULAR,
+                   SpriteBatch,
+                   Game);
+            openInGameMenu.UnclickPosition = new MoodButtonOpenMovement();
+            openInGameMenu.UnclickTimerLimit = 10;
+
+            closeInGameMenu = new MSAnimatingButton(
+                   null,
+                   new CloseInGameMenu(),
+                   new Rectangle(639, 215, 111, 110),
+                   game.Content.Load<Texture2D>("GamePanel/Logo"),
+                   game.Content.Load<Texture2D>("GamePanel/Logo"),
+                   game.Content.Load<Texture2D>("GamePanel/Logo"),
+                   Color.White,
+                   Shape.RECTANGULAR,
+                   SpriteBatch,
+                   Game);
+
+            closeInGameMenu.UnclickPosition = new MoodButtonCloseMovement();
+            closeInGameMenu.UnclickTimerLimit = 10;
+            closeInGameMenu.Visible = false;
+
+            AddComponent(openInGameMenu);
+            AddComponent(closeInGameMenu);
 
             resourceManager = new MSResourceManager(1000, game);
+
+            Paused = false;
         }
 
         public override void Draw(GameTime gameTime)
@@ -119,40 +199,42 @@ namespace MoodSwingGame
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
-            map.Update(gameTime);
-            resourceManager.Update(gameTime);
-
             HandleMouseInput((Game as MoodSwing).OldMouseState);
-            MSUnit person = unitHandler.TryForBaby(map);
-            if (person as MSCitizen != null)
-            {
-                citizensList.Add(person as MSCitizen);
-                (person as MSCitizen).LightSource = map.LightSource;
-            }
 
-            List<MSCitizen> toRemove = unitHandler.Update(map);
-            foreach (MSCitizen citizen in toRemove)
+            if (!Paused)
             {
-                citizensList.Remove(citizen);
-            }
-            foreach (MS3DTile tile in map.MapArray)
-            {
-                if (tile is MSTower)
+                map.Update(gameTime);
+                resourceManager.Update(gameTime);
+                MSUnit person = unitHandler.TryForBaby(map);
+                if (person as MSCitizen != null)
                 {
-                    MSTower tower = tile as MSTower;
-                    MSVolunteer volunteer = tower.sentinel(map);
-                    if (volunteer != null)
+                    citizensList.Add(person as MSCitizen);
+                    (person as MSCitizen).LightSource = map.LightSource;
+                }
+
+                List<MSCitizen> toRemove = unitHandler.Update(map);
+                foreach (MSCitizen citizen in toRemove)
+                {
+                    citizensList.Remove(citizen);
+                }
+                foreach (MS3DTile tile in map.MapArray)
+                {
+                    if (tile is MSTower)
                     {
-                        citizensList.Add(volunteer);
-                        volunteer.LightSource = map.LightSource;
+                        MSTower tower = tile as MSTower;
+                        MSVolunteer volunteer = tower.sentinel(map);
+                        if (volunteer != null)
+                        {
+                            citizensList.Add(volunteer);
+                            volunteer.LightSource = map.LightSource;
+                        }
                     }
                 }
-            }
 
-            idleVolunteersLabel.Text = resourceManager.IdleVolunteers + "";
-            totalVolunteersLabel.Text = resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity;
-            fundsLabel.Text = resourceManager.Funds + "";
+                idleVolunteersLabel.Text = resourceManager.IdleVolunteers + "";
+                totalVolunteersLabel.Text = resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity;
+                fundsLabel.Text = resourceManager.Funds + "";
+            }    
         }
 
         public void CheckCollision()

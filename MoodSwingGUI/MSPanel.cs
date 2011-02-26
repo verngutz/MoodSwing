@@ -192,9 +192,11 @@ namespace MoodSwingGUI
             base.Update(gameTime);
 
             foreach (MSGUIUnclickable element in components)
-                element.Update(gameTime);
+                if(element.Visible)
+                    element.Update(gameTime);
             foreach (MSGUIClickable element in clickableComponents)
-                element.Update(gameTime);
+                if(element.Visible)
+                    element.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
@@ -205,10 +207,12 @@ namespace MoodSwingGUI
                 SpriteBatch.Draw(background, BoundingRectangle, highlight);
 
             foreach (MSGUIUnclickable element in components)
-                element.Draw(gameTime);
+                if (element.Visible)
+                    element.Draw(gameTime);
 
             foreach (MSGUIClickable element in clickableComponents)
-                element.Draw(gameTime);
+                if (element.Visible)
+                    element.Draw(gameTime);
         }
 
         public override void LeftClick() { }

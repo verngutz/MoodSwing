@@ -71,16 +71,19 @@ namespace MoodSwingGUI
                 bool hasHovered = false;
                 foreach (MSGUIClickable component in ClickableComponents)
                 {
-                    if (component.CollidesWithMouse())
+                    if (component.Visible)
                     {
-                        if (currentHovered != component)
+                        if (component.CollidesWithMouse())
                         {
-                            if (currentHovered != null) currentHovered.UnHover();
-                            currentHovered = component;
-                            currentHovered.Hover();
+                            if (currentHovered != component)
+                            {
+                                if (currentHovered != null) currentHovered.UnHover();
+                                currentHovered = component;
+                                currentHovered.Hover();
+                            }
+                            hasHovered = true;
+                            break;
                         }
-                        hasHovered = true;
-                        break;
                     }
                 }
                 if (!hasHovered)

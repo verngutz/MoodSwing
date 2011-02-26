@@ -30,6 +30,7 @@ namespace MoodSwingGame
             MoodSwing moodSwing = (MoodSwing)game;
             moodSwing.CurrentScreen.ResetHovers();
             moodSwing.CurrentScreen = MSMainScreen.getInstance();
+            MSMoodManager.GetInstance().Reset();
         }
     }
 
@@ -71,6 +72,34 @@ namespace MoodSwingGame
             MoodSwing moodSwing = (MoodSwing)game;
             moodSwing.CurrentScreen.ResetHovers();
             moodSwing.CurrentScreen = new MSDistrictScreen(@"Content\mapinfo.txt", moodSwing);
+        }
+    }
+
+    public class OpenInGameMenu : MSAction
+    {
+        public void PerformAction(Game game)
+        {
+            MSDistrictScreen screen = ((game as MoodSwing).CurrentScreen as MSDistrictScreen);
+            screen.Paused = true;
+            screen.MainMenuButton.Visible = true;
+            screen.OptionsButton.Visible = true;
+            screen.ExitButton.Visible = true;
+            screen.CloseInGameMenu.Visible = true;
+            screen.OpenInGameMenu.Visible = false;
+        }
+    }
+
+    public class CloseInGameMenu : MSAction
+    {
+        public void PerformAction(Game game)
+        {
+            MSDistrictScreen screen = ((game as MoodSwing).CurrentScreen as MSDistrictScreen);
+            screen.Paused = false;
+            screen.MainMenuButton.Visible = false;
+            screen.OptionsButton.Visible = false;
+            screen.ExitButton.Visible = false;
+            screen.OpenInGameMenu.Visible = true;
+            screen.CloseInGameMenu.Visible = false;
         }
     }
 

@@ -33,7 +33,7 @@ namespace MoodSwingGUI
         public MS2DParametricEquation UnclickSize { set; get; }
         private bool unclickTriggered;
         private int unclickTimer;
-        private const int UNCLICK_TIMER_LIMIT = 16;
+        public int UnclickTimerLimit { set; get; }
 
         private int x0;
         private int y0;
@@ -73,6 +73,7 @@ namespace MoodSwingGUI
         {
             clickTimer = 0;
             unclickTimer = 0;
+            UnclickTimerLimit = 0;
             unclickTriggered = false;
             hoverTimer = 0;
             unhoverTimer = 0;
@@ -102,9 +103,10 @@ namespace MoodSwingGUI
                            UnclickSize.Y(unclickTimer, h0));
 
                 unclickTimer++;
-                if (unclickTimer > UNCLICK_TIMER_LIMIT)
+                if (unclickTimer > UnclickTimerLimit)
                 {
                     unclickTriggered = false;
+                    action.PerformAction(Game);
                     UnHover();
                 }
             }
@@ -147,7 +149,8 @@ namespace MoodSwingGUI
         }
         public override void UnLeftClick()
         {
-            base.UnLeftClick();
+            collisionTexture = unhoveredTexture;
+            CurrentState = MSGUIClickableState.UNLEFTCLICKED;
             unclickTriggered = true;
             unclickTimer = 0;
         }
