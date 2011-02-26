@@ -266,7 +266,7 @@ namespace MoodSwingGame
             MS3DTile tile = map.CheckCollision();
             if (tile is MSBuyableBuilding)
             {
-                BuyDialog = new MSBuyDialog(Game.Content.Load<Texture2D>("CityView"), new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 190, 70), tile as MSBuyableBuilding, Shape.RECTANGULAR, spriteBatch, Game);
+                BuyDialog = new MSBuyDialog(Game.Content.Load<Texture2D>("CityView"), new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 190, 190), tile as MSBuyableBuilding, Shape.RECTANGULAR, spriteBatch, Game);
                 AddComponent(BuyDialog);
             }
         }

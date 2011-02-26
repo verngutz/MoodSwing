@@ -17,23 +17,21 @@ namespace MoodSwingGame
 {
     public class MSTower : MSBuilding
     {
-        private int capacity;
-        private int range;
         private MSTowerStats stats;
+        private int capacity;
 
         public MSTower( Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column, MSTowerStats stats)
             : base(model, texture, effect, position, row, column)
         {
-            capacity = 5;
-            range = 50;
             this.stats = stats;
+            capacity = stats.GetCapacity();
         }
 
         public MSVolunteer sentinel( MSMap map )
         {
             if (capacity > 0)
             {
-                MSCitizen target = MSUnitHandler.GetInstance().GetTarget(Position, range);
+                MSCitizen target = MSUnitHandler.GetInstance().GetTarget(Position, stats.GetRange());
                 if (target != null)
                 {
                     if (stats.GetEffectiveness(target.MDG) > MSRandom.random.Next(100))
@@ -74,6 +72,9 @@ namespace MoodSwingGame
         protected int environmentEffectiveness;
         protected int globalEffectiveness;
 
+        public abstract int GetCapacity();
+        public abstract int GetRange();
+
         public int GetEffectiveness(MSTypes type)
         {
             switch (type)
@@ -101,12 +102,22 @@ namespace MoodSwingGame
 
     public class MSFoodCenterStats : MSTowerStats
     {
-        public static MSFoodCenterStats instance;
+        private static MSFoodCenterStats instance;
         public static MSFoodCenterStats GetInstance()
         {
             if (instance == null)
                 instance = new MSFoodCenterStats();
             return instance;
+        }
+
+        public override int GetCapacity()
+        {
+            return 4;
+        }
+
+        public override int GetRange()
+        {
+            return 5;
         }
 
         private MSFoodCenterStats()
@@ -119,6 +130,171 @@ namespace MoodSwingGame
             hivAidsEffectiveness = 1;
             environmentEffectiveness = 1;
             globalEffectiveness = 1;
+        }
+    }
+
+    public class MSTutorialCenterStats : MSTowerStats
+    {
+        private static MSTutorialCenterStats instance;
+        public static MSTutorialCenterStats GetInstance()
+        {
+            if (instance == null)
+                instance = new MSTutorialCenterStats();
+            return instance;
+        }
+
+        public override int GetCapacity()
+        {
+            return 4;
+        }
+
+        public override int GetRange()
+        {
+            return 5;
+        }
+
+        private MSTutorialCenterStats()
+        {
+            povertyEffectiveness = 1;
+            educationEffectiveness = 100;
+            genderEqualityEffectiveness = 1;
+            childHealthEffectiveness = 1;
+            maternalHealthEffectiveness = 1;
+            hivAidsEffectiveness = 1;
+            environmentEffectiveness = 1;
+            globalEffectiveness = 1;
+        }
+    }
+
+    public class MSWomensOrgStats : MSTowerStats
+    {
+        private static MSWomensOrgStats instance;
+        public static MSWomensOrgStats GetInstance()
+        {
+            if (instance == null)
+                instance = new MSWomensOrgStats();
+            return instance;
+        }
+
+        public override int GetCapacity()
+        {
+            return 4;
+        }
+
+        public override int GetRange()
+        {
+            return 5;
+        }
+
+        private MSWomensOrgStats()
+        {
+            povertyEffectiveness = 1;
+            educationEffectiveness = 1;
+            genderEqualityEffectiveness = 100;
+            childHealthEffectiveness = 1;
+            maternalHealthEffectiveness = 1;
+            hivAidsEffectiveness = 1;
+            environmentEffectiveness = 1;
+            globalEffectiveness = 1;
+        }
+    }
+
+    public class MSHealthCenterStats : MSTowerStats
+    {
+        private static MSHealthCenterStats instance;
+        public static MSHealthCenterStats GetInstance()
+        {
+            if (instance == null)
+                instance = new MSHealthCenterStats();
+            return instance;
+        }
+
+        public override int GetCapacity()
+        {
+            return 2;
+        }
+
+        public override int GetRange()
+        {
+            return 5;
+        }
+
+        private MSHealthCenterStats()
+        {
+            povertyEffectiveness = 1;
+            educationEffectiveness = 1;
+            genderEqualityEffectiveness = 1;
+            childHealthEffectiveness = 100;
+            maternalHealthEffectiveness = 100;
+            hivAidsEffectiveness = 100;
+            environmentEffectiveness = 1;
+            globalEffectiveness = 1;
+        }
+    }
+
+    public class MSEcoParkStats : MSTowerStats
+    {
+        private static MSEcoParkStats instance;
+        public static MSEcoParkStats GetInstance()
+        {
+            if (instance == null)
+                instance = new MSEcoParkStats();
+            return instance;
+        }
+
+        public override int GetCapacity()
+        {
+            return 4;
+        }
+
+        public override int GetRange()
+        {
+            return 5;
+        }
+
+        private MSEcoParkStats()
+        {
+            povertyEffectiveness = 1;
+            educationEffectiveness = 1;
+            genderEqualityEffectiveness = 1;
+            childHealthEffectiveness = 1;
+            maternalHealthEffectiveness = 1;
+            hivAidsEffectiveness = 1;
+            environmentEffectiveness = 100;
+            globalEffectiveness = 1;
+        }
+    }
+
+    public class MSGlobalCenterStats : MSTowerStats
+    {
+        private static MSGlobalCenterStats instance;
+        public static MSGlobalCenterStats GetInstance()
+        {
+            if (instance == null)
+                instance = new MSGlobalCenterStats();
+            return instance;
+        }
+
+        public override int GetCapacity()
+        {
+            return 4;
+        }
+
+        public override int GetRange()
+        {
+            return 5;
+        }
+
+        private MSGlobalCenterStats()
+        {
+            povertyEffectiveness = 1;
+            educationEffectiveness = 1;
+            genderEqualityEffectiveness = 1;
+            childHealthEffectiveness = 1;
+            maternalHealthEffectiveness = 1;
+            hivAidsEffectiveness = 1;
+            environmentEffectiveness = 1;
+            globalEffectiveness = 100;
         }
     }
 }
