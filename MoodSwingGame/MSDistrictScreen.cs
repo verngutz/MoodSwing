@@ -295,7 +295,7 @@ namespace MoodSwingGame
             }
 
             //Camera Rotation
-            else if (newMouseState.MiddleButton == ButtonState.Pressed)
+            else if (newMouseState.MiddleButton == ButtonState.Pressed && !Paused)
             {
                 MSCamera camera = MSCamera.GetInstance();
                 if (oldMouseState.MiddleButton == ButtonState.Released)
@@ -320,7 +320,7 @@ namespace MoodSwingGame
                     RemoveComponent(BuyDialog);
                 BuyDialog = null;
             }
-            else
+            else if( !Paused )
             {
                 bool hasMoved = false;
                 Vector2 shift = Vector2.Zero;
