@@ -169,12 +169,12 @@ namespace MoodSwingGUI
 
         public void AddComponent(MSPanel panel, Alignment alignment)
         {
+            AddComponent(panel as MSGUIClickable, alignment);
+
             foreach (MSGUIUnclickable component in panel.Components)
                 AddComponent(component);
             foreach (MSGUIClickable component in panel.ClickableComponents)
                 AddComponent(component);
-
-            AddComponent(panel as MSGUIClickable, alignment);
         }
 
         public void RemoveComponent(MSPanel panel)

@@ -29,9 +29,9 @@ namespace MoodSwingGame
         private MSResourceManager resourceManager;
         public MSResourceManager ResourceManager { get { return resourceManager; } }
 
-        private MSLabel idleVolunteersLabel;
-        private MSLabel totalVolunteersLabel;
-        private MSLabel fundsLabel;
+        private MSTextField idleVolunteers;
+        private MSTextField totalVolunteers;
+        private MSTextField funds;
 
         public bool Paused { get; set; }
 
@@ -77,25 +77,34 @@ namespace MoodSwingGame
 
             AddComponent(blackOutPanel);
 
-            idleVolunteersLabel = new MSLabel(
+            idleVolunteers = new MSTextField(
                 "0",
-                new Rectangle(125, 15, 10, 12),
+                new Rectangle(125, 13, 10, 16),
+                null,
+                null,
+                3,
                 game.Content.Load<SpriteFont>("TopPanel"),
                 Color.White,
                 spriteBatch,
                 game);
 
-            totalVolunteersLabel = new MSLabel(
+            totalVolunteers = new MSTextField(
                 "0/0",
-                new Rectangle(210, 20, 25, 12),
+                new Rectangle(210, 19, 25, 16),
+                null,
+                null,
+                7,
                 game.Content.Load<SpriteFont>("TopPanel"),
                 Color.White,
                 spriteBatch,
                 game);
 
-            fundsLabel = new MSLabel(
+            funds = new MSTextField(
                 "0",
-                new Rectangle(350, 30, 60, 12),
+                new Rectangle(350, 28, 60, 20),
+                null,
+                null,
+                8,
                 game.Content.Load<SpriteFont>("TopPanel"),
                 Color.White,
                 spriteBatch,
@@ -108,9 +117,9 @@ namespace MoodSwingGame
                 spriteBatch,
                 game);
 
-            topPanel.AddComponent(idleVolunteersLabel);
-            topPanel.AddComponent(totalVolunteersLabel);
-            topPanel.AddComponent(fundsLabel);
+            topPanel.AddComponent(idleVolunteers);
+            topPanel.AddComponent(totalVolunteers);
+            topPanel.AddComponent(funds);
 
             AddComponent(topPanel, Alignment.TOP_CENTER);
 
@@ -190,7 +199,6 @@ namespace MoodSwingGame
             AddComponent(openInGameMenu);
 
             resourceManager = new MSResourceManager(1000, game);
-
             Paused = false;
         }
 
@@ -215,8 +223,6 @@ namespace MoodSwingGame
         {
             base.Update(gameTime);
             HandleMouseInput((Game as MoodSwing).OldMouseState);
-            System.Console.WriteLine(CloseInGameMenu.UnclickTimer);
-            System.Console.WriteLine(CloseInGameMenu.Position);
 
             if (!Paused)
             {
@@ -248,9 +254,9 @@ namespace MoodSwingGame
                     }
                 }
 
-                idleVolunteersLabel.Text = resourceManager.IdleVolunteers + "";
-                totalVolunteersLabel.Text = resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity;
-                fundsLabel.Text = resourceManager.Funds + "";
+                idleVolunteers.Text = resourceManager.IdleVolunteers + "";
+                totalVolunteers.Text = resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity;
+                funds.Text = resourceManager.Funds + "";
             }    
         }
 
@@ -270,12 +276,22 @@ namespace MoodSwingGame
             MouseState newMouseState = Mouse.GetState();
 
             if (base.HandleMouseInput(oldMouseState))
+            {
+                if (BuyDialog != null)
+                    RemoveComponent(BuyDialog);
+                BuyDialog = null;
                 return;
+            }
 
             //Picking
             else if (newMouseState.LeftButton == ButtonState.Released
                     && oldMouseState.LeftButton == ButtonState.Pressed)
-                        CheckCollision();
+            {
+                if (BuyDialog != null)
+                    RemoveComponent(BuyDialog);
+                BuyDialog = null;
+                CheckCollision();
+            }
 
             //Camera Rotation
             else if (newMouseState.MiddleButton == ButtonState.Pressed)
@@ -301,6 +317,7 @@ namespace MoodSwingGame
                 camera.Rotate(movement);
                 if (BuyDialog != null)
                     RemoveComponent(BuyDialog);
+                BuyDialog = null;
             }
             else
             {
@@ -336,8 +353,12 @@ namespace MoodSwingGame
                     hasMoved = true;
                 }
 
-                if (hasMoved && BuyDialog != null)
-                    RemoveComponent(BuyDialog);  
+                if (hasMoved)
+                {
+                    if (BuyDialog != null)
+                        RemoveComponent(BuyDialog);
+                    BuyDialog = null;
+                }
             }
         }
     }

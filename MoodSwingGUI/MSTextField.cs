@@ -27,9 +27,16 @@ namespace MoodSwingGUI
             get { return text; }
             set
             {
-                foreach (char c in value.ToCharArray())
+                if (Editable)
                 {
-                    InsertAfterCursor(c.ToString());
+                    foreach (char c in value.ToCharArray())
+                    {
+                        InsertAfterCursor(c.ToString());
+                    }
+                }
+                else
+                {
+                    text = value.Substring(0, Math.Min(value.Length, maxTextLength));
                 }
             }
         }
@@ -89,7 +96,7 @@ namespace MoodSwingGUI
             cursorIndex = 0;
             cursorBlinkCounter = 0;
             cursorPosition = new Vector2(boundingRectangle.X - spriteFont.MeasureString(CURSOR).X * 5 * fontScale / 12, boundingRectangle.Y);
-            Editable = true;
+            Editable = false;
             text = "";
             this.maxTextLength = maxTextLength;
             Text = text;

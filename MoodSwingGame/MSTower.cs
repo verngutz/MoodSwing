@@ -112,13 +112,13 @@ namespace MoodSwingGame
         private MSFoodCenterStats()
         {
             povertyEffectiveness = 100;
-            educationEffectiveness = 2;
-            genderEqualityEffectiveness = 2;
-            childHealthEffectiveness = 2;
-            maternalHealthEffectiveness = 2;
-            hivAidsEffectiveness = 2;
-            environmentEffectiveness = 2;
-            globalEffectiveness = 2;
+            educationEffectiveness = 1;
+            genderEqualityEffectiveness = 1;
+            childHealthEffectiveness = 1;
+            maternalHealthEffectiveness = 1;
+            hivAidsEffectiveness = 1;
+            environmentEffectiveness = 1;
+            globalEffectiveness = 1;
         }
     }
 }
