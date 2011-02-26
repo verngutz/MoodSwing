@@ -44,6 +44,9 @@ namespace MoodSwingGame
         public bool IsWaiting { get { return isWaiting; } set { isWaiting = value; } }
         public Vector2 TileCoordinate { get { return new Vector2((int)(Math.Round(position.Y / MSMap.tileDimension)),(int) (Math.Round((position.X / MSMap.tileDimension))) ); } }
 
+        private Vector2 screenPosition;
+        private MSImageHolder moodFace;
+
         public MSCitizen(Model m, Texture2D texture, Effect effect, Vector3 position, Node p, State s, MSTypes mst)
             : base(position, MoodSwing.getInstance())
         {
@@ -54,6 +57,9 @@ namespace MoodSwingGame
             state = s;
             MDG = mst;
             this.path = p;
+            Vector3 screenProjection = Game.GraphicsDevice.Viewport.Project(Position, ProjectionMatrix, MSCamera.GetInstance().GetView(), WorldMatrix);
+            screenPosition = new Vector2(screenProjection.X, screenProjection.Y);
+            moodFace = new MSImageHolder(new Rectangle((int)screenPosition.X, (int)screenPosition.Y, 50, 50), Game.Content.Load<Texture2D>("moodFace"), (Game as MoodSwing).SpriteBatch, Game);
         }
 
         public void Follow(MSCitizen citizen)
@@ -62,7 +68,7 @@ namespace MoodSwingGame
             targetLocation = citizen.TargetLocation;
         }
 
-        private const float WALK_SPEED = 0.55f;
+        private const float WALK_SPEED = 0.35f;
         public virtual void Walk( MS3DTile[,] mapArray )
         {
             if ( state != State.WAITING)
@@ -101,10 +107,11 @@ namespace MoodSwingGame
 
                 if (isThere && state == State.MOB)
                     MSMoodManager.GetInstance().takeDamage();
-
                 adjustWorldMatrix();
+                Vector3 screenProjection = Game.GraphicsDevice.Viewport.Project(Position, ProjectionMatrix, MSCamera.GetInstance().GetView(), WorldMatrix);
+                screenPosition = new Vector2(screenProjection.X, screenProjection.Y);
+                moodFace.Position = screenPosition;
             }
-
         }
 
         public override void Draw(GameTime gameTime)
@@ -127,6 +134,10 @@ namespace MoodSwingGame
                 }
                 mesh.Draw();
             }
+
+            if (state == State.MOB)
+                moodFace.Draw(gameTime);
+
             base.Draw(gameTime);
         }
 
