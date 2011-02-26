@@ -497,6 +497,11 @@
     </Compile>
     <Compile Include="LoadingTexture.png">
       <Name>LoadingTexture</Name>
+	  <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="moodface.png">
+      <Name>moodface</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

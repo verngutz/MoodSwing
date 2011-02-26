@@ -29,10 +29,10 @@ namespace MoodSwingGame
         }
 
         //probability constant that handles unit generation
-        private const int INITIAL_BIRTH_RATE = 200;
+        private const int INITIAL_BIRTH_RATE = 100;
         private const int MAX_PROBABILITY = 5000;
         //probability constant that handles mob generation
-        private const int MOB_PROBABILITY = 10;
+        private const int MOB_PROBABILITY = 20;
         private const int MOB_RECRUIT_RATE = 3000;
         private const int MOB_RECRUIT_DISTANCE = 5;
 
@@ -60,7 +60,7 @@ namespace MoodSwingGame
             if (rnd < birthRate)
             {
                 if (birthRate < MAX_PROBABILITY)
-                    birthRate += 0.05f;
+                    birthRate += 0.01f;
 
                 checkOne = true;
                 MSUnit person;
