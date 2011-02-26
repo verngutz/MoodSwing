@@ -60,13 +60,11 @@ namespace MoodSwingGame
         //note: This needs revision when the 'dummy' tiles have been implemented.
         public MS3DTile CheckCollision()
         {
-            System.Console.WriteLine("CHECKING...");
             float? minDistance = null;
             MS3DTile tile = null;
-
             foreach ( MS3DTile t in mapArray )
             {
-                float? dist = Intersects(t.BoundingSphere, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), MSCamera.GetInstance().GetView(),
+                float? dist = Intersects(t.BoundingBox, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), MSCamera.GetInstance().GetView(),
                     t.ProjectionMatrix, MoodSwing.getInstance().GraphicsDevice.Viewport);
 
                 if (dist != null)
@@ -78,21 +76,20 @@ namespace MoodSwingGame
                     }
                 }   
             }
-            if(tile!=null) System.Console.WriteLine(tile.Position / new Vector3(tileDimension, tileDimension, tileDimension));
             return tile;
-         
         }
+
 
         public Ray CalculateRay(Vector2 mouseLocation, Matrix view, Matrix projection, Viewport viewport)
         {
             Vector3 nearPoint = viewport.Unproject(new Vector3(mouseLocation.X,
-                    mouseLocation.Y, 0),
+                    mouseLocation.Y, 5),
                     projection,
                     view,
                     Matrix.Identity);
             
             Vector3 farPoint = viewport.Unproject(new Vector3(mouseLocation.X,
-                    mouseLocation.Y, 1),
+                    mouseLocation.Y, 5000),
                     projection,
                     view,
                     Matrix.Identity);
@@ -103,13 +100,15 @@ namespace MoodSwingGame
             return new Ray(nearPoint, direction);
         }
 
-        public float? Intersects(BoundingSphere sphere, Vector2 mouseLocation,
+        public float? Intersects(BoundingBox sphere, Vector2 mouseLocation,
             Matrix view, Matrix projection, Viewport viewport)
         {
             Ray mouseRay = CalculateRay(mouseLocation, view, projection, viewport);
             return mouseRay.Intersects(sphere);
             
         }
+
+
 
         /// <summary>
         /// Gets the head of the linked-list representing the shortest path
