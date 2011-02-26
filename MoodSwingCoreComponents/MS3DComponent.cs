@@ -22,6 +22,9 @@ namespace MoodSwingCoreComponents
         protected BoundingSphere boundingSphere;
         public BoundingSphere BoundingSphere { get { return boundingSphere; } }
 
+        protected BoundingBox boundingBox;
+        public BoundingBox BoundingBox { get { return boundingBox; } }
+
         protected Matrix world;
         public Matrix WorldMatrix { get { return world; } }
         public void adjustWorldMatrix()

@@ -43,7 +43,9 @@ namespace MoodSwingGame
                 boundingSphere = BoundingSphere.CreateMerged(boundingSphere, mesh.BoundingSphere);
             }
             boundingSphere = boundingSphere.Transform(world);
-
+            int tileDimension = MSMap.tileDimension;
+            boundingBox = new BoundingBox(Position + new Vector3(-tileDimension / 2, -tileDimension / 2, tileDimension),
+                    Position + new Vector3(tileDimension / 2, tileDimension / 2, -tileDimension));
             this.row = row;
             this.column = column;
         }
