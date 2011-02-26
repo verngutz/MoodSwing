@@ -29,9 +29,9 @@ namespace MoodSwingGame
         private MSResourceManager resourceManager;
         public MSResourceManager ResourceManager { get { return resourceManager; } }
 
-        private MSLabel idleVolunteersLabel;
-        private MSLabel totalVolunteersLabel;
-        private MSLabel fundsLabel;
+        private MSTextField idleVolunteers;
+        private MSTextField totalVolunteers;
+        private MSTextField funds;
 
         public bool Paused { get; set; }
 
@@ -50,6 +50,9 @@ namespace MoodSwingGame
         private MSAnimatingButton closeInGameMenu;
         public MSAnimatingButton CloseInGameMenu { get { return closeInGameMenu; } }
 
+        private MSPanel blackOutPanel;
+        public MSPanel BlackOutPanel { get { return blackOutPanel; } }
+
         public MSDistrictScreen(String filename, MoodSwing game)
             : base(null /*game.Content.Load<Texture2D>("space")*/, 0, 0, 0, 0, game.SpriteBatch, game) 
         {
@@ -63,25 +66,45 @@ namespace MoodSwingGame
                 tile.LightSource = map.LightSource;
             }
 
-            idleVolunteersLabel = new MSLabel(
+            blackOutPanel = new MSPanel(
+                game.Content.Load<Texture2D>("BlackOut"),
+                BoundingRectangle,
+                Shape.RECTANGULAR,
+                spriteBatch,
+                game);
+
+            blackOutPanel.Visible = false;
+
+            AddComponent(blackOutPanel);
+
+            idleVolunteers = new MSTextField(
                 "0",
-                new Rectangle(125, 15, 10, 12),
+                new Rectangle(125, 13, 10, 16),
+                null,
+                null,
+                3,
                 game.Content.Load<SpriteFont>("TopPanel"),
                 Color.White,
                 spriteBatch,
                 game);
 
-            totalVolunteersLabel = new MSLabel(
+            totalVolunteers = new MSTextField(
                 "0/0",
-                new Rectangle(210, 20, 25, 12),
+                new Rectangle(210, 19, 25, 16),
+                null,
+                null,
+                7,
                 game.Content.Load<SpriteFont>("TopPanel"),
                 Color.White,
                 spriteBatch,
                 game);
 
-            fundsLabel = new MSLabel(
+            funds = new MSTextField(
                 "0",
-                new Rectangle(350, 30, 60, 12),
+                new Rectangle(350, 28, 60, 20),
+                null,
+                null,
+                8,
                 game.Content.Load<SpriteFont>("TopPanel"),
                 Color.White,
                 spriteBatch,
@@ -94,9 +117,9 @@ namespace MoodSwingGame
                 spriteBatch,
                 game);
 
-            topPanel.AddComponent(idleVolunteersLabel);
-            topPanel.AddComponent(totalVolunteersLabel);
-            topPanel.AddComponent(fundsLabel);
+            topPanel.AddComponent(idleVolunteers);
+            topPanel.AddComponent(totalVolunteers);
+            topPanel.AddComponent(funds);
 
             AddComponent(topPanel, Alignment.TOP_CENTER);
 
@@ -153,7 +176,7 @@ namespace MoodSwingGame
                    SpriteBatch,
                    Game);
             openInGameMenu.UnclickPosition = new MoodButtonOpenMovement();
-            openInGameMenu.UnclickTimerLimit = 10;
+            openInGameMenu.UnclickTimerLimit = 12;
 
             closeInGameMenu = new MSAnimatingButton(
                    null,
@@ -168,14 +191,14 @@ namespace MoodSwingGame
                    Game);
 
             closeInGameMenu.UnclickPosition = new MoodButtonCloseMovement();
-            closeInGameMenu.UnclickTimerLimit = 10;
+            closeInGameMenu.UnclickTimerLimit = 12;
             closeInGameMenu.Visible = false;
 
-            AddComponent(openInGameMenu);
+
             AddComponent(closeInGameMenu);
+            AddComponent(openInGameMenu);
 
             resourceManager = new MSResourceManager(1000, game);
-
             Paused = false;
         }
 
@@ -231,9 +254,9 @@ namespace MoodSwingGame
                     }
                 }
 
-                idleVolunteersLabel.Text = resourceManager.IdleVolunteers + "";
-                totalVolunteersLabel.Text = resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity;
-                fundsLabel.Text = resourceManager.Funds + "";
+                idleVolunteers.Text = resourceManager.IdleVolunteers + "";
+                totalVolunteers.Text = resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity;
+                funds.Text = resourceManager.Funds + "";
             }    
         }
 
@@ -248,28 +271,26 @@ namespace MoodSwingGame
         }
 
         private Vector2 mouseMidHold;
-        public override void HandleMouseInput(MouseState oldMouseState)
+        public void HandleMouseInput(MouseState oldMouseState)
         {
             MouseState newMouseState = Mouse.GetState();
 
-            base.HandleMouseInput(oldMouseState);
-
-            //Picking
-            if (newMouseState.LeftButton == ButtonState.Released
-                && oldMouseState.LeftButton == ButtonState.Pressed)
+            if (base.HandleMouseInput(oldMouseState))
             {
-                bool willCheckCollision = false;
-
-                if (BuyDialog == null)
-                    willCheckCollision = true;
-                else if (!BuyDialog.CollidesWithMouse())
-                    willCheckCollision = true;
-
                 if (BuyDialog != null)
                     RemoveComponent(BuyDialog);
+                BuyDialog = null;
+                return;
+            }
 
-                if (willCheckCollision)
-                    CheckCollision();
+            //Picking
+            else if (newMouseState.LeftButton == ButtonState.Released
+                    && oldMouseState.LeftButton == ButtonState.Pressed)
+            {
+                if (BuyDialog != null)
+                    RemoveComponent(BuyDialog);
+                BuyDialog = null;
+                CheckCollision();
             }
 
             //Camera Rotation
@@ -296,6 +317,7 @@ namespace MoodSwingGame
                 camera.Rotate(movement);
                 if (BuyDialog != null)
                     RemoveComponent(BuyDialog);
+                BuyDialog = null;
             }
             else
             {
@@ -332,8 +354,12 @@ namespace MoodSwingGame
                     hasMoved = true;
                 }
 
-                if (hasMoved && BuyDialog != null)
-                    RemoveComponent(BuyDialog);  
+                if (hasMoved)
+                {
+                    if (BuyDialog != null)
+                        RemoveComponent(BuyDialog);
+                    BuyDialog = null;
+                }
             }
         }
     }

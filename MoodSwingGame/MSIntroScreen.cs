@@ -49,12 +49,16 @@ namespace MoodSwingGame
                 (new OpenMainScreen()).PerformAction(Game);
         }
 
-        public override void HandleMouseInput(MouseState oldMouseState)
+        public override bool HandleMouseInput(MouseState oldMouseState)
         {
             MouseState currentMouseState = Mouse.GetState();
             if (currentMouseState.LeftButton == ButtonState.Pressed
                 && oldMouseState.LeftButton == ButtonState.Released)
+            {
                 videoPlayer.Stop();
+                return true;
+            }
+            return false;
         }
 
         public override void HandleKeyboardInput(KeyboardState oldKeyboardState)

@@ -35,20 +35,22 @@ namespace MoodSwingGUI
         private int unclickTimer;
         public int UnclickTimerLimit { set; get; }
 
+        public int UnclickTimer { get { return unclickTimer; } }
+
         private int x0;
         private int y0;
         private int w0;
         private int h0;
 
         /// <summary>
-        /// Constructs an MSButton with no highlight.
+        /// Constructs an MSAnimatingButton with no highlight.
         /// </summary>
-        /// <param name="label">Add text to this MSButton with an MSLabel. Use null if you don't need to add text. Make sure to position the MSLabel relative to the upper-left corner of this MSButton.</param>
-        /// <param name="action">will be executed when this MSButton is clicked</param>
-        /// <param name="boundingRectangle">the bounding Rectangle of this MSButton</param>
-        /// <param name="unhovered">will be drawn when this MSButton is unhovered</param>
-        /// <param name="clicked">will be drawn when this MSButton is pressed and hovered</param>
-        /// <param name="hovered">will be drawn when this MSButton is released and hovered</param>
+        /// <param name="label">Add text to this MSAnimatingButton with an MSLabel. Use null if you don't need to add text. Make sure to position the MSLabel relative to the upper-left corner of this MSButton.</param>
+        /// <param name="action">will be executed when this MSAnimatingButton is clicked</param>
+        /// <param name="boundingRectangle">the bounding Rectangle of this MSAnimatingButton</param>
+        /// <param name="unhovered">will be drawn when this MSAnimatingButton is unhovered</param>
+        /// <param name="clicked">will be drawn when this MSAnimatingButton is pressed and hovered</param>
+        /// <param name="hovered">will be drawn when this MSAnimatingButton is released and hovered</param>
         /// <param name="spriteBatch">the SpriteBatch that will draw this MSButton</param>
         /// <param name="shape">the Shape of this MSButton<seealso cref="MoodSwingCoreComponents.Shape"/></param>
         /// <param name="game">the Game where this MSButton will be used</param>
@@ -96,6 +98,14 @@ namespace MoodSwingGUI
             base.Update(gameTime);
             if (unclickTriggered)
             {
+                if (unclickTimer >= UnclickTimerLimit)
+                {
+                    unclickTriggered = false;
+                    unclickTimer = 0;
+                    UnHover();
+                    action.PerformAction(Game);
+                }
+
                 boundingRectangle = new Rectangle(
                            UnclickPosition.X(unclickTimer, x0),
                            UnclickPosition.Y(unclickTimer, y0),
@@ -103,12 +113,6 @@ namespace MoodSwingGUI
                            UnclickSize.Y(unclickTimer, h0));
 
                 unclickTimer++;
-                if (unclickTimer > UnclickTimerLimit)
-                {
-                    unclickTriggered = false;
-                    action.PerformAction(Game);
-                    UnHover();
-                }
             }
             else
             {

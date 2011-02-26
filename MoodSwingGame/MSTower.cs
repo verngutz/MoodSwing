@@ -20,7 +20,6 @@ namespace MoodSwingGame
         private int capacity;
         private int range;
         private MSTowerStats stats;
-        private int sentinelCounter;
 
         public MSTower( Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column, MSTowerStats stats)
             : base(model, texture, effect, position, row, column)
@@ -28,7 +27,6 @@ namespace MoodSwingGame
             capacity = 5;
             range = 50;
             this.stats = stats;
-            sentinelCounter = 0;
         }
 
         public MSVolunteer sentinel( MSMap map )
@@ -114,13 +112,13 @@ namespace MoodSwingGame
         private MSFoodCenterStats()
         {
             povertyEffectiveness = 100;
-            educationEffectiveness = 2;
-            genderEqualityEffectiveness = 2;
-            childHealthEffectiveness = 2;
-            maternalHealthEffectiveness = 2;
-            hivAidsEffectiveness = 2;
-            environmentEffectiveness = 2;
-            globalEffectiveness = 2;
+            educationEffectiveness = 1;
+            genderEqualityEffectiveness = 1;
+            childHealthEffectiveness = 1;
+            maternalHealthEffectiveness = 1;
+            hivAidsEffectiveness = 1;
+            environmentEffectiveness = 1;
+            globalEffectiveness = 1;
         }
     }
 }
