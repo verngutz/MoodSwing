@@ -52,13 +52,13 @@ namespace MoodSwingCoreComponents
         private MSCamera()
         {
             upCamera = Vector3.UnitZ;
-            cameraPosition = new Vector3(200, 200, 200);
+            cameraPosition = new Vector3(200, 200, 150);
             cameraTarget = new Vector3(0, 0, 0);
             viewVector = cameraPosition - cameraTarget;
             normalizedViewVector = Vector3.Normalize(viewVector);
             shiftVector = Vector3.Zero;
             AdjustPitchAxis();
-            currAngle = (float)Math.Acos((float)(Vector3.Dot(viewVector, upCamera) / (float)(Vector3.Distance(cameraPosition, cameraTarget)) ) );
+            currAngle = (float)Math.PI/2 - (float)Math.Acos((float)(Vector3.Dot(viewVector, upCamera) / (float)(Vector3.Distance(cameraPosition, cameraTarget)) ) );
             minAngle = currAngle;
             maxAngle = (float)Math.PI / 2;
         }
