@@ -207,6 +207,7 @@ namespace MoodSwingGame
             foreach (MSCitizen citizen in citizensList)
             {
                 citizen.Draw(gameTime);
+               
             }
 
             map.Draw(gameTime);
@@ -294,7 +295,7 @@ namespace MoodSwingGame
             }
 
             //Camera Rotation
-            else if (newMouseState.MiddleButton == ButtonState.Pressed)
+            else if (newMouseState.MiddleButton == ButtonState.Pressed && !Paused)
             {
                 MSCamera camera = MSCamera.GetInstance();
                 if (oldMouseState.MiddleButton == ButtonState.Released)
@@ -319,33 +320,34 @@ namespace MoodSwingGame
                     RemoveComponent(BuyDialog);
                 BuyDialog = null;
             }
-            else
+            else if( !Paused )
             {
                 bool hasMoved = false;
+                Vector2 shift = Vector2.Zero;
                 //Camera movement using mouse
                 if (newMouseState.X >= 0 && newMouseState.X <= 5)
                 {
-                    MSCamera.GetInstance().Shift(new Vector2(1, 0));
+                    shift = new Vector2(1, 0);
                     hasMoved = true;
                 }
                 else if (newMouseState.X <= MoodSwing.getInstance().GraphicsDevice.Viewport.Width &&
                     newMouseState.X >= MoodSwing.getInstance().GraphicsDevice.Viewport.Width - 5)
                 {
-                    MSCamera.GetInstance().Shift(new Vector2(-1, 0));
+                    shift = new Vector2(-1, 0);
                     hasMoved = true;
                 }
                 else if (newMouseState.Y >= 0 && newMouseState.Y <= 5)
                 {
-                    MSCamera.GetInstance().Shift(new Vector2(0, -1));
+                    shift = new Vector2(0, -1);
                     hasMoved = true;
                 }
                 else if (newMouseState.Y <= MoodSwing.getInstance().GraphicsDevice.Viewport.Height &&
                     newMouseState.Y >= MoodSwing.getInstance().GraphicsDevice.Viewport.Height - 5)
                 {
-                    MSCamera.GetInstance().Shift(new Vector2(0, 1));
+                    shift = new Vector2(0, 1);
                     hasMoved = true;
                 }
-
+                MSCamera.GetInstance().Shift(shift, map.Dimension);
                 int delta = (newMouseState.ScrollWheelValue - oldMouseState.ScrollWheelValue);
                 if (delta != 0)
                 {

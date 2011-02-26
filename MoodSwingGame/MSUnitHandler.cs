@@ -68,7 +68,7 @@ namespace MoodSwingGame
                 MSUnbuyableBuilding source = map.GetRandomCitizenSource();
                 Vector2 start = new Vector2(source.Row, source.Column);
 
-                MSUnbuyableBuilding sink = map.GetRandomCitizenSource();
+                MSUnbuyableBuilding sink;
                 do
                 {
                     sink = map.GetRandomCitizenSource();

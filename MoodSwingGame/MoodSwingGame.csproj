@@ -84,6 +84,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoundingBox3D.cs" />
+    <Compile Include="BoundingSphere3D.cs" />
+    <Compile Include="Line3D.cs" />
     <Compile Include="MSFundraiser.cs" />
     <Compile Include="MSTypes.cs" />
     <Compile Include="MS2DParametricEquations.cs" />
