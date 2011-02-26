@@ -207,6 +207,7 @@ namespace MoodSwingGame
             foreach (MSCitizen citizen in citizensList)
             {
                 citizen.Draw(gameTime);
+               
             }
 
             map.Draw(gameTime);

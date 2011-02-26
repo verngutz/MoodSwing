@@ -38,16 +38,19 @@ namespace MoodSwingGame
             this.model = model;
             this.texture = texture;
             this.effect = effect;
+            int tileDimension = MSMap.tileDimension;
             foreach(ModelMesh mesh in model.Meshes)
             {
                 boundingSphere = BoundingSphere.CreateMerged(boundingSphere, mesh.BoundingSphere);
             }
             boundingSphere = boundingSphere.Transform(world);
-            int tileDimension = MSMap.tileDimension;
+
+
             boundingBox = new BoundingBox(Position + new Vector3(-tileDimension / 2, -tileDimension / 2, tileDimension),
                     Position + new Vector3(tileDimension / 2, tileDimension / 2, -tileDimension));
             this.row = row;
             this.column = column;
+            
         }
 
         public override void Draw(GameTime gameTime)

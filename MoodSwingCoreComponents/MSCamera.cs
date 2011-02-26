@@ -40,8 +40,9 @@ namespace MoodSwingCoreComponents
         private Vector3 shiftVector;
 
         private Vector3 pitchAxis;
-        private float initAngle;
-
+        private float minAngle;
+        private float currAngle;
+        private float maxAngle;
         private const int SHIFT_SPEED = 3;
 
         private const int ZOOM_MIN_DIST = 100;
@@ -57,7 +58,9 @@ namespace MoodSwingCoreComponents
             normalizedViewVector = Vector3.Normalize(viewVector);
             shiftVector = Vector3.Zero;
             AdjustPitchAxis();
-            initAngle = (float)Math.Acos((float)(Vector3.Dot(viewVector, upCamera) / (float)(Vector3.Distance(cameraPosition, cameraTarget)) ) );
+            currAngle = (float)Math.Acos((float)(Vector3.Dot(viewVector, upCamera) / (float)(Vector3.Distance(cameraPosition, cameraTarget)) ) );
+            minAngle = currAngle;
+            maxAngle = (float)Math.PI / 2;
         }
 
         public void AdjustPitchAxis()
@@ -74,8 +77,14 @@ namespace MoodSwingCoreComponents
         {
             float angle = .005f;
             Vector3 transformedReference;
-            Matrix pitchRotationMatrix = Matrix.CreateFromAxisAngle(pitchAxis, angle * rotation.Y);
             
+            float pitchRotationAngle = angle * rotation.Y;
+            if (currAngle + pitchRotationAngle > maxAngle)
+                pitchRotationAngle = maxAngle - currAngle;
+            else if (currAngle + pitchRotationAngle < minAngle)
+                pitchRotationAngle = minAngle - currAngle;
+            Matrix pitchRotationMatrix = Matrix.CreateFromAxisAngle(pitchAxis, pitchRotationAngle);
+            currAngle += pitchRotationAngle;
             transformedReference = Vector3.Transform(cameraPosition, pitchRotationMatrix);
             Vector3 transformedUpCamera = Vector3.Transform(upCamera, pitchRotationMatrix);
             upCamera = transformedUpCamera;

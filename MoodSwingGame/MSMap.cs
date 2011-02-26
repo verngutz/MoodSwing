@@ -241,6 +241,7 @@ namespace MoodSwingGame
             foreach (MS3DTile tile in mapArray)
             {
                 tile.Update(gameTime);
+                
             }
         }
 
