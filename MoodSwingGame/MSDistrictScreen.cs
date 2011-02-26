@@ -50,6 +50,9 @@ namespace MoodSwingGame
         private MSAnimatingButton closeInGameMenu;
         public MSAnimatingButton CloseInGameMenu { get { return closeInGameMenu; } }
 
+        private MSPanel blackOutPanel;
+        public MSPanel BlackOutPanel { get { return blackOutPanel; } }
+
         public MSDistrictScreen(String filename, MoodSwing game)
             : base(null /*game.Content.Load<Texture2D>("space")*/, 0, 0, 0, 0, game.SpriteBatch, game) 
         {
@@ -62,6 +65,17 @@ namespace MoodSwingGame
             {
                 tile.LightSource = map.LightSource;
             }
+
+            blackOutPanel = new MSPanel(
+                game.Content.Load<Texture2D>("BlackOut"),
+                BoundingRectangle,
+                Shape.RECTANGULAR,
+                spriteBatch,
+                game);
+
+            blackOutPanel.Visible = false;
+
+            AddComponent(blackOutPanel);
 
             idleVolunteersLabel = new MSLabel(
                 "0",
@@ -153,7 +167,7 @@ namespace MoodSwingGame
                    SpriteBatch,
                    Game);
             openInGameMenu.UnclickPosition = new MoodButtonOpenMovement();
-            openInGameMenu.UnclickTimerLimit = 10;
+            openInGameMenu.UnclickTimerLimit = 12;
 
             closeInGameMenu = new MSAnimatingButton(
                    null,
@@ -168,11 +182,12 @@ namespace MoodSwingGame
                    Game);
 
             closeInGameMenu.UnclickPosition = new MoodButtonCloseMovement();
-            closeInGameMenu.UnclickTimerLimit = 10;
+            closeInGameMenu.UnclickTimerLimit = 12;
             closeInGameMenu.Visible = false;
 
-            AddComponent(openInGameMenu);
+
             AddComponent(closeInGameMenu);
+            AddComponent(openInGameMenu);
 
             resourceManager = new MSResourceManager(1000, game);
 
@@ -200,6 +215,8 @@ namespace MoodSwingGame
         {
             base.Update(gameTime);
             HandleMouseInput((Game as MoodSwing).OldMouseState);
+            System.Console.WriteLine(CloseInGameMenu.UnclickTimer);
+            System.Console.WriteLine(CloseInGameMenu.Position);
 
             if (!Paused)
             {
@@ -248,29 +265,17 @@ namespace MoodSwingGame
         }
 
         private Vector2 mouseMidHold;
-        public override void HandleMouseInput(MouseState oldMouseState)
+        public void HandleMouseInput(MouseState oldMouseState)
         {
             MouseState newMouseState = Mouse.GetState();
 
-            base.HandleMouseInput(oldMouseState);
+            if (base.HandleMouseInput(oldMouseState))
+                return;
 
             //Picking
-            if (newMouseState.LeftButton == ButtonState.Released
-                && oldMouseState.LeftButton == ButtonState.Pressed)
-            {
-                bool willCheckCollision = false;
-
-                if (BuyDialog == null)
-                    willCheckCollision = true;
-                else if (!BuyDialog.CollidesWithMouse())
-                    willCheckCollision = true;
-
-                if (BuyDialog != null)
-                    RemoveComponent(BuyDialog);
-
-                if (willCheckCollision)
-                    CheckCollision();
-            }
+            else if (newMouseState.LeftButton == ButtonState.Released
+                    && oldMouseState.LeftButton == ButtonState.Pressed)
+                        CheckCollision();
 
             //Camera Rotation
             else if (newMouseState.MiddleButton == ButtonState.Pressed)

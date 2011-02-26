@@ -86,6 +86,7 @@ namespace MoodSwingGame
             screen.ExitButton.Visible = true;
             screen.CloseInGameMenu.Visible = true;
             screen.OpenInGameMenu.Visible = false;
+            screen.BlackOutPanel.Visible = true;
         }
     }
 
@@ -100,6 +101,7 @@ namespace MoodSwingGame
             screen.ExitButton.Visible = false;
             screen.OpenInGameMenu.Visible = true;
             screen.CloseInGameMenu.Visible = false;
+            screen.BlackOutPanel.Visible = false;
         }
     }
 

@@ -20,7 +20,6 @@ namespace MoodSwingGame
         private int capacity;
         private int range;
         private MSTowerStats stats;
-        private int sentinelCounter;
 
         public MSTower( Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column, MSTowerStats stats)
             : base(model, texture, effect, position, row, column)
@@ -28,7 +27,6 @@ namespace MoodSwingGame
             capacity = 5;
             range = 50;
             this.stats = stats;
-            sentinelCounter = 0;
         }
 
         public MSVolunteer sentinel( MSMap map )

@@ -53,20 +53,20 @@ namespace MoodSwingGame
 
         public int X(int t, int x0)
         {
-            int t1 = (int)MathHelper.Clamp(t, 0, 10);
-            return x0 + t * (639 - x0) / 10;
+            int t1 = (int)MathHelper.Clamp(t, 0, 12);
+            return x0 + t1 * (639 - x0) / 12;
         }
 
         public int Y(int t) { return Y(t, 0); }
 
         public int Y(int t, int y0) 
         {
-            int t1 = (int)MathHelper.Clamp(t, 0, 10);
-            return y0 + t * (215 - y0) / 10; 
+            int t1 = (int)MathHelper.Clamp(t, 0, 12);
+            return y0 + t1 * (215 - y0) / 12; 
         }
 
-        public int Dx(int t) { return 639 / 10; }
-        public int Dy(int t) { return 215 / 10; }
+        public int Dx(int t) { return 639 / 12; }
+        public int Dy(int t) { return 215 / 12; }
     }
 
     public class MoodButtonCloseMovement : MS2DParametricEquation
@@ -75,19 +75,19 @@ namespace MoodSwingGame
 
         public int X(int t, int x0)
         {
-            int t1 = (int)MathHelper.Clamp(t, 0, 10);
-            return x0 + t * (465 - x0) / 10;
+            int t1 = (int)MathHelper.Clamp(t, 0, 12);
+            return x0 + t1 * (465 - x0) / 12;
         }
 
         public int Y(int t) { return Y(t, 0); }
 
         public int Y(int t, int y0)
         {
-            int t1 = (int)MathHelper.Clamp(t, 0, 10);
-            return y0 + t * (25 - y0) / 10;
+            int t1 = (int)MathHelper.Clamp(t, 0, 12);
+            return y0 + t1 * (25 - y0) / 12;
         }
 
-        public int Dx(int t) { return 465 / 10; }
-        public int Dy(int t) { return 25 / 10; }
+        public int Dx(int t) { return 465 / 12; }
+        public int Dy(int t) { return 25 / 12; }
     }
 }
