@@ -66,17 +66,20 @@ namespace MoodSwingGame
             MS3DTile tile = null;
             foreach ( MS3DTile t in mapArray )
             {
-                float? dist = Intersects(t.BoundingBox, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), MSCamera.GetInstance().GetView(),
+                if (!(t is MSRoad))
+                {
+                    float? dist = Intersects(t.BoundingBox, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), MSCamera.GetInstance().GetView(),
                     t.ProjectionMatrix, MoodSwing.getInstance().GraphicsDevice.Viewport);
 
-                if (dist != null)
-                {
-                    if (minDistance == null || minDistance > dist)
+                    if (dist != null)
                     {
-                        minDistance = dist;
-                        tile = t;
-                    }
-                }   
+                        if (minDistance == null || minDistance > dist)
+                        {
+                            minDistance = dist;
+                            tile = t;
+                        }
+                    }  
+                }
             }
             return tile;
         }
