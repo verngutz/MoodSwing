@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+# Visual C# Express 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoodSwingGame", "MoodSwingGame.csproj", "{F1FC1C64-C11B-441C-898F-E090999A4B67}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E368BC1E-D0C7-4FFF-9629-181506F33CAB} = {E368BC1E-D0C7-4FFF-9629-181506F33CAB}
