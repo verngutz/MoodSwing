@@ -43,6 +43,8 @@ namespace MoodSwingGame
         private MouseState oldMouseState;
         public MouseState OldMouseState { get { return oldMouseState; } }
 
+        private Queue<Song> bgm;
+
         public GameTime prevGameTime;
         private MoodSwing()
         {
@@ -56,6 +58,10 @@ namespace MoodSwingGame
             Content.RootDirectory = "Content";
 
             IsMouseVisible = true;
+
+            MediaPlayer.Volume = 0.8f;
+            bgm = new Queue<Song>();
+            bgm.Enqueue(Content.Load<Song>("MoodSwing"));
         }
 
         /// <summary>
@@ -109,6 +115,13 @@ namespace MoodSwingGame
             oldKeyboardState = newKeyBoardState;
             prevGameTime = gameTime;
             base.Update(gameTime);
+
+            if (MediaPlayer.State == MediaState.Stopped)
+            {
+                Song nextSong = bgm.Dequeue();
+                MediaPlayer.Play(nextSong);
+                bgm.Enqueue(nextSong);
+            }
         }
 
         /// <summary>
