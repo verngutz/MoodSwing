@@ -45,7 +45,6 @@ namespace MoodSwingGame
             {
                 boundingSphere = BoundingSphere.CreateMerged(boundingSphere, mesh.BoundingSphere);
             }
-            //System.Console.WriteLine("MODEL COUNT = " + model.Meshes.Count);
             boundingSphere = boundingSphere.Transform(world);
 
 

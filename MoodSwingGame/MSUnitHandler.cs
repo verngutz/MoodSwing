@@ -44,11 +44,13 @@ namespace MoodSwingGame
         //list of citizens
         private List<MSUnit> citizens;
         public List<MSUnit> Citizens { get { return citizens; } }
+        public bool IsLeaderBusy { get; set; }
         private float birthRate;
 
         private MSUnitHandler() 
         {
             citizens = new List<MSUnit>();
+            IsLeaderBusy = false;
             birthRate = INITIAL_BIRTH_RATE;
         }
 

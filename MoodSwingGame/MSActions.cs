@@ -105,13 +105,15 @@ namespace MoodSwingGame
         }
     }
 
-    public class BuyFoodCenter : MSAction
+    public class BuyTower : MSAction
     {
         private MSBuyableBuilding toBuy;
+        private MSTowerStats toBuildStats;
 
-        public BuyFoodCenter(MSBuyableBuilding toBuy)
+        public BuyTower(MSBuyableBuilding toBuy, MSTowerStats toBuildStats)
         {
             this.toBuy = toBuy;
+            this.toBuildStats = toBuildStats;
         }
 
         public void PerformAction(Game game)
@@ -119,38 +121,17 @@ namespace MoodSwingGame
             MoodSwing moodSwing = (MoodSwing)game;
             MSDistrictScreen screen = moodSwing.CurrentScreen as MSDistrictScreen;
             if (screen.ResourceManager.Funds >= MSResourceManager.TOWER_MONEY_COST
-                && screen.ResourceManager.IdleVolunteers >= MSFoodCenterStats.GetInstance().GetCapacity())
+                && screen.ResourceManager.IdleVolunteers >= toBuildStats.GetCapacity())
             {
                 screen.ResourceManager.Funds -= MSResourceManager.TOWER_MONEY_COST;
-                screen.ResourceManager.IdleVolunteers -= MSFoodCenterStats.GetInstance().GetCapacity();
-                MS3DTile futureSelf = new MSTower(moodSwing.Content.Load<Model>("districthall"),
-                    moodSwing.Content.Load<Texture2D>("MTextures/building_A"),
-                    moodSwing.Content.Load<Effect>("Mood"), 
-                    toBuy.Position, 
-                    toBuy.Row, 
-                    toBuy.Column,
-                    MSFoodCenterStats.GetInstance());
+                screen.ResourceManager.IdleVolunteers -= toBuildStats.GetCapacity();
+                MS3DTile futureSelf = MSTowerFactory.CreateMSTower(toBuildStats, toBuy.Position, toBuy.TileCoordinate);
 
                 futureSelf.LightSource = screen.Map.LightSource;
-                float? minDist = null;
-                MSVolunteerCenter center = null;
-                foreach (MS3DTile tile in screen.Map.MapArray)
-                {
-                    if (tile is MSVolunteerCenter)
-                    {
-                        MSVolunteerCenter vc = tile as MSVolunteerCenter;
-                        float distance = Vector3.Distance(vc.Position, toBuy.Position);
-                        if (minDist == null || minDist > distance)
-                        {
-                            minDist = distance;
-                            center = vc;
-                        }
-                    }
-                }
 
+                MSVolunteerCenter center = screen.Map.GetNearestVolunteerCenter(toBuy);
                 Node path = screen.Map.GetPath(center.TileCoordinate, toBuy.TileCoordinate);
-                System.Console.WriteLine(center.TileCoordinate);
-                toBuy.StartBuildProcess(MSFoodCenterStats.GetInstance().GetCapacity(), futureSelf);
+                toBuy.StartBuildProcess(toBuildStats.GetCapacity(), futureSelf);
 
                 for (int i = 0; i < MSFoodCenterStats.GetInstance().GetCapacity(); i++)
                 {
@@ -165,170 +146,9 @@ namespace MoodSwingGame
         }
     }
 
-    public class BuyTutorialCenter : MSAction
-    {
-        private MSBuyableBuilding toBuy;
-
-        public BuyTutorialCenter(MSBuyableBuilding toBuy)
-        {
-            this.toBuy = toBuy;
-        }
-
-        public void PerformAction(Game game)
-        {
-            MoodSwing moodSwing = (MoodSwing)game;
-            MSDistrictScreen screen = moodSwing.CurrentScreen as MSDistrictScreen;
-            if (screen.ResourceManager.Funds >= MSResourceManager.TOWER_MONEY_COST
-                && screen.ResourceManager.IdleVolunteers >= MSTutorialCenterStats.GetInstance().GetCapacity())
-            {
-                screen.ResourceManager.Funds -= MSResourceManager.TOWER_MONEY_COST;
-                screen.ResourceManager.IdleVolunteers -= MSTutorialCenterStats.GetInstance().GetCapacity();
-                screen.Map.MapArray[toBuy.Row, toBuy.Column] = new MSTower(moodSwing.Content.Load<Model>("districthall"),
-                    moodSwing.Content.Load<Texture2D>("MTextures/building_B"),
-                    moodSwing.Content.Load<Effect>("Mood"),
-                    toBuy.Position,
-                    toBuy.Row,
-                    toBuy.Column,
-                    MSTutorialCenterStats.GetInstance());
-
-                screen.Map.MapArray[toBuy.Row, toBuy.Column].LightSource = screen.Map.LightSource;
-                screen.RemoveComponent(screen.BuyDialog);
-            }
-        }
-    }
-
-    public class BuyWomensOrg : MSAction
-    {
-        private MSBuyableBuilding toBuy;
-
-        public BuyWomensOrg(MSBuyableBuilding toBuy)
-        {
-            this.toBuy = toBuy;
-        }
-
-        public void PerformAction(Game game)
-        {
-            MoodSwing moodSwing = (MoodSwing)game;
-            MSDistrictScreen screen = moodSwing.CurrentScreen as MSDistrictScreen;
-            if (screen.ResourceManager.Funds >= MSResourceManager.TOWER_MONEY_COST
-                && screen.ResourceManager.IdleVolunteers >= MSWomensOrgStats.GetInstance().GetCapacity())
-            {
-                screen.ResourceManager.Funds -= MSResourceManager.TOWER_MONEY_COST;
-                screen.ResourceManager.IdleVolunteers -= MSWomensOrgStats.GetInstance().GetCapacity();
-                screen.Map.MapArray[toBuy.Row, toBuy.Column] = new MSTower(moodSwing.Content.Load<Model>("districthall"),
-                    moodSwing.Content.Load<Texture2D>("MTextures/building_C"),
-                    moodSwing.Content.Load<Effect>("Mood"),
-                    toBuy.Position,
-                    toBuy.Row,
-                    toBuy.Column,
-                    MSWomensOrgStats.GetInstance());
-
-                screen.Map.MapArray[toBuy.Row, toBuy.Column].LightSource = screen.Map.LightSource;
-                screen.RemoveComponent(screen.BuyDialog);
-            }
-        }
-    }
-
-    public class BuyHealthCenter : MSAction
-    {
-        private MSBuyableBuilding toBuy;
-
-        public BuyHealthCenter(MSBuyableBuilding toBuy)
-        {
-            this.toBuy = toBuy;
-        }
-
-        public void PerformAction(Game game)
-        {
-            MoodSwing moodSwing = (MoodSwing)game;
-            MSDistrictScreen screen = moodSwing.CurrentScreen as MSDistrictScreen;
-            if (screen.ResourceManager.Funds >= MSResourceManager.TOWER_MONEY_COST
-                && screen.ResourceManager.IdleVolunteers >= MSHealthCenterStats.GetInstance().GetCapacity())
-            {
-                screen.ResourceManager.Funds -= MSResourceManager.TOWER_MONEY_COST;
-                screen.ResourceManager.IdleVolunteers -= MSHealthCenterStats.GetInstance().GetCapacity();
-                screen.Map.MapArray[toBuy.Row, toBuy.Column] = new MSTower(moodSwing.Content.Load<Model>("districthall"),
-                    moodSwing.Content.Load<Texture2D>("MTextures/building_D"),
-                    moodSwing.Content.Load<Effect>("Mood"),
-                    toBuy.Position,
-                    toBuy.Row,
-                    toBuy.Column,
-                    MSHealthCenterStats.GetInstance());
-
-                screen.Map.MapArray[toBuy.Row, toBuy.Column].LightSource = screen.Map.LightSource;
-                screen.RemoveComponent(screen.BuyDialog);
-            }
-        }
-    }
-
-    public class BuyEcoPark : MSAction
-    {
-        private MSBuyableBuilding toBuy;
-
-        public BuyEcoPark(MSBuyableBuilding toBuy)
-        {
-            this.toBuy = toBuy;
-        }
-
-        public void PerformAction(Game game)
-        {
-            MoodSwing moodSwing = (MoodSwing)game;
-            MSDistrictScreen screen = moodSwing.CurrentScreen as MSDistrictScreen;
-            if (screen.ResourceManager.Funds >= MSResourceManager.TOWER_MONEY_COST
-                && screen.ResourceManager.IdleVolunteers >= MSEcoParkStats.GetInstance().GetCapacity())
-            {
-                screen.ResourceManager.Funds -= MSResourceManager.TOWER_MONEY_COST;
-                screen.ResourceManager.IdleVolunteers -= MSEcoParkStats.GetInstance().GetCapacity();
-                screen.Map.MapArray[toBuy.Row, toBuy.Column] = new MSTower(moodSwing.Content.Load<Model>("districthall"),
-                    moodSwing.Content.Load<Texture2D>("MTextures/building_E"),
-                    moodSwing.Content.Load<Effect>("Mood"),
-                    toBuy.Position,
-                    toBuy.Row,
-                    toBuy.Column,
-                    MSEcoParkStats.GetInstance());
-
-                screen.Map.MapArray[toBuy.Row, toBuy.Column].LightSource = screen.Map.LightSource;
-                screen.RemoveComponent(screen.BuyDialog);
-            }
-        }
-    }
-
-    public class BuyGlobalCenter : MSAction
-    {
-        private MSBuyableBuilding toBuy;
-
-        public BuyGlobalCenter(MSBuyableBuilding toBuy)
-        {
-            this.toBuy = toBuy;
-        }
-
-        public void PerformAction(Game game)
-        {
-            MoodSwing moodSwing = (MoodSwing)game;
-            MSDistrictScreen screen = moodSwing.CurrentScreen as MSDistrictScreen;
-            if (screen.ResourceManager.Funds >= MSResourceManager.TOWER_MONEY_COST
-                && screen.ResourceManager.IdleVolunteers >= MSGlobalCenterStats.GetInstance().GetCapacity())
-            {
-                screen.ResourceManager.Funds -= MSResourceManager.TOWER_MONEY_COST;
-                screen.ResourceManager.IdleVolunteers -= MSGlobalCenterStats.GetInstance().GetCapacity();
-                screen.Map.MapArray[toBuy.Row, toBuy.Column] = new MSTower(moodSwing.Content.Load<Model>("districthall"),
-                    moodSwing.Content.Load<Texture2D>("MTextures/building_B"),
-                    moodSwing.Content.Load<Effect>("Mood"),
-                    toBuy.Position,
-                    toBuy.Row,
-                    toBuy.Column,
-                    MSGlobalCenterStats.GetInstance());
-
-                screen.Map.MapArray[toBuy.Row, toBuy.Column].LightSource = screen.Map.LightSource;
-                screen.RemoveComponent(screen.BuyDialog);
-            }
-        }
-    }
-
     public class BuyVolunteerCenter : MSAction
     {
         private MSBuyableBuilding toBuy;
-
         public BuyVolunteerCenter(MSBuyableBuilding toBuy)
         {
             this.toBuy = toBuy;
@@ -338,17 +158,28 @@ namespace MoodSwingGame
         {
             MoodSwing moodSwing = (MoodSwing)game;
             MSDistrictScreen screen = moodSwing.CurrentScreen as MSDistrictScreen;
-            if (screen.ResourceManager.Funds >= MSResourceManager.VOLUNTEER_CENTER_COST)
+            if (!MSUnitHandler.GetInstance().IsLeaderBusy &&
+                screen.ResourceManager.Funds >= MSResourceManager.VOLUNTEER_CENTER_COST)
             {
                 screen.ResourceManager.Funds -= MSResourceManager.VOLUNTEER_CENTER_COST;
                 screen.ResourceManager.VolunteerCapacity += MSResourceManager.VOLUNTEER_CENTER_GAIN;
-                screen.Map.MapArray[toBuy.Row, toBuy.Column] = new MSVolunteerCenter(moodSwing.Content.Load<Model>("districthall"), 
+                MS3DTile futureSelf = new MSVolunteerCenter(moodSwing.Content.Load<Model>("districthall"), 
                     moodSwing.Content.Load<Texture2D>("MTextures/volunteer_center"),
                     moodSwing.Content.Load<Effect>("Mood"), 
                     toBuy.Position, 
                     toBuy.Row, 
                     toBuy.Column);
-                screen.Map.MapArray[toBuy.Row, toBuy.Column].LightSource = screen.Map.LightSource;
+                futureSelf.LightSource = screen.Map.LightSource;
+                MSVolunteerCenter center = screen.Map.GetNearestVolunteerCenter(toBuy);
+                Node path = screen.Map.GetPath(center.TileCoordinate, toBuy.TileCoordinate);
+                toBuy.StartBuildProcess(1, futureSelf);
+
+                MSWorker worker = new MSWorker(MoodSwing.getInstance().Content.Load<Model>("person"),
+                        MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/tao"),
+                        MoodSwing.getInstance().Content.Load<Effect>("Mood"),
+                        center.Position + new Vector3(0, 0, 20), path, MSCitizen.CitizenState.SUPPRESSED, MSTypes.EDUCATION, toBuy);
+                MSUnitHandler.GetInstance().AddWorker(worker);
+                MSUnitHandler.GetInstance().IsLeaderBusy = true;
                 screen.RemoveComponent(screen.BuyDialog);
             }
         }

@@ -225,6 +225,13 @@ namespace MoodSwingGame
 
             SpriteBatch.Begin();
 
+
+            foreach (MS3DTile tile in map.MapArray)
+            {
+                if (tile is MSBuyableBuilding)
+                    (tile as MSBuyableBuilding).DrawLoadingBar(gameTime);
+            }
+
             foreach (MSGUIUnclickable element in Components)
                 if (element.Visible)
                     element.Draw(gameTime);

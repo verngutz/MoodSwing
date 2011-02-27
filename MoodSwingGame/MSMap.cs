@@ -59,6 +59,25 @@ namespace MoodSwingGame
             return citizenSources.ElementAt<MSUnbuyableBuilding>(MSRandom.random.Next(citizenSources.Count));
         }
 
+        public MSVolunteerCenter GetNearestVolunteerCenter(MS3DTile reference)
+        {
+            float? minDist = null;
+            MSVolunteerCenter center = null;
+            foreach (MS3DTile tile in MapArray)
+            {
+                if (tile is MSVolunteerCenter)
+                {
+                    MSVolunteerCenter vc = tile as MSVolunteerCenter;
+                    float distance = Vector3.Distance(vc.Position, reference.Position);
+                    if (minDist == null || minDist > distance)
+                    {
+                        minDist = distance;
+                        center = vc;
+                    }
+                }
+            }
+            return center;
+        }
         //note: This needs revision when the 'dummy' tiles have been implemented.
         public MS3DTile CheckCollision()
         {

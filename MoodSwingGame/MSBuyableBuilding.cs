@@ -28,11 +28,11 @@ namespace MoodSwingGame
         }
 
         public BuyableBuildingState State { get; set; }
-        private int startTime;
-        private int timeCount;
+        private double startTime;
+        private double timeCount;
         public void StartBuilding( GameTime gameTime)
         {
-            startTime = gameTime.TotalGameTime.Seconds;
+            startTime = gameTime.TotalGameTime.TotalSeconds;
             State = BuyableBuildingState.TRANSFORMING;
         }
 
@@ -50,7 +50,7 @@ namespace MoodSwingGame
         }
         private Texture2D borderTexture;
         private Texture2D loadingTexture;
-        private int buildTime;
+        private double buildTime;
 
         private MS3DTile futureSelf;
         public MS3DTile FutureSelf { get { return futureSelf; } }
@@ -58,7 +58,7 @@ namespace MoodSwingGame
         public MSBuyableBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
             : base(model, texture, effect, position, row, column) 
         {
-            buildTime = 20;
+            buildTime = 5;
             timeCount = 0;
             borderTexture = MoodSwing.getInstance().Content.Load<Texture2D>("BorderTexture");
             loadingTexture = MoodSwing.getInstance().Content.Load<Texture2D>("LoadingTexture");
@@ -67,7 +67,7 @@ namespace MoodSwingGame
 
         public override void Update(GameTime gameTime)
         {
-            timeCount = gameTime.TotalGameTime.Seconds - startTime;
+            timeCount = gameTime.TotalGameTime.TotalSeconds - startTime;
             if (State == BuyableBuildingState.TRANSFORMING && timeCount >= buildTime)
             {
                 State = BuyableBuildingState.DONE;
@@ -76,21 +76,25 @@ namespace MoodSwingGame
         }
         public override void Draw(GameTime gameTime)
         {
+            
+            base.Draw(gameTime);
+        }
+
+        public void DrawLoadingBar(GameTime gameTime)
+        {
             if (State == BuyableBuildingState.TRANSFORMING)
             {
                 int width = 50;
                 int height = 10;
                 SpriteBatch sb = MoodSwing.getInstance().SpriteBatch;
-                Vector3 v = MoodSwing.getInstance().GraphicsDevice.Viewport.Project( Position + new Vector3(0,0,20), 
+                Vector3 v = MoodSwing.getInstance().GraphicsDevice.Viewport.Project(Position + new Vector3(0, 0, 20),
                     ProjectionMatrix, MSCamera.GetInstance().GetView(),
                     Matrix.Identity);
-                sb.Draw(borderTexture, 
+                sb.Draw(borderTexture,
                     new Rectangle((int)v.X - MSMap.tileDimension / 2, (int)v.Y - MSMap.tileDimension, width, height), Color.White);
-                sb.Draw(loadingTexture, 
+                sb.Draw(loadingTexture,
                     new Rectangle((int)v.X - MSMap.tileDimension / 2, (int)v.Y - MSMap.tileDimension, (int)((float)(timeCount * width / buildTime)), height), Color.White);
-                System.Console.WriteLine((float)(timeCount*width / buildTime));
             }
-            base.Draw(gameTime);
         }
     }
 }
