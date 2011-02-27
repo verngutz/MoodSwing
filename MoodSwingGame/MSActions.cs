@@ -203,14 +203,27 @@ namespace MoodSwingGame
             {
                 screen.ResourceManager.Funds -= MSResourceManager.FUNDRAISER_MONEY_COST;
                 screen.ResourceManager.IdleVolunteers -= MSResourceManager.FUNDRAISER_VOLUNTEER_COST;
-                screen.Map.MapArray[toBuy.Row, toBuy.Column] = new MSFundraiser(moodSwing.Content.Load<Model>("districthall"),
+                MS3DTile futureSelf = new MSFundraiser(moodSwing.Content.Load<Model>("districthall"),
                     moodSwing.Content.Load<Texture2D>("MTextures/fundraiser"),
                     moodSwing.Content.Load<Effect>("Mood"),
                     toBuy.Position,
                     toBuy.Row,
                     toBuy.Column,
                     screen.ResourceManager);
-                screen.Map.MapArray[toBuy.Row, toBuy.Column].LightSource = screen.Map.LightSource;
+                futureSelf.LightSource = screen.Map.LightSource;
+
+                MSVolunteerCenter center = screen.Map.GetNearestVolunteerCenter(toBuy);
+                Node path = screen.Map.GetPath(center.TileCoordinate, toBuy.TileCoordinate);
+                toBuy.StartBuildProcess(MSResourceManager.FUNDRAISER_VOLUNTEER_COST, futureSelf);
+
+                for (int i = 0; i < MSResourceManager.FUNDRAISER_VOLUNTEER_COST; i++)
+                {
+                    MSWorker worker = new MSWorker(MoodSwing.getInstance().Content.Load<Model>("person"),
+                            MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/tao"),
+                            MoodSwing.getInstance().Content.Load<Effect>("Mood"),
+                            center.Position + new Vector3(0, 0, 20), path, MSCitizen.CitizenState.SUPPRESSED, MSTypes.EDUCATION, toBuy);
+                    MSUnitHandler.GetInstance().AddWorker(worker);
+                }
                 screen.RemoveComponent(screen.BuyDialog);
             }
         }
