@@ -4,8 +4,6 @@ Bug Checklist
 
 Fix tile heights for picking problems.
 	-The underside of buildings can be picked through roads.
-Camera Position does not reset after 2nd game is created.
-Volunteer capacity prematurely increases before volunteer centre is created.
 Round logo has square clickable area.
 Game can be controlled even when underneath other windows.
 Tower chooser exceeds visible game window.
@@ -14,6 +12,7 @@ Tower chooser exceeds visible game window.
 Other Stuff
 -----------
 
+It would be cool if the camera starts where the district hall is. :D
 Implement specialized mood faces.
 Implement new way of winning using progress bars to count people helped.
 Add new tower chooser graphics.
