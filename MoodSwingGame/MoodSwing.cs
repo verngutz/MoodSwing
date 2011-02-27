@@ -50,6 +50,7 @@ namespace MoodSwingGame
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
             graphics.IsFullScreen = false;
+            
             //graphics.PreferMultiSampling = true;
 
             Content.RootDirectory = "Content";

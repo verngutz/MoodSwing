@@ -111,6 +111,7 @@ namespace MoodSwingGame
 
                 if (state == CitizenState.MOB)
                 {
+                    Viewport v = new Viewport();
                     Vector3 screenProjection = Game.GraphicsDevice.Viewport.Project(Position, ProjectionMatrix, MSCamera.GetInstance().GetView(), Matrix.Identity);
                     moodFace.Position = new Vector2(screenProjection.X - moodFace.Size.X / 3, screenProjection.Y - moodFace.Size.Y);
                 }
