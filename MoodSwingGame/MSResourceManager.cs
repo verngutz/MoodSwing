@@ -37,7 +37,7 @@ namespace MoodSwingGame
         public MSResourceManager(int initial_funds, Game game) : base(game) 
         {
             Funds = initial_funds;
-            VolunteerCapacity = 0;
+            VolunteerCapacity = VOLUNTEER_CENTER_GAIN;
             TotalVolunteers = 0;
             IdleVolunteers = 0;
             volunteerGenerationCounter = 0;

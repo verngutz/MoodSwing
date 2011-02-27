@@ -25,6 +25,7 @@ namespace MoodSwingGame
              * 0    -   basic building
              * 10   -   buyable building
              * 20   -   district hall
+             * 30   -   volunteer centre
              * 1    -   empty passable land
              * 11   -   road end, prefix with 0 to 3 for counterclockwise rotation
              * 021  -   L road bending from top to left, prefix with 0 to 3 for counterclockwise rotation
@@ -48,12 +49,15 @@ namespace MoodSwingGame
                             return new MSBuyableBuilding(c.Load<Model>("districthall"), c.Load<Texture2D>("MTextures/buyable"), c.Load<Effect>("Mood"), position, row, column);
 
                         case 2:
-                            MSDistrictHall.instantiate(c.Load<Model>("districthall"), 
+                            MSDistrictHall.instantiate(c.Load<Model>("districthall"),
                                 c.Load<Texture2D>("MTextures/districthall"),
                                 c.Load<Effect>("Mood"),
                                 position, row, column);
                             MSDistrictHall hall = MSDistrictHall.getInstance();
                             return hall;
+                        case 3:
+                            MSVolunteerCenter vcenter = new MSVolunteerCenter(c.Load<Model>("districthall"), c.Load<Texture2D>("MTextures/volunteer_center"), c.Load<Effect>("Mood"), position, row, column);
+                            return vcenter;
                     }
                     break;
                 case 1:

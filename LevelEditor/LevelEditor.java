@@ -71,16 +71,17 @@ class LevelEditorCanvas extends Canvas implements MouseListener, MouseMotionList
 	private Image buffer = null;
 	private int[][] map;
 	private BufferedImage[] floors;
-	int rows, columns;
+	private int rows, columns;
+	private final int NO_OF_TEXTURES = 20;
 	public LevelEditorCanvas(int r, int c){
 		setSize(c*32,r*32);
 		map = new int[r][c];
 		rows = r;
 		columns = c;
 		setVisible(true);
-		floors = new BufferedImage[19];
+		floors = new BufferedImage[NO_OF_TEXTURES];
 		try{
-			for(int i = 0; i < 19; i++){
+			for(int i = 0; i < NO_OF_TEXTURES; i++){
 				floors[i] = ImageIO.read(getClass().getResource("Floors/"+i+".png"));
 			}
 		}catch(Exception e){
@@ -155,6 +156,9 @@ class LevelEditorCanvas extends Canvas implements MouseListener, MouseMotionList
 					case 18:
 						convertedMap[i][j] = 41;
 						break;
+					case 19:
+						convertedMap[i][j] = 30;
+						break;
 					default:
 						convertedMap[i][j] = 1;
 				}
@@ -192,13 +196,13 @@ class LevelEditorCanvas extends Canvas implements MouseListener, MouseMotionList
     	int x = e.getY()/32;
     	int y = e.getX()/32;
     	if(e.getButton()==MouseEvent.BUTTON1){
-    		map[x][y] = (mod(map[x][y]+1,19));
+    		map[x][y] = (mod(map[x][y]+1,NO_OF_TEXTURES));
     	}
     	if(e.getButton()==MouseEvent.BUTTON2){
     		map[x][y] = 0;
     	}
     	if(e.getButton()==MouseEvent.BUTTON3){
-    		map[x][y] = (mod(map[x][y]-1,19));
+    		map[x][y] = (mod(map[x][y]-1,NO_OF_TEXTURES));
     	}
     	repaint();
     }
