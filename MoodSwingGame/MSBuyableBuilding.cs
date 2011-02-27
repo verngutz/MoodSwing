@@ -19,30 +19,42 @@ namespace MoodSwingGame
     public class MSBuyableBuilding : MSBuilding
     {
 
-        public bool IsTransforming { get; set; }
-        public bool IsDoneTransforming { get; set; }
+        public enum BuyableBuildingState
+        {
+            BUYABLE,
+            WAITING,
+            TRANSFORMING,
+            DONE
+        }
 
+        public BuyableBuildingState State { get; set; }
         private int startTime;
         private int timeCount;
-        public void StartTransform( GameTime gameTime)
+        public void StartBuilding( GameTime gameTime)
         {
             startTime = gameTime.TotalGameTime.Seconds;
-            IsTransforming = true;
+            State = BuyableBuildingState.TRANSFORMING;
         }
 
         private int expectedWorkers;
-        public void WaitForWorkers(int number)
+        public void StartBuildProcess(int number, MS3DTile tile)
         {
             expectedWorkers = number;
+            futureSelf = tile;
+            State = BuyableBuildingState.WAITING;
         }
         public void AddWorkers()
         {
             expectedWorkers--;
-            if (expectedWorkers == 0) StartTransform(MoodSwing.getInstance().prevGameTime);
+            if (expectedWorkers == 0) StartBuilding(MoodSwing.getInstance().prevGameTime);
         }
         private Texture2D borderTexture;
         private Texture2D loadingTexture;
         private int buildTime;
+
+        private MS3DTile futureSelf;
+        public MS3DTile FutureSelf { get { return futureSelf; } }
+
         public MSBuyableBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
             : base(model, texture, effect, position, row, column) 
         {
@@ -50,21 +62,21 @@ namespace MoodSwingGame
             timeCount = 0;
             borderTexture = MoodSwing.getInstance().Content.Load<Texture2D>("BorderTexture");
             loadingTexture = MoodSwing.getInstance().Content.Load<Texture2D>("LoadingTexture");
+            State = BuyableBuildingState.BUYABLE;
         }
 
         public override void Update(GameTime gameTime)
         {
             timeCount = gameTime.TotalGameTime.Seconds - startTime;
-            if (timeCount >= buildTime)
+            if (State == BuyableBuildingState.TRANSFORMING && timeCount >= buildTime)
             {
-                IsTransforming = false;
-                IsDoneTransforming = true;
+                State = BuyableBuildingState.DONE;
             }
             base.Update(gameTime);
         }
         public override void Draw(GameTime gameTime)
         {
-            if (IsTransforming)
+            if (State == BuyableBuildingState.TRANSFORMING)
             {
                 int width = 50;
                 int height = 10;

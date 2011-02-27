@@ -153,6 +153,7 @@ namespace MoodSwingGame
                 {
                     int x = (int)visiting.Position.X;
                     int y = (int)visiting.Position.Y;
+                    
                     if (y + 1 < columns && mapArray[x, y + 1] is MSRoad || (!isFirst && new Vector2(x,y+1) == end) ) 
                     {
                         if (hasVis[x, y + 1] == false)
@@ -247,10 +248,19 @@ namespace MoodSwingGame
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            List<Vector2> toTransform = new List<Vector2>();
             foreach (MS3DTile tile in mapArray)
             {
                 tile.Update(gameTime);
-                
+                if (tile is MSBuyableBuilding && (tile as MSBuyableBuilding).State == MSBuyableBuilding.BuyableBuildingState.DONE)
+                {
+                    toTransform.Add(tile.TileCoordinate);
+                }
+            }
+            foreach (Vector2 coord in toTransform)
+            {
+                mapArray[(int)coord.X, (int)coord.Y] = 
+                    (mapArray[(int)coord.X, (int)coord.Y] as MSBuyableBuilding).FutureSelf;
             }
         }
 

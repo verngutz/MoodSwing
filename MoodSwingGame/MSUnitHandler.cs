@@ -28,6 +28,11 @@ namespace MoodSwingGame
             return unitHandler;
         }
 
+        public static MSUnitHandler Restart()
+        {
+            unitHandler = new MSUnitHandler();
+            return unitHandler;
+        }
         //probability constant that handles unit generation
         private const int INITIAL_BIRTH_RATE = 100;
         private const int MAX_PROBABILITY = 5000;
@@ -126,14 +131,14 @@ namespace MoodSwingGame
                         MoodSwing.getInstance().Content.Load<Effect>("Mood"),
                         (map.MapArray[(int)start.X, (int)start.Y] as MS3DComponent).Position + new Vector3(0, 0, 20),
                         map.GetPath(start, MSDistrictHall.getInstance().TileCoordinate),
-                        MSCitizen.State.MOB, mobmdg);
+                        MSCitizen.CitizenState.MOB, mobmdg);
                 }
                 else
                     person = new MSCitizen(MoodSwing.getInstance().Content.Load<Model>("person"),
                         MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/tao"),
                         MoodSwing.getInstance().Content.Load<Effect>("Mood"),
                         (map.MapArray[(int)start.X, (int)start.Y] as MS3DComponent).Position + new Vector3(0, 0, 20),
-                        path, MSCitizen.State.CIVILIAN, MSTypes.GENERAL);
+                        path, MSCitizen.CitizenState.CIVILIAN, MSTypes.GENERAL);
 
                 citizens.Add(person);
                 return person;
@@ -151,6 +156,10 @@ namespace MoodSwingGame
         {
             citizens.Add(worker);
         }
+
+        //Used by the tower to get a citizen within range.
+        //position = position of the tower.
+        //range = range of the tower.
         public MSCitizen GetTarget(Vector3 position, int range)
         {
             foreach (MSUnit unit in citizens)
@@ -158,7 +167,7 @@ namespace MoodSwingGame
                 if (unit is MSCitizen)
                 {
                     MSCitizen citizen = unit as MSCitizen;
-                    if (citizen.state == MSCitizen.State.MOB &&
+                    if (citizen.state == MSCitizen.CitizenState.MOB &&
                         Vector3.Distance(position, citizen.Position) <= range)
                     {
                         return unit as MSCitizen;
@@ -179,17 +188,17 @@ namespace MoodSwingGame
                     MSCitizen citizen = person as MSCitizen;
                     int rnd = MSRandom.random.Next(MAX_PROBABILITY);
 
-                    if (rnd <= MOB_RECRUIT_RATE && citizen.state == MSCitizen.State.CIVILIAN && 
+                    if (rnd <= MOB_RECRUIT_RATE && citizen.state == MSCitizen.CitizenState.CIVILIAN && 
                         !(citizen is MSVolunteer))
                     {
                         foreach (MSUnit p in citizens)
                         {
-                            if (p is MSCitizen && !(p is MSVolunteer) && (p as MSCitizen).state == MSCitizen.State.MOB)
+                            if (p is MSCitizen && !(p is MSVolunteer) && (p as MSCitizen).state == MSCitizen.CitizenState.MOB)
                             {
                                 if (Vector3.Distance(citizen.Position, (p as MSCitizen).Position) <= MOB_RECRUIT_DISTANCE)
                                 {
                                     citizen.Follow(p as MSCitizen);
-                                    citizen.state = MSCitizen.State.MOB;
+                                    citizen.state = MSCitizen.CitizenState.MOB;
                                     citizen.MDG = (p as MSCitizen).MDG;
                                     citizen.changeModel("mob", (p as MSCitizen).MDG);
                                     break;

@@ -58,7 +58,7 @@ namespace MoodSwingGame
         {
             map = new MSMap(filename);
             //citizensList = new List<MSCitizen>();
-            unitHandler = MSUnitHandler.GetInstance();
+            unitHandler = MSUnitHandler.Restart();
             moodManager = MSMoodManager.GetInstance();
 
             foreach (MS3DTile tile in map.MapArray)
@@ -218,7 +218,7 @@ namespace MoodSwingGame
             SpriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.FrontToBack, SaveStateMode.None);
             foreach (MSCitizen citizen in unitHandler.Citizens)
             {
-                if(citizen.state == MSCitizen.State.MOB)
+                if(citizen.state == MSCitizen.CitizenState.MOB)
                     (Game as MoodSwing).SpriteBatch.Draw(citizen.MoodFace.Image, citizen.MoodFace.BoundingRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, citizen.MoodFace.Position.Y / Game.GraphicsDevice.Viewport.Height);
             }
             SpriteBatch.End();
@@ -278,21 +278,14 @@ namespace MoodSwingGame
                 totalVolunteers.Text = resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity;
                 funds.Text = resourceManager.Funds + "";
 
-                foreach (MS3DTile tile in map.MapArray)
-                {
-                    if (tile is MSBuyableBuilding)
-                    {
-                        MSBuyableBuilding b = tile as MSBuyableBuilding;
-                        b.Update(gameTime);
-                    }
-                }
             }    
         }
 
         public void CheckCollision()
         {
             MS3DTile tile = map.CheckCollision();
-            if (tile is MSBuyableBuilding && (tile as MSBuyableBuilding).IsTransforming == false )
+            if (tile is MSBuyableBuilding && 
+                (tile as MSBuyableBuilding).State == MSBuyableBuilding.BuyableBuildingState.BUYABLE)
             {
                 BuyDialog = new MSBuyDialog(Game.Content.Load<Texture2D>("CityView"), new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 190, 190), tile as MSBuyableBuilding, Shape.RECTANGULAR, spriteBatch, Game);
                 AddComponent(BuyDialog);

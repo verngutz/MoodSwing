@@ -37,7 +37,7 @@ namespace MoodSwingGame
                     if (stats.GetEffectiveness(target.MDG) > MSRandom.random.Next(100))
                     {
                         capacity--;
-                        target.state = MSCitizen.State.WAITING;
+                        target.state = MSCitizen.CitizenState.WAITING;
 
                         Node path1 = map.GetPath(new Vector2(Row, Column), target.TileCoordinate);
                         Node path2 = map.GetPath(target.TileCoordinate, new Vector2(Row, Column)).next;
