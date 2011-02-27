@@ -63,8 +63,8 @@ namespace MoodSwingGUI
         /// <param name="spriteBatch">the SpriteBatch that will draw this MSButton</param>
         /// <param name="shape">the Shape of this MSButton<seealso cref="MoodSwingCoreComponents.Shape"/></param>
         /// <param name="game">the Game where this MSButton will be used</param>
-        public MSButton(MSLabel label, MSAction action, Rectangle boundingRectangle, Texture2D unhovered, Texture2D clicked, Texture2D hovered, Shape shape, SpriteBatch spriteBatch, Game game)
-            : this(label, action, boundingRectangle, unhovered, clicked, hovered, Color.White, shape, spriteBatch, game) { }
+        public MSButton(MSLabel label, MSAction action, Rectangle boundingRectangle, Texture2D unhovered, Texture2D clicked, Texture2D hovered, MSToolTip toolTip, Shape shape, SpriteBatch spriteBatch, Game game)
+            : this(label, action, boundingRectangle, unhovered, clicked, hovered, Color.White, toolTip, shape, spriteBatch, game) { }
 
         /// <summary>
         /// Constructs an MSButton.
@@ -79,8 +79,8 @@ namespace MoodSwingGUI
         /// <param name="highlight">the Color to overlay this MSButton with</param>
         /// <param name="shape">the Shape of this MSButton<seealso cref="MoodSwingCoreComponents.Shape"/></param>
         /// <param name="game">the Game where this MSButton will be used</param>
-        public MSButton(MSLabel label, MSAction action, Rectangle boundingRectangle, Texture2D unhovered, Texture2D clicked, Texture2D hovered, Color highlight, Shape shape, SpriteBatch spriteBatch, Game game)
-            : base(boundingRectangle, shape, spriteBatch, game)
+        public MSButton(MSLabel label, MSAction action, Rectangle boundingRectangle, Texture2D unhovered, Texture2D clicked, Texture2D hovered, Color highlight, MSToolTip toolTip, Shape shape, SpriteBatch spriteBatch, Game game)
+            : base(boundingRectangle, toolTip, shape, spriteBatch, game)
         {
             unhoveredTexture = unhovered;
             clickedTexture = clicked;
@@ -148,9 +148,9 @@ namespace MoodSwingGUI
             CurrentState = MSGUIClickableState.UNHOVERED;
         }
 
-        public override void RightClick() { }
-        public override void UnRightClick() { }
         public override void MiddleClick() { }
         public override void UnMiddleClick() { }
+        public override void RightClick() { }
+        public override void UnRightClick() { }
     }
 }

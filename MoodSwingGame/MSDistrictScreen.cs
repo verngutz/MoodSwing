@@ -72,6 +72,7 @@ namespace MoodSwingGame
             blackOutPanel = new MSPanel(
                 game.Content.Load<Texture2D>("BlackOut"),
                 BoundingRectangle,
+                null,
                 Shape.RECTANGULAR,
                 spriteBatch,
                 game);
@@ -116,6 +117,7 @@ namespace MoodSwingGame
             MSPanel topPanel = new MSPanel(
                 game.Content.Load<Texture2D>("GamePanel/TopPanel"),
                 new Rectangle(0, 0, 1024, 71),
+                null,
                 Shape.AMORPHOUS,
                 spriteBatch,
                 game);
@@ -133,6 +135,7 @@ namespace MoodSwingGame
                 game.Content.Load<Texture2D>("GamePanel/MainMenu"),
                 game.Content.Load<Texture2D>("GamePanel/mainmenuhover"),
                 game.Content.Load<Texture2D>("GamePanel/mainmenuhover"),
+                null,
                 Shape.AMORPHOUS,
                 spriteBatch,
                 game);
@@ -144,6 +147,7 @@ namespace MoodSwingGame
                 game.Content.Load<Texture2D>("GamePanel/Options"),
                 game.Content.Load<Texture2D>("GamePanel/optionshover"),
                 game.Content.Load<Texture2D>("GamePanel/optionshover"),
+                null, 
                 Shape.AMORPHOUS,
                 spriteBatch,
                 game);
@@ -155,6 +159,7 @@ namespace MoodSwingGame
                 game.Content.Load<Texture2D>("GamePanel/quit"),
                 game.Content.Load<Texture2D>("GamePanel/quithover"),
                 game.Content.Load<Texture2D>("GamePanel/quithover"),
+                null,
                 Shape.AMORPHOUS,
                 spriteBatch,
                 game);
@@ -175,6 +180,7 @@ namespace MoodSwingGame
                    game.Content.Load<Texture2D>("GamePanel/Logo"),
                    game.Content.Load<Texture2D>("GamePanel/Logo"),
                    Color.White,
+                   null,
                    Shape.RECTANGULAR,
                    SpriteBatch,
                    Game);
@@ -189,6 +195,7 @@ namespace MoodSwingGame
                    game.Content.Load<Texture2D>("GamePanel/Logo"),
                    game.Content.Load<Texture2D>("GamePanel/Logo"),
                    Color.White,
+                   null,
                    Shape.RECTANGULAR,
                    SpriteBatch,
                    Game);
@@ -244,7 +251,7 @@ namespace MoodSwingGame
                         position.Y = MoodSwing.getInstance().GraphicsDevice.Viewport.Height - boundingRectangle.Height;
 
                     boundingRectangle = new Rectangle((int)position.X, (int)position.Y, boundingRectangle.Width, boundingRectangle.Height);
-                    
+
                     (Game as MoodSwing).SpriteBatch.Draw(citizen.MoodFace.Image,boundingRectangle , null, Color.White, 0, Vector2.Zero, effect, position.Y / Game.GraphicsDevice.Viewport.Height);
                 }
             }
@@ -266,6 +273,9 @@ namespace MoodSwingGame
             foreach (MSGUIClickable element in ClickableComponents)
                 if (element.Visible)
                     element.Draw(gameTime);
+
+            if (currentHovered != null && currentHovered.ToolTip != null)
+                currentHovered.ToolTip.Draw(gameTime);
 
             if(moodManager.Mood > 0.9f)
                 spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Awesome Mood Reached", new Vector2(500, 10), Color.White);

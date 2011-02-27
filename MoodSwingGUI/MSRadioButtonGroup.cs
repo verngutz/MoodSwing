@@ -23,7 +23,7 @@ namespace MoodSwingGUI
         private MSPanel container;
 
         public MSRadioButtonGroup(MSPanel container)
-            : base(container.BoundingRectangle, container.Shape, container.SpriteBatch, container.Game) 
+            : base(container.BoundingRectangle, container.Shape, null, container.SpriteBatch, container.Game) 
         {
             this.container = container;
             radioButtons = new List<MSCheckbox>();

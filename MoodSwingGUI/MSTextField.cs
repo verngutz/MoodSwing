@@ -89,7 +89,7 @@ namespace MoodSwingGUI
         /// <param name="spriteBatch">the SpriteBatch that will draw this MSTextField</param>
         /// <param name="game">the Game where this MSTextField will be used</param>
         public MSTextField(String text, Rectangle boundingRectangle, MSAction onEnter, MSGUITypable onTab, int maxTextLength, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
-            : base(boundingRectangle, Shape.RECTANGULAR, spriteBatch, game)
+            : base(boundingRectangle, null, Shape.RECTANGULAR, spriteBatch, game)
         {
             this.spriteFont = spriteFont;
             fontScale = boundingRectangle.Height / spriteFont.MeasureString(CURSOR).Y;
@@ -218,12 +218,12 @@ namespace MoodSwingGUI
         }
 
         public override void LeftClick() { }
-        public override void Hover() { }
-        public override void UnHover() { }
-        public override void RightClick() { }
-        public override void UnRightClick() { }
         public override void MiddleClick() { }
         public override void UnMiddleClick() { }
+        public override void RightClick() { }
+        public override void UnRightClick() { }
+        public override void Hover() { }
+        public override void UnHover() { }
     }
 }
 
