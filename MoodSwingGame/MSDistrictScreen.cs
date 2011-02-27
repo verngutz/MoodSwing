@@ -251,7 +251,6 @@ namespace MoodSwingGame
                         position.Y = MoodSwing.getInstance().GraphicsDevice.Viewport.Height - boundingRectangle.Height;
 
                     boundingRectangle = new Rectangle((int)position.X, (int)position.Y, boundingRectangle.Width, boundingRectangle.Height);
-
                     (Game as MoodSwing).SpriteBatch.Draw(citizen.MoodFace.Image,boundingRectangle , null, Color.White, 0, Vector2.Zero, effect, position.Y / Game.GraphicsDevice.Viewport.Height);
                 }
             }
