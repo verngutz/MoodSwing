@@ -93,6 +93,7 @@
     <Compile Include="MSCheckbox.cs" />
     <Compile Include="MSLabel.cs" />
     <Compile Include="MSPanel.cs" />
+    <Compile Include="MSProgressBar.cs" />
     <Compile Include="MSRadioButtonGroup.cs" />
     <Compile Include="MSScreen.cs" />
     <Compile Include="MSSlider.cs" />

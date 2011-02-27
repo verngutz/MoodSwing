@@ -48,8 +48,7 @@ namespace MoodSwingGame
             expectedWorkers--;
             if (expectedWorkers == 0) StartBuilding(MoodSwing.getInstance().prevGameTime);
         }
-        private Texture2D borderTexture;
-        private Texture2D loadingTexture;
+        private MSProgressBar progressBar;
         private double buildTime;
 
         private MS3DTile futureSelf;
@@ -60,8 +59,14 @@ namespace MoodSwingGame
         {
             buildTime = 5;
             timeCount = 0;
-            borderTexture = MoodSwing.getInstance().Content.Load<Texture2D>("BorderTexture");
-            loadingTexture = MoodSwing.getInstance().Content.Load<Texture2D>("LoadingTexture");
+            Texture2D borderTexture = MoodSwing.getInstance().Content.Load<Texture2D>("BorderTexture");
+            Texture2D loadingTexture = MoodSwing.getInstance().Content.Load<Texture2D>("LoadingTexture");
+
+            progressBar = new MSProgressBar(new Vector2(Position.X, Position.Y), new Vector2(50, 10), 
+                MoodSwing.getInstance().SpriteBatch,
+                MoodSwing.getInstance(), 
+                borderTexture, loadingTexture);
+
             State = BuyableBuildingState.BUYABLE;
         }
 
@@ -84,16 +89,12 @@ namespace MoodSwingGame
         {
             if (State == BuyableBuildingState.TRANSFORMING)
             {
-                int width = 50;
-                int height = 10;
-                SpriteBatch sb = MoodSwing.getInstance().SpriteBatch;
                 Vector3 v = MoodSwing.getInstance().GraphicsDevice.Viewport.Project(Position + new Vector3(0, 0, 20),
                     ProjectionMatrix, MSCamera.GetInstance().GetView(),
                     Matrix.Identity);
-                sb.Draw(borderTexture,
-                    new Rectangle((int)v.X - MSMap.tileDimension / 2, (int)v.Y - MSMap.tileDimension, width, height), Color.White);
-                sb.Draw(loadingTexture,
-                    new Rectangle((int)v.X - MSMap.tileDimension / 2, (int)v.Y - MSMap.tileDimension, (int)((float)(timeCount * width / buildTime)), height), Color.White);
+                progressBar.Progress = timeCount / buildTime;
+                progressBar.Position = new Vector2(v.X - MSMap.tileDimension/2, v.Y - MSMap.tileDimension);
+                progressBar.Draw(gameTime);
             }
         }
     }

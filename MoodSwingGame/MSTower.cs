@@ -35,7 +35,6 @@ namespace MoodSwingGame
                 if (target != null)
                 {
                     int rndNum = MSRandom.random.Next(100);
-                    System.Console.WriteLine( stats.GetEffectiveness(target.MDG) + " " + rndNum );
                     if (stats.GetEffectiveness(target.MDG) > rndNum)
                     {
                         capacity--;
