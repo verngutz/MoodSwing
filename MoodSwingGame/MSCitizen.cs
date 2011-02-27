@@ -44,8 +44,8 @@ namespace MoodSwingGame
         public bool IsWaiting { get { return isWaiting; } set { isWaiting = value; } }
         public Vector2 TileCoordinate { get { return new Vector2((int)(Math.Round(position.Y / MSMap.tileDimension)),(int) (Math.Round((position.X / MSMap.tileDimension))) ); } }
 
-        private Vector2 screenPosition;
         private MSImageHolder moodFace;
+        public MSImageHolder MoodFace { get { return moodFace; } }
 
         public MSCitizen(Model m, Texture2D texture, Effect effect, Vector3 position, Node p, CitizenState s, MSTypes mst)
             : base(position, MoodSwing.getInstance())
@@ -137,9 +137,6 @@ namespace MoodSwingGame
                 }
                 mesh.Draw();
             }
-
-            if (state == CitizenState.MOB)
-                moodFace.Draw(gameTime);
 
             base.Draw(gameTime);
         }
