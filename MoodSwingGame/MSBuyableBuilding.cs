@@ -19,66 +19,83 @@ namespace MoodSwingGame
     public class MSBuyableBuilding : MSBuilding
     {
 
-        public bool IsTransforming { get; set; }
-        public bool IsDoneTransforming { get; set; }
-
-        private int startTime;
-        private int timeCount;
-        public void StartTransform( GameTime gameTime)
+        public enum BuyableBuildingState
         {
-            startTime = gameTime.TotalGameTime.Seconds;
-            IsTransforming = true;
+            BUYABLE,
+            WAITING,
+            TRANSFORMING,
+            DONE
+        }
+
+        public BuyableBuildingState State { get; set; }
+        private double startTime;
+        private double timeCount;
+        public void StartBuilding( GameTime gameTime)
+        {
+            startTime = gameTime.TotalGameTime.TotalSeconds;
+            State = BuyableBuildingState.TRANSFORMING;
         }
 
         private int expectedWorkers;
-        public void WaitForWorkers(int number)
+        public void StartBuildProcess(int number, MS3DTile tile)
         {
             expectedWorkers = number;
+            futureSelf = tile;
+            State = BuyableBuildingState.WAITING;
         }
         public void AddWorkers()
         {
             expectedWorkers--;
-            if (expectedWorkers == 0) StartTransform(MoodSwing.getInstance().prevGameTime);
+            if (expectedWorkers == 0) StartBuilding(MoodSwing.getInstance().prevGameTime);
         }
-        private Texture2D borderTexture;
-        private Texture2D loadingTexture;
-        private int buildTime;
+        private MSProgressBar progressBar;
+        private double buildTime;
+
+        private MS3DTile futureSelf;
+        public MS3DTile FutureSelf { get { return futureSelf; } }
+
         public MSBuyableBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
             : base(model, texture, effect, position, row, column) 
         {
-            buildTime = 20;
+            buildTime = 5;
             timeCount = 0;
-            borderTexture = MoodSwing.getInstance().Content.Load<Texture2D>("BorderTexture");
-            loadingTexture = MoodSwing.getInstance().Content.Load<Texture2D>("LoadingTexture");
+            Texture2D borderTexture = MoodSwing.getInstance().Content.Load<Texture2D>("BorderTexture");
+            Texture2D loadingTexture = MoodSwing.getInstance().Content.Load<Texture2D>("LoadingTexture");
+
+            progressBar = new MSProgressBar(new Vector2(Position.X, Position.Y), new Vector2(50, 10), 
+                MoodSwing.getInstance().SpriteBatch,
+                MoodSwing.getInstance(), 
+                borderTexture, loadingTexture);
+
+            State = BuyableBuildingState.BUYABLE;
         }
 
         public override void Update(GameTime gameTime)
         {
-            timeCount = gameTime.TotalGameTime.Seconds - startTime;
-            if (timeCount >= buildTime)
+            timeCount = gameTime.TotalGameTime.TotalSeconds - startTime;
+            if (State == BuyableBuildingState.TRANSFORMING && timeCount >= buildTime)
             {
-                IsTransforming = false;
-                IsDoneTransforming = true;
+                State = BuyableBuildingState.DONE;
             }
             base.Update(gameTime);
         }
         public override void Draw(GameTime gameTime)
         {
-            if (IsTransforming)
+            
+            base.Draw(gameTime);
+        }
+
+        public void DrawLoadingBar(GameTime gameTime)
+        {
+            if (State == BuyableBuildingState.TRANSFORMING)
             {
-                int width = 50;
-                int height = 10;
-                SpriteBatch sb = MoodSwing.getInstance().SpriteBatch;
-                Vector3 v = MoodSwing.getInstance().GraphicsDevice.Viewport.Project( Position + new Vector3(0,0,20), 
+                Vector3 v = MoodSwing.getInstance().GraphicsDevice.Viewport.Project(Position + new Vector3(0, 0, 20),
                     ProjectionMatrix, MSCamera.GetInstance().GetView(),
                     Matrix.Identity);
-                sb.Draw(borderTexture, 
-                    new Rectangle((int)v.X - MSMap.tileDimension / 2, (int)v.Y - MSMap.tileDimension, width, height), Color.White);
-                sb.Draw(loadingTexture, 
-                    new Rectangle((int)v.X - MSMap.tileDimension / 2, (int)v.Y - MSMap.tileDimension, (int)((float)(timeCount * width / buildTime)), height), Color.White);
-                System.Console.WriteLine((float)(timeCount*width / buildTime));
+                progressBar.Progress = timeCount / buildTime;
+                progressBar.Position = new Vector2(v.X - MSMap.tileDimension/2, v.Y - MSMap.tileDimension);
+                progressBar.Draw(gameTime);
             }
-            base.Draw(gameTime);
         }
     }
 }

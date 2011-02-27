@@ -30,6 +30,8 @@ namespace MoodSwingGame
 
         private int rows;
         private int columns;
+        private int initialVolunteerCenters;
+        public int InitialVolunteerCenters { get { return (initialVolunteerCenters); } }
 
         public Vector2 Dimension { get { return (new Vector2(rows, columns) * tileDimension); } }
         public MSMap(String filename) : base( MoodSwing.getInstance() )
@@ -38,6 +40,7 @@ namespace MoodSwingGame
             string[] line = sr.ReadLine().Split(' ');
             rows = Int32.Parse(line[0]);
             columns = Int32.Parse(line[1]);
+            initialVolunteerCenters = 0;
             mapArray = new MS3DTile[rows,columns];
             citizenSources = new List<MSUnbuyableBuilding>();
             for(int j = 0; j < columns; j++)
@@ -49,6 +52,8 @@ namespace MoodSwingGame
                     mapArray[i, j] = toAdd;
                     if (toAdd is MSUnbuyableBuilding)
                         citizenSources.Add(toAdd as MSUnbuyableBuilding);
+                    if (toAdd is MSVolunteerCenter)
+                        initialVolunteerCenters++;
                 } 
             }
             LightSource = new Vector3(tileDimension * rows << 1, tileDimension * columns << 1, 10000);
@@ -59,6 +64,25 @@ namespace MoodSwingGame
             return citizenSources.ElementAt<MSUnbuyableBuilding>(MSRandom.random.Next(citizenSources.Count));
         }
 
+        public MSVolunteerCenter GetNearestVolunteerCenter(MS3DTile reference)
+        {
+            float? minDist = null;
+            MSVolunteerCenter center = null;
+            foreach (MS3DTile tile in MapArray)
+            {
+                if (tile is MSVolunteerCenter)
+                {
+                    MSVolunteerCenter vc = tile as MSVolunteerCenter;
+                    float distance = Vector3.Distance(vc.Position, reference.Position);
+                    if (minDist == null || minDist > distance)
+                    {
+                        minDist = distance;
+                        center = vc;
+                    }
+                }
+            }
+            return center;
+        }
         //note: This needs revision when the 'dummy' tiles have been implemented.
         public MS3DTile CheckCollision()
         {
@@ -148,6 +172,7 @@ namespace MoodSwingGame
                 {
                     int x = (int)visiting.Position.X;
                     int y = (int)visiting.Position.Y;
+                    
                     if (y + 1 < columns && mapArray[x, y + 1] is MSRoad || (!isFirst && new Vector2(x,y+1) == end) ) 
                     {
                         if (hasVis[x, y + 1] == false)
@@ -242,9 +267,21 @@ namespace MoodSwingGame
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            List<Vector2> toTransform = new List<Vector2>();
             foreach (MS3DTile tile in mapArray)
             {
                 tile.Update(gameTime);
+                if (tile is MSBuyableBuilding && (tile as MSBuyableBuilding).State == MSBuyableBuilding.BuyableBuildingState.DONE)
+                {
+                    toTransform.Add(tile.TileCoordinate);
+                }
+            }
+            foreach (Vector2 coord in toTransform)
+            {
+                if( (mapArray[(int)coord.X, (int)coord.Y] as MSBuyableBuilding).FutureSelf is MSVolunteerCenter)
+                    MSResourceManager.GetInstance().VolunteerCapacity += MSResourceManager.VOLUNTEER_CENTER_GAIN;
+                mapArray[(int)coord.X, (int)coord.Y] = 
+                    (mapArray[(int)coord.X, (int)coord.Y] as MSBuyableBuilding).FutureSelf;
                 
             }
         }

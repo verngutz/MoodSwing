@@ -50,19 +50,22 @@ namespace MoodSwingCoreComponents
         private const int ZOOM_SPEED = 10;
         
         private MSCamera()
-        {
-            upCamera = Vector3.UnitZ;
-            cameraPosition = new Vector3(200, 200, 150);
-            cameraTarget = new Vector3(0, 0, 0);
-            viewVector = cameraPosition - cameraTarget;
-            normalizedViewVector = Vector3.Normalize(viewVector);
-            shiftVector = Vector3.Zero;
-            AdjustPitchAxis();
-            currAngle = (float)Math.PI/2 - (float)Math.Acos((float)(Vector3.Dot(viewVector, upCamera) / (float)(Vector3.Distance(cameraPosition, cameraTarget)) ) );
-            minAngle = currAngle;
-            maxAngle = (float)Math.PI / 2;
-        }
+        {}
 
+        public static void initialize()
+        {
+            if (camera == null) camera = new MSCamera();
+            camera.upCamera = Vector3.UnitZ;
+            camera.cameraPosition = new Vector3(200, 200, 150);
+            camera.cameraTarget = new Vector3(0, 0, 0);
+            camera.viewVector = camera.cameraPosition - camera.cameraTarget;
+            camera.normalizedViewVector = Vector3.Normalize(camera.viewVector);
+            camera.shiftVector = Vector3.Zero;
+            camera.AdjustPitchAxis();
+            camera.currAngle = (float)Math.PI / 2 - (float)Math.Acos((float)(Vector3.Dot(camera.viewVector, camera.upCamera) / (float)(Vector3.Distance(camera.cameraPosition, camera.cameraTarget))));
+            camera.minAngle = camera.currAngle;
+            camera.maxAngle = (float)Math.PI / 2;
+        }
         public void AdjustPitchAxis()
         {
             pitchAxis = Vector3.Normalize(Vector3.Cross(viewVector, upCamera));

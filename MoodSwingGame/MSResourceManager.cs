@@ -18,6 +18,13 @@ namespace MoodSwingGame
 {
     public class MSResourceManager : GameComponent
     {
+        private static MSResourceManager resourceManager = null;
+        public static MSResourceManager GetInstance()
+        {
+            if (resourceManager == null) resourceManager = new MSResourceManager();
+            return resourceManager;
+        }
+
         public const int TOWER_MONEY_COST = 200;
         public const int TOWER_VOLUNTEER_COST = 5;
         public const int FUNDRAISER_MONEY_COST = 100;
@@ -34,15 +41,20 @@ namespace MoodSwingGame
         public int TotalVolunteers { get; set; }
         public int IdleVolunteers { get; set; }
 
-        public MSResourceManager(int initial_funds, Game game) : base(game) 
+        private MSResourceManager() : base(MoodSwing.getInstance()) 
         {
-            Funds = initial_funds;
-            VolunteerCapacity = 0;
-            TotalVolunteers = 0;
-            IdleVolunteers = 0;
-            volunteerGenerationCounter = 0;
+            
         }
 
+        public static void instantiate(int initial_funds, int initial_volunteer_centers)
+        {
+            if (resourceManager == null) resourceManager = new MSResourceManager();
+            resourceManager.Funds = initial_funds;
+            resourceManager.VolunteerCapacity = initial_volunteer_centers * VOLUNTEER_CENTER_GAIN;
+            resourceManager.TotalVolunteers = 0;
+            resourceManager.IdleVolunteers = 0;
+            resourceManager.volunteerGenerationCounter = 0;
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

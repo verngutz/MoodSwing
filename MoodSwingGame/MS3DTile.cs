@@ -29,6 +29,8 @@ namespace MoodSwingGame
         private int column;
         public int Column { get { return column; } }
 
+        public Vector2 TileCoordinate { get { return new Vector2(row, column); } }
+
         protected MSMoodManager moodManager;
 
         public Model TileModel { get { return model; } }
@@ -43,7 +45,6 @@ namespace MoodSwingGame
             {
                 boundingSphere = BoundingSphere.CreateMerged(boundingSphere, mesh.BoundingSphere);
             }
-            //System.Console.WriteLine("MODEL COUNT = " + model.Meshes.Count);
             boundingSphere = boundingSphere.Transform(world);
 
 
