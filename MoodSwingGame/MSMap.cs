@@ -278,8 +278,11 @@ namespace MoodSwingGame
             }
             foreach (Vector2 coord in toTransform)
             {
+                if( (mapArray[(int)coord.X, (int)coord.Y] as MSBuyableBuilding).FutureSelf is MSVolunteerCenter)
+                    MSResourceManager.GetInstance().VolunteerCapacity += MSResourceManager.VOLUNTEER_CENTER_GAIN;
                 mapArray[(int)coord.X, (int)coord.Y] = 
                     (mapArray[(int)coord.X, (int)coord.Y] as MSBuyableBuilding).FutureSelf;
+                
             }
         }
 

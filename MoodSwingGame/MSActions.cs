@@ -162,7 +162,7 @@ namespace MoodSwingGame
                 screen.ResourceManager.Funds >= MSResourceManager.VOLUNTEER_CENTER_COST)
             {
                 screen.ResourceManager.Funds -= MSResourceManager.VOLUNTEER_CENTER_COST;
-                screen.ResourceManager.VolunteerCapacity += MSResourceManager.VOLUNTEER_CENTER_GAIN;
+                //screen.ResourceManager.VolunteerCapacity += MSResourceManager.VOLUNTEER_CENTER_GAIN;
                 MS3DTile futureSelf = new MSVolunteerCenter(moodSwing.Content.Load<Model>("districthall"), 
                     moodSwing.Content.Load<Texture2D>("MTextures/volunteer_center"),
                     moodSwing.Content.Load<Effect>("Mood"), 

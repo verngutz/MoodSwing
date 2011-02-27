@@ -58,8 +58,11 @@ namespace MoodSwingGame
         {
             map = new MSMap(filename);
             //citizensList = new List<MSCitizen>();
+            MSCamera.initialize();
             unitHandler = MSUnitHandler.Restart();
             moodManager = MSMoodManager.GetInstance();
+            resourceManager = MSResourceManager.GetInstance();
+            MSResourceManager.instantiate(1000, map.InitialVolunteerCenters);
 
             foreach (MS3DTile tile in map.MapArray)
             {
@@ -197,8 +200,7 @@ namespace MoodSwingGame
 
             AddComponent(closeInGameMenu);
             AddComponent(openInGameMenu);
-
-            resourceManager = new MSResourceManager(1000, map.InitialVolunteerCenters, game);
+            
             Paused = false;
         }
 
