@@ -222,10 +222,9 @@ namespace MoodSwingGame
             {
                 if(citizen.state == MSCitizen.CitizenState.MOB) 
                 {
+                    //This is where the position for the MoodFace gets updated when it goes out of bounds
                     Rectangle boundingRectangle = citizen.MoodFace.BoundingRectangle;
                     Vector2 position = citizen.MoodFace.Position;
-                    //System.Console.WriteLine("=====\n" + MoodSwing.getInstance().GraphicsDevice.Viewport.Height);
-                    //System.Console.WriteLine(position);
                     SpriteEffects effect = SpriteEffects.None;
 
                     if (position.X < 0)
@@ -244,9 +243,8 @@ namespace MoodSwingGame
                     else if (position.Y + boundingRectangle.Height > MoodSwing.getInstance().GraphicsDevice.Viewport.Height)
                         position.Y = MoodSwing.getInstance().GraphicsDevice.Viewport.Height - boundingRectangle.Height;
 
-                    //System.Console.WriteLine(position);
                     boundingRectangle = new Rectangle((int)position.X, (int)position.Y, boundingRectangle.Width, boundingRectangle.Height);
-                    System.Console.WriteLine(boundingRectangle.X + " " + boundingRectangle.Y);
+                    
                     (Game as MoodSwing).SpriteBatch.Draw(citizen.MoodFace.Image,boundingRectangle , null, Color.White, 0, Vector2.Zero, effect, position.Y / Game.GraphicsDevice.Viewport.Height);
                 }
             }

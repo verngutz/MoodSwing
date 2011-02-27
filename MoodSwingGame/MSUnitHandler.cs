@@ -159,9 +159,13 @@ namespace MoodSwingGame
             citizens.Add(worker);
         }
 
-        //Used by the tower to get a citizen within range.
-        //position = position of the tower.
-        //range = range of the tower.
+
+        /// <summary>
+        /// Used by the tower to get a citizen within range.
+        /// </summary>
+        /// <param name="position">position of the tower.</param>
+        /// <param name="range">range of the tower.</param>
+        /// <returns>A citizen within range</returns>
         public MSCitizen GetTarget(Vector3 position, int range)
         {
             foreach (MSUnit unit in citizens)

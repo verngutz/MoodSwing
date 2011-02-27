@@ -64,6 +64,11 @@ namespace MoodSwingGame
             return citizenSources.ElementAt<MSUnbuyableBuilding>(MSRandom.random.Next(citizenSources.Count));
         }
 
+        /// <summary>
+        /// Gets the nearest volunteer center with respect to a specific tile.
+        /// </summary>
+        /// <param name="reference">Tile used as a reference point to find the nearest volunteer center</param>
+        /// <returns>The nearest volunteer center. Return null if there is no volunteer center</returns>
         public MSVolunteerCenter GetNearestVolunteerCenter(MS3DTile reference)
         {
             float? minDist = null;
@@ -83,7 +88,11 @@ namespace MoodSwingGame
             }
             return center;
         }
-        //note: This needs revision when the 'dummy' tiles have been implemented.
+        
+        /// <summary>
+        /// Picking Algo. Looks for the closest object that intersects the mouse ray
+        /// </summary>
+        /// <returns>The tile which the mouse intersects. Null if it doesnt intersect anything</returns>
         public MS3DTile CheckCollision()
         {
             float? minDistance = null;
@@ -108,7 +117,14 @@ namespace MoodSwingGame
             return tile;
         }
 
-
+        /// <summary>
+        /// Calculates the ray formed from the mouse to the world space.
+        /// </summary>
+        /// <param name="mouseLocation">Vector2D corresponding to the coordinate of the mouse on the screen.</param>
+        /// <param name="view"> View matrix used</param>
+        /// <param name="projection"> Projection matrix used</param>
+        /// <param name="viewport"> Viewport of the game</param>
+        /// <returns>The Ray pointing from the mouse to the world space</returns>
         public Ray CalculateRay(Vector2 mouseLocation, Matrix view, Matrix projection, Viewport viewport)
         {
             Vector3 nearPoint = viewport.Unproject(new Vector3(mouseLocation.X,
@@ -127,12 +143,22 @@ namespace MoodSwingGame
 
             return new Ray(nearPoint, direction);
         }
-
-        public float? Intersects(BoundingBox sphere, Vector2 mouseLocation,
+        
+        /// <summary>
+        /// Checks whether the mouse intersects the bounding box of an object.
+        /// </summary>
+        /// <param name="box">Bounding box of the object to check for intersection.</param>
+        /// <param name="mouseLocation">Vector2D corresponding to the coordinate of the mouse on the screen.</param>
+        /// <param name="view"> View matrix used</param>
+        /// <param name="projection"> Projection matrix used</param>
+        /// <param name="viewport"> Viewport of the game</param>
+        /// <returns>The distance at which the mouse intersects the bounding box of the object. Null if it doesnt intersect</returns>
+       
+        public float? Intersects(BoundingBox box, Vector2 mouseLocation,
             Matrix view, Matrix projection, Viewport viewport)
         {
             Ray mouseRay = CalculateRay(mouseLocation, view, projection, viewport);
-            return mouseRay.Intersects(sphere);
+            return mouseRay.Intersects(box);
             
         }
 
@@ -144,7 +170,7 @@ namespace MoodSwingGame
         /// </summary>
         /// <param name="start">The start tile coordinate.</param>
         /// <param name="end">The end tile coordinate.</param>
-        
+        /// <returns> The head of the linked-list of nodes. </returns>
         public Node GetPath(Vector2 start, Vector2 end)
         {
             List<Node> toCheck = new List<Node>();
