@@ -34,7 +34,9 @@ namespace MoodSwingGame
                 MSCitizen target = MSUnitHandler.GetInstance().GetTarget(Position, stats.GetRange());
                 if (target != null)
                 {
-                    if (stats.GetEffectiveness(target.MDG) > MSRandom.random.Next(100))
+                    int rndNum = MSRandom.random.Next(100);
+                    System.Console.WriteLine( stats.GetEffectiveness(target.MDG) + " " + rndNum );
+                    if (stats.GetEffectiveness(target.MDG) > rndNum)
                     {
                         capacity--;
                         target.state = MSCitizen.CitizenState.WAITING;
@@ -117,7 +119,7 @@ namespace MoodSwingGame
 
         public override int GetRange()
         {
-            return 5;
+            return (3*MSMap.tileDimension)/2;
         }
 
         private MSFoodCenterStats()
@@ -150,7 +152,7 @@ namespace MoodSwingGame
 
         public override int GetRange()
         {
-            return 5;
+            return (3 * MSMap.tileDimension) / 2;
         }
 
         private MSTutorialCenterStats()
@@ -183,7 +185,7 @@ namespace MoodSwingGame
 
         public override int GetRange()
         {
-            return 5;
+            return (3 * MSMap.tileDimension) / 2;
         }
 
         private MSWomensOrgStats()
@@ -216,7 +218,7 @@ namespace MoodSwingGame
 
         public override int GetRange()
         {
-            return 5;
+            return (3 * MSMap.tileDimension) / 2;
         }
 
         private MSHealthCenterStats()
@@ -249,7 +251,7 @@ namespace MoodSwingGame
 
         public override int GetRange()
         {
-            return 5;
+            return (3 * MSMap.tileDimension) / 2;
         }
 
         private MSEcoParkStats()
@@ -282,7 +284,7 @@ namespace MoodSwingGame
 
         public override int GetRange()
         {
-            return 5;
+            return (3 * MSMap.tileDimension) / 2;
         }
 
         private MSGlobalCenterStats()

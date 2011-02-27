@@ -169,8 +169,11 @@ namespace MoodSwingGame
                 if (unit is MSCitizen)
                 {
                     MSCitizen citizen = unit as MSCitizen;
+                    Vector2 position1 = new Vector2(position.X + MSMap.tileDimension / 2,
+                                                    position.Y + MSMap.tileDimension / 2);
+                    Vector2 position2 = new Vector2(citizen.Position.X, citizen.Position.Y);
                     if (citizen.state == MSCitizen.CitizenState.MOB &&
-                        Vector3.Distance(position, citizen.Position) <= range)
+                        Vector2.Distance(position1, position2) <= range)
                     {
                         return unit as MSCitizen;
                     }
