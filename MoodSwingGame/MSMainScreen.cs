@@ -31,6 +31,7 @@ namespace MoodSwingGame
                     game.Content.Load<Texture2D>("startgameclicked"),
                     game.Content.Load<Texture2D>("startgameclicked"),
                     Color.White,
+                    null,
                     Shape.AMORPHOUS,
                     SpriteBatch,
                     Game);
@@ -46,6 +47,7 @@ namespace MoodSwingGame
                     game.Content.Load<Texture2D>("optionsclicked"),
                     game.Content.Load<Texture2D>("optionsclicked"),
                     Color.White,
+                    null,
                     Shape.AMORPHOUS,
                     SpriteBatch,
                     Game);
@@ -61,6 +63,7 @@ namespace MoodSwingGame
                     game.Content.Load<Texture2D>("exitclicked"), 
                     game.Content.Load<Texture2D>("exitclicked"), 
                     Color.White, 
+                    null,
                     Shape.AMORPHOUS,
                     SpriteBatch, 
                     Game);

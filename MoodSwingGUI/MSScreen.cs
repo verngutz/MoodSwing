@@ -14,8 +14,8 @@ namespace MoodSwingGUI
     /// </summary>
     public abstract class MSScreen : MSPanel
     {
-        private MSGUIClickable currentHovered;
-        private MSGUITypable currentFocused;
+        protected MSGUIClickable currentHovered;
+        protected MSGUITypable currentFocused;
 
         /// <summary>
         /// Creates an MSScreen with the given parameters
@@ -61,7 +61,7 @@ namespace MoodSwingGUI
         /// <param name="spriteBatch">the SpriteBatch that will draw this MSScreen</param>
         /// <param name="game">the Game where this MSScreen will be used</param>
         public MSScreen(Texture2D background, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Color highlight, SpriteBatch spriteBatch, Game game)
-            : base(background, new Rectangle(0, 0, game.GraphicsDevice.Viewport.Width, game.GraphicsDevice.Viewport.Height), topPadding, bottomPadding, leftPadding, rightPadding, Shape.RECTANGULAR, spriteBatch, game) { }
+            : base(background, new Rectangle(0, 0, game.GraphicsDevice.Viewport.Width, game.GraphicsDevice.Viewport.Height), topPadding, bottomPadding, leftPadding, rightPadding, null, Shape.RECTANGULAR, spriteBatch, game) { }
 
         public virtual bool HandleMouseInput(MouseState oldMouseState)
         {
@@ -141,6 +141,13 @@ namespace MoodSwingGUI
         {
             if(currentFocused != null)
                 currentFocused.HandleKeyboardInput(oldKeyboardState);
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
+            if (currentHovered != null && currentHovered.ToolTip != null)
+                currentHovered.ToolTip.Draw(gameTime);
         }
 
         public override void Update(GameTime gameTime)

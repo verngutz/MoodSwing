@@ -33,6 +33,7 @@ namespace MoodSwingGame
                     game.Content.Load<Texture2D>("exitclicked"),
                     game.Content.Load<Texture2D>("exit"),   
                     Color.White,
+                    null,
                     Shape.RECTANGULAR,
                     SpriteBatch,
                     Game)
