@@ -294,26 +294,17 @@ namespace MoodSwingGame
                 MSUnit person = unitHandler.TryForBaby(map);
                 if (person as MSCitizen != null)
                 {
-                    //citizensList.Add(person as MSCitizen);
                     (person as MSCitizen).LightSource = map.LightSource;
                 }
 
                 List<MSCitizen> toRemove = unitHandler.Update(map);
-                foreach (MSCitizen citizen in toRemove)
-                {
-                    //citizensList.Remove(citizen);
-                }
+
                 foreach (MS3DTile tile in map.MapArray)
                 {
                     if (tile is MSTower)
                     {
                         MSTower tower = tile as MSTower;
                         MSVolunteer volunteer = tower.sentinel(map);
-                        if (volunteer != null)
-                        {
-                            //citizensList.Add(volunteer);
-                            volunteer.LightSource = map.LightSource;
-                        }
                     }
                 }
 
