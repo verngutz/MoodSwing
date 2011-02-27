@@ -21,6 +21,7 @@ namespace MoodSwingGUI
     public class MSImageHolder : MSGUIUnclickable
     {
         private Texture2D image;
+        public Texture2D Image { get { return image; } }
 
         /// <summary>
         /// Constructs an MSImageHolder
