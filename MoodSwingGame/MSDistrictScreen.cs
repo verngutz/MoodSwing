@@ -198,7 +198,7 @@ namespace MoodSwingGame
             AddComponent(closeInGameMenu);
             AddComponent(openInGameMenu);
 
-            resourceManager = new MSResourceManager(1000, game);
+            resourceManager = new MSResourceManager(1000, map.InitialVolunteerCenters, game);
             Paused = false;
         }
 
