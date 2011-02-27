@@ -30,6 +30,8 @@ namespace MoodSwingGame
 
         private int rows;
         private int columns;
+        private int initialVolunteerCenters;
+        public int InitialVolunteerCenters { get { return (initialVolunteerCenters); } }
 
         public Vector2 Dimension { get { return (new Vector2(rows, columns) * tileDimension); } }
         public MSMap(String filename) : base( MoodSwing.getInstance() )
@@ -38,6 +40,7 @@ namespace MoodSwingGame
             string[] line = sr.ReadLine().Split(' ');
             rows = Int32.Parse(line[0]);
             columns = Int32.Parse(line[1]);
+            initialVolunteerCenters = 0;
             mapArray = new MS3DTile[rows,columns];
             citizenSources = new List<MSUnbuyableBuilding>();
             for(int j = 0; j < columns; j++)
@@ -49,6 +52,8 @@ namespace MoodSwingGame
                     mapArray[i, j] = toAdd;
                     if (toAdd is MSUnbuyableBuilding)
                         citizenSources.Add(toAdd as MSUnbuyableBuilding);
+                    if (toAdd is MSVolunteerCenter)
+                        initialVolunteerCenters++;
                 } 
             }
             LightSource = new Vector3(tileDimension * rows << 1, tileDimension * columns << 1, 10000);
