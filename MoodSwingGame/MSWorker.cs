@@ -19,7 +19,7 @@ namespace MoodSwingGame
     {
         MSBuyableBuilding target;
         public MSWorker(Model model, Texture2D texture, Effect effect, Vector3 position, Node path, 
-            State s, MSTypes mst, MSBuyableBuilding bldg )
+            CitizenState s, MSTypes mst, MSBuyableBuilding bldg )
             : base(model, texture, effect, position, path, s, mst)
         {
             target = bldg;

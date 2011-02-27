@@ -58,7 +58,7 @@ namespace MoodSwingGame
         {
             map = new MSMap(filename);
             //citizensList = new List<MSCitizen>();
-            unitHandler = MSUnitHandler.GetInstance();
+            unitHandler = MSUnitHandler.Restart();
             moodManager = MSMoodManager.GetInstance();
 
             foreach (MS3DTile tile in map.MapArray)
@@ -258,21 +258,14 @@ namespace MoodSwingGame
                 totalVolunteers.Text = resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity;
                 funds.Text = resourceManager.Funds + "";
 
-                foreach (MS3DTile tile in map.MapArray)
-                {
-                    if (tile is MSBuyableBuilding)
-                    {
-                        MSBuyableBuilding b = tile as MSBuyableBuilding;
-                        b.Update(gameTime);
-                    }
-                }
             }    
         }
 
         public void CheckCollision()
         {
             MS3DTile tile = map.CheckCollision();
-            if (tile is MSBuyableBuilding && (tile as MSBuyableBuilding).IsTransforming == false )
+            if (tile is MSBuyableBuilding && 
+                (tile as MSBuyableBuilding).State == MSBuyableBuilding.BuyableBuildingState.BUYABLE)
             {
                 BuyDialog = new MSBuyDialog(Game.Content.Load<Texture2D>("CityView"), new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 190, 190), tile as MSBuyableBuilding, Shape.RECTANGULAR, spriteBatch, Game);
                 AddComponent(BuyDialog);

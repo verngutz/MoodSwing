@@ -18,7 +18,7 @@ namespace MoodSwingGame
 {
     public class MSCitizen : MS3DComponent, MSUnit
     {
-        public enum State
+        public enum CitizenState
         {
             CIVILIAN = 0,
             MOB,
@@ -26,7 +26,7 @@ namespace MoodSwingGame
             SUPPRESSED
         };
 
-        public State state;
+        public CitizenState state;
         public MSTypes MDG { get; set; }
 
         private Model model;
@@ -47,7 +47,7 @@ namespace MoodSwingGame
         private Vector2 screenPosition;
         private MSImageHolder moodFace;
 
-        public MSCitizen(Model m, Texture2D texture, Effect effect, Vector3 position, Node p, State s, MSTypes mst)
+        public MSCitizen(Model m, Texture2D texture, Effect effect, Vector3 position, Node p, CitizenState s, MSTypes mst)
             : base(position, MoodSwing.getInstance())
         {
             this.model = m;
@@ -71,7 +71,7 @@ namespace MoodSwingGame
         private const float WALK_SPEED = 0.35f;
         public virtual void Walk( MS3DTile[,] mapArray )
         {
-            if ( state != State.WAITING)
+            if ( state != CitizenState.WAITING)
             {
                 Vector2 pos = new Vector2(Position.X, Position.Y);
 
@@ -105,11 +105,11 @@ namespace MoodSwingGame
                 else
                     this.position += new Vector3(unit.X * WALK_SPEED, unit.Y * WALK_SPEED, 0);
 
-                if (isThere && state == State.MOB)
+                if (isThere && state == CitizenState.MOB)
                     MSMoodManager.GetInstance().takeDamage();
                 adjustWorldMatrix();
 
-                if (state == State.MOB)
+                if (state == CitizenState.MOB)
                 {
                     Vector3 screenProjection = Game.GraphicsDevice.Viewport.Project(Position, ProjectionMatrix, MSCamera.GetInstance().GetView(), Matrix.Identity);
                     moodFace.Position = new Vector2(screenProjection.X - moodFace.Size.X / 3, screenProjection.Y - moodFace.Size.Y);
@@ -138,7 +138,7 @@ namespace MoodSwingGame
                 mesh.Draw();
             }
 
-            if (state == State.MOB)
+            if (state == CitizenState.MOB)
                 moodFace.Draw(gameTime);
 
             base.Draw(gameTime);
