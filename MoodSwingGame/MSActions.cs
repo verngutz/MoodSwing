@@ -123,7 +123,7 @@ namespace MoodSwingGame
             {
                 screen.ResourceManager.Funds -= MSResourceManager.TOWER_MONEY_COST;
                 screen.ResourceManager.IdleVolunteers -= MSFoodCenterStats.GetInstance().GetCapacity();
-                screen.Map.MapArray[toBuy.Row, toBuy.Column] = new MSTower(moodSwing.Content.Load<Model>("districthall"),
+                /*screen.Map.MapArray[toBuy.Row, toBuy.Column] = new MSTower(moodSwing.Content.Load<Model>("districthall"),
                     moodSwing.Content.Load<Texture2D>("MTextures/building_A"),
                     moodSwing.Content.Load<Effect>("Mood"), 
                     toBuy.Position, 
@@ -131,7 +131,36 @@ namespace MoodSwingGame
                     toBuy.Column,
                     MSFoodCenterStats.GetInstance());
 
-                screen.Map.MapArray[toBuy.Row, toBuy.Column].LightSource = screen.Map.LightSource;
+                screen.Map.MapArray[toBuy.Row, toBuy.Column].LightSource = screen.Map.LightSource;*/
+                float? minDist = null;
+                MSVolunteerCenter center = null;
+                foreach (MS3DTile tile in screen.Map.MapArray)
+                {
+                    if (tile is MSVolunteerCenter)
+                    {
+                        MSVolunteerCenter vc = tile as MSVolunteerCenter;
+                        float distance = Vector3.Distance(vc.Position, toBuy.Position);
+                        if (minDist == null || minDist > distance)
+                        {
+                            minDist = distance;
+                            center = vc;
+                        }
+                    }
+                }
+
+                Node path = screen.Map.GetPath(center.TileCoordinate, toBuy.TileCoordinate);
+                System.Console.WriteLine(center.TileCoordinate);
+                toBuy.WaitForWorkers(MSFoodCenterStats.GetInstance().GetCapacity());
+
+                for (int i = 0; i < MSFoodCenterStats.GetInstance().GetCapacity(); i++)
+                {
+                    MSWorker worker = new MSWorker(MoodSwing.getInstance().Content.Load<Model>("person"),
+                        MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/tao"),
+                        MoodSwing.getInstance().Content.Load<Effect>("Mood"),
+                        center.Position + new Vector3(0,0, 20) , path, MSCitizen.State.SUPPRESSED, MSTypes.EDUCATION, toBuy );
+                    MSUnitHandler.GetInstance().AddWorker(worker);
+                }
+                //toBuy.StartTransform(MoodSwing.getInstance().prevGameTime);
                 screen.RemoveComponent(screen.BuyDialog);
             }
         }
