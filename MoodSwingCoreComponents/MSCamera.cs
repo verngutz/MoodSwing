@@ -52,6 +52,9 @@ namespace MoodSwingCoreComponents
         private MSCamera()
         {}
 
+        /// <summary>
+        /// Initializes the position of the camera.
+        /// </summary>
         public static void initialize()
         {
             if (camera == null) camera = new MSCamera();
@@ -66,6 +69,7 @@ namespace MoodSwingCoreComponents
             camera.minAngle = camera.currAngle;
             camera.maxAngle = (float)Math.PI / 2;
         }
+
         public void AdjustPitchAxis()
         {
             pitchAxis = Vector3.Normalize(Vector3.Cross(viewVector, upCamera));
@@ -76,6 +80,11 @@ namespace MoodSwingCoreComponents
             return Matrix.CreateLookAt(cameraPosition+shiftVector, cameraTarget+shiftVector, upCamera);
         }
 
+        /// <summary>
+        /// Rotates the camera.
+        /// </summary>
+        /// <param name="rotation">A Vector2D whose X coordinate represents the direction of the angle of the yaw rotation 
+        /// and whose Y coordinate represents the direction of the angle of the pitch rotation</param>
         public void Rotate( Vector2 rotation )
         {
             float angle = .005f;
@@ -105,6 +114,12 @@ namespace MoodSwingCoreComponents
             AdjustPitchAxis();
         }
 
+        /// <summary>
+        /// Shifts the camera position and camera target in a specific direction.
+        /// </summary>
+        /// <param name="dV"> A Vector2D whose X coordinate represents the direction of the movements from left to right and 
+        /// whose Y coordinate represents the direction of the up and down movement.</param>
+        /// <param name="dim">A Vector2D representing the dimension of the map. Used for clamping.</param>
         public void Shift(Vector2 dV, Vector2 dim )
         {
             Vector3 shift = dV.X * pitchAxis + dV.Y * Vector3.Normalize(Vector3.Cross(Vector3.UnitZ, pitchAxis));
@@ -114,6 +129,10 @@ namespace MoodSwingCoreComponents
             shiftVector = Vector3.Clamp(shiftVector, Vector3.Zero, dim3);
         }
 
+        /// <summary>
+        /// Shifts the camera position closer to the camera target.
+        /// </summary>
+        /// <param name="direction"> 1 to zoom closer. -1 to zoom further.</param>
         public void Zoom(int direction)
         {
             Vector3 newCameraPosition = cameraPosition - (normalizedViewVector * direction * ZOOM_SPEED);

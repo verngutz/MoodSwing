@@ -229,10 +229,9 @@ namespace MoodSwingGame
             {
                 if(citizen.state == MSCitizen.CitizenState.MOB) 
                 {
+                    //This is where the position for the MoodFace gets updated when it goes out of bounds
                     Rectangle boundingRectangle = citizen.MoodFace.BoundingRectangle;
                     Vector2 position = citizen.MoodFace.Position;
-                    //System.Console.WriteLine("=====\n" + MoodSwing.getInstance().GraphicsDevice.Viewport.Height);
-                    //System.Console.WriteLine(position);
                     SpriteEffects effect = SpriteEffects.None;
 
                     if (position.X < 0)
@@ -251,9 +250,7 @@ namespace MoodSwingGame
                     else if (position.Y + boundingRectangle.Height > MoodSwing.getInstance().GraphicsDevice.Viewport.Height)
                         position.Y = MoodSwing.getInstance().GraphicsDevice.Viewport.Height - boundingRectangle.Height;
 
-                    //System.Console.WriteLine(position);
                     boundingRectangle = new Rectangle((int)position.X, (int)position.Y, boundingRectangle.Width, boundingRectangle.Height);
-                    //System.Console.WriteLine(boundingRectangle.X + " " + boundingRectangle.Y);
                     (Game as MoodSwing).SpriteBatch.Draw(citizen.MoodFace.Image,boundingRectangle , null, Color.White, 0, Vector2.Zero, effect, position.Y / Game.GraphicsDevice.Viewport.Height);
                 }
             }
@@ -297,26 +294,17 @@ namespace MoodSwingGame
                 MSUnit person = unitHandler.TryForBaby(map);
                 if (person as MSCitizen != null)
                 {
-                    //citizensList.Add(person as MSCitizen);
                     (person as MSCitizen).LightSource = map.LightSource;
                 }
 
                 List<MSCitizen> toRemove = unitHandler.Update(map);
-                foreach (MSCitizen citizen in toRemove)
-                {
-                    //citizensList.Remove(citizen);
-                }
+
                 foreach (MS3DTile tile in map.MapArray)
                 {
                     if (tile is MSTower)
                     {
                         MSTower tower = tile as MSTower;
                         MSVolunteer volunteer = tower.sentinel(map);
-                        if (volunteer != null)
-                        {
-                            //citizensList.Add(volunteer);
-                            volunteer.LightSource = map.LightSource;
-                        }
                     }
                 }
 
