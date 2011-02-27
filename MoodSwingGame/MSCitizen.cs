@@ -69,6 +69,11 @@ namespace MoodSwingGame
         }
 
         private const float WALK_SPEED = 0.35f;
+
+        /// <summary>
+        /// Moves a position of the citizen along a specified path.
+        /// </summary>
+        /// <param name="mapArray"> The map array where the citizen is in.</param>
         public virtual void Walk( MS3DTile[,] mapArray )
         {
             if ( state != CitizenState.WAITING)

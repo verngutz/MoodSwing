@@ -37,6 +37,7 @@ namespace MoodSwingGUI
                 boundingRectangle = current.BoundingRectangle;
                 shape = current.Shape;
                 collisionTexture = current.CollisionTexture;
+                toolTip = current.ToolTip;
             }
         }
 
@@ -55,8 +56,8 @@ namespace MoodSwingGUI
         /// <param name="unticked">an MSButton representing the unticked state of this MSCheckbox and which will become invisible once this MSCheckbox is ticked</param>
         /// <param name="ticked">an MSButton representing the ticked state of this MSCheckbox and which will become invisible once this MSCheckbox is unticked</param>
         /// <param name="isTicked">true if this MSCheckbox is initially ticked, false otherwise</param>
-        public MSCheckbox(MSButton unticked, MSButton ticked, bool isTicked) 
-            : base(unticked.BoundingRectangle, unticked.Shape, unticked.SpriteBatch, unticked.Game) 
+        public MSCheckbox(MSButton unticked, MSButton ticked, bool isTicked)
+            : base(unticked.BoundingRectangle, unticked.Shape, unticked.ToolTip, unticked.SpriteBatch, unticked.Game) 
         {
             this.unticked = unticked;
             this.ticked = ticked;
@@ -90,10 +91,10 @@ namespace MoodSwingGUI
             current.UnHover();
         }
 
-        public override void RightClick() { }
-        public override void UnRightClick() { }
         public override void MiddleClick() { }
         public override void UnMiddleClick() { }
+        public override void RightClick() { }
+        public override void UnRightClick() { }
     }
 }
 

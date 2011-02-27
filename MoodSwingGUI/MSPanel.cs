@@ -46,17 +46,17 @@ namespace MoodSwingGUI
         protected Color highlight;
 
 
-        public MSPanel(Texture2D background, Rectangle boundingRectangle, Shape shape, SpriteBatch spriteBatch, Game game)
-            : this(background, boundingRectangle, 0, 0, 0, 0, Color.White, shape, spriteBatch, game) { }
+        public MSPanel(Texture2D background, Rectangle boundingRectangle, MSToolTip toolTip, Shape shape, SpriteBatch spriteBatch, Game game)
+            : this(background, boundingRectangle, 0, 0, 0, 0, Color.White, toolTip, shape, spriteBatch, game) { }
 
-        public MSPanel(Texture2D background, Rectangle boundingRectangle, Color highlight, Shape shape, SpriteBatch spriteBatch, Game game)
-            : this(background, boundingRectangle, 0, 0, 0, 0, shape, spriteBatch, game) { }
+        public MSPanel(Texture2D background, Rectangle boundingRectangle, Color highlight, MSToolTip toolTip, Shape shape, SpriteBatch spriteBatch, Game game)
+            : this(background, boundingRectangle, 0, 0, 0, 0, toolTip, shape, spriteBatch, game) { }
 
-        public MSPanel(Texture2D background, Rectangle boundingRectangle, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Shape shape, SpriteBatch spriteBatch, Game game)
-            : this(background, boundingRectangle, topPadding, bottomPadding, leftPadding, rightPadding, Color.White, shape, spriteBatch, game) { }
+        public MSPanel(Texture2D background, Rectangle boundingRectangle, float topPadding, float bottomPadding, float leftPadding, float rightPadding, MSToolTip toolTip, Shape shape, SpriteBatch spriteBatch, Game game)
+            : this(background, boundingRectangle, topPadding, bottomPadding, leftPadding, rightPadding, Color.White, toolTip, shape, spriteBatch, game) { }
 
-        public MSPanel(Texture2D background, Rectangle boundingRectangle, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Color highlight, Shape shape, SpriteBatch spriteBatch, Game game)
-            : base(boundingRectangle, shape, spriteBatch, game) 
+        public MSPanel(Texture2D background, Rectangle boundingRectangle, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Color highlight, MSToolTip toolTip, Shape shape, SpriteBatch spriteBatch, Game game)
+            : base(boundingRectangle, toolTip, shape, spriteBatch, game) 
         {
             this.background = background;
             if(background != null)

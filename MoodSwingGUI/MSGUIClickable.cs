@@ -33,8 +33,14 @@ namespace MoodSwingGUI
         }
         public MSGUIClickableState CurrentState { set; get; }
 
-        public MSGUIClickable(Rectangle boundingRectangle, Shape shape, SpriteBatch spriteBatch, Game game)
-            : base(boundingRectangle, shape, spriteBatch, game) { }
+        protected MSToolTip toolTip;
+        public MSToolTip ToolTip { get { return toolTip; } }
+
+        public MSGUIClickable(Rectangle boundingRectangle, Shape shape, MSToolTip toolTip, SpriteBatch spriteBatch, Game game)
+            : base(boundingRectangle, shape, spriteBatch, game) 
+        {
+            this.toolTip = toolTip;
+        }
 
         /// <summary>
         /// What to do when this MSGUIClickable has been left-clicked.

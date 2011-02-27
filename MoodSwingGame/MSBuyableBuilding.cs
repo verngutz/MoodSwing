@@ -72,10 +72,11 @@ namespace MoodSwingGame
 
         public override void Update(GameTime gameTime)
         {
-            timeCount = gameTime.TotalGameTime.TotalSeconds - startTime;
-            if (State == BuyableBuildingState.TRANSFORMING && timeCount >= buildTime)
+            timeCount = 0;
+            if (State == BuyableBuildingState.TRANSFORMING)
             {
-                State = BuyableBuildingState.DONE;
+                timeCount = gameTime.TotalGameTime.TotalSeconds - startTime;
+                if (timeCount >= buildTime) State = BuyableBuildingState.DONE;
             }
             base.Update(gameTime);
         }
@@ -87,7 +88,7 @@ namespace MoodSwingGame
 
         public void DrawLoadingBar(GameTime gameTime)
         {
-            if (State == BuyableBuildingState.TRANSFORMING)
+            if (State == BuyableBuildingState.TRANSFORMING || State == BuyableBuildingState.WAITING)
             {
                 Vector3 v = MoodSwing.getInstance().GraphicsDevice.Viewport.Project(Position + new Vector3(0, 0, 20),
                     ProjectionMatrix, MSCamera.GetInstance().GetView(),

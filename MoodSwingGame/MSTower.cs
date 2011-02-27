@@ -49,6 +49,7 @@ namespace MoodSwingGame
                             Position + new Vector3(0, 0, 20), path1, path2, target as MSCitizen, this);
                         MSUnitHandler.GetInstance().AddVolunteer(volunteer);
                         MSMoodManager.GetInstance().takeHealth();
+                        volunteer.LightSource = map.LightSource;
                         return volunteer;
                     }
                 }

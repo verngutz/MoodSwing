@@ -72,6 +72,7 @@ namespace MoodSwingGame
             blackOutPanel = new MSPanel(
                 game.Content.Load<Texture2D>("BlackOut"),
                 BoundingRectangle,
+                null,
                 Shape.RECTANGULAR,
                 spriteBatch,
                 game);
@@ -116,6 +117,7 @@ namespace MoodSwingGame
             MSPanel topPanel = new MSPanel(
                 game.Content.Load<Texture2D>("GamePanel/TopPanel"),
                 new Rectangle(0, 0, 1024, 71),
+                null,
                 Shape.AMORPHOUS,
                 spriteBatch,
                 game);
@@ -133,6 +135,7 @@ namespace MoodSwingGame
                 game.Content.Load<Texture2D>("GamePanel/MainMenu"),
                 game.Content.Load<Texture2D>("GamePanel/mainmenuhover"),
                 game.Content.Load<Texture2D>("GamePanel/mainmenuhover"),
+                null,
                 Shape.AMORPHOUS,
                 spriteBatch,
                 game);
@@ -144,6 +147,7 @@ namespace MoodSwingGame
                 game.Content.Load<Texture2D>("GamePanel/Options"),
                 game.Content.Load<Texture2D>("GamePanel/optionshover"),
                 game.Content.Load<Texture2D>("GamePanel/optionshover"),
+                null, 
                 Shape.AMORPHOUS,
                 spriteBatch,
                 game);
@@ -155,6 +159,7 @@ namespace MoodSwingGame
                 game.Content.Load<Texture2D>("GamePanel/quit"),
                 game.Content.Load<Texture2D>("GamePanel/quithover"),
                 game.Content.Load<Texture2D>("GamePanel/quithover"),
+                null,
                 Shape.AMORPHOUS,
                 spriteBatch,
                 game);
@@ -175,6 +180,7 @@ namespace MoodSwingGame
                    game.Content.Load<Texture2D>("GamePanel/Logo"),
                    game.Content.Load<Texture2D>("GamePanel/Logo"),
                    Color.White,
+                   null,
                    Shape.RECTANGULAR,
                    SpriteBatch,
                    Game);
@@ -189,6 +195,7 @@ namespace MoodSwingGame
                    game.Content.Load<Texture2D>("GamePanel/Logo"),
                    game.Content.Load<Texture2D>("GamePanel/Logo"),
                    Color.White,
+                   null,
                    Shape.RECTANGULAR,
                    SpriteBatch,
                    Game);
@@ -222,10 +229,9 @@ namespace MoodSwingGame
             {
                 if(citizen.state == MSCitizen.CitizenState.MOB) 
                 {
+                    //This is where the position for the MoodFace gets updated when it goes out of bounds
                     Rectangle boundingRectangle = citizen.MoodFace.BoundingRectangle;
                     Vector2 position = citizen.MoodFace.Position;
-                    //System.Console.WriteLine("=====\n" + MoodSwing.getInstance().GraphicsDevice.Viewport.Height);
-                    //System.Console.WriteLine(position);
                     SpriteEffects effect = SpriteEffects.None;
 
                     if (position.X < 0)
@@ -244,9 +250,7 @@ namespace MoodSwingGame
                     else if (position.Y + boundingRectangle.Height > MoodSwing.getInstance().GraphicsDevice.Viewport.Height)
                         position.Y = MoodSwing.getInstance().GraphicsDevice.Viewport.Height - boundingRectangle.Height;
 
-                    //System.Console.WriteLine(position);
                     boundingRectangle = new Rectangle((int)position.X, (int)position.Y, boundingRectangle.Width, boundingRectangle.Height);
-                    System.Console.WriteLine(boundingRectangle.X + " " + boundingRectangle.Y);
                     (Game as MoodSwing).SpriteBatch.Draw(citizen.MoodFace.Image,boundingRectangle , null, Color.White, 0, Vector2.Zero, effect, position.Y / Game.GraphicsDevice.Viewport.Height);
                 }
             }
@@ -269,6 +273,9 @@ namespace MoodSwingGame
                 if (element.Visible)
                     element.Draw(gameTime);
 
+            if (currentHovered != null && currentHovered.ToolTip != null)
+                currentHovered.ToolTip.Draw(gameTime);
+
             if(moodManager.Mood > 0.9f)
                 spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Awesome Mood Reached", new Vector2(500, 10), Color.White);
             else if(moodManager.Mood > 0.75f)
@@ -287,26 +294,17 @@ namespace MoodSwingGame
                 MSUnit person = unitHandler.TryForBaby(map);
                 if (person as MSCitizen != null)
                 {
-                    //citizensList.Add(person as MSCitizen);
                     (person as MSCitizen).LightSource = map.LightSource;
                 }
 
                 List<MSCitizen> toRemove = unitHandler.Update(map);
-                foreach (MSCitizen citizen in toRemove)
-                {
-                    //citizensList.Remove(citizen);
-                }
+
                 foreach (MS3DTile tile in map.MapArray)
                 {
                     if (tile is MSTower)
                     {
                         MSTower tower = tile as MSTower;
                         MSVolunteer volunteer = tower.sentinel(map);
-                        if (volunteer != null)
-                        {
-                            //citizensList.Add(volunteer);
-                            volunteer.LightSource = map.LightSource;
-                        }
                     }
                 }
 
@@ -323,7 +321,7 @@ namespace MoodSwingGame
             if (tile is MSBuyableBuilding && 
                 (tile as MSBuyableBuilding).State == MSBuyableBuilding.BuyableBuildingState.BUYABLE)
             {
-                BuyDialog = new MSBuyDialog(Game.Content.Load<Texture2D>("CityView"), new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 190, 190), tile as MSBuyableBuilding, Shape.RECTANGULAR, spriteBatch, Game);
+                BuyDialog = new MSBuyDialog(null, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 348, 348), 78, 78, 62, 62, tile as MSBuyableBuilding, Shape.RECTANGULAR, spriteBatch, Game);
                 AddComponent(BuyDialog);
             }
         }

@@ -42,8 +42,8 @@ namespace MoodSwingGUI
         /// </summary>
         public bool TabIsFired { set; get; }
 
-        public MSGUITypable(Rectangle boundingRectangle, Shape shape, SpriteBatch spriteBatch, Game game)
-            : base(boundingRectangle, shape, spriteBatch, game) { HasFocus = false; }
+        public MSGUITypable(Rectangle boundingRectangle, MSToolTip toolTip, Shape shape, SpriteBatch spriteBatch, Game game)
+            : base(boundingRectangle, shape, toolTip, spriteBatch, game) { HasFocus = false; }
 
         /// <summary>
         /// Handles how this MSGUITypable should respond to keyboard input

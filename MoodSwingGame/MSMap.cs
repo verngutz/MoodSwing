@@ -64,6 +64,11 @@ namespace MoodSwingGame
             return citizenSources.ElementAt<MSUnbuyableBuilding>(MSRandom.random.Next(citizenSources.Count));
         }
 
+        /// <summary>
+        /// Gets the nearest volunteer center with respect to a specific tile.
+        /// </summary>
+        /// <param name="reference">Tile used as a reference point to find the nearest volunteer center</param>
+        /// <returns>The nearest volunteer center. Return null if there is no volunteer center</returns>
         public MSVolunteerCenter GetNearestVolunteerCenter(MS3DTile reference)
         {
             float? minDist = null;
@@ -83,7 +88,11 @@ namespace MoodSwingGame
             }
             return center;
         }
-        //note: This needs revision when the 'dummy' tiles have been implemented.
+        
+        /// <summary>
+        /// Picking Algo. Looks for the closest object that intersects the mouse ray
+        /// </summary>
+        /// <returns>The tile which the mouse intersects. Null if it doesnt intersect anything</returns>
         public MS3DTile CheckCollision()
         {
             float? minDistance = null;
@@ -108,7 +117,14 @@ namespace MoodSwingGame
             return tile;
         }
 
-
+        /// <summary>
+        /// Calculates the ray formed from the mouse to the world space.
+        /// </summary>
+        /// <param name="mouseLocation">Vector2D corresponding to the coordinate of the mouse on the screen.</param>
+        /// <param name="view"> View matrix used</param>
+        /// <param name="projection"> Projection matrix used</param>
+        /// <param name="viewport"> Viewport of the game</param>
+        /// <returns>The Ray pointing from the mouse to the world space</returns>
         public Ray CalculateRay(Vector2 mouseLocation, Matrix view, Matrix projection, Viewport viewport)
         {
             Vector3 nearPoint = viewport.Unproject(new Vector3(mouseLocation.X,
@@ -127,12 +143,22 @@ namespace MoodSwingGame
 
             return new Ray(nearPoint, direction);
         }
-
-        public float? Intersects(BoundingBox sphere, Vector2 mouseLocation,
+        
+        /// <summary>
+        /// Checks whether the mouse intersects the bounding box of an object.
+        /// </summary>
+        /// <param name="box">Bounding box of the object to check for intersection.</param>
+        /// <param name="mouseLocation">Vector2D corresponding to the coordinate of the mouse on the screen.</param>
+        /// <param name="view"> View matrix used</param>
+        /// <param name="projection"> Projection matrix used</param>
+        /// <param name="viewport"> Viewport of the game</param>
+        /// <returns>The distance at which the mouse intersects the bounding box of the object. Null if it doesnt intersect</returns>
+       
+        public float? Intersects(BoundingBox box, Vector2 mouseLocation,
             Matrix view, Matrix projection, Viewport viewport)
         {
             Ray mouseRay = CalculateRay(mouseLocation, view, projection, viewport);
-            return mouseRay.Intersects(sphere);
+            return mouseRay.Intersects(box);
             
         }
 
@@ -144,7 +170,7 @@ namespace MoodSwingGame
         /// </summary>
         /// <param name="start">The start tile coordinate.</param>
         /// <param name="end">The end tile coordinate.</param>
-        
+        /// <returns> The head of the linked-list of nodes. </returns>
         public Node GetPath(Vector2 start, Vector2 end)
         {
             List<Node> toCheck = new List<Node>();
@@ -155,7 +181,8 @@ namespace MoodSwingGame
             toCheck.Add(new Node((int)start.X, (int)start.Y, 1, 0, null) );
             hasVis[(int)start.X, (int)start.Y] = true;
             Node last = null;
-            bool isFirst = true;
+            bool getRoadFirst = true;
+            if (mapArray[(int)start.X, (int)start.Y] is MSRoad) getRoadFirst = false;
             while (toCheck.Count != 0)
             {
                 toCheck.Sort();
@@ -173,7 +200,7 @@ namespace MoodSwingGame
                     int x = (int)visiting.Position.X;
                     int y = (int)visiting.Position.Y;
                     
-                    if (y + 1 < columns && mapArray[x, y + 1] is MSRoad || (!isFirst && new Vector2(x,y+1) == end) ) 
+                    if (y + 1 < columns && mapArray[x, y + 1] is MSRoad || (!getRoadFirst && new Vector2(x,y+1) == end) ) 
                     {
                         if (hasVis[x, y + 1] == false)
                         {
@@ -193,7 +220,7 @@ namespace MoodSwingGame
                         }
                     }
 
-                    if (y - 1 >= 0 && mapArray[x, y - 1] is MSRoad || ( !isFirst && new Vector2(x, y - 1) == end) ) 
+                    if (y - 1 >= 0 && mapArray[x, y - 1] is MSRoad || ( !getRoadFirst && new Vector2(x, y - 1) == end) ) 
                     {
                         if (hasVis[x, y - 1] == false)
                         {
@@ -212,7 +239,7 @@ namespace MoodSwingGame
                             }
                         }
                     }
-                    if (x + 1 < rows && mapArray[x + 1, y] is MSRoad || ( !isFirst && new Vector2(x + 1, y) == end) ) 
+                    if (x + 1 < rows && mapArray[x + 1, y] is MSRoad || ( !getRoadFirst && new Vector2(x + 1, y) == end) ) 
                     {
                         if (hasVis[x + 1, y] == false)
                         {
@@ -231,7 +258,7 @@ namespace MoodSwingGame
                             }
                         }
                     }
-                    if (x - 1 >= 0 && mapArray[x - 1, y] is MSRoad || (!isFirst && new Vector2(x - 1, y) == end) )
+                    if (x - 1 >= 0 && mapArray[x - 1, y] is MSRoad || (!getRoadFirst && new Vector2(x - 1, y) == end) )
                     {
                         if (hasVis[x - 1, y] == false)
                         {
@@ -250,7 +277,7 @@ namespace MoodSwingGame
                             }
                         }
                     }
-                    if (isFirst == true) isFirst = false;
+                    if (getRoadFirst == true) getRoadFirst = false;
                 }
             }
 

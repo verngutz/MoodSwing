@@ -99,6 +99,7 @@
     <Compile Include="MSSlider.cs" />
     <Compile Include="MSTextArea.cs" />
     <Compile Include="MSTextField.cs" />
+    <Compile Include="MSToolTip.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
