@@ -54,7 +54,7 @@ namespace MoodSwingGame
         public MSPanel BlackOutPanel { get { return blackOutPanel; } }
 
         public MSDistrictScreen(String filename, MoodSwing game)
-            : base(null /*game.Content.Load<Texture2D>("space")*/, 0, 0, 0, 0, game.SpriteBatch, game) 
+            : base(game.Content.Load<Texture2D>("CityView"), 0, 0, 0, 0, game.SpriteBatch, game) 
         {
             map = new MSMap(filename);
             citizensList = new List<MSCitizen>();
@@ -204,15 +204,34 @@ namespace MoodSwingGame
 
         public override void Draw(GameTime gameTime)
         {
+            if (background != null)
+                SpriteBatch.Draw(background, BoundingRectangle, highlight);
+
+            SpriteBatch.End(); 
+            map.Draw(gameTime);
+
             foreach (MSCitizen citizen in citizensList)
             {
                 citizen.Draw(gameTime);
-               
             }
 
-            map.Draw(gameTime);
+            SpriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.FrontToBack, SaveStateMode.None);
+            foreach (MSCitizen citizen in citizensList)
+            {
+                if(citizen.state == MSCitizen.State.MOB)
+                    (Game as MoodSwing).SpriteBatch.Draw(citizen.MoodFace.Image, citizen.MoodFace.BoundingRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, citizen.MoodFace.Position.Y / Game.GraphicsDevice.Viewport.Height);
+            }
+            SpriteBatch.End();
 
-            base.Draw(gameTime);
+            SpriteBatch.Begin();
+
+            foreach (MSGUIUnclickable element in Components)
+                if (element.Visible)
+                    element.Draw(gameTime);
+
+            foreach (MSGUIClickable element in ClickableComponents)
+                if (element.Visible)
+                    element.Draw(gameTime);
 
             if(moodManager.Mood > 0.9f)
                 spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Awesome Mood Reached", new Vector2(500, 10), Color.White);

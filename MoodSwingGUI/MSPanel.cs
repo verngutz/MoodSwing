@@ -16,7 +16,7 @@ namespace MoodSwingGUI
 {
     public class MSPanel : MSGUITypable
     {
-        private Texture2D background;
+        protected Texture2D background;
 
         private List<MSGUIUnclickable> components;
         public List<MSGUIUnclickable> Components
@@ -43,7 +43,7 @@ namespace MoodSwingGUI
 
         private Vector2 boundedPosition;
         private Vector2 boundedSize;
-        private Color highlight;
+        protected Color highlight;
 
 
         public MSPanel(Texture2D background, Rectangle boundingRectangle, Shape shape, SpriteBatch spriteBatch, Game game)
