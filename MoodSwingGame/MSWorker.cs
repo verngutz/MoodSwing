@@ -18,9 +18,8 @@ namespace MoodSwingGame
     public class MSWorker : MSCitizen
     {
         MSBuyableBuilding target;
-        public MSWorker(Model model, Texture2D texture, Effect effect, Vector3 position, Node path, 
-            CitizenState s, MSTypes mst, MSBuyableBuilding bldg )
-            : base(model, texture, effect, position, path, s, mst)
+        public MSWorker(Model model, Texture2D texture, Effect effect, Vector3 position, Node path, MSTypes mst, MSBuyableBuilding bldg )
+            : base(model, texture, effect, position, path, CitizenState.SUPPRESSED, mst)
         {
             target = bldg;
         }

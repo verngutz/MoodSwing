@@ -138,7 +138,7 @@ namespace MoodSwingGame
                     MSWorker worker = new MSWorker(MoodSwing.getInstance().Content.Load<Model>("person"),
                         MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/tao"),
                         MoodSwing.getInstance().Content.Load<Effect>("Mood"),
-                        center.Position + new Vector3(0,0, 20) , path, MSCitizen.CitizenState.SUPPRESSED, MSTypes.EDUCATION, toBuy );
+                        center.Position + new Vector3(0,0, 20) , path, MSTypes.EDUCATION, toBuy );
                     MSUnitHandler.GetInstance().AddWorker(worker);
                 }
                 screen.RemoveComponent(screen.BuyDialog);
@@ -177,7 +177,7 @@ namespace MoodSwingGame
                 MSWorker worker = new MSWorker(MoodSwing.getInstance().Content.Load<Model>("person"),
                         MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/tao"),
                         MoodSwing.getInstance().Content.Load<Effect>("Mood"),
-                        center.Position + new Vector3(0, 0, 20), path, MSCitizen.CitizenState.SUPPRESSED, MSTypes.EDUCATION, toBuy);
+                        center.Position + new Vector3(0, 0, 20), path, MSTypes.EDUCATION, toBuy);
                 MSUnitHandler.GetInstance().AddWorker(worker);
                 MSUnitHandler.GetInstance().IsLeaderBusy = true;
                 screen.RemoveComponent(screen.BuyDialog);
@@ -221,7 +221,7 @@ namespace MoodSwingGame
                     MSWorker worker = new MSWorker(MoodSwing.getInstance().Content.Load<Model>("person"),
                             MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/tao"),
                             MoodSwing.getInstance().Content.Load<Effect>("Mood"),
-                            center.Position + new Vector3(0, 0, 20), path, MSCitizen.CitizenState.SUPPRESSED, MSTypes.EDUCATION, toBuy);
+                            center.Position + new Vector3(0, 0, 20), path, MSTypes.EDUCATION, toBuy);
                     MSUnitHandler.GetInstance().AddWorker(worker);
                 }
                 screen.RemoveComponent(screen.BuyDialog);

@@ -25,8 +25,25 @@ namespace MoodSwingGame
             WAITING,
             SUPPRESSED
         };
+        private float walk_speed;
 
-        public CitizenState state;
+        private CitizenState state;
+        public CitizenState State { get { return state; }  }
+        public void SetState(CitizenState state)
+        {
+            this.state = state;
+            switch (state)
+            {
+                case CitizenState.CIVILIAN:
+                case CitizenState.MOB:
+                case CitizenState.WAITING:
+                    walk_speed = 0.35f;
+                    break;
+                case CitizenState.SUPPRESSED:
+                    walk_speed = 0.75f;
+                    break;
+            }
+        }
         public MSTypes MDG { get; set; }
 
         private Model model;
@@ -54,7 +71,7 @@ namespace MoodSwingGame
             this.texture = texture;
             this.effect = effect;
             this.isThere = false;
-            state = s;
+            SetState(s);
             MDG = mst;
             this.path = p;
             Vector3 screenProjection = Game.GraphicsDevice.Viewport.Project(Position, ProjectionMatrix, MSCamera.GetInstance().GetView(), WorldMatrix);
@@ -68,7 +85,7 @@ namespace MoodSwingGame
             targetLocation = citizen.TargetLocation;
         }
 
-        private const float WALK_SPEED = 0.35f;
+        
 
         /// <summary>
         /// Moves a position of the citizen along a specified path.
@@ -76,7 +93,7 @@ namespace MoodSwingGame
         /// <param name="mapArray"> The map array where the citizen is in.</param>
         public virtual void Walk( MS3DTile[,] mapArray )
         {
-            if ( state != CitizenState.WAITING)
+            if ( State != CitizenState.WAITING)
             {
                 Vector2 pos = new Vector2(Position.X, Position.Y);
 
@@ -108,13 +125,13 @@ namespace MoodSwingGame
                     else isThere = true;
                 }
                 else
-                    this.position += new Vector3(unit.X * WALK_SPEED, unit.Y * WALK_SPEED, 0);
+                    this.position += new Vector3(unit.X * walk_speed, unit.Y * walk_speed, 0);
 
-                if (isThere && state == CitizenState.MOB)
+                if (isThere && State == CitizenState.MOB)
                     MSMoodManager.GetInstance().takeDamage();
                 adjustWorldMatrix();
 
-                if (state == CitizenState.MOB)
+                if (State == CitizenState.MOB)
                 {
                     Viewport v = new Viewport();
                     Vector3 screenProjection = Game.GraphicsDevice.Viewport.Project(Position, ProjectionMatrix, MSCamera.GetInstance().GetView(), Matrix.Identity);

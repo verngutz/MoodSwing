@@ -227,7 +227,7 @@ namespace MoodSwingGame
             SpriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.FrontToBack, SaveStateMode.None);
             foreach (MSCitizen citizen in unitHandler.Citizens)
             {
-                if(citizen.state == MSCitizen.CitizenState.MOB) 
+                if(citizen.State == MSCitizen.CitizenState.MOB) 
                 {
                     //This is where the position for the MoodFace gets updated when it goes out of bounds
                     Rectangle boundingRectangle = citizen.MoodFace.BoundingRectangle;

@@ -177,7 +177,7 @@ namespace MoodSwingGame
                     Vector2 position1 = new Vector2(position.X + MSMap.tileDimension / 2,
                                                     position.Y + MSMap.tileDimension / 2);
                     Vector2 position2 = new Vector2(citizen.Position.X, citizen.Position.Y);
-                    if (citizen.state == MSCitizen.CitizenState.MOB && 
+                    if (citizen.State == MSCitizen.CitizenState.MOB && 
                         map.MapArray[(int)citizen.TileCoordinate.X, (int)citizen.TileCoordinate.Y] is MSRoad &&
                         Vector2.Distance(position1, position2) <= range)
                     {
@@ -199,17 +199,17 @@ namespace MoodSwingGame
                     MSCitizen citizen = person as MSCitizen;
                     int rnd = MSRandom.random.Next(MAX_PROBABILITY);
 
-                    if (rnd <= MOB_RECRUIT_RATE && citizen.state == MSCitizen.CitizenState.CIVILIAN && 
+                    if (rnd <= MOB_RECRUIT_RATE && citizen.State == MSCitizen.CitizenState.CIVILIAN && 
                         !(citizen is MSVolunteer))
                     {
                         foreach (MSUnit p in citizens)
                         {
-                            if (p is MSCitizen && !(p is MSVolunteer) && (p as MSCitizen).state == MSCitizen.CitizenState.MOB)
+                            if (p is MSCitizen && !(p is MSVolunteer) && (p as MSCitizen).State == MSCitizen.CitizenState.MOB)
                             {
                                 if (Vector3.Distance(citizen.Position, (p as MSCitizen).Position) <= MOB_RECRUIT_DISTANCE)
                                 {
                                     citizen.Follow(p as MSCitizen);
-                                    citizen.state = MSCitizen.CitizenState.MOB;
+                                    citizen.SetState(MSCitizen.CitizenState.MOB);
                                     citizen.MDG = (p as MSCitizen).MDG;
                                     citizen.changeModel("mob", (p as MSCitizen).MDG);
                                     break;

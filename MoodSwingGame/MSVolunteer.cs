@@ -24,7 +24,7 @@ namespace MoodSwingGame
         Node pathBack;
         public MSVolunteer( Model model, Texture2D texture, Effect effect, Vector3 position, Node path1,
             Node path2, MSCitizen t, MSTower o)
-            : base(model, texture, effect, position, path1, MSCitizen.CitizenState.CIVILIAN, MSTypes.GENERAL)
+            : base(model, texture, effect, position, path1, MSCitizen.CitizenState.SUPPRESSED, MSTypes.GENERAL)
         {
             target = t;
             office = o;
@@ -45,7 +45,7 @@ namespace MoodSwingGame
                 Path = pathBack;
                 target.Follow(this);
                 target.changeModel("person", "MTextures/tao");
-                target.state = CitizenState.SUPPRESSED;
+                target.SetState(CitizenState.SUPPRESSED);
             }
             else if (base.IsThere() && targetLocked && target.IsThere() )
             {
