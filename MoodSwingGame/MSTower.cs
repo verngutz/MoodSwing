@@ -47,7 +47,7 @@ namespace MoodSwingGame
                             Game.Content.Load<Texture2D>("MTextures/recruiter"),
                             Game.Content.Load<Effect>("Mood"),
                             Position + new Vector3(0, 0, 20), path1, path2, target as MSCitizen, this);
-                        MSUnitHandler.GetInstance().AddVolunteer(volunteer);
+                        MSUnitHandler.GetInstance().AddUnit(volunteer);
                         MSMoodManager.GetInstance().takeHealth();
                         volunteer.LightSource = map.LightSource;
                         return volunteer;

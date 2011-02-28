@@ -66,7 +66,8 @@ namespace MoodSwingGame
                     if (volunteerGeneration > TotalVolunteers)
                     {
                         TotalVolunteers++;
-                        IdleVolunteers++;
+                        MSUnitHandler.GetInstance().VolunteerRandomCitizen((
+                            MoodSwing.getInstance().CurrentScreen as MSDistrictScreen).Map);
                     }
                     volunteerGenerationCounter = 0;
                 }

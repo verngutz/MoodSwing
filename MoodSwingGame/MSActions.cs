@@ -139,7 +139,7 @@ namespace MoodSwingGame
                         MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/tao"),
                         MoodSwing.getInstance().Content.Load<Effect>("Mood"),
                         center.Position + new Vector3(0,0, 20) , path, MSTypes.EDUCATION, toBuy );
-                    MSUnitHandler.GetInstance().AddWorker(worker);
+                    MSUnitHandler.GetInstance().AddUnit(worker);
                 }
                 screen.RemoveComponent(screen.BuyDialog);
             }
@@ -178,7 +178,7 @@ namespace MoodSwingGame
                         MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/tao"),
                         MoodSwing.getInstance().Content.Load<Effect>("Mood"),
                         center.Position + new Vector3(0, 0, 20), path, MSTypes.EDUCATION, toBuy);
-                MSUnitHandler.GetInstance().AddWorker(worker);
+                MSUnitHandler.GetInstance().AddUnit(worker);
                 MSUnitHandler.GetInstance().IsLeaderBusy = true;
                 screen.RemoveComponent(screen.BuyDialog);
             }
@@ -222,7 +222,7 @@ namespace MoodSwingGame
                             MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/tao"),
                             MoodSwing.getInstance().Content.Load<Effect>("Mood"),
                             center.Position + new Vector3(0, 0, 20), path, MSTypes.EDUCATION, toBuy);
-                    MSUnitHandler.GetInstance().AddWorker(worker);
+                    MSUnitHandler.GetInstance().AddUnit(worker);
                 }
                 screen.RemoveComponent(screen.BuyDialog);
             }

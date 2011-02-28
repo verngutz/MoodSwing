@@ -149,16 +149,34 @@ namespace MoodSwingGame
             return null;
         }
 
-        public void AddVolunteer(MSVolunteer volunteer)
+        public void AddUnit(MSUnit unit)
         {
-            citizens.Add(volunteer);
+            citizens.Add(unit);
         }
 
-        public void AddWorker(MSWorker worker)
+        public void VolunteerRandomCitizen( MSMap map )
         {
-            citizens.Add(worker);
-        }
+            List<MSCitizen> toGet = new List<MSCitizen>();
+            foreach (MSCitizen citizen in citizens)
+            {
+                if (citizen.State == MSCitizen.CitizenState.CIVILIAN)
+                    toGet.Add(citizen);
+            }
 
+            
+            if (toGet.Count == 0) return;
+            else
+            {
+                MSCitizen cit = toGet.ElementAt<MSCitizen>(MSRandom.random.Next(toGet.Count));
+                MSVolunteerCenter center = map.GetNearestVolunteerCenter(cit.TileCoordinate);
+                Node path = map.GetPath(cit.TileCoordinate, center.TileCoordinate);
+                MSVolunteeringCitizen v = new MSVolunteeringCitizen(MoodSwing.getInstance().Content.Load<Model>("person"),
+                        MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/tao"),
+                        MoodSwing.getInstance().Content.Load<Effect>("Mood"), cit.Position, path);
+                citizens.Remove(cit);
+                citizens.Add(v);
+            }
+        }
 
         /// <summary>
         /// Used by the tower to get a citizen within range.

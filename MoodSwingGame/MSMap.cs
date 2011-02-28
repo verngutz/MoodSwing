@@ -88,7 +88,11 @@ namespace MoodSwingGame
             }
             return center;
         }
-        
+
+        public MSVolunteerCenter GetNearestVolunteerCenter(Vector2 coord)
+        {
+            return GetNearestVolunteerCenter(mapArray[(int)coord.X, (int)coord.Y]);
+        }
         /// <summary>
         /// Picking Algo. Looks for the closest object that intersects the mouse ray
         /// </summary>
