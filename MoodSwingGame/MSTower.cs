@@ -31,7 +31,7 @@ namespace MoodSwingGame
         {
             if (capacity > 0)
             {
-                MSCitizen target = MSUnitHandler.GetInstance().GetTarget(Position, stats.GetRange());
+                MSCitizen target = MSUnitHandler.GetInstance().GetTarget(Position, stats.GetRange(), map);
                 if (target != null)
                 {
                     int rndNum = MSRandom.random.Next(100);

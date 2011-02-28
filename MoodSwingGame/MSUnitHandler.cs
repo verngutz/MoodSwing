@@ -165,8 +165,9 @@ namespace MoodSwingGame
         /// </summary>
         /// <param name="position">position of the tower.</param>
         /// <param name="range">range of the tower.</param>
+        /// <param name="map">map where the tower and the citizens are located</param>
         /// <returns>A citizen within range</returns>
-        public MSCitizen GetTarget(Vector3 position, int range)
+        public MSCitizen GetTarget(Vector3 position, int range, MSMap map)
         {
             foreach (MSUnit unit in citizens)
             {
@@ -176,7 +177,8 @@ namespace MoodSwingGame
                     Vector2 position1 = new Vector2(position.X + MSMap.tileDimension / 2,
                                                     position.Y + MSMap.tileDimension / 2);
                     Vector2 position2 = new Vector2(citizen.Position.X, citizen.Position.Y);
-                    if (citizen.state == MSCitizen.CitizenState.MOB &&
+                    if (citizen.state == MSCitizen.CitizenState.MOB && 
+                        map.MapArray[(int)citizen.TileCoordinate.X, (int)citizen.TileCoordinate.Y] is MSRoad &&
                         Vector2.Distance(position1, position2) <= range)
                     {
                         return unit as MSCitizen;
