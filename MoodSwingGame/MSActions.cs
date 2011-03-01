@@ -74,6 +74,16 @@ namespace MoodSwingGame
             moodSwing.CurrentScreen = new MSDistrictScreen(@"Content\mapinfo.txt", moodSwing);
         }
     }
+    
+    public class InitiateGameOverSequence : MSAction
+    {
+        public void PerformAction(Game game)
+        {
+            MSDistrictScreen screen = ((game as MoodSwing).CurrentScreen as MSDistrictScreen);
+            screen.Paused = true;
+            screen.BlackOutPanel.Visible = true;
+        }
+    }
 
     public class OpenInGameMenu : MSAction
     {
@@ -95,13 +105,13 @@ namespace MoodSwingGame
         public void PerformAction(Game game)
         {
             MSDistrictScreen screen = ((game as MoodSwing).CurrentScreen as MSDistrictScreen);
-            screen.Paused = false;
+            screen.Paused = !(MSMoodManager.GetInstance().IsAlive);
             screen.MainMenuButton.Visible = false;
             screen.OptionsButton.Visible = false;
             screen.ExitButton.Visible = false;
             screen.OpenInGameMenu.Visible = true;
             screen.CloseInGameMenu.Visible = false;
-            screen.BlackOutPanel.Visible = false;
+            screen.BlackOutPanel.Visible = !(MSMoodManager.GetInstance().IsAlive);
         }
     }
 

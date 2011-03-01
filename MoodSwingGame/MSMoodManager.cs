@@ -61,6 +61,7 @@ namespace MoodSwingGame
             {
                 mood = 0;
                 isAlive = false;
+                (new InitiateGameOverSequence()).PerformAction(MoodSwing.getInstance());
             }
         }
 
