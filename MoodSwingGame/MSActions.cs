@@ -173,8 +173,8 @@ namespace MoodSwingGame
             {
                 screen.ResourceManager.Funds -= MSResourceManager.VOLUNTEER_CENTER_COST;
                 //screen.ResourceManager.VolunteerCapacity += MSResourceManager.VOLUNTEER_CENTER_GAIN;
-                MS3DTile futureSelf = new MSVolunteerCenter(moodSwing.Content.Load<Model>("districthall"), 
-                    moodSwing.Content.Load<Texture2D>("MTextures/volunteer_center"),
+                MS3DTile futureSelf = new MSVolunteerCenter(moodSwing.Content.Load<Model>("TallBuilding"), 
+                    moodSwing.Content.Load<Texture2D>("MTextures/BuildingVolunteer"),
                     moodSwing.Content.Load<Effect>("Mood"), 
                     toBuy.Position, 
                     toBuy.Row, 
@@ -213,8 +213,8 @@ namespace MoodSwingGame
             {
                 screen.ResourceManager.Funds -= MSResourceManager.FUNDRAISER_MONEY_COST;
                 screen.ResourceManager.IdleVolunteers -= MSResourceManager.FUNDRAISER_VOLUNTEER_COST;
-                MS3DTile futureSelf = new MSFundraiser(moodSwing.Content.Load<Model>("districthall"),
-                    moodSwing.Content.Load<Texture2D>("MTextures/fundraiser"),
+                MS3DTile futureSelf = new MSFundraiser(moodSwing.Content.Load<Model>("TallBuilding"),
+                    moodSwing.Content.Load<Texture2D>("MTextures/BuildingFunds"),
                     moodSwing.Content.Load<Effect>("Mood"),
                     toBuy.Position,
                     toBuy.Row,

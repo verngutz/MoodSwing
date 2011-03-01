@@ -27,38 +27,38 @@ namespace MoodSwingGame
 
             if (stats is MSFoodCenterStats)
             {
-                model = moodSwing.Content.Load<Model>("districthall");
-                texture = moodSwing.Content.Load<Texture2D>("MTextures/building_A");
+                model = moodSwing.Content.Load<Model>("TallBuilding");
+                texture = moodSwing.Content.Load<Texture2D>("MTextures/BuildingSabaw");
                 effect = moodSwing.Content.Load<Effect>("Mood");
             }
             else if (stats is MSTutorialCenterStats)
             {
-                model = moodSwing.Content.Load<Model>("districthall");
-                texture = moodSwing.Content.Load<Texture2D>("MTextures/building_B");
+                model = moodSwing.Content.Load<Model>("TallBuilding");
+                texture = moodSwing.Content.Load<Texture2D>("MTextures/BuildingLapis");
                 effect = moodSwing.Content.Load<Effect>("Mood");
             }
             else if (stats is MSWomensOrgStats)
             {
-                model = moodSwing.Content.Load<Model>("districthall");
-                texture = moodSwing.Content.Load<Texture2D>("MTextures/building_C");
+                model = moodSwing.Content.Load<Model>("TallBuilding");
+                texture = moodSwing.Content.Load<Texture2D>("MTextures/BuildingCross");
                 effect = moodSwing.Content.Load<Effect>("Mood");
             }
             else if (stats is MSHealthCenterStats)
             {
-                model = moodSwing.Content.Load<Model>("districthall");
-                texture = moodSwing.Content.Load<Texture2D>("MTextures/building_D");
+                model = moodSwing.Content.Load<Model>("TallBuilding");
+                texture = moodSwing.Content.Load<Texture2D>("MTextures/BuildingGamot");
                 effect = moodSwing.Content.Load<Effect>("Mood");
             }
             else if (stats is MSEcoParkStats)
             {
-                model = moodSwing.Content.Load<Model>("districthall");
-                texture = moodSwing.Content.Load<Texture2D>("MTextures/building_E");
+                model = moodSwing.Content.Load<Model>("TallBuilding");
+                texture = moodSwing.Content.Load<Texture2D>("MTextures/BuildingDahon");
                 effect = moodSwing.Content.Load<Effect>("Mood");
             }
             else if (stats is MSGlobalCenterStats)
             {
-                model = moodSwing.Content.Load<Model>("districthall");
-                texture = moodSwing.Content.Load<Texture2D>("MTextures/building_B");
+                model = moodSwing.Content.Load<Model>("TallBuilding");
+                texture = moodSwing.Content.Load<Texture2D>("MTextures/BuildingTropa");
                 effect = moodSwing.Content.Load<Effect>("Mood");
             }
             return new MSTower(model,texture, effect,position, (int)tileCoords.X, (int)tileCoords.Y, stats);

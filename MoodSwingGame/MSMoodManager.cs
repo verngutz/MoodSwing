@@ -18,6 +18,8 @@ namespace MoodSwingGame
 {
     public class MSMoodManager
     {
+        private bool immortal; //just for testing.
+
         private static MSMoodManager moodManager = null;
 
         public static MSMoodManager GetInstance()
@@ -52,6 +54,7 @@ namespace MoodSwingGame
         {
             mood = 0.5f;
             isAlive = true;
+            immortal = true;
         }
 
         public void takeDamage()
@@ -60,8 +63,11 @@ namespace MoodSwingGame
             if (mood <= 0)
             {
                 mood = 0;
-                isAlive = false;
-                (new InitiateGameOverSequence()).PerformAction(MoodSwing.getInstance());
+                if (!immortal)
+                {
+                    isAlive = false;
+                    (new InitiateGameOverSequence()).PerformAction(MoodSwing.getInstance());
+                }
             }
         }
 

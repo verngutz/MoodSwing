@@ -128,10 +128,22 @@
       <Processor>ModelProcessor</Processor>
       <ProcessorParameters_Scale>1.6</ProcessorParameters_Scale>
     </Compile>
+    <Compile Include="TallBuilding.fbx">
+      <Name>TallBuilding</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>1.6</ProcessorParameters_Scale>
+    </Compile>
     <None Include="mapinfo.txt">
       <Name>mapinfo</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="ShortBuilding.fbx">
+      <Name>ShortBuilding</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>1.6</ProcessorParameters_Scale>
+    </Compile>
     <Compile Include="TopPanel.spritefont">
       <Name>TopPanel</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -651,6 +663,89 @@
     </Compile>
     <Compile Include="BuyDialog\pointer.png">
       <Name>pointer</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MTextures\BuildingBuntis.png">
+      <Name>BuildingBuntis</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\BuildingCross.png">
+      <Name>BuildingCross</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\BuildingDahon.png">
+      <Name>BuildingDahon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\BuildingFunds.png">
+      <Name>BuildingFunds</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\BuildingGamot.png">
+      <Name>BuildingGamot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\BuildingLapis.png">
+      <Name>BuildingLapis</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\BuildingSabaw.png">
+      <Name>BuildingSabaw</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\BuildingTeddy.png">
+      <Name>BuildingTeddy</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\BuildingTropa.png">
+      <Name>BuildingTropa</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\BuildingVolunteer.png">
+      <Name>BuildingVolunteer</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\BuyBuilding.png">
+      <Name>BuyBuilding</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\NoBuyBuilding.png">
+      <Name>NoBuyBuilding</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BuyBuilding.png">
+      <Name>BuyBuilding</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="NoBuyBuilding.png">
+      <Name>NoBuyBuilding</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MTextures\BuildingHall.png">
+      <Name>BuildingHall</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

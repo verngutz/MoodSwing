@@ -34,7 +34,7 @@ namespace MoodSwingGame
         protected MSMoodManager moodManager;
 
         public Model TileModel { get { return model; } }
-        public MS3DTile(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
+        public MS3DTile(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column, int height)
             : base(position, MoodSwing.getInstance())
         {
             this.model = model;
@@ -48,8 +48,8 @@ namespace MoodSwingGame
             boundingSphere = boundingSphere.Transform(world);
 
 
-            boundingBox = new BoundingBox(Position + new Vector3(-tileDimension / 2, -tileDimension / 2, tileDimension),
-                    Position + new Vector3(tileDimension / 2, tileDimension / 2, -tileDimension));
+            boundingBox = new BoundingBox(Position + new Vector3(-tileDimension / 2, -tileDimension / 2, height/2),
+                    Position + new Vector3(tileDimension / 2, tileDimension / 2, -height/2));
             this.row = row;
             this.column = column;
             
