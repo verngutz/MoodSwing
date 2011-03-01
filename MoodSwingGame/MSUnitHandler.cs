@@ -37,19 +37,19 @@ namespace MoodSwingGame
         private const int INITIAL_BIRTH_RATE = 100;
         private const int MAX_PROBABILITY = 5000;
         //probability constant that handles mob generation
-        private const int MOB_PROBABILITY = 20;
+        private const int MOB_PROBABILITY = 5;
         private const int MOB_RECRUIT_RATE = 3000;
         private const int MOB_RECRUIT_DISTANCE = 5;
 
         //list of citizens
-        private List<MSUnit> citizens;
-        public List<MSUnit> Citizens { get { return citizens; } }
+        private List<MSUnit> units;
+        public List<MSUnit> Units { get { return units; } }
         public bool IsLeaderBusy { get; set; }
         private float birthRate;
 
         private MSUnitHandler() 
         {
-            citizens = new List<MSUnit>();
+            units = new List<MSUnit>();
             IsLeaderBusy = false;
             birthRate = INITIAL_BIRTH_RATE;
         }
@@ -86,63 +86,41 @@ namespace MoodSwingGame
 
                 if (rnd < MOB_PROBABILITY)
                 {
-                    MSTypes mobmdg = MSTypes.GENERAL;
-                    String mobtexture = "MTextures/tao";
+                    MSMilleniumDevelopmentGoal mobmdg;
                     if (rnd > MOB_PROBABILITY * 7 / 8)
-                    {
-                        mobmdg = MSTypes.POVERTY;
-                        mobtexture = "MTextures/mob_A";
-                    }
+                        mobmdg = MSMilleniumDevelopmentGoal.POVERTY;
+
                     else if (rnd > MOB_PROBABILITY * 6 / 8)
-                    {
-                        mobmdg = MSTypes.EDUCATION;
-                        mobtexture = "MTextures/mob_B";
-                    }
+                        mobmdg = MSMilleniumDevelopmentGoal.EDUCATION;
+
                     else if (rnd > MOB_PROBABILITY * 5 / 8)
-                    {
-                        mobmdg = MSTypes.GENDER_EQUALITY;
-                        mobtexture = "MTextures/mob_C";
-                    }
+                        mobmdg = MSMilleniumDevelopmentGoal.GENDER_EQUALITY;
+
                     else if (rnd > MOB_PROBABILITY * 4 / 8)
-                    {
-                        mobmdg = MSTypes.CHILD_HEALTH;
-                        mobtexture = "MTextures/mob_D";
-                    }
+                        mobmdg = MSMilleniumDevelopmentGoal.CHILD_HEALTH;
+
                     else if (rnd > MOB_PROBABILITY * 3 / 8)
-                    {
-                        mobmdg = MSTypes.MATERNAL_HEALTH;
-                        mobtexture = "MTextures/mob_E";
-                    }
+                        mobmdg = MSMilleniumDevelopmentGoal.MATERNAL_HEALTH;
+
                     else if (rnd > MOB_PROBABILITY * 2 / 8)
-                    {
-                        mobmdg = MSTypes.HIV_AIDS;
-                        mobtexture = "MTextures/mob_F";
-                    }
+                        mobmdg = MSMilleniumDevelopmentGoal.HIV_AIDS;
+
                     else if (rnd > MOB_PROBABILITY * 1 / 8)
-                    {
-                        mobmdg = MSTypes.ENVIRONMENT;
-                        mobtexture = "MTextures/mob_G";
-                    }
+                        mobmdg = MSMilleniumDevelopmentGoal.ENVIRONMENT;
+
                     else
-                    {
-                        mobmdg = MSTypes.GLOBAL_PARTNERSHIP;
-                        mobtexture = "MTextures/mob_H";
-                    }
-                    person = new MSCitizen(MoodSwing.getInstance().Content.Load<Model>("mob"),
-                        MoodSwing.getInstance().Content.Load<Texture2D>(mobtexture),
-                        MoodSwing.getInstance().Content.Load<Effect>("Mood"),
-                        (map.MapArray[(int)start.X, (int)start.Y] as MS3DComponent).Position + new Vector3(0, 0, 20),
-                        map.GetPath(start, MSDistrictHall.getInstance().TileCoordinate),
-                        MSCitizen.CitizenState.MOB, mobmdg);
+                        mobmdg = MSMilleniumDevelopmentGoal.GLOBAL_PARTNERSHIP;
+
+                    person = new MSMobber(
+                        map.MapArray[(int)start.X, (int)start.Y].Position + new Vector3(0, 0, 20),
+                        map.GetPath(start, MSDistrictHall.getInstance().TileCoordinate), map, mobmdg);
                 }
                 else
-                    person = new MSCitizen(MoodSwing.getInstance().Content.Load<Model>("person"),
-                        MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/tao"),
-                        MoodSwing.getInstance().Content.Load<Effect>("Mood"),
-                        (map.MapArray[(int)start.X, (int)start.Y] as MS3DComponent).Position + new Vector3(0, 0, 20),
-                        path, MSCitizen.CitizenState.CIVILIAN, MSTypes.GENERAL);
+                    person = new MSCitizen(
+                        map.MapArray[(int)start.X, (int)start.Y].Position + new Vector3(0, 0, 20),
+                        path, map, true);
 
-                citizens.Add(person);
+                units.Add(person);
                 return person;
             }
 
@@ -151,12 +129,12 @@ namespace MoodSwingGame
 
         public void AddVolunteer(MSVolunteer volunteer)
         {
-            citizens.Add(volunteer);
+            units.Add(volunteer);
         }
 
         public void AddWorker(MSWorker worker)
         {
-            citizens.Add(worker);
+            units.Add(worker);
         }
 
 
@@ -166,71 +144,61 @@ namespace MoodSwingGame
         /// <param name="position">position of the tower.</param>
         /// <param name="range">range of the tower.</param>
         /// <returns>A citizen within range</returns>
-        public MSCitizen GetTarget(Vector3 position, int range)
+        public int? GetTarget(Vector3 position, int range)
         {
-            foreach (MSUnit unit in citizens)
+            for (int i = 0; i < units.Count; i++)
             {
-                if (unit is MSCitizen)
+                Vector2 position1 = new Vector2(position.X + MSMap.tileDimension / 2,
+                                                position.Y + MSMap.tileDimension / 2);
+                Vector2 position2 = new Vector2(units[i].Position.X, units[i].Position.Y);
+                if (units[i] is MSMobber && Vector2.Distance(position1, position2) <= range)
                 {
-                    MSCitizen citizen = unit as MSCitizen;
-                    Vector2 position1 = new Vector2(position.X + MSMap.tileDimension / 2,
-                                                    position.Y + MSMap.tileDimension / 2);
-                    Vector2 position2 = new Vector2(citizen.Position.X, citizen.Position.Y);
-                    if (citizen.state == MSCitizen.CitizenState.MOB &&
-                        Vector2.Distance(position1, position2) <= range)
-                    {
-                        return unit as MSCitizen;
-                    }
+                    return i;
                 }
+
             }
             return null;
         }
 
-        public List<MSCitizen> Update(MSMap map)
+        public void Update(MSMap map)
         {
-            List<MSCitizen> list = new List<MSCitizen>();
+            List<MSUnit> toRemove = new List<MSUnit>();
 
-            foreach (MSUnit person in citizens)
+            foreach (MSUnit unit in units)
             {
-                if (person is MSCitizen)
-                {
-                    MSCitizen citizen = person as MSCitizen;
-                    int rnd = MSRandom.random.Next(MAX_PROBABILITY);
+                if (!unit.DestinationReached)
+                    unit.Walk(map.MapArray);
 
-                    if (rnd <= MOB_RECRUIT_RATE && citizen.state == MSCitizen.CitizenState.CIVILIAN && 
-                        !(citizen is MSVolunteer))
+                else
+                    toRemove.Add(unit);
+            }
+
+            foreach (MSUnit person in toRemove)
+            {
+                units.Remove(person);
+                person.Dispose();
+            }
+
+            for (int i = 0; i < units.Count; i++ )
+            {
+                int rnd = MSRandom.random.Next(MAX_PROBABILITY);
+
+                if (rnd <= MOB_RECRUIT_RATE && units[i] is MSCitizen && units[i].IsMobbable)
+                {
+                    foreach (MSUnit p in units)
                     {
-                        foreach (MSUnit p in citizens)
+                        if (p is MSMobber)
                         {
-                            if (p is MSCitizen && !(p is MSVolunteer) && (p as MSCitizen).state == MSCitizen.CitizenState.MOB)
+                            if (Vector3.Distance(units[i].Position, p.Position) <= MOB_RECRUIT_DISTANCE)
                             {
-                                if (Vector3.Distance(citizen.Position, (p as MSCitizen).Position) <= MOB_RECRUIT_DISTANCE)
-                                {
-                                    citizen.Follow(p as MSCitizen);
-                                    citizen.state = MSCitizen.CitizenState.MOB;
-                                    citizen.MDG = (p as MSCitizen).MDG;
-                                    citizen.changeModel("mob", (p as MSCitizen).MDG);
-                                    break;
-                                }
+                                units[i] = new MSMobber(units[i].Position, p.Path, map, (p as MSMobber).Concern);
+                                units[i].Follow(p);
+                                break;
                             }
                         }
                     }
                 }
             }
-            foreach (MSUnit person in citizens)
-            {
-                if( !person.IsThere() )
-                    person.Walk(map.MapArray);
-                else
-                    list.Add(person as MSCitizen);
-            }
-
-            foreach (MSCitizen person in list)
-            {
-                citizens.Remove(person);
-                person.Dispose();
-            }
-            return list;
         }
     }
 }

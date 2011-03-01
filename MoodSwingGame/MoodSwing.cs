@@ -25,7 +25,7 @@ namespace MoodSwingGame
         private GraphicsDeviceManager graphics;
 
         private static MoodSwing MSInstance;
-        public static MoodSwing getInstance() 
+        public static MoodSwing GetInstance() 
         {
             if (MSInstance == null)
                 MSInstance = new MoodSwing();
@@ -51,7 +51,7 @@ namespace MoodSwingGame
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             
             //graphics.PreferMultiSampling = true;
 
@@ -59,9 +59,10 @@ namespace MoodSwingGame
 
             IsMouseVisible = true;
 
-            MediaPlayer.Volume = 0.8f;
+            MediaPlayer.Volume = 0.85f;
             bgm = new Queue<Song>();
             bgm.Enqueue(Content.Load<Song>("MoodSwing"));
+            bgm.Enqueue(Content.Load<Song>("7thFloor"));
         }
 
         /// <summary>

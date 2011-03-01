@@ -20,37 +20,67 @@ namespace MoodSwingGame
         private MSTowerStats stats;
         private int capacity;
 
-        public MSTower( Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column, MSTowerStats stats)
+        public MSTower(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column, MSTowerStats stats)
             : base(model, texture, effect, position, row, column)
         {
             this.stats = stats;
             capacity = stats.GetCapacity();
         }
 
-        public MSVolunteer sentinel( MSMap map )
+        public MSVolunteer sentinel(MSMap map, MSUnitHandler unitHandler)
         {
             if (capacity > 0)
             {
-                MSCitizen target = MSUnitHandler.GetInstance().GetTarget(Position, stats.GetRange());
-                if (target != null)
+                for (int i = 0; i < unitHandler.Units.Count; i++)
                 {
-                    int rndNum = MSRandom.random.Next(100);
-                    if (stats.GetEffectiveness(target.MDG) > rndNum)
+                    Vector2 position1 = new Vector2
+                    (
+                        position.X + MSMap.tileDimension / 2,
+                        position.Y + MSMap.tileDimension / 2
+                    );
+
+                    Vector2 position2 = new Vector2
+                    (
+                        unitHandler.Units[i].Position.X, 
+                        unitHandler.Units[i].Position.Y
+                    );
+
+                    if (unitHandler.Units[i] is MSMobber && Vector2.Distance(position1, position2) <= stats.GetRange())
                     {
-                        capacity--;
-                        target.state = MSCitizen.CitizenState.WAITING;
+                        MSMilleniumDevelopmentGoal goal = (unitHandler.Units[i] as MSMobber).Concern;
+                        int rndNum = MSRandom.random.Next(100);
+                        if (stats.GetEffectiveness(goal) > rndNum)
+                        {
+                            capacity--;
 
-                        Node path1 = map.GetPath(new Vector2(Row, Column), target.TileCoordinate);
-                        Node path2 = map.GetPath(target.TileCoordinate, new Vector2(Row, Column)).next;
+                            unitHandler.Units[i] = new MSCitizen
+                            (
+                                unitHandler.Units[i].Position, 
+                                unitHandler.Units[i].Path, 
+                                unitHandler.Units[i].Map, 
+                                false
+                            );
 
-                        MSVolunteer volunteer = new MSVolunteer(Game.Content.Load<Model>("person"),
-                            Game.Content.Load<Texture2D>("MTextures/recruiter"),
-                            Game.Content.Load<Effect>("Mood"),
-                            Position + new Vector3(0, 0, 20), path1, path2, target as MSCitizen, this);
-                        MSUnitHandler.GetInstance().AddVolunteer(volunteer);
-                        MSMoodManager.GetInstance().takeHealth();
-                        volunteer.LightSource = map.LightSource;
-                        return volunteer;
+                            unitHandler.Units[i].IsStopped = true;
+
+                            Node path1 = map.GetPath(new Vector2(Row, Column), unitHandler.Units[i].TileCoordinate);
+                            Node path2 = map.GetPath(unitHandler.Units[i].TileCoordinate, new Vector2(Row, Column)).next;
+
+                            MSVolunteer volunteer = new MSVolunteer
+                            (
+                                Position + new Vector3(0, 0, 20), 
+                                path1, 
+                                path2, 
+                                unitHandler.Units[i], 
+                                this, 
+                                map
+                            );
+
+                            MSUnitHandler.GetInstance().AddVolunteer(volunteer);
+                            MSMoodManager.GetInstance().TakeHealth();
+                            MSMoodManager.GetInstance().AddMDGScore(goal);
+                            return volunteer;
+                        }
                     }
                 }
             }
@@ -77,25 +107,25 @@ namespace MoodSwingGame
         public abstract int GetCapacity();
         public abstract int GetRange();
 
-        public int GetEffectiveness(MSTypes type)
+        public int GetEffectiveness(MSMilleniumDevelopmentGoal type)
         {
             switch (type)
             {
-                case MSTypes.POVERTY:
+                case MSMilleniumDevelopmentGoal.POVERTY:
                     return povertyEffectiveness;
-                case MSTypes.EDUCATION:
+                case MSMilleniumDevelopmentGoal.EDUCATION:
                     return educationEffectiveness;
-                case MSTypes.GENDER_EQUALITY:
+                case MSMilleniumDevelopmentGoal.GENDER_EQUALITY:
                     return genderEqualityEffectiveness;
-                case MSTypes.CHILD_HEALTH:
+                case MSMilleniumDevelopmentGoal.CHILD_HEALTH:
                     return childHealthEffectiveness;
-                case MSTypes.MATERNAL_HEALTH:
+                case MSMilleniumDevelopmentGoal.MATERNAL_HEALTH:
                     return maternalHealthEffectiveness;
-                case MSTypes.HIV_AIDS:
+                case MSMilleniumDevelopmentGoal.HIV_AIDS:
                     return hivAidsEffectiveness;
-                case MSTypes.ENVIRONMENT:
+                case MSMilleniumDevelopmentGoal.ENVIRONMENT:
                     return environmentEffectiveness;
-                case MSTypes.GLOBAL_PARTNERSHIP:
+                case MSMilleniumDevelopmentGoal.GLOBAL_PARTNERSHIP:
                     return globalEffectiveness;
             }
             throw new ArgumentException();

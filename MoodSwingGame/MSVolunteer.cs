@@ -15,44 +15,54 @@ using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
-    public class MSVolunteer : MSCitizen
+    public class MSVolunteer : MSUnit
     {
+        protected override Model Model
+        {
+            get { return Game.Content.Load<Model>("person"); }
+        }
 
-        private MSCitizen target;
+        protected override Effect Effect
+        {
+            get { return Game.Content.Load<Effect>("Mood"); }
+        }
+
+        protected override Texture Texture
+        {
+            get { return Game.Content.Load<Texture2D>("MTextures/tao"); }
+        }
+
+        protected override float Speed { get { return 0.5f; } }
+
+        private MSUnit target;
         private MSTower office;
-        private bool targetLocked;
-        Node pathBack;
-        public MSVolunteer( Model model, Texture2D texture, Effect effect, Vector3 position, Node path1,
-            Node path2, MSCitizen t, MSTower o)
-            : base(model, texture, effect, position, path1, MSCitizen.CitizenState.CIVILIAN, MSTypes.GENERAL)
+        private bool isGoingToMobber;
+        private Node pathToOffice;
+
+        public MSVolunteer(Vector3 position, Node path_to_mobber, Node path_to_office, MSUnit target, MSTower office, MSMap map)
+            : base(position, path_to_mobber, map, false)
         {
-            target = t;
-            office = o;
-            targetLocked = false;
-            pathBack = path2;
+            this.target = target;
+            this.office = office;
+            this.isGoingToMobber = true;
+            this.pathToOffice = path_to_office;
         }
 
-        public override void Walk(MS3DTile[,] mapArray)
+        public override void Walk(MS3DTile[,] map_array)
         {
-            base.Walk(mapArray);
-        }
+ 	        base.Walk(map_array);
 
-        public override bool IsThere()
-        {
-            if (base.IsThere() && !targetLocked)
+            if (DestinationReached && isGoingToMobber)
             {
-                targetLocked = true;
-                Path = pathBack;
+                isGoingToMobber = false;
+                Path = pathToOffice;
+                target.IsStopped = false;
                 target.Follow(this);
-                target.changeModel("person", "MTextures/tao");
-                target.state = CitizenState.SUPPRESSED;
             }
-            else if (base.IsThere() && targetLocked && target.IsThere() )
+            else if (DestinationReached && !isGoingToMobber)
             {
                 office.VolunteerReturned();
-                return true;
             }
-            return false;
         }
     }
 }

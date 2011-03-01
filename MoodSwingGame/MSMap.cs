@@ -22,7 +22,7 @@ namespace MoodSwingGame
     {
         private MS3DTile[,] mapArray;
         public MS3DTile[,] MapArray { get { return mapArray; } }
-        public static int tileDimension = 31;
+        public const int tileDimension = 31;
 
         public Vector3 LightSource { set; get; }
 
@@ -34,7 +34,7 @@ namespace MoodSwingGame
         public int InitialVolunteerCenters { get { return (initialVolunteerCenters); } }
 
         public Vector2 Dimension { get { return (new Vector2(rows, columns) * tileDimension); } }
-        public MSMap(String filename) : base( MoodSwing.getInstance() )
+        public MSMap(String filename) : base( MoodSwing.GetInstance() )
         {
             StreamReader sr = new StreamReader(filename);
             string[] line = sr.ReadLine().Split(' ');
@@ -102,7 +102,7 @@ namespace MoodSwingGame
                 if (!(t is MSRoad))
                 {
                     float? dist = Intersects(t.BoundingBox, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), MSCamera.GetInstance().GetView(),
-                    t.ProjectionMatrix, MoodSwing.getInstance().GraphicsDevice.Viewport);
+                    t.ProjectionMatrix, MoodSwing.GetInstance().GraphicsDevice.Viewport);
 
                     if (dist != null)
                     {

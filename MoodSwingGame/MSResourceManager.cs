@@ -41,7 +41,7 @@ namespace MoodSwingGame
         public int TotalVolunteers { get; set; }
         public int IdleVolunteers { get; set; }
 
-        private MSResourceManager() : base(MoodSwing.getInstance()) 
+        private MSResourceManager() : base(MoodSwing.GetInstance()) 
         {
             
         }

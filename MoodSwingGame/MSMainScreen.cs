@@ -16,7 +16,7 @@ namespace MoodSwingGame
         public static MSMainScreen getInstance()
         {
             if (mainScreen == null)
-                mainScreen = new MSMainScreen(MoodSwing.getInstance());
+                mainScreen = new MSMainScreen(MoodSwing.GetInstance());
             return mainScreen;
         }
 

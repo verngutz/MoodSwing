@@ -16,7 +16,7 @@ namespace MoodSwingGame
         public static MSOptionsScreen getInstance()
         {
             if (optionsScreen == null)
-                optionsScreen = new MSOptionsScreen(MoodSwing.getInstance());
+                optionsScreen = new MSOptionsScreen(MoodSwing.GetInstance());
             return optionsScreen;
         }
 

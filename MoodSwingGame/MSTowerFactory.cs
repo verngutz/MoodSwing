@@ -20,7 +20,7 @@ namespace MoodSwingGame
     {
         public static MSTower CreateMSTower( MSTowerStats stats, Vector3 position, Vector2 tileCoords )
         {
-            MoodSwing moodSwing = MoodSwing.getInstance();
+            MoodSwing moodSwing = MoodSwing.GetInstance();
             Model model = null;
             Texture2D texture = null;
             Effect effect = null;

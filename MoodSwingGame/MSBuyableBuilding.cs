@@ -46,7 +46,7 @@ namespace MoodSwingGame
         public void AddWorkers()
         {
             expectedWorkers--;
-            if (expectedWorkers == 0) StartBuilding(MoodSwing.getInstance().prevGameTime);
+            if (expectedWorkers == 0) StartBuilding(MoodSwing.GetInstance().prevGameTime);
         }
         private MSProgressBar progressBar;
         private double buildTime;
@@ -59,12 +59,12 @@ namespace MoodSwingGame
         {
             buildTime = 5;
             timeCount = 0;
-            Texture2D borderTexture = MoodSwing.getInstance().Content.Load<Texture2D>("BorderTexture");
-            Texture2D loadingTexture = MoodSwing.getInstance().Content.Load<Texture2D>("LoadingTexture");
+            Texture2D borderTexture = MoodSwing.GetInstance().Content.Load<Texture2D>("BorderTexture");
+            Texture2D loadingTexture = MoodSwing.GetInstance().Content.Load<Texture2D>("LoadingTexture");
 
             progressBar = new MSProgressBar(new Vector2(Position.X, Position.Y), new Vector2(50, 10), 
-                MoodSwing.getInstance().SpriteBatch,
-                MoodSwing.getInstance(), 
+                MoodSwing.GetInstance().SpriteBatch,
+                MoodSwing.GetInstance(), 
                 borderTexture, loadingTexture);
 
             State = BuyableBuildingState.BUYABLE;
@@ -90,7 +90,7 @@ namespace MoodSwingGame
         {
             if (State == BuyableBuildingState.TRANSFORMING || State == BuyableBuildingState.WAITING)
             {
-                Vector3 v = MoodSwing.getInstance().GraphicsDevice.Viewport.Project(Position + new Vector3(0, 0, 20),
+                Vector3 v = MoodSwing.GetInstance().GraphicsDevice.Viewport.Project(Position + new Vector3(0, 0, 20),
                     ProjectionMatrix, MSCamera.GetInstance().GetView(),
                     Matrix.Identity);
                 progressBar.Progress = timeCount / buildTime;

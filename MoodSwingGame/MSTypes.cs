@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MoodSwingGame
 {
-    public enum MSTypes
+    public enum MSMilleniumDevelopmentGoal
     {
         GENERAL,
         POVERTY,

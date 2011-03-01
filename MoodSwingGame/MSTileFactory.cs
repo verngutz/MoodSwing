@@ -34,7 +34,7 @@ namespace MoodSwingGame
              * 41   -   crossroads
              */
 
-            ContentManager c = MoodSwing.getInstance().Content;
+            ContentManager c = MoodSwing.GetInstance().Content;
             switch (tileKey - ((tileKey / 10) * 10))
             {
                 case 0:

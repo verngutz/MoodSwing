@@ -120,7 +120,7 @@ using MoodSwingCoreComponents;
                 // in the application
                 basicEffect.EnableDefaultLighting();
                 basicEffect.View = MSCamera.GetInstance().GetView();
-                basicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), MoodSwing.getInstance().GraphicsDevice.Viewport.AspectRatio, 5, 5000);
+                basicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), MoodSwing.GetInstance().GraphicsDevice.Viewport.AspectRatio, 5, 5000);
 
                 basicEffect.Begin();
                 foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)

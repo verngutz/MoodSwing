@@ -15,31 +15,46 @@ using MoodSwingCoreComponents;
 using MoodSwingGUI;
 namespace MoodSwingGame
 {
-    public class MSWorker : MSCitizen
+    public class MSWorker : MSUnit
     {
-        MSBuyableBuilding target;
-        public MSWorker(Model model, Texture2D texture, Effect effect, Vector3 position, Node path, 
-            CitizenState s, MSTypes mst, MSBuyableBuilding bldg )
-            : base(model, texture, effect, position, path, s, mst)
+        protected override Model Model
         {
-            target = bldg;
+            get { return Game.Content.Load<Model>("person"); }
+        }
+
+        protected override Effect Effect
+        {
+            get { return Game.Content.Load<Effect>("Mood"); }
+        }
+
+        protected override Texture Texture
+        {
+            get { return Game.Content.Load<Texture2D>("MTextures/tao"); }
+        }
+
+        protected override float Speed
+        {
+            get { return 0.5f; }
+        }
+
+        private MSBuyableBuilding toBuild;
+
+        public MSWorker(Vector3 position, Node path, MSBuyableBuilding to_build, MSMap map)
+            : base(position, path, map, false)
+        {
+            toBuild = to_build;
         }
 
         public override void Walk(MS3DTile[,] mapArray)
         {
             base.Walk(mapArray);
-        }
 
-        public override bool IsThere()
-        {
-            if (base.IsThere())
+            if (DestinationReached)
             {
-                target.AddWorkers();
-                if (target.FutureSelf is MSVolunteerCenter)
+                toBuild.AddWorkers();
+                if (toBuild.FutureSelf is MSVolunteerCenter)
                     MSUnitHandler.GetInstance().IsLeaderBusy = false;
-                return true;
             }
-            return false;
         }
     }
 }

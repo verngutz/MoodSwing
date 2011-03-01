@@ -22,7 +22,7 @@ namespace MoodSwingGame
         public static MSCityScreen getInstance()
         {
             if (cityScreen == null)
-                cityScreen = new MSCityScreen(MoodSwing.getInstance());
+                cityScreen = new MSCityScreen(MoodSwing.GetInstance());
             return cityScreen;
         }
 

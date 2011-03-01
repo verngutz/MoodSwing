@@ -18,45 +18,98 @@ namespace MoodSwingGame
 {
     public class MSMoodManager
     {
-        private static MSMoodManager moodManager = null;
+        private const int GOAL_POVERTY_SCORE = 50;
+        private const int GOAL_EDUCATION_SCORE = 50;
+        private const int GOAL_GENDER_EQUALITY_SCORE = 50;
+        private const int GOAL_CHILD_HEALTH_SCORE = 50;
+        private const int GOAL_MATERNAL_HEALTH_SCORE = 50;
+        private const int GOAL_HIV_AIDS_SCORE = 50;
+        private const int GOAL_ENVIRONMENT_SCORE = 50;
+        private const int GOAL_GLOBAL_PARTNERSHIP_SCORE = 50;
 
-        public static MSMoodManager GetInstance()
-        {
-            if (moodManager == null)
-                moodManager = new MSMoodManager();
-            return moodManager;
-        }
-
-        private float poverty;
-
-        private float education;
-
-        private float genderEquality;
-
-        private float childHealth;
-
-        private float maternalHealth;
-
-        private float hivAids;
-
-        private float environment;
-
-        private float globalPartnership;
+        private const float INITIAL_MOOD = 0.5f;
+        private const float MOOD_DAMAGE = 0.05f;
+        private const float MOOD_HEAL = 0.01f;
+        private const float MOOD_BONUS = 0.05f;
 
         private float mood;
         public float Mood { get { return mood; } }
         private bool isAlive;
         public bool IsAlive { get { return isAlive; } }
 
-        private MSMoodManager()
+        private bool povertyBonusEnabled;
+        private int povertyScore;
+        public int PovertyScore { get { return povertyScore; } }
+
+        private bool educationBonusEnabled;
+        private int educationScore;
+        public int EducationScore { get { return educationScore; } }
+
+        private bool genderEqualityBonusEnabled;
+        private int genderEqualityScore;
+        public int GenderEqualityScore { get { return genderEqualityScore; } }
+
+        private bool childHleathBonusEnabled;
+        private int childHealthScore;
+        public int ChildHealthScore { get { return childHealthScore; } }
+
+        private bool maternalHealthBonusEnabled;
+        private int maternalHealthScore;
+        public int MaternalHealthScore { get { return maternalHealthScore; } }
+
+        private bool hivAidsBonusEnabled;
+        private int hivAidsScore;
+        public int HivAidsScore { get { return hivAidsScore; } }
+
+        private bool environmentBonusEnabled;
+        private int environmentScore;
+        public int EnvironmentScore { get { return environmentScore; } }
+
+        private bool globalPartnershipBonusEnabled;
+        private int globalPartnershipScore;
+        public int GlobalPartnershipScore { get { return globalPartnershipScore; } }
+
+        private static MSMoodManager moodManager = null;
+
+        public static MSMoodManager GetInstance()
         {
-            mood = 0.5f;
-            isAlive = true;
+            if (moodManager == null)
+                Reset();
+            return moodManager;
         }
 
-        public void takeDamage()
+        public static void Reset()
         {
-            mood -= 0.05f;
+            moodManager = new MSMoodManager();
+        }
+
+        private MSMoodManager()
+        {
+            mood = INITIAL_MOOD;
+            isAlive = true;
+
+            povertyScore = 0;
+            educationScore = 0;
+            genderEqualityScore = 0;
+            childHealthScore = 0;
+            maternalHealthScore = 0;
+            hivAidsScore = 0;
+            environmentScore = 0;
+            globalPartnershipScore = 0;
+
+            povertyBonusEnabled = true;
+            educationBonusEnabled = true;
+            genderEqualityBonusEnabled = true;
+            childHleathBonusEnabled = true;
+            maternalHealthBonusEnabled = true;
+            hivAidsBonusEnabled = true;
+            environmentBonusEnabled = true;
+            globalPartnershipBonusEnabled = true;
+        }
+
+        public void TakeDamage()
+        {
+            mood -= MOOD_DAMAGE;
             if (mood <= 0)
             {
                 mood = 0;
@@ -64,19 +117,58 @@ namespace MoodSwingGame
             }
         }
 
-        public void takeHealth()
+        public void TakeHealth()
         {
-            mood += 0.01f;
+            mood += MOOD_HEAL;
             if (mood > 1)
                 mood = 1;
 
             isAlive = true;
         }
 
-        public void Reset()
+        private void AddScore(ref int score_variable, ref bool score_enabled, int goal_amount)
         {
-            mood = 0.5f;
-            isAlive = true;
+            if (score_enabled)
+            {
+                score_variable++;
+                if (score_variable > goal_amount)
+                {
+                    score_variable = goal_amount;
+                    mood += MOOD_BONUS;
+                    score_enabled = false;
+                }
+            }
+        }
+
+        public void AddMDGScore(MSMilleniumDevelopmentGoal mdg)
+        {
+            switch (mdg)
+            {
+                case MSMilleniumDevelopmentGoal.POVERTY:
+                    AddScore(ref povertyScore, ref povertyBonusEnabled, GOAL_POVERTY_SCORE);
+                    break;
+                case MSMilleniumDevelopmentGoal.EDUCATION:
+                    AddScore(ref educationScore, ref educationBonusEnabled, GOAL_EDUCATION_SCORE);
+                    break;
+                case MSMilleniumDevelopmentGoal.GENDER_EQUALITY:
+                    AddScore(ref genderEqualityScore, ref genderEqualityBonusEnabled, GOAL_GENDER_EQUALITY_SCORE);
+                    break;
+                case MSMilleniumDevelopmentGoal.CHILD_HEALTH:
+                    AddScore(ref childHealthScore, ref childHleathBonusEnabled, GOAL_CHILD_HEALTH_SCORE);
+                    break;
+                case MSMilleniumDevelopmentGoal.MATERNAL_HEALTH:
+                    AddScore(ref maternalHealthScore, ref maternalHealthBonusEnabled, GOAL_MATERNAL_HEALTH_SCORE);
+                    break;
+                case MSMilleniumDevelopmentGoal.HIV_AIDS:
+                    AddScore(ref hivAidsScore, ref hivAidsBonusEnabled, GOAL_HIV_AIDS_SCORE);
+                    break;
+                case MSMilleniumDevelopmentGoal.ENVIRONMENT:
+                    AddScore(ref environmentScore, ref environmentBonusEnabled, GOAL_ENVIRONMENT_SCORE);
+                    break;
+                case MSMilleniumDevelopmentGoal.GLOBAL_PARTNERSHIP:
+                    AddScore(ref globalPartnershipScore, ref globalPartnershipBonusEnabled, GOAL_GLOBAL_PARTNERSHIP_SCORE);
+                    break;
+            }
         }
     }
 }

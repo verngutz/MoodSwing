@@ -21,7 +21,7 @@ namespace MoodSwingGame
         public static MSIntroScreen getInstance()
         {
             if (singleton == null)
-                singleton = new MSIntroScreen(MoodSwing.getInstance());
+                singleton = new MSIntroScreen(MoodSwing.GetInstance());
             return singleton;
         }
 

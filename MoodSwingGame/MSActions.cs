@@ -30,7 +30,7 @@ namespace MoodSwingGame
             MoodSwing moodSwing = (MoodSwing)game;
             moodSwing.CurrentScreen.ResetHovers();
             moodSwing.CurrentScreen = MSMainScreen.getInstance();
-            MSMoodManager.GetInstance().Reset();
+            MSMoodManager.Reset();
         }
     }
 
@@ -133,12 +133,9 @@ namespace MoodSwingGame
                 Node path = screen.Map.GetPath(center.TileCoordinate, toBuy.TileCoordinate);
                 toBuy.StartBuildProcess(toBuildStats.GetCapacity(), futureSelf);
 
-                for (int i = 0; i < MSFoodCenterStats.GetInstance().GetCapacity(); i++)
+                for (int i = 0; i < toBuildStats.GetCapacity(); i++)
                 {
-                    MSWorker worker = new MSWorker(MoodSwing.getInstance().Content.Load<Model>("person"),
-                        MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/tao"),
-                        MoodSwing.getInstance().Content.Load<Effect>("Mood"),
-                        center.Position + new Vector3(0,0, 20) , path, MSCitizen.CitizenState.SUPPRESSED, MSTypes.EDUCATION, toBuy );
+                    MSWorker worker = new MSWorker(center.Position + new Vector3(0,0, 20) , path, toBuy, screen.Map);
                     MSUnitHandler.GetInstance().AddWorker(worker);
                 }
                 screen.RemoveComponent(screen.BuyDialog);
@@ -174,10 +171,7 @@ namespace MoodSwingGame
                 Node path = screen.Map.GetPath(center.TileCoordinate, toBuy.TileCoordinate);
                 toBuy.StartBuildProcess(1, futureSelf);
 
-                MSWorker worker = new MSWorker(MoodSwing.getInstance().Content.Load<Model>("person"),
-                        MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/tao"),
-                        MoodSwing.getInstance().Content.Load<Effect>("Mood"),
-                        center.Position + new Vector3(0, 0, 20), path, MSCitizen.CitizenState.SUPPRESSED, MSTypes.EDUCATION, toBuy);
+                MSWorker worker = new MSWorker(center.Position + new Vector3(0, 0, 20), path, toBuy, screen.Map);
                 MSUnitHandler.GetInstance().AddWorker(worker);
                 MSUnitHandler.GetInstance().IsLeaderBusy = true;
                 screen.RemoveComponent(screen.BuyDialog);
@@ -218,10 +212,7 @@ namespace MoodSwingGame
 
                 for (int i = 0; i < MSResourceManager.FUNDRAISER_VOLUNTEER_COST; i++)
                 {
-                    MSWorker worker = new MSWorker(MoodSwing.getInstance().Content.Load<Model>("person"),
-                            MoodSwing.getInstance().Content.Load<Texture2D>("MTextures/tao"),
-                            MoodSwing.getInstance().Content.Load<Effect>("Mood"),
-                            center.Position + new Vector3(0, 0, 20), path, MSCitizen.CitizenState.SUPPRESSED, MSTypes.EDUCATION, toBuy);
+                    MSWorker worker = new MSWorker(center.Position + new Vector3(0, 0, 20), path, toBuy, screen.Map);
                     MSUnitHandler.GetInstance().AddWorker(worker);
                 }
                 screen.RemoveComponent(screen.BuyDialog);
