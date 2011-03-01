@@ -321,7 +321,7 @@ namespace MoodSwingGame
             if (tile is MSBuyableBuilding && 
                 (tile as MSBuyableBuilding).State == MSBuyableBuilding.BuyableBuildingState.BUYABLE)
             {
-                BuyDialog = new MSBuyDialog(Game.Content.Load<Texture2D>("CityView"), new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 190, 190), tile as MSBuyableBuilding, Shape.RECTANGULAR, spriteBatch, Game);
+                BuyDialog = new MSBuyDialog(null, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 348, 348), 78, 78, 62, 62, tile as MSBuyableBuilding, Shape.RECTANGULAR, spriteBatch, Game);
                 AddComponent(BuyDialog);
             }
         }
