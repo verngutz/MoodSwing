@@ -127,37 +127,28 @@ namespace MoodSwingGame
             return null;
         }
 
-        public void AddVolunteer(MSVolunteer volunteer)
+        public void AddUnit(MSUnit unit)
         {
-            units.Add(volunteer);
+            units.Add(unit);
         }
 
-        public void AddWorker(MSWorker worker)
+        public void VolunteerRandomCitizen( MSMap map )
         {
-            units.Add(worker);
-        }
-
-
-        /// <summary>
-        /// Used by the tower to get a citizen within range.
-        /// </summary>
-        /// <param name="position">position of the tower.</param>
-        /// <param name="range">range of the tower.</param>
-        /// <returns>A citizen within range</returns>
-        public int? GetTarget(Vector3 position, int range)
-        {
-            for (int i = 0; i < units.Count; i++)
+            List<MSCitizen> toGet = new List<MSCitizen>();
+            foreach (MSUnit unit in units)
+                if (unit is MSCitizen)
+                    toGet.Add(unit as MSCitizen);
+            
+            if (toGet.Count == 0) return;
+            else
             {
-                Vector2 position1 = new Vector2(position.X + MSMap.tileDimension / 2,
-                                                position.Y + MSMap.tileDimension / 2);
-                Vector2 position2 = new Vector2(units[i].Position.X, units[i].Position.Y);
-                if (units[i] is MSMobber && Vector2.Distance(position1, position2) <= range)
-                {
-                    return i;
-                }
-
+                MSCitizen cit = toGet.ElementAt<MSCitizen>(MSRandom.random.Next(toGet.Count));
+                MSVolunteerCenter center = map.GetNearestVolunteerCenter(cit.TileCoordinate);
+                Node path = map.GetPath(cit.TileCoordinate, center.TileCoordinate);
+                MSVolunteeringCitizen v = new MSVolunteeringCitizen(cit.Position, path, map);
+                units.Remove(cit);
+                units.Add(v);
             }
-            return null;
         }
 
         public void Update(MSMap map)
@@ -183,7 +174,7 @@ namespace MoodSwingGame
             {
                 int rnd = MSRandom.random.Next(MAX_PROBABILITY);
 
-                if (rnd <= MOB_RECRUIT_RATE && units[i] is MSCitizen && units[i].IsMobbable)
+                if (rnd <= MOB_RECRUIT_RATE && units[i].IsMobbable)
                 {
                     foreach (MSUnit p in units)
                     {
@@ -194,6 +185,7 @@ namespace MoodSwingGame
                                 units[i] = new MSMobber(units[i].Position, p.Path, map, (p as MSMobber).Concern);
                                 units[i].Follow(p);
                                 break;
+
                             }
                         }
                     }

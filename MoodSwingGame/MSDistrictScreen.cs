@@ -207,7 +207,7 @@ namespace MoodSwingGame
 
             AddComponent(closeInGameMenu);
             AddComponent(openInGameMenu);
-            
+
             Paused = false;
         }
 
@@ -276,6 +276,9 @@ namespace MoodSwingGame
 
             if (currentHovered != null && currentHovered.ToolTip != null)
                 currentHovered.ToolTip.Draw(gameTime);
+
+            if(!(moodManager.IsAlive))
+                spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "GAME OVER, LOSER.", new Vector2(500, 10), Color.White);
 
             if(moodManager.Mood > 0.9f)
                 spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Awesome Mood Reached", new Vector2(500, 10), Color.White);

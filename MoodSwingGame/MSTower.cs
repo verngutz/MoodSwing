@@ -20,8 +20,8 @@ namespace MoodSwingGame
         private MSTowerStats stats;
         private int capacity;
 
-        public MSTower(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column, MSTowerStats stats)
-            : base(model, texture, effect, position, row, column)
+        public MSTower( Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column, MSTowerStats stats)
+            : base(model, texture, effect, position, row, column, MSMap.tallheight)
         {
             this.stats = stats;
             capacity = stats.GetCapacity();
@@ -48,8 +48,7 @@ namespace MoodSwingGame
                     if (unitHandler.Units[i] is MSMobber && Vector2.Distance(position1, position2) <= stats.GetRange())
                     {
                         MSMilleniumDevelopmentGoal goal = (unitHandler.Units[i] as MSMobber).Concern;
-                        int rndNum = MSRandom.random.Next(100);
-                        if (stats.GetEffectiveness(goal) > rndNum)
+                        if (stats.GetEffectiveness(goal) > MSRandom.random.Next(100))
                         {
                             capacity--;
 
@@ -76,7 +75,7 @@ namespace MoodSwingGame
                                 map
                             );
 
-                            MSUnitHandler.GetInstance().AddVolunteer(volunteer);
+                            MSUnitHandler.GetInstance().AddUnit(volunteer);
                             MSMoodManager.GetInstance().TakeHealth();
                             MSMoodManager.GetInstance().AddMDGScore(goal);
                             return volunteer;

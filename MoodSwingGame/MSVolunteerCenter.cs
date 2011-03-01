@@ -19,6 +19,6 @@ namespace MoodSwingGame
     public class MSVolunteerCenter : MSBuilding
     {
         public MSVolunteerCenter(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
-            : base(model, texture, effect, position, row, column) { }
+            : base(model, texture, effect, position, row, column, MSMap.tallheight) { }
     }
 }

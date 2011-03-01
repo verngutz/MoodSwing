@@ -10,15 +10,25 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using MoodSwingCoreComponents;
+using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
-    public class MSRoad : MS3DTile
+    public class MSVolunteeringCitizen : MSCitizen
     {
-        public MSRoad(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column)
-            : base(model, texture, effect, position, row, column, MSMap.floorheight)
+        public MSVolunteeringCitizen(Vector3 position, Node path, MSMap map)
+            : base(position, path, map, false)
         {
-            world = Matrix.CreateRotationZ(rotation) * world;
+
+        }
+
+        public override void Walk(MS3DTile[,] mapArray)
+        {
+            base.Walk(mapArray);
+
+            if (DestinationReached)
+                MSResourceManager.GetInstance().IdleVolunteers++;
         }
     }
 }

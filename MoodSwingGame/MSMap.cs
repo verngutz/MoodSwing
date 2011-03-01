@@ -22,7 +22,11 @@ namespace MoodSwingGame
     {
         private MS3DTile[,] mapArray;
         public MS3DTile[,] MapArray { get { return mapArray; } }
-        public const int tileDimension = 31;
+
+        public static int tileDimension = 31;
+        public static int floorheight = 31;
+        public static int shortheight = 47;
+        public static int tallheight = 54;
 
         public Vector3 LightSource { set; get; }
 
@@ -88,7 +92,11 @@ namespace MoodSwingGame
             }
             return center;
         }
-        
+
+        public MSVolunteerCenter GetNearestVolunteerCenter(Vector2 coord)
+        {
+            return GetNearestVolunteerCenter(mapArray[(int)coord.X, (int)coord.Y]);
+        }
         /// <summary>
         /// Picking Algo. Looks for the closest object that intersects the mouse ray
         /// </summary>
@@ -99,7 +107,7 @@ namespace MoodSwingGame
             MS3DTile tile = null;
             foreach ( MS3DTile t in mapArray )
             {
-                if (!(t is MSRoad))
+                if (true/*!(t is MSRoad)*/)
                 {
                     float? dist = Intersects(t.BoundingBox, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), MSCamera.GetInstance().GetView(),
                     t.ProjectionMatrix, MoodSwing.GetInstance().GraphicsDevice.Viewport);

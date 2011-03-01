@@ -32,6 +32,8 @@ namespace MoodSwingGame
         private const float MOOD_HEAL = 0.01f;
         private const float MOOD_BONUS = 0.05f;
 
+        private bool immortal; //just for testing.
+
         private float mood;
         public float Mood { get { return mood; } }
         private bool isAlive;
@@ -105,6 +107,8 @@ namespace MoodSwingGame
             hivAidsBonusEnabled = true;
             environmentBonusEnabled = true;
             globalPartnershipBonusEnabled = true;
+
+            immortal = true;
         }
 
         public void TakeDamage()
@@ -113,7 +117,11 @@ namespace MoodSwingGame
             if (mood <= 0)
             {
                 mood = 0;
-                isAlive = false;
+                if (!immortal)
+                {
+                    isAlive = false;
+                    (new InitiateGameOverSequence()).PerformAction(MoodSwing.GetInstance());
+                }
             }
         }
 

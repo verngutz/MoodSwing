@@ -114,6 +114,7 @@
     <Compile Include="MSUnit.cs" />
     <Compile Include="MSVolunteer.cs" />
     <Compile Include="MSVolunteerCenter.cs" />
+    <Compile Include="MSVolunteeringCitizen.cs" />
     <Compile Include="MSWorker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

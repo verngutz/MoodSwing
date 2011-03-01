@@ -30,8 +30,8 @@ namespace MoodSwingGame
         public Vector2 TileCoordinate { get { return new Vector2(position.Y / MSMap.tileDimension, position.X / MSMap.tileDimension); } }
 
 
-        private MSDistrictHall( Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column) 
-            : base( model, texture, effect, position, row, column)
+        private MSDistrictHall( Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
+            : base(model, texture, effect, position, row, column, MSMap.tallheight)
 
         {
                 

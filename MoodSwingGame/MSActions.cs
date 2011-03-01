@@ -74,6 +74,16 @@ namespace MoodSwingGame
             moodSwing.CurrentScreen = new MSDistrictScreen(@"Content\mapinfo.txt", moodSwing);
         }
     }
+    
+    public class InitiateGameOverSequence : MSAction
+    {
+        public void PerformAction(Game game)
+        {
+            MSDistrictScreen screen = ((game as MoodSwing).CurrentScreen as MSDistrictScreen);
+            screen.Paused = true;
+            screen.BlackOutPanel.Visible = true;
+        }
+    }
 
     public class OpenInGameMenu : MSAction
     {
@@ -95,13 +105,13 @@ namespace MoodSwingGame
         public void PerformAction(Game game)
         {
             MSDistrictScreen screen = ((game as MoodSwing).CurrentScreen as MSDistrictScreen);
-            screen.Paused = false;
+            screen.Paused = !(MSMoodManager.GetInstance().IsAlive);
             screen.MainMenuButton.Visible = false;
             screen.OptionsButton.Visible = false;
             screen.ExitButton.Visible = false;
             screen.OpenInGameMenu.Visible = true;
             screen.CloseInGameMenu.Visible = false;
-            screen.BlackOutPanel.Visible = false;
+            screen.BlackOutPanel.Visible = !(MSMoodManager.GetInstance().IsAlive);
         }
     }
 
@@ -136,7 +146,7 @@ namespace MoodSwingGame
                 for (int i = 0; i < toBuildStats.GetCapacity(); i++)
                 {
                     MSWorker worker = new MSWorker(center.Position + new Vector3(0,0, 20) , path, toBuy, screen.Map);
-                    MSUnitHandler.GetInstance().AddWorker(worker);
+                    MSUnitHandler.GetInstance().AddUnit(worker);
                 }
                 screen.RemoveComponent(screen.BuyDialog);
             }
@@ -160,8 +170,8 @@ namespace MoodSwingGame
             {
                 screen.ResourceManager.Funds -= MSResourceManager.VOLUNTEER_CENTER_COST;
                 //screen.ResourceManager.VolunteerCapacity += MSResourceManager.VOLUNTEER_CENTER_GAIN;
-                MS3DTile futureSelf = new MSVolunteerCenter(moodSwing.Content.Load<Model>("districthall"), 
-                    moodSwing.Content.Load<Texture2D>("MTextures/volunteer_center"),
+                MS3DTile futureSelf = new MSVolunteerCenter(moodSwing.Content.Load<Model>("TallBuilding"), 
+                    moodSwing.Content.Load<Texture2D>("MTextures/BuildingVolunteer"),
                     moodSwing.Content.Load<Effect>("Mood"), 
                     toBuy.Position, 
                     toBuy.Row, 
@@ -172,7 +182,7 @@ namespace MoodSwingGame
                 toBuy.StartBuildProcess(1, futureSelf);
 
                 MSWorker worker = new MSWorker(center.Position + new Vector3(0, 0, 20), path, toBuy, screen.Map);
-                MSUnitHandler.GetInstance().AddWorker(worker);
+                MSUnitHandler.GetInstance().AddUnit(worker);
                 MSUnitHandler.GetInstance().IsLeaderBusy = true;
                 screen.RemoveComponent(screen.BuyDialog);
             }
@@ -197,8 +207,8 @@ namespace MoodSwingGame
             {
                 screen.ResourceManager.Funds -= MSResourceManager.FUNDRAISER_MONEY_COST;
                 screen.ResourceManager.IdleVolunteers -= MSResourceManager.FUNDRAISER_VOLUNTEER_COST;
-                MS3DTile futureSelf = new MSFundraiser(moodSwing.Content.Load<Model>("districthall"),
-                    moodSwing.Content.Load<Texture2D>("MTextures/fundraiser"),
+                MS3DTile futureSelf = new MSFundraiser(moodSwing.Content.Load<Model>("TallBuilding"),
+                    moodSwing.Content.Load<Texture2D>("MTextures/BuildingFunds"),
                     moodSwing.Content.Load<Effect>("Mood"),
                     toBuy.Position,
                     toBuy.Row,
@@ -213,7 +223,7 @@ namespace MoodSwingGame
                 for (int i = 0; i < MSResourceManager.FUNDRAISER_VOLUNTEER_COST; i++)
                 {
                     MSWorker worker = new MSWorker(center.Position + new Vector3(0, 0, 20), path, toBuy, screen.Map);
-                    MSUnitHandler.GetInstance().AddWorker(worker);
+                    MSUnitHandler.GetInstance().AddUnit(worker);
                 }
                 screen.RemoveComponent(screen.BuyDialog);
             }
