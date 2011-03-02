@@ -46,7 +46,7 @@ namespace MoodSwingGame
                     );
 
                     Vector2 tileCoords = unitHandler.Units[i].TileCoordinate;
-                    MS3DTile tile = (unitHandler.Units[i] as MSCitizen).Map.MapArray[(int)tileCoords.X, (int)tileCoords.Y];
+                    MS3DTile tile = (unitHandler.Units[i] as MSCitizen).Map.MapArray[(int)tileCoords.X, (int)tileCoords.Y]; //Runtime error occurred here. (null reference)
                     if ( tile is MSRoad && 
                         unitHandler.Units[i] is MSMobber && 
                         Vector2.Distance(position1, position2) <= stats.GetRange())
