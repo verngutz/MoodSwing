@@ -34,6 +34,9 @@ namespace MoodSwingGame
              * 41   -   crossroads
              */
 
+            Vector3 shortBuildingOffset = new Vector3( 0, 0, (MSMap.shortheight - MSMap.floorheight) / 2 );
+            Vector3 tallBuildingOffset = new Vector3( 0, 0, (MSMap.tallheight - MSMap.floorheight) / 2 );
+
             ContentManager c = MoodSwing.GetInstance().Content;
             switch (tileKey - ((tileKey / 10) * 10))
             {
@@ -44,19 +47,19 @@ namespace MoodSwingGame
                             return new MSUnbuyableBuilding(c.Load<Model>("ShortBuilding"),
                                 c.Load<Texture2D>("MTextures/NoBuyBuilding"),
                                 c.Load<Effect>("Mood"),
-                                position + (new Vector3(0, 0, (MSMap.shortheight-MSMap.floorheight)/2)), row, column);
+                                position + shortBuildingOffset, row, column);
                         case 1:
-                            return new MSBuyableBuilding(c.Load<Model>("TallBuilding"), c.Load<Texture2D>("MTextures/BuyBuilding"), c.Load<Effect>("Mood"), position + (new Vector3(0, 0, (MSMap.tallheight - MSMap.floorheight) / 2)), row, column);
+                            return new MSBuyableBuilding(c.Load<Model>("TallBuilding"), c.Load<Texture2D>("MTextures/BuyBuilding"), c.Load<Effect>("Mood"), position + tallBuildingOffset, row, column);
 
                         case 2:
                             MSDistrictHall.instantiate(c.Load<Model>("TallBuilding"),
                                 c.Load<Texture2D>("MTextures/BuildingHall"),
                                 c.Load<Effect>("Mood"),
-                                position + (new Vector3(0, 0, (MSMap.tallheight - MSMap.floorheight) / 2)), row, column);
+                                position + tallBuildingOffset, row, column);
                             MSDistrictHall hall = MSDistrictHall.getInstance();
                             return hall;
                         case 3:
-                            MSVolunteerCenter vcenter = new MSVolunteerCenter(c.Load<Model>("TallBuilding"), c.Load<Texture2D>("MTextures/BuildingVolunteer"), c.Load<Effect>("Mood"), position + (new Vector3(0, 0, (MSMap.tallheight - MSMap.floorheight) / 2)), row, column);
+                            MSVolunteerCenter vcenter = new MSVolunteerCenter(c.Load<Model>("TallBuilding"), c.Load<Texture2D>("MTextures/BuildingVolunteer"), c.Load<Effect>("Mood"), position + tallBuildingOffset, row, column);
                             return vcenter;
                     }
                     break;
