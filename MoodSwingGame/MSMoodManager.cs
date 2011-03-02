@@ -18,19 +18,11 @@ namespace MoodSwingGame
 {
     public class MSMoodManager
     {
-        private const int GOAL_POVERTY_SCORE = 50;
-        private const int GOAL_EDUCATION_SCORE = 50;
-        private const int GOAL_GENDER_EQUALITY_SCORE = 50;
-        private const int GOAL_CHILD_HEALTH_SCORE = 50;
-        private const int GOAL_MATERNAL_HEALTH_SCORE = 50;
-        private const int GOAL_HIV_AIDS_SCORE = 50;
-        private const int GOAL_ENVIRONMENT_SCORE = 50;
-        private const int GOAL_GLOBAL_PARTNERSHIP_SCORE = 50;
-
         private const float INITIAL_MOOD = 0.5f;
-        private const float MOOD_DAMAGE = 0.05f;
-        private const float MOOD_HEAL = 0.01f;
-        private const float MOOD_BONUS = 0.05f;
+        private const float MOB_SUCCESS_MOOD_DAMAGE = 0.05f;
+        private const float PERSON_HELPED_MOOD_BONUS = 0.01f;
+        private const float PERSON_HELPED_SCORE_INCREASE = 0.01f;
+        private const float MDG_COMPLETE_MOOD_BONUS = 0.05f;
 
         private bool immortal; //just for testing.
 
@@ -40,36 +32,60 @@ namespace MoodSwingGame
         public bool IsAlive { get { return isAlive; } }
 
         private bool povertyBonusEnabled;
-        private int povertyScore;
-        public int PovertyScore { get { return povertyScore; } }
+        private float povertyScore;
+        public float PovertyScore { get { return povertyScore; } }
 
         private bool educationBonusEnabled;
-        private int educationScore;
-        public int EducationScore { get { return educationScore; } }
+        private float educationScore;
+        public float EducationScore { get { return educationScore; } }
 
         private bool genderEqualityBonusEnabled;
-        private int genderEqualityScore;
-        public int GenderEqualityScore { get { return genderEqualityScore; } }
+        private float genderEqualityScore;
+        public float GenderEqualityScore { get { return genderEqualityScore; } }
 
         private bool childHleathBonusEnabled;
-        private int childHealthScore;
-        public int ChildHealthScore { get { return childHealthScore; } }
+        private float childHealthScore;
+        public float ChildHealthScore { get { return childHealthScore; } }
 
         private bool maternalHealthBonusEnabled;
-        private int maternalHealthScore;
-        public int MaternalHealthScore { get { return maternalHealthScore; } }
+        private float maternalHealthScore;
+        public float MaternalHealthScore { get { return maternalHealthScore; } }
 
         private bool hivAidsBonusEnabled;
-        private int hivAidsScore;
-        public int HivAidsScore { get { return hivAidsScore; } }
+        private float hivAidsScore;
+        public float HivAidsScore { get { return hivAidsScore; } }
 
         private bool environmentBonusEnabled;
-        private int environmentScore;
-        public int EnvironmentScore { get { return environmentScore; } }
+        private float environmentScore;
+        public float EnvironmentScore { get { return environmentScore; } }
 
         private bool globalPartnershipBonusEnabled;
-        private int globalPartnershipScore;
-        public int GlobalPartnershipScore { get { return globalPartnershipScore; } }
+        private float globalPartnershipScore;
+        public float GlobalPartnershipScore { get { return globalPartnershipScore; } }
+
+        private MSProgressBar povertyProgressBar;
+        public MSProgressBar PovertyProgressBar { get { return povertyProgressBar; } }
+
+        private MSProgressBar educationProgressBar;
+        public MSProgressBar EducationProgressBar { get { return educationProgressBar; } }
+
+        private MSProgressBar genderEqualityProgressBar;
+        public MSProgressBar GenderEqualityProgressBar { get { return genderEqualityProgressBar; } }
+
+        private MSProgressBar childHealthProgressBar;
+        public MSProgressBar ChildHealthProgressBar { get { return childHealthProgressBar; } }
+
+        private MSProgressBar maternalHealthProgressBar;
+        public MSProgressBar MaternalHealthProgressBar { get { return maternalHealthProgressBar; } }
+
+        private MSProgressBar hivAidsProgressBar;
+        public MSProgressBar HivAidsProgressBar { get { return hivAidsProgressBar; } }
+
+        private MSProgressBar environmentProgressBar;
+        public MSProgressBar EnvironmentProgressBar { get { return environmentProgressBar; } }
+
+        private MSProgressBar globalPartnershipProgressBar;
+        public MSProgressBar GlobalPartnershipProgressBar { get { return globalPartnershipProgressBar; } }
 
         private static MSMoodManager moodManager = null;
 
@@ -109,11 +125,99 @@ namespace MoodSwingGame
             globalPartnershipBonusEnabled = true;
 
             immortal = true;
+
+            povertyProgressBar = new MSProgressBar
+            (
+                new Rectangle(0, 0, 1024, 91),
+                MoodSwing.GetInstance().SpriteBatch,
+                MoodSwing.GetInstance(),
+                null,
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/1"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/1Full"),
+                MSProgressBar.Orientation.VERTICAL
+            );
+
+            educationProgressBar = new MSProgressBar
+            (
+                new Rectangle(0, 0, 1024, 91),
+                MoodSwing.GetInstance().SpriteBatch,
+                MoodSwing.GetInstance(),
+                null,
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/2"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/2Full"),
+                MSProgressBar.Orientation.VERTICAL
+            );
+
+            genderEqualityProgressBar = new MSProgressBar
+            (
+                new Rectangle(0, 0, 1024, 91),
+                MoodSwing.GetInstance().SpriteBatch,
+                MoodSwing.GetInstance(),
+                null,
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/3"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/3Full"),
+                MSProgressBar.Orientation.VERTICAL
+            );
+
+            childHealthProgressBar = new MSProgressBar
+            (
+                new Rectangle(0, 0, 1024, 91),
+                MoodSwing.GetInstance().SpriteBatch,
+                MoodSwing.GetInstance(),
+                null,
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/4"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/4Full"),
+                MSProgressBar.Orientation.VERTICAL
+            );
+
+            maternalHealthProgressBar = new MSProgressBar
+            (
+                new Rectangle(0, 0, 1024, 91),
+                MoodSwing.GetInstance().SpriteBatch,
+                MoodSwing.GetInstance(),
+                null,
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/5"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/5Full"),
+                MSProgressBar.Orientation.VERTICAL
+            );
+
+            hivAidsProgressBar = new MSProgressBar
+            (
+                new Rectangle(0, 0, 1024, 91),
+                MoodSwing.GetInstance().SpriteBatch,
+                MoodSwing.GetInstance(),
+                null,
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/6"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/6Full"),
+                MSProgressBar.Orientation.VERTICAL
+            );
+
+            environmentProgressBar = new MSProgressBar
+            (
+                new Rectangle(0, 0, 1024, 91),
+                MoodSwing.GetInstance().SpriteBatch,
+                MoodSwing.GetInstance(),
+                null,
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/7"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/7Full"),
+                MSProgressBar.Orientation.VERTICAL
+            );
+
+            globalPartnershipProgressBar = new MSProgressBar
+            (
+                new Rectangle(0, 0, 1024, 91),
+                MoodSwing.GetInstance().SpriteBatch,
+                MoodSwing.GetInstance(),
+                null,
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/8"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/8Full"),
+                MSProgressBar.Orientation.VERTICAL
+            );
         }
 
         public void TakeDamage()
         {
-            mood -= MOOD_DAMAGE;
+            mood -= MOB_SUCCESS_MOOD_DAMAGE;
             if (mood <= 0)
             {
                 mood = 0;
@@ -127,24 +231,25 @@ namespace MoodSwingGame
 
         public void TakeHealth()
         {
-            mood += MOOD_HEAL;
+            mood += PERSON_HELPED_MOOD_BONUS;
             if (mood > 1)
                 mood = 1;
 
             isAlive = true;
         }
 
-        private void AddScore(ref int score_variable, ref bool score_enabled, int goal_amount)
+        private void AddScore(ref float score_variable, ref bool score_enabled, ref MSProgressBar bar)
         {
             if (score_enabled)
             {
-                score_variable++;
-                if (score_variable > goal_amount)
+                score_variable += PERSON_HELPED_SCORE_INCREASE;
+                if (score_variable > 1)
                 {
-                    score_variable = goal_amount;
-                    mood += MOOD_BONUS;
+                    score_variable = 1;
+                    mood += MDG_COMPLETE_MOOD_BONUS;
                     score_enabled = false;
                 }
+                bar.Progress = score_variable;
             }
         }
 
@@ -153,28 +258,28 @@ namespace MoodSwingGame
             switch (mdg)
             {
                 case MSMilleniumDevelopmentGoal.POVERTY:
-                    AddScore(ref povertyScore, ref povertyBonusEnabled, GOAL_POVERTY_SCORE);
+                    AddScore(ref povertyScore, ref povertyBonusEnabled, ref povertyProgressBar);
                     break;
                 case MSMilleniumDevelopmentGoal.EDUCATION:
-                    AddScore(ref educationScore, ref educationBonusEnabled, GOAL_EDUCATION_SCORE);
+                    AddScore(ref educationScore, ref educationBonusEnabled, ref educationProgressBar);
                     break;
                 case MSMilleniumDevelopmentGoal.GENDER_EQUALITY:
-                    AddScore(ref genderEqualityScore, ref genderEqualityBonusEnabled, GOAL_GENDER_EQUALITY_SCORE);
+                    AddScore(ref genderEqualityScore, ref genderEqualityBonusEnabled, ref genderEqualityProgressBar);
                     break;
                 case MSMilleniumDevelopmentGoal.CHILD_HEALTH:
-                    AddScore(ref childHealthScore, ref childHleathBonusEnabled, GOAL_CHILD_HEALTH_SCORE);
+                    AddScore(ref childHealthScore, ref childHleathBonusEnabled, ref childHealthProgressBar);
                     break;
                 case MSMilleniumDevelopmentGoal.MATERNAL_HEALTH:
-                    AddScore(ref maternalHealthScore, ref maternalHealthBonusEnabled, GOAL_MATERNAL_HEALTH_SCORE);
+                    AddScore(ref maternalHealthScore, ref maternalHealthBonusEnabled, ref maternalHealthProgressBar);
                     break;
                 case MSMilleniumDevelopmentGoal.HIV_AIDS:
-                    AddScore(ref hivAidsScore, ref hivAidsBonusEnabled, GOAL_HIV_AIDS_SCORE);
+                    AddScore(ref hivAidsScore, ref hivAidsBonusEnabled, ref hivAidsProgressBar);
                     break;
                 case MSMilleniumDevelopmentGoal.ENVIRONMENT:
-                    AddScore(ref environmentScore, ref environmentBonusEnabled, GOAL_ENVIRONMENT_SCORE);
+                    AddScore(ref environmentScore, ref environmentBonusEnabled, ref environmentProgressBar);
                     break;
                 case MSMilleniumDevelopmentGoal.GLOBAL_PARTNERSHIP:
-                    AddScore(ref globalPartnershipScore, ref globalPartnershipBonusEnabled, GOAL_GLOBAL_PARTNERSHIP_SCORE);
+                    AddScore(ref globalPartnershipScore, ref globalPartnershipBonusEnabled, ref globalPartnershipProgressBar);
                     break;
             }
         }

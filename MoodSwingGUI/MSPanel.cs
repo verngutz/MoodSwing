@@ -18,10 +18,10 @@ namespace MoodSwingGUI
     {
         protected Texture2D background;
 
-        private List<MSGUIUnclickable> components;
-        public List<MSGUIUnclickable> Components
+        private List<MSGUIUnclickable> unclickableComponents;
+        public List<MSGUIUnclickable> UnclickableComponents
         {
-            get { return components; }
+            get { return unclickableComponents; }
         }
 
         private List<MSGUIClickable> clickableComponents;
@@ -29,6 +29,8 @@ namespace MoodSwingGUI
         {
             get { return clickableComponents; }
         }
+
+        protected List<MSGUIObject> components;
 
         public override Vector2 Position
         {
@@ -61,8 +63,9 @@ namespace MoodSwingGUI
             this.background = background;
             if(background != null)
                 collisionTexture = background;
-            components = new List<MSGUIUnclickable>();
+            unclickableComponents = new List<MSGUIUnclickable>();
             clickableComponents = new List<MSGUIClickable>();
+            components = new List<MSGUIObject>();
 
             boundedPosition = Position + new Vector2(leftPadding, topPadding);
             boundedSize = Size - new Vector2(leftPadding, topPadding) - new Vector2(rightPadding, bottomPadding);
@@ -108,11 +111,13 @@ namespace MoodSwingGUI
                     component.Position = boundedPosition + new Vector2(boundedSize.X - component.Size.X, boundedSize.Y - component.Size.Y);
                     break;
             }
+            unclickableComponents.Add(component);
             components.Add(component);
         }
 
         public void RemoveComponent(MSGUIUnclickable component)
         {
+            unclickableComponents.Remove(component);
             components.Remove(component);
         }
 
@@ -155,11 +160,13 @@ namespace MoodSwingGUI
                     break;
             }
             clickableComponents.Add(component);
+            components.Add(component);
         }
 
         public void RemoveComponent(MSGUIClickable component)
         {
             clickableComponents.Remove(component);
+            components.Remove(component);
         }
 
         public void AddComponent(MSPanel panel)
@@ -171,7 +178,7 @@ namespace MoodSwingGUI
         {
             AddComponent(panel as MSGUIClickable, alignment);
 
-            foreach (MSGUIUnclickable component in panel.Components)
+            foreach (MSGUIUnclickable component in panel.UnclickableComponents)
                 AddComponent(component);
             foreach (MSGUIClickable component in panel.ClickableComponents)
                 AddComponent(component);
@@ -179,7 +186,7 @@ namespace MoodSwingGUI
 
         public void RemoveComponent(MSPanel panel)
         {
-            foreach (MSGUIUnclickable component in panel.Components)
+            foreach (MSGUIUnclickable component in panel.UnclickableComponents)
                 RemoveComponent(component);
             foreach (MSGUIClickable component in panel.ClickableComponents)
                 RemoveComponent(component);
@@ -191,7 +198,7 @@ namespace MoodSwingGUI
         {
             base.Update(gameTime);
 
-            foreach (MSGUIUnclickable element in components)
+            foreach (MSGUIUnclickable element in unclickableComponents)
                 if(element.Visible)
                     element.Update(gameTime);
             foreach (MSGUIClickable element in clickableComponents)
@@ -206,13 +213,19 @@ namespace MoodSwingGUI
             if (background != null)
                 SpriteBatch.Draw(background, BoundingRectangle, highlight);
 
-            foreach (MSGUIUnclickable element in components)
-                if (element.Visible)
-                    element.Draw(gameTime);
-
-            foreach (MSGUIClickable element in clickableComponents)
-                if (element.Visible)
-                    element.Draw(gameTime);
+            foreach (MSGUIObject component in components)
+            {
+                if (component is MSGUIClickable)
+                {
+                    if ((component as MSGUIClickable).Visible)
+                        (component as MSGUIClickable).Draw(gameTime);
+                }
+                else if (component is MSGUIUnclickable)
+                {
+                    if ((component as MSGUIUnclickable).Visible)
+                        (component as MSGUIUnclickable).Draw(gameTime);
+                }
+            }
         }
 
         public override void LeftClick() { }
