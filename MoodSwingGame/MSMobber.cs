@@ -78,7 +78,7 @@ namespace MoodSwingGame
             }
 
             Vector3 screenProjection = Game.GraphicsDevice.Viewport.Project(Position, ProjectionMatrix, MSCamera.GetInstance().GetView(), Matrix.Identity);
-            moodFace = new MSImageHolder(new Rectangle((int)screenProjection.X, (int)screenProjection.Y, 50, 50), Game.Content.Load<Texture2D>(moodFaceAssetName), MoodSwing.GetInstance().SpriteBatch, Game);
+            moodFace = new MSImageHolder(new Rectangle((int)screenProjection.X - 50, (int)screenProjection.Y - 50, 50, 50), Game.Content.Load<Texture2D>(moodFaceAssetName), MoodSwing.GetInstance().SpriteBatch, Game);
         }
 
         public override void Walk(MS3DTile[,] map_array)
@@ -89,7 +89,7 @@ namespace MoodSwingGame
                 MSMoodManager.GetInstance().TakeDamage();
 
             Vector3 screenProjection = Game.GraphicsDevice.Viewport.Project(Position, ProjectionMatrix, MSCamera.GetInstance().GetView(), Matrix.Identity);
-            moodFace.Position = new Vector2(screenProjection.X, screenProjection.Y);
+            moodFace.Position = new Vector2(screenProjection.X - 50, screenProjection.Y - 50);
         }
     }
 }
