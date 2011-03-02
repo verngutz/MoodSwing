@@ -21,7 +21,7 @@ namespace MoodSwingGame
         }
 
         private MSMainScreen(MoodSwing game)
-            : base(game.Content.Load<Texture2D>("gamescreenbg"), 200, 200, 200, 200, Color.White, game.SpriteBatch, game)
+            : base(game.Content.Load<Texture2D>("Main Menu"), 200, 200, 200, 200, Color.White, game.SpriteBatch, game)
         {
             MSAnimatingButton startGameButton = new MSAnimatingButton(
                     null,
