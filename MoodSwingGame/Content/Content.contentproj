@@ -602,6 +602,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="janssen_map.txt">
+      <Name>janssen_map</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="GamePanel\LogoClicked.png">
       <Name>LogoClicked</Name>
       <Importer>TextureImporter</Importer>
@@ -748,6 +754,10 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <None Include="janssen_smallermap.txt">
+      <Name>janssen_smallermap</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
