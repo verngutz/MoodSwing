@@ -71,7 +71,7 @@ namespace MoodSwingGame
         {
             MoodSwing moodSwing = (MoodSwing)game;
             moodSwing.CurrentScreen.ResetHovers();
-            moodSwing.CurrentScreen = new MSDistrictScreen(@"Content\mapinfo.txt", moodSwing);
+            moodSwing.CurrentScreen = new MSDistrictScreen(@"Content\janssen_map.txt", moodSwing);
         }
     }
     
