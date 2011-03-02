@@ -52,8 +52,7 @@ namespace MoodSwingGame
             if (DestinationReached)
             {
                 toBuild.AddWorkers();
-                if (toBuild.FutureSelf is MSVolunteerCenter)
-                    MSUnitHandler.GetInstance().IsLeaderBusy = false;
+                
             }
         }
     }

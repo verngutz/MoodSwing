@@ -308,6 +308,8 @@ namespace MoodSwingGame
                 tile.Update(gameTime);
                 if (tile is MSBuyableBuilding && (tile as MSBuyableBuilding).State == MSBuyableBuilding.BuyableBuildingState.DONE)
                 {
+                    if ((tile as MSBuyableBuilding).FutureSelf is MSVolunteerCenter)
+                        MSUnitHandler.GetInstance().IsLeaderBusy = false;
                     toTransform.Add(tile.TileCoordinate);
                 }
             }
