@@ -257,21 +257,45 @@ namespace MoodSwingGame
                     Vector2 position = mobber.MoodFace.Position;
                     SpriteEffects effect = SpriteEffects.None;
 
-                    if (position.X < 0)
+                    if (position.X + 50 < 0 ||
+                        position.X + 50 + boundingRectangle.Width > MoodSwing.GetInstance().GraphicsDevice.Viewport.Width)
                     {
-                        effect = SpriteEffects.FlipHorizontally;
-                        position.X = 0;
+                        Vector3 left = MSCamera.GetInstance().Frustum.GetCorners()[4];
+                        Vector3 right = MSCamera.GetInstance().Frustum.GetCorners()[5];
+                        
+                        double distLeft = Vector3.Distance(left, unit.Position);
+                        double distRight = Vector3.Distance(right, unit.Position);
+                        if( distLeft < distRight ) {
+                            position.X = 0;
+                            effect = SpriteEffects.FlipHorizontally;
+                        }
+                        else {
+                            position.X = MoodSwing.GetInstance().GraphicsDevice.Viewport.Width - boundingRectangle.Width;
+                        }
                     }
-                    else if (position.X + boundingRectangle.Width > MoodSwing.GetInstance().GraphicsDevice.Viewport.Width)
-                        position.X = MoodSwing.GetInstance().GraphicsDevice.Viewport.Width - boundingRectangle.Width;
 
-                    if (position.Y < 0)
+
+
+                    if (position.Y + 50 < 0 ||
+                        position.Y + 50 + boundingRectangle.Height > MoodSwing.GetInstance().GraphicsDevice.Viewport.Height)
                     {
-                        effect = SpriteEffects.FlipVertically;
-                        position.Y = 0;
+                        
+                        Vector3 top = MSCamera.GetInstance().Frustum.GetCorners()[4];
+                        Vector3 bottom = MSCamera.GetInstance().Frustum.GetCorners()[6];
+                        
+                        double distTop = Vector3.Distance(top, unit.Position);
+                        double distBottom = Vector3.Distance(bottom, unit.Position);
+
+                        if( distTop < distBottom ) 
+                        {
+                            effect = SpriteEffects.FlipVertically;
+                            position.Y = 0;
+                        }
+                        else 
+                        {
+                            position.Y = MoodSwing.GetInstance().GraphicsDevice.Viewport.Height - boundingRectangle.Height;
+                        }
                     }
-                    else if (position.Y + boundingRectangle.Height > MoodSwing.GetInstance().GraphicsDevice.Viewport.Height)
-                        position.Y = MoodSwing.GetInstance().GraphicsDevice.Viewport.Height - boundingRectangle.Height;
 
                     boundingRectangle = new Rectangle((int)position.X, (int)position.Y, boundingRectangle.Width, boundingRectangle.Height);
                     (Game as MoodSwing).SpriteBatch.Draw(mobber.MoodFace.Image,boundingRectangle , null, Color.White, 0, Vector2.Zero, effect, position.Y / Game.GraphicsDevice.Viewport.Height);

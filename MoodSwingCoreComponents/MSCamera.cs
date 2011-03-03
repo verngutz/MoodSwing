@@ -53,7 +53,7 @@ namespace MoodSwingCoreComponents
         public Matrix ProjectionMatrix { get { return projectionMatrix; } }
 
         private BoundingFrustum frustum;
-
+        public BoundingFrustum Frustum { get { return frustum; } }
         private MSCamera()
         {}
 
@@ -119,6 +119,7 @@ namespace MoodSwingCoreComponents
             normalizedViewVector = Vector3.Normalize(viewVector);
 
             AdjustPitchAxis();
+            frustum = new BoundingFrustum(camera.GetView() * camera.ProjectionMatrix);
         }
 
         /// <summary>
@@ -134,6 +135,7 @@ namespace MoodSwingCoreComponents
             shiftVector += shift * SHIFT_SPEED;
             Vector3 dim3 = new Vector3(dim.X, dim.Y, 0);
             shiftVector = Vector3.Clamp(shiftVector, Vector3.Zero, dim3);
+            frustum = new BoundingFrustum(camera.GetView() * camera.ProjectionMatrix);
         }
 
         /// <summary>
@@ -150,6 +152,7 @@ namespace MoodSwingCoreComponents
                 viewVector = cameraPosition - cameraTarget;
                 normalizedViewVector = Vector3.Normalize(viewVector);
             }
+            frustum = new BoundingFrustum(camera.GetView() * camera.ProjectionMatrix);
         }
     }
 }

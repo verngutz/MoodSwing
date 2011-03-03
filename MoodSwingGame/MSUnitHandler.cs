@@ -37,7 +37,7 @@ namespace MoodSwingGame
         private const int INITIAL_BIRTH_RATE = 100;
         private const int MAX_PROBABILITY = 5000;
         //probability constant that handles mob generation
-        private const int MOB_PROBABILITY = 5;
+        private const int MOB_PROBABILITY = 100;
         private const int MOB_RECRUIT_RATE = 3000;
         private const int MOB_RECRUIT_DISTANCE = 5;
 
