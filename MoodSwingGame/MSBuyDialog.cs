@@ -34,20 +34,34 @@ namespace MoodSwingGame
         {
             this.toBuy = toBuy;
 
+            MSToolTip testToolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
+            MSToolTip descriptionToolTip = new MSToolTip
+            (
+                Game.Content.Load<Texture2D>("BlackOut"),
+                new Rectangle(BoundingRectangle.X, BoundingRectangle.Y, 100, 50),
+                SpriteBatch,
+                Game
+            );
+
+            MSToolTip costToolTip = new MSToolTip
+            (
+                null,
+                new Rectangle(0, 0, 160, 160),
+                SpriteBatch,
+                Game
+            );
+
+            testToolTip.AddComponent(descriptionToolTip);
+            testToolTip.AddComponent(costToolTip, Alignment.MIDDLE_CENTER);
+
+
             AddComponent(new MSButton(null,
                 new BuyTower(toBuy, MSHealthCenterStats.GetInstance()),
                 new Rectangle(boundingRectangle.X, boundingRectangle.Y + 38, 73, 93),
                 Game.Content.Load<Texture2D>("BuyDialog/1"),
                 Game.Content.Load<Texture2D>("BuyDialog/1clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/1hovered"),
-                new MSToolTip(
-                    game.Content.Load<Texture2D>("BlackOut"),
-                    new Point(boundingRectangle.X, boundingRectangle.Y),
-                    "Buy Health Center",
-                    Color.White,
-                    game.Content.Load<SpriteFont>("Temp"),
-                    2, 2, 2, 2,
-                    spriteBatch, game),
+                testToolTip,
                 Shape.AMORPHOUS, spriteBatch, game));
 
             AddComponent(new MSButton(null, 
@@ -56,14 +70,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/2"),
                 Game.Content.Load<Texture2D>("BuyDialog/2clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/2hovered"),
-                new MSToolTip(
-                    game.Content.Load<Texture2D>("BlackOut"), 
-                    new Point(boundingRectangle.X, boundingRectangle.Y),
-                    "Buy Food Center",
-                    Color.White,
-                    game.Content.Load<SpriteFont>("Temp"),
-                    2, 2, 2, 2,
-                    spriteBatch, game),
+                testToolTip,
                 Shape.AMORPHOUS, spriteBatch, game));
 
             AddComponent(new MSButton(null, 
@@ -72,14 +79,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/3"),
                 Game.Content.Load<Texture2D>("BuyDialog/3clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/3hovered"),
-                new MSToolTip(
-                    game.Content.Load<Texture2D>("BlackOut"),
-                    new Point(boundingRectangle.X + 129, boundingRectangle.Y),
-                    "Buy Women's Rights Center",
-                    Color.White,
-                    game.Content.Load<SpriteFont>("Temp"),
-                    2, 2, 2, 2,
-                    spriteBatch, game), 
+                testToolTip, 
                 Shape.AMORPHOUS, spriteBatch, game));
 
             AddComponent(new MSButton(null, 
@@ -88,14 +88,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/4"),
                 Game.Content.Load<Texture2D>("BuyDialog/4clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/4hovered"),
-                new MSToolTip(
-                    game.Content.Load<Texture2D>("BlackOut"),
-                    new Point(boundingRectangle.X, boundingRectangle.Y),
-                    "Buy Tutorial Center",
-                    Color.White,
-                    game.Content.Load<SpriteFont>("Temp"),
-                    2, 2, 2, 2,
-                    spriteBatch, game), 
+                testToolTip, 
                 Shape.AMORPHOUS, spriteBatch, game));
 
             AddComponent(new MSButton(null, 
@@ -104,14 +97,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/5"),
                 Game.Content.Load<Texture2D>("BuyDialog/5clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/5hovered"),
-                new MSToolTip(
-                    game.Content.Load<Texture2D>("BlackOut"),
-                    new Point(boundingRectangle.X, boundingRectangle.Y),
-                    "Buy Health Center",
-                    Color.White,
-                    game.Content.Load<SpriteFont>("Temp"),
-                    2, 2, 2, 2,
-                    spriteBatch, game),
+                testToolTip,
                 Shape.AMORPHOUS, spriteBatch, game));
 
             AddComponent(new MSButton(null, 
@@ -120,14 +106,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/6"),
                 Game.Content.Load<Texture2D>("BuyDialog/6clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/6hovered"),
-                new MSToolTip(
-                    game.Content.Load<Texture2D>("BlackOut"),
-                    new Point(boundingRectangle.X, boundingRectangle.Y),
-                    "Buy Eco Park",
-                    Color.White,
-                    game.Content.Load<SpriteFont>("Temp"),
-                    2, 2, 2, 2,
-                    spriteBatch, game),
+                testToolTip,
                 Shape.AMORPHOUS, spriteBatch, game));
 
             AddComponent(new MSButton(null, 
@@ -136,14 +115,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/7"),
                 Game.Content.Load<Texture2D>("BuyDialog/7clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/7hovered"),
-                new MSToolTip(
-                    game.Content.Load<Texture2D>("BlackOut"),
-                    new Point(boundingRectangle.X, boundingRectangle.Y),
-                    "Buy Global Center",
-                    Color.White,
-                    game.Content.Load<SpriteFont>("Temp"),
-                    2, 2, 2, 2,
-                    spriteBatch, game),
+                testToolTip,
                 Shape.AMORPHOUS, spriteBatch, game));
 
             AddComponent(new MSButton(null,
@@ -152,14 +124,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/8"),
                 Game.Content.Load<Texture2D>("BuyDialog/8clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/8hovered"),
-                new MSToolTip(
-                    game.Content.Load<Texture2D>("BlackOut"),
-                    new Point(boundingRectangle.X, boundingRectangle.Y),
-                    "Buy Health Center",
-                    Color.White,
-                    game.Content.Load<SpriteFont>("Temp"),
-                    2, 2, 2, 2,
-                    spriteBatch, game),
+                testToolTip,
                 Shape.AMORPHOUS, spriteBatch, game));
 
             AddComponent(new MSPanel(Game.Content.Load<Texture2D>("BuyDialog/middleOrb"), new Rectangle(0, 0, 184, 184), null, Shape.CIRCULAR, spriteBatch, game), Alignment.MIDDLE_CENTER);
@@ -170,14 +135,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/volunteer"),
                 Game.Content.Load<Texture2D>("BuyDialog/volunteerclicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/volunteerhover"),
-                new MSToolTip(
-                    game.Content.Load<Texture2D>("BlackOut"),
-                    new Point(boundingRectangle.X, boundingRectangle.Y),
-                    "Buy Volunteer Center",
-                    Color.White,
-                    game.Content.Load<SpriteFont>("Temp"),
-                    2, 2, 2, 2,
-                    spriteBatch, game),
+                testToolTip,
                 Shape.AMORPHOUS, spriteBatch, game));
             
             
@@ -187,14 +145,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/money"),
                 Game.Content.Load<Texture2D>("BuyDialog/moneyClicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/moneyHover"),
-                new MSToolTip(
-                    game.Content.Load<Texture2D>("BlackOut"),
-                    new Point(boundingRectangle.X, boundingRectangle.Y),
-                    "Buy Fundraiser",
-                    Color.White,
-                    game.Content.Load<SpriteFont>("Temp"),
-                    2, 2, 2, 2,
-                    spriteBatch, game),
+                testToolTip,
                 Shape.AMORPHOUS, spriteBatch, game));
              
         }

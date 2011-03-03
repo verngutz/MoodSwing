@@ -54,7 +54,7 @@ namespace MoodSwingGame
         public MSPanel BlackOutPanel { get { return blackOutPanel; } }
 
         public MSDistrictScreen(String filename, MoodSwing game)
-            : base(game.Content.Load<Texture2D>("CityView"), 0, 0, 0, 0, game.SpriteBatch, game) 
+            : base(game.Content.Load<Texture2D>("districtmap"), 0, 0, 0, 0, game.SpriteBatch, game) 
         {
             map = new MSMap(filename);
             //citizensList = new List<MSCitizen>();
@@ -116,15 +116,15 @@ namespace MoodSwingGame
 
             MSPanel topPanelBack = new MSPanel
             (
-                Game.Content.Load<Texture2D>("GamePanel/TopPanelUnder"),
+                Game.Content.Load<Texture2D>("GamePanel/WhiteBG"),
                 new Rectangle(0, 0, 1024, 91),
                 null,
-                Shape.RECTANGULAR,
+                Shape.AMORPHOUS,
                 SpriteBatch,
                 Game
             );
 
-            AddComponent(topPanelBack);
+            AddComponent(topPanelBack, Alignment.TOP_CENTER);
 
             MSPanel topPanel = new MSPanel
             (
@@ -229,6 +229,16 @@ namespace MoodSwingGame
             AddComponent(moodManager.HivAidsProgressBar);
             AddComponent(moodManager.EnvironmentProgressBar);
             AddComponent(moodManager.GlobalPartnershipProgressBar);
+
+            MSImageHolder translucentOverlay = new MSImageHolder
+            (
+                new Rectangle(0, 0, 1024, 91),
+                Game.Content.Load<Texture2D>("GamePanel/translucent"),
+                SpriteBatch,
+                Game
+            );
+
+            AddComponent(translucentOverlay);
             
             Paused = false;
         }
@@ -349,7 +359,49 @@ namespace MoodSwingGame
             if (tile is MSBuyableBuilding && 
                 (tile as MSBuyableBuilding).State == MSBuyableBuilding.BuyableBuildingState.BUYABLE)
             {
-                BuyDialog = new MSBuyDialog(null, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 260, 260), 78, 78, 62, 62, tile as MSBuyableBuilding, Shape.RECTANGULAR, spriteBatch, Game);
+                string texturePath = "";
+                Point sourcePoint = new Point();
+                if (Mouse.GetState().X < Game.GraphicsDevice.Viewport.Width / 2)
+                {
+                    if (Mouse.GetState().Y < Game.GraphicsDevice.Viewport.Height / 2)
+                    {
+                        texturePath = "BuyDialog/pointerNW";
+                        sourcePoint = new Point(Mouse.GetState().X, Mouse.GetState().Y);
+                    }
+                    else
+                    {
+                        texturePath = "BuyDialog/pointerSW";
+                        sourcePoint = new Point(Mouse.GetState().X, Mouse.GetState().Y - 260);
+                    }
+                }
+                else
+                {
+                    if (Mouse.GetState().Y < Game.GraphicsDevice.Viewport.Height / 2)
+                    {
+                        texturePath = "BuyDialog/pointerNE";
+                        sourcePoint = new Point(Mouse.GetState().X - 260, Mouse.GetState().Y);
+                    }
+                    else
+                    {
+                        texturePath = "BuyDialog/pointerSE";
+                        sourcePoint = new Point(Mouse.GetState().X - 260, Mouse.GetState().Y - 260);
+                    }
+                }
+
+                BuyDialog = new MSBuyDialog
+                (
+                    Game.Content.Load<Texture2D>(texturePath), 
+                    new Rectangle(sourcePoint.X, sourcePoint.Y, 260, 260), 
+                    78, 
+                    78, 
+                    62, 
+                    62, 
+                    tile as MSBuyableBuilding, 
+                    Shape.RECTANGULAR, 
+                    spriteBatch, 
+                    Game
+                );
+
                 AddComponent(BuyDialog);
             }
         }
