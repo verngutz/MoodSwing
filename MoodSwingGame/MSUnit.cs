@@ -18,7 +18,7 @@ namespace MoodSwingGame
 {
     public abstract class MSUnit : MS3DComponent
     {
-        public static Vector3 UNITZ_POSITION = new Vector3(0, 0, 20);
+        public static Vector3 UNITZ_POSITION = new Vector3(0, 0, 10);
         protected abstract Model Model { get; }
         protected abstract Effect Effect { get; }
         protected abstract Texture Texture { get; }
