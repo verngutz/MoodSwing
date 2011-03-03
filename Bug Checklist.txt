@@ -4,7 +4,7 @@ Bug Checklist
 
 Runtime error occured in MSTower.cs where noted.
 The buttons in the clicker build the wrong buildings. (maternal health builds hiv/aids).
-You can build another volunteer centre while another one is still under construction.
+You can build another volunteer centre while another one is still under construction. [DONE]
 	-I suggest a possibility of queueing another volunteer centre, but John Doe should only be at one place at a time.
 Game can be controlled even when underneath other windows.
 Citizens are flying (their z-positions are wrong).
