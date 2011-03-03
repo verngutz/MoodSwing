@@ -20,8 +20,8 @@ namespace MoodSwingGame
         private MSTowerStats stats;
         private int capacity;
 
-        public MSTower( Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column, MSTowerStats stats)
-            : base(model, texture, effect, position, row, column, MSMap.tallheight)
+        public MSTower( Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column, MSTowerStats stats)
+            : base(model, texture, effect, position, rotation, row, column, MSMap.tallheight)
         {
             this.stats = stats;
             capacity = stats.GetCapacity();

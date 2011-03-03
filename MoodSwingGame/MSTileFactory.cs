@@ -22,10 +22,10 @@ namespace MoodSwingGame
         {
             /*
              * Legend:
-             * 0    -   basic building
-             * 10   -   buyable building
-             * 20   -   district hall
-             * 30   -   volunteer centre
+             * 0    -   basic building, prefix with 0 to 3 for counterclockwise rotation
+             * 10   -   buyable building, prefix with 0 to 3 for counterclockwise rotation
+             * 20   -   district hall, prefix with 0 to 3 for counterclockwise rotation
+             * 30   -   volunteer centre, prefix with 0 to 3 for counterclockwise rotation
              * 1    -   empty passable land
              * 11   -   road end, prefix with 0 to 3 for counterclockwise rotation
              * 021  -   L road bending from top to left, prefix with 0 to 3 for counterclockwise rotation
@@ -47,19 +47,19 @@ namespace MoodSwingGame
                             return new MSUnbuyableBuilding(c.Load<Model>("ShortBuilding"),
                                 c.Load<Texture2D>("MTextures/NoBuyBuilding"),
                                 c.Load<Effect>("Mood"),
-                                position + shortBuildingOffset, row, column);
+                                position + shortBuildingOffset, 0, row, column);
                         case 1:
-                            return new MSBuyableBuilding(c.Load<Model>("TallBuilding"), c.Load<Texture2D>("MTextures/BuyBuilding"), c.Load<Effect>("Mood"), position + tallBuildingOffset, row, column);
+                            return new MSBuyableBuilding(c.Load<Model>("TallBuilding"), c.Load<Texture2D>("MTextures/BuyBuilding"), c.Load<Effect>("Mood"), position + tallBuildingOffset, 0, row, column);
 
                         case 2:
                             MSDistrictHall.instantiate(c.Load<Model>("TallBuilding"),
                                 c.Load<Texture2D>("MTextures/BuildingHall"),
                                 c.Load<Effect>("Mood"),
-                                position + tallBuildingOffset, row, column);
+                                position + tallBuildingOffset, 0, row, column);
                             MSDistrictHall hall = MSDistrictHall.getInstance();
                             return hall;
                         case 3:
-                            MSVolunteerCenter vcenter = new MSVolunteerCenter(c.Load<Model>("TallBuilding"), c.Load<Texture2D>("MTextures/BuildingVolunteer"), c.Load<Effect>("Mood"), position + tallBuildingOffset, row, column);
+                            MSVolunteerCenter vcenter = new MSVolunteerCenter(c.Load<Model>("TallBuilding"), c.Load<Texture2D>("MTextures/BuildingVolunteer"), c.Load<Effect>("Mood"), position + tallBuildingOffset, 0, row, column);
                             return vcenter;
                     }
                     break;

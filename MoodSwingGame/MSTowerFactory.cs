@@ -18,7 +18,7 @@ namespace MoodSwingGame
 {
     public class MSTowerFactory
     {
-        public static MSTower CreateMSTower( MSTowerStats stats, Vector3 position, Vector2 tileCoords )
+        public static MSTower CreateMSTower( MSTowerStats stats, Vector3 position, float rotation, Vector2 tileCoords )
         {
             MoodSwing moodSwing = MoodSwing.GetInstance();
             Model model = null;
@@ -61,7 +61,7 @@ namespace MoodSwingGame
                 texture = moodSwing.Content.Load<Texture2D>("MTextures/BuildingTropa");
                 effect = moodSwing.Content.Load<Effect>("Mood");
             }
-            return new MSTower(model,texture, effect,position, (int)tileCoords.X, (int)tileCoords.Y, stats);
+            return new MSTower(model,texture, effect, position, rotation, (int)tileCoords.X, (int)tileCoords.Y, stats);
                     
         }
     }

@@ -16,7 +16,7 @@ namespace MoodSwingGame
 {
     public class MSUnbuyableBuilding : MSBuilding
     {
-        public MSUnbuyableBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
-            : base(model, texture, effect, position, row, column, MSMap.shortheight) { }
+        public MSUnbuyableBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column)
+            : base(model, texture, effect, position, rotation, row, column, MSMap.shortheight) { }
     }
 }
