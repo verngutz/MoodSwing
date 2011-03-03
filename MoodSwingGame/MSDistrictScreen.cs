@@ -236,12 +236,12 @@ namespace MoodSwingGame
                     SpriteEffects effect = SpriteEffects.None;
 
                     if (position.X < 0)
-                        position.X = 0;
-                    else if (position.X + boundingRectangle.Width > MoodSwing.GetInstance().GraphicsDevice.Viewport.Width)
                     {
                         effect = SpriteEffects.FlipHorizontally;
-                        position.X = MoodSwing.GetInstance().GraphicsDevice.Viewport.Width - boundingRectangle.Width;
+                        position.X = 0;
                     }
+                    else if (position.X + boundingRectangle.Width > MoodSwing.GetInstance().GraphicsDevice.Viewport.Width)
+                        position.X = MoodSwing.GetInstance().GraphicsDevice.Viewport.Width - boundingRectangle.Width;
 
                     if (position.Y < 0)
                     {

@@ -46,44 +46,48 @@ namespace MoodSwingGame
                     );
 
                     Vector2 tileCoords = unitHandler.Units[i].TileCoordinate;
-                    MS3DTile tile = (unitHandler.Units[i] as MSCitizen).Map.MapArray[(int)tileCoords.X, (int)tileCoords.Y];
-                    if ( tile is MSRoad && 
-                        unitHandler.Units[i] is MSMobber && 
-                        Vector2.Distance(position1, position2) <= stats.GetRange())
+                    
+                    if (unitHandler.Units[i] is MSMobber)
                     {
-                        MSMilleniumDevelopmentGoal goal = (unitHandler.Units[i] as MSMobber).Concern;
-                        if (stats.GetEffectiveness(goal) > MSRandom.random.Next(100))
+                        MS3DTile tile = (unitHandler.Units[i] as MSMobber).Map.MapArray[(int)tileCoords.X, (int)tileCoords.Y];
+                        if (tile is MSRoad &&
+                            Vector2.Distance(position1, position2) <= stats.GetRange())
                         {
-                            capacity--;
+                            MSMilleniumDevelopmentGoal goal = (unitHandler.Units[i] as MSMobber).Concern;
+                            if (stats.GetEffectiveness(goal) > MSRandom.random.Next(100))
+                            {
+                                capacity--;
 
-                            unitHandler.Units[i] = new MSCitizen
-                            (
-                                unitHandler.Units[i].Position, 
-                                unitHandler.Units[i].Path, 
-                                unitHandler.Units[i].Map, 
-                                false
-                            );
+                                unitHandler.Units[i] = new MSCitizen
+                                (
+                                    unitHandler.Units[i].Position,
+                                    unitHandler.Units[i].Path,
+                                    unitHandler.Units[i].Map,
+                                    false
+                                );
 
-                            unitHandler.Units[i].IsStopped = true;
+                                unitHandler.Units[i].IsStopped = true;
 
-                            Node path1 = map.GetPath(new Vector2(Row, Column), unitHandler.Units[i].TileCoordinate);
-                            Node path2 = map.GetPath(unitHandler.Units[i].TileCoordinate, new Vector2(Row, Column)).next;
+                                Node path1 = map.GetPath(new Vector2(Row, Column), unitHandler.Units[i].TileCoordinate);
+                                Node path2 = map.GetPath(unitHandler.Units[i].TileCoordinate, new Vector2(Row, Column)).next;
 
-                            MSVolunteer volunteer = new MSVolunteer
-                            (
-                                Position + new Vector3(0, 0, 20), 
-                                path1, 
-                                path2, 
-                                unitHandler.Units[i], 
-                                this, 
-                                map
-                            );
+                                MSVolunteer volunteer = new MSVolunteer
+                                (
+                                    Position + new Vector3(0, 0, 20),
+                                    path1,
+                                    path2,
+                                    unitHandler.Units[i],
+                                    this,
+                                    map
+                                );
 
-                            MSUnitHandler.GetInstance().AddUnit(volunteer);
-                            MSMoodManager.GetInstance().TakeHealth();
-                            MSMoodManager.GetInstance().AddMDGScore(goal);
-                            return volunteer;
+                                MSUnitHandler.GetInstance().AddUnit(volunteer);
+                                MSMoodManager.GetInstance().TakeHealth();
+                                MSMoodManager.GetInstance().AddMDGScore(goal);
+                                return volunteer;
+                            }
                         }
+                        
                     }
                 }
             }
