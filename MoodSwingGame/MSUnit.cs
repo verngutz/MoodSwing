@@ -18,6 +18,7 @@ namespace MoodSwingGame
 {
     public abstract class MSUnit : MS3DComponent
     {
+        public static Vector3 UNITZ_POSITION = new Vector3(0, 0, 20);
         protected abstract Model Model { get; }
         protected abstract Effect Effect { get; }
         protected abstract Texture Texture { get; }
@@ -119,6 +120,12 @@ namespace MoodSwingGame
         {
             path = unit.Path;
             destination = unit.Destination;
+        }
+
+        public void ChangePath(Node path)
+        {
+            this.path = path;
+            this.destination = Vector2.Zero;
         }
     }
 }

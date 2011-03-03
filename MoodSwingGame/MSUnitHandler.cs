@@ -112,12 +112,12 @@ namespace MoodSwingGame
                         mobmdg = MSMilleniumDevelopmentGoal.GLOBAL_PARTNERSHIP;
 
                     person = new MSMobber(
-                        map.MapArray[(int)start.X, (int)start.Y].Position + new Vector3(0, 0, 20),
+                        map.MapArray[(int)start.X, (int)start.Y].Position + MSUnit.UNITZ_POSITION,
                         map.GetPath(start, MSDistrictHall.getInstance().TileCoordinate), map, mobmdg);
                 }
                 else
                     person = new MSCitizen(
-                        map.MapArray[(int)start.X, (int)start.Y].Position + new Vector3(0, 0, 20),
+                        map.MapArray[(int)start.X, (int)start.Y].Position + MSUnit.UNITZ_POSITION,
                         path, map, true);
 
                 units.Add(person);
