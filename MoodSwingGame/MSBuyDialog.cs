@@ -46,7 +46,11 @@ namespace MoodSwingGame
             MSToolTip costToolTip = new MSToolTip
             (
                 null,
-                new Rectangle(0, 0, 160, 160),
+                new Rectangle(0, 0, 75, 50),
+                -30,
+                0,
+                0,
+                0,
                 SpriteBatch,
                 Game
             );
@@ -54,6 +58,55 @@ namespace MoodSwingGame
             testToolTip.AddComponent(descriptionToolTip);
             testToolTip.AddComponent(costToolTip, Alignment.MIDDLE_CENTER);
 
+            costToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_LEFT
+            );
+
+            costToolTip.AddComponent
+            (
+                new MSLabel
+                (
+                    MSResourceManager.TOWER_MONEY_COST.ToString(),
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_RIGHT
+            );
+
+            costToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.BOTTOM_LEFT
+            );
+
+            costToolTip.AddComponent
+            (
+                new MSLabel
+                (
+                    MSResourceManager.TOWER_VOLUNTEER_COST.ToString(),
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.BOTTOM_RIGHT
+            );
 
             AddComponent(new MSButton(null,
                 new BuyTower(toBuy, MSHealthCenterStats.GetInstance()),
@@ -127,7 +180,20 @@ namespace MoodSwingGame
                 testToolTip,
                 Shape.AMORPHOUS, spriteBatch, game));
 
-            AddComponent(new MSPanel(Game.Content.Load<Texture2D>("BuyDialog/middleOrb"), new Rectangle(0, 0, 184, 184), null, Shape.CIRCULAR, spriteBatch, game), Alignment.MIDDLE_CENTER);
+            MSPanel middleOrb = new MSPanel(Game.Content.Load<Texture2D>("BuyDialog/middleOrb"), new Rectangle(0, 0, 184, 184), 30, 0, 0, 0, null, Shape.CIRCULAR, spriteBatch, game);
+            AddComponent(middleOrb, Alignment.MIDDLE_CENTER);
+            middleOrb.AddComponent
+            (
+                new MSLabel
+                (
+                    "For Sale",
+                    new Rectangle(0, 0, 75, 20),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.TOP_CENTER
+            );
             
             AddComponent(new MSButton(null,
                 new BuyVolunteerCenter(toBuy),
