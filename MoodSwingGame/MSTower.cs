@@ -48,11 +48,11 @@ namespace MoodSwingGame
                             unit.Position.Y
                         );
 
-                        //int distance = Math.Abs(
                         Vector2 tileCoords = unit.TileCoordinate;
+                        int distance = Math.Abs(Row - (int)tileCoords.X) + Math.Abs(Column - (int)tileCoords.Y);
                         MS3DTile tile = (unit as MSMobber).Map.MapArray[(int)tileCoords.X, (int)tileCoords.Y];
                         if (tile is MSRoad &&
-                            Vector2.Distance(position1, position2) <= stats.GetRange())
+                            distance <= stats.GetRange())
                         {
                             MSMilleniumDevelopmentGoal goal = (unit as MSMobber).Concern;
                             if (stats.GetEffectiveness(goal) > MSRandom.random.Next(100))
@@ -157,7 +157,7 @@ namespace MoodSwingGame
 
         public override int GetRange()
         {
-            return (3*MSMap.tileDimension)/2;
+            return 2;
         }
 
         private MSFoodCenterStats()
@@ -190,7 +190,7 @@ namespace MoodSwingGame
 
         public override int GetRange()
         {
-            return (3 * MSMap.tileDimension) / 2;
+            return 2;
         }
 
         private MSTutorialCenterStats()
@@ -223,7 +223,7 @@ namespace MoodSwingGame
 
         public override int GetRange()
         {
-            return (3 * MSMap.tileDimension) / 2;
+            return 2;
         }
 
         private MSWomensOrgStats()
@@ -256,7 +256,7 @@ namespace MoodSwingGame
 
         public override int GetRange()
         {
-            return (3 * MSMap.tileDimension) / 2;
+            return 2;
         }
 
         private MSHealthCenterStats()
@@ -289,7 +289,7 @@ namespace MoodSwingGame
 
         public override int GetRange()
         {
-            return (3 * MSMap.tileDimension) / 2;
+            return 2;
         }
 
         private MSEcoParkStats()
@@ -322,7 +322,7 @@ namespace MoodSwingGame
 
         public override int GetRange()
         {
-            return (3 * MSMap.tileDimension) / 2;
+            return 2;
         }
 
         private MSGlobalCenterStats()

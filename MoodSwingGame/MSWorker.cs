@@ -32,10 +32,7 @@ namespace MoodSwingGame
             get { return Game.Content.Load<Texture2D>("MTextures/tao"); }
         }
 
-        protected override float Speed
-        {
-            get { return 0.5f; }
-        }
+        protected override float Speed { get { return 0.65f; } }
 
         private MSBuyableBuilding toBuild;
 
