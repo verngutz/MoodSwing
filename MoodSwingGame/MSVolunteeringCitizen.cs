@@ -17,6 +17,8 @@ namespace MoodSwingGame
 {
     public class MSVolunteeringCitizen : MSCitizen
     {
+        protected override float Speed { get { return 0.65f; } }
+
         public MSVolunteeringCitizen(Vector3 position, Node path, MSMap map)
             : base(position, path, map, false)
         {

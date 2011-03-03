@@ -265,10 +265,10 @@ namespace MoodSwingGame
                     else if (position.X + boundingRectangle.Width > MoodSwing.GetInstance().GraphicsDevice.Viewport.Width)
                         position.X = MoodSwing.GetInstance().GraphicsDevice.Viewport.Width - boundingRectangle.Width;
 
-                    if (position.Y < 0)
+                    if (position.Y < 123)
                     {
                         effect = SpriteEffects.FlipVertically;
-                        position.Y = 0;
+                        position.Y = 123;
                     }
                     else if (position.Y + boundingRectangle.Height > MoodSwing.GetInstance().GraphicsDevice.Viewport.Height)
                         position.Y = MoodSwing.GetInstance().GraphicsDevice.Viewport.Height - boundingRectangle.Height;

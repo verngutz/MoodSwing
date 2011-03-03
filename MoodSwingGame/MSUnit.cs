@@ -24,7 +24,6 @@ namespace MoodSwingGame
         protected abstract Texture Texture { get; }
 
         public bool IsStopped { get; set; }
-
         protected bool isMobbable;
         public bool IsMobbable { get { return isMobbable; } }
 
@@ -50,6 +49,7 @@ namespace MoodSwingGame
             this.path = path;
             this.map = map;
             this.isMobbable = mobbable;
+
         }
 
         public override void Draw(GameTime gameTime)

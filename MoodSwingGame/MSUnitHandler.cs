@@ -136,7 +136,7 @@ namespace MoodSwingGame
         {
             List<MSCitizen> toGet = new List<MSCitizen>();
             foreach (MSUnit unit in units)
-                if (unit is MSCitizen)
+                if (unit is MSCitizen && unit.IsMobbable)
                     toGet.Add(unit as MSCitizen);
             
             if (toGet.Count == 0) return;
