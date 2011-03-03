@@ -51,6 +51,9 @@ namespace MoodSwingCoreComponents
 
         private Matrix projectionMatrix;
         public Matrix ProjectionMatrix { get { return projectionMatrix; } }
+
+        private BoundingFrustum frustum;
+
         private MSCamera()
         {}
 
@@ -71,6 +74,7 @@ namespace MoodSwingCoreComponents
             camera.minAngle = camera.currAngle;
             camera.maxAngle = (float)Math.PI / 2;
             camera.projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), viewport.AspectRatio, 5, 5000);
+            camera.frustum = new BoundingFrustum(camera.GetView() * camera.ProjectionMatrix);
         }
 
         public void AdjustPitchAxis()
