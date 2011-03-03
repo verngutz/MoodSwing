@@ -33,49 +33,52 @@ namespace MoodSwingGame
             {
                 for (int i = 0; i < unitHandler.Units.Count; i++)
                 {
-                    Vector2 position1 = new Vector2
-                    (
-                        position.X + MSMap.tileDimension / 2,
-                        position.Y + MSMap.tileDimension / 2
-                    );
-
-                    Vector2 position2 = new Vector2
-                    (
-                        unitHandler.Units[i].Position.X, 
-                        unitHandler.Units[i].Position.Y
-                    );
-                    
-                    if (unitHandler.Units[i] is MSMobber)
+                    MSUnit unit = unitHandler.Units[i];
+                    if (unit is MSMobber)
                     {
-                        Vector2 tileCoords = unitHandler.Units[i].TileCoordinate;
-                        MS3DTile tile = (unitHandler.Units[i] as MSMobber).Map.MapArray[(int)tileCoords.X, (int)tileCoords.Y];
+                        Vector2 position1 = new Vector2
+                        (
+                            position.X + MSMap.tileDimension / 2,
+                            position.Y + MSMap.tileDimension / 2
+                        );
+
+                        Vector2 position2 = new Vector2
+                        (
+                            unit.Position.X,
+                            unit.Position.Y
+                        );
+
+                        //int distance = Math.Abs(
+                        Vector2 tileCoords = unit.TileCoordinate;
+                        MS3DTile tile = (unit as MSMobber).Map.MapArray[(int)tileCoords.X, (int)tileCoords.Y];
                         if (tile is MSRoad &&
                             Vector2.Distance(position1, position2) <= stats.GetRange())
                         {
-                            MSMilleniumDevelopmentGoal goal = (unitHandler.Units[i] as MSMobber).Concern;
+                            MSMilleniumDevelopmentGoal goal = (unit as MSMobber).Concern;
                             if (stats.GetEffectiveness(goal) > MSRandom.random.Next(100))
                             {
                                 capacity--;
 
                                 unitHandler.Units[i] = new MSCitizen
                                 (
-                                    unitHandler.Units[i].Position,
-                                    unitHandler.Units[i].Path,
-                                    unitHandler.Units[i].Map,
+                                    unit.Position,
+                                    unit.Path,
+                                    unit.Map,
                                     false
                                 );
 
-                                unitHandler.Units[i].IsStopped = true;
+                                unit = unitHandler.Units[i];
+                                unit.IsStopped = true;
 
-                                Node path1 = map.GetPath(new Vector2(Row, Column), unitHandler.Units[i].TileCoordinate);
-                                Node path2 = map.GetPath(unitHandler.Units[i].TileCoordinate, new Vector2(Row, Column)).next;
+                                Node path1 = map.GetPath(new Vector2(Row, Column), tileCoords);
+                                Node path2 = map.GetPath(tileCoords, new Vector2(Row, Column)).next;
 
                                 MSVolunteer volunteer = new MSVolunteer
                                 (
-                                    Position + new Vector3(0, 0, 20),
+                                    Position + MSUnit.UNITZ_POSITION,
                                     path1,
                                     path2,
-                                    unitHandler.Units[i],
+                                    unit,
                                     this,
                                     map
                                 );
@@ -86,7 +89,6 @@ namespace MoodSwingGame
                                 return volunteer;
                             }
                         }
-                        
                     }
                 }
             }

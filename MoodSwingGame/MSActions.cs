@@ -145,7 +145,7 @@ namespace MoodSwingGame
 
                 for (int i = 0; i < toBuildStats.GetCapacity(); i++)
                 {
-                    MSWorker worker = new MSWorker(center.Position + new Vector3(0,0, 20) , path, toBuy, screen.Map);
+                    MSWorker worker = new MSWorker(center.Position + MSUnit.UNITZ_POSITION , path, toBuy, screen.Map);
                     MSUnitHandler.GetInstance().AddUnit(worker);
                 }
                 screen.RemoveComponent(screen.BuyDialog);
@@ -182,7 +182,7 @@ namespace MoodSwingGame
                 Node path = screen.Map.GetPath(center.TileCoordinate, toBuy.TileCoordinate);
                 toBuy.StartBuildProcess(1, futureSelf);
 
-                MSWorker worker = new MSWorker(center.Position + new Vector3(0, 0, 20), path, toBuy, screen.Map);
+                MSWorker worker = new MSWorker(center.Position + MSUnit.UNITZ_POSITION, path, toBuy, screen.Map);
                 MSUnitHandler.GetInstance().AddUnit(worker);
                 MSUnitHandler.GetInstance().IsLeaderBusy = true;
                 screen.RemoveComponent(screen.BuyDialog);
@@ -224,7 +224,7 @@ namespace MoodSwingGame
 
                 for (int i = 0; i < MSResourceManager.FUNDRAISER_VOLUNTEER_COST; i++)
                 {
-                    MSWorker worker = new MSWorker(center.Position + new Vector3(0, 0, 20), path, toBuy, screen.Map);
+                    MSWorker worker = new MSWorker(center.Position + MSUnit.UNITZ_POSITION, path, toBuy, screen.Map);
                     MSUnitHandler.GetInstance().AddUnit(worker);
                 }
                 screen.RemoveComponent(screen.BuyDialog);
