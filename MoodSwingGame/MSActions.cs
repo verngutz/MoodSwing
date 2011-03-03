@@ -135,7 +135,7 @@ namespace MoodSwingGame
             {
                 screen.ResourceManager.Funds -= MSResourceManager.TOWER_MONEY_COST;
                 screen.ResourceManager.IdleVolunteers -= toBuildStats.GetCapacity();
-                MS3DTile futureSelf = MSTowerFactory.CreateMSTower(toBuildStats, toBuy.Position, toBuy.TileCoordinate);
+                MS3DTile futureSelf = MSTowerFactory.CreateMSTower(toBuildStats, toBuy.Position, toBuy.Rotation, toBuy.TileCoordinate);
 
                 futureSelf.LightSource = screen.Map.LightSource;
 
@@ -174,6 +174,7 @@ namespace MoodSwingGame
                     moodSwing.Content.Load<Texture2D>("MTextures/BuildingVolunteer"),
                     moodSwing.Content.Load<Effect>("Mood"), 
                     toBuy.Position, 
+                    toBuy.Rotation,
                     toBuy.Row, 
                     toBuy.Column);
                 futureSelf.LightSource = screen.Map.LightSource;
@@ -211,6 +212,7 @@ namespace MoodSwingGame
                     moodSwing.Content.Load<Texture2D>("MTextures/BuildingFunds"),
                     moodSwing.Content.Load<Effect>("Mood"),
                     toBuy.Position,
+                    toBuy.Rotation,
                     toBuy.Row,
                     toBuy.Column,
                     screen.ResourceManager);

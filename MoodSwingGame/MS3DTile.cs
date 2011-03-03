@@ -23,6 +23,9 @@ namespace MoodSwingGame
         private Effect effect;
         public Vector3 LightSource { set; get; }
 
+        private float rotation;
+        public float Rotation { get { return rotation; } }
+
         private int row;
         public int Row { get { return row; } }
 
@@ -35,7 +38,7 @@ namespace MoodSwingGame
 
         public Model TileModel { get { return model; } }
 
-        public MS3DTile(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column, int height)
+        public MS3DTile(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column, int height)
             : base(position, MoodSwing.GetInstance())
         {
             this.model = model;
@@ -51,6 +54,10 @@ namespace MoodSwingGame
 
             boundingBox = new BoundingBox(Position + new Vector3(-tileDimension / 2, -tileDimension / 2, height/2),
                     Position + new Vector3(tileDimension / 2, tileDimension / 2, -height/2));
+            
+            world = Matrix.CreateRotationZ(rotation) * world;
+
+            this.rotation = rotation;
             this.row = row;
             this.column = column;
             

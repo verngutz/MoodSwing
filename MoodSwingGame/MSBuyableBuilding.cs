@@ -54,8 +54,8 @@ namespace MoodSwingGame
         private MS3DTile futureSelf;
         public MS3DTile FutureSelf { get { return futureSelf; } }
 
-        public MSBuyableBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
-            : base(model, texture, effect, position, row, column, MSMap.tallheight) 
+        public MSBuyableBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column)
+            : base(model, texture, effect, position, rotation, row, column, MSMap.tallheight) 
         {
             buildTime = 5;
             timeCount = 0;
