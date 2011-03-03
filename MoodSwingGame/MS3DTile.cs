@@ -72,7 +72,7 @@ namespace MoodSwingGame
                     part.Effect = effect;
                     effect.Parameters["World"].SetValue(world);
                     effect.Parameters["View"].SetValue(MSCamera.GetInstance().GetView());
-                    effect.Parameters["Projection"].SetValue(projection);
+                    effect.Parameters["Projection"].SetValue(MSCamera.GetInstance().ProjectionMatrix);
                     Matrix worldInverseTransposeMatrix = Matrix.Transpose(Matrix.Invert(mesh.ParentBone.Transform * world));
                     effect.Parameters["WorldInverseTranspose"].SetValue(worldInverseTransposeMatrix);
                     //effect.Parameters["ViewVector"].SetValue(MSCamera.GetInstance().NormalizedViewVector);
