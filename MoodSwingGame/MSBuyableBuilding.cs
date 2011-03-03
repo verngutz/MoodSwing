@@ -91,7 +91,7 @@ namespace MoodSwingGame
             if (State == BuyableBuildingState.TRANSFORMING || State == BuyableBuildingState.WAITING)
             {
                 Vector3 v = MoodSwing.GetInstance().GraphicsDevice.Viewport.Project(Position + new Vector3(0, 0, 20), // <- offset for progress bar
-                    ProjectionMatrix, MSCamera.GetInstance().GetView(),
+                    MSCamera.GetInstance().ProjectionMatrix, MSCamera.GetInstance().GetView(),
                     Matrix.Identity);
                 progressBar.Progress = timeCount / buildTime;
                 progressBar.Position = new Vector2(v.X - MSMap.tileDimension/2, v.Y - MSMap.tileDimension);
