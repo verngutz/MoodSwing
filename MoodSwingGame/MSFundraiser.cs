@@ -23,8 +23,8 @@ namespace MoodSwingGame
         private int fundraiseCounter;
         private MSResourceManager resourceManager;
 
-        public MSFundraiser(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column, MSResourceManager resource_manager)
-            : base(model, texture, effect, position, row, column, MSMap.tallheight) 
+        public MSFundraiser(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column, MSResourceManager resource_manager)
+            : base(model, texture, effect, position, rotation, row, column, MSMap.tallheight) 
         {
             fundraiseCounter = 0;
             resourceManager = resource_manager;

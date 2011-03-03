@@ -71,7 +71,7 @@ namespace MoodSwingGame
         {
             MoodSwing moodSwing = (MoodSwing)game;
             moodSwing.CurrentScreen.ResetHovers();
-            moodSwing.CurrentScreen = new MSDistrictScreen(@"Content\janssen_smallermap.txt", moodSwing);
+            moodSwing.CurrentScreen = new MSDistrictScreen(@"Content\mapinfo.txt", moodSwing);
         }
     }
     
@@ -149,7 +149,7 @@ namespace MoodSwingGame
             {
                 screen.ResourceManager.Funds -= MSResourceManager.TOWER_MONEY_COST;
                 screen.ResourceManager.IdleVolunteers -= toBuildStats.GetCapacity();
-                MS3DTile futureSelf = MSTowerFactory.CreateMSTower(toBuildStats, toBuy.Position, toBuy.TileCoordinate);
+                MS3DTile futureSelf = MSTowerFactory.CreateMSTower(toBuildStats, toBuy.Position, toBuy.Rotation, toBuy.TileCoordinate);
 
                 futureSelf.LightSource = screen.Map.LightSource;
 
@@ -159,7 +159,7 @@ namespace MoodSwingGame
 
                 for (int i = 0; i < toBuildStats.GetCapacity(); i++)
                 {
-                    MSWorker worker = new MSWorker(center.Position + new Vector3(0,0, 20) , path, toBuy, screen.Map);
+                    MSWorker worker = new MSWorker(center.Position + MSUnit.UNITZ_POSITION , path, toBuy, screen.Map);
                     MSUnitHandler.GetInstance().AddUnit(worker);
                 }
                 screen.RemoveComponent(screen.BuyDialog);
@@ -188,6 +188,7 @@ namespace MoodSwingGame
                     moodSwing.Content.Load<Texture2D>("MTextures/BuildingVolunteer"),
                     moodSwing.Content.Load<Effect>("Mood"), 
                     toBuy.Position, 
+                    toBuy.Rotation,
                     toBuy.Row, 
                     toBuy.Column);
                 futureSelf.LightSource = screen.Map.LightSource;
@@ -195,7 +196,7 @@ namespace MoodSwingGame
                 Node path = screen.Map.GetPath(center.TileCoordinate, toBuy.TileCoordinate);
                 toBuy.StartBuildProcess(1, futureSelf);
 
-                MSWorker worker = new MSWorker(center.Position + new Vector3(0, 0, 20), path, toBuy, screen.Map);
+                MSWorker worker = new MSWorker(center.Position + MSUnit.UNITZ_POSITION, path, toBuy, screen.Map);
                 MSUnitHandler.GetInstance().AddUnit(worker);
                 MSUnitHandler.GetInstance().IsLeaderBusy = true;
                 screen.RemoveComponent(screen.BuyDialog);
@@ -225,6 +226,7 @@ namespace MoodSwingGame
                     moodSwing.Content.Load<Texture2D>("MTextures/BuildingFunds"),
                     moodSwing.Content.Load<Effect>("Mood"),
                     toBuy.Position,
+                    toBuy.Rotation,
                     toBuy.Row,
                     toBuy.Column,
                     screen.ResourceManager);
@@ -236,7 +238,7 @@ namespace MoodSwingGame
 
                 for (int i = 0; i < MSResourceManager.FUNDRAISER_VOLUNTEER_COST; i++)
                 {
-                    MSWorker worker = new MSWorker(center.Position + new Vector3(0, 0, 20), path, toBuy, screen.Map);
+                    MSWorker worker = new MSWorker(center.Position + MSUnit.UNITZ_POSITION, path, toBuy, screen.Map);
                     MSUnitHandler.GetInstance().AddUnit(worker);
                 }
                 screen.RemoveComponent(screen.BuyDialog);

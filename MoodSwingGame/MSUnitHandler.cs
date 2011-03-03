@@ -37,7 +37,7 @@ namespace MoodSwingGame
         private const int INITIAL_BIRTH_RATE = 100;
         private const int MAX_PROBABILITY = 5000;
         //probability constant that handles mob generation
-        private const int MOB_PROBABILITY = 5;
+        private const int MOB_PROBABILITY = 100;
         private const int MOB_RECRUIT_RATE = 3000;
         private const int MOB_RECRUIT_DISTANCE = 5;
 
@@ -112,12 +112,12 @@ namespace MoodSwingGame
                         mobmdg = MSMilleniumDevelopmentGoal.GLOBAL_PARTNERSHIP;
 
                     person = new MSMobber(
-                        map.MapArray[(int)start.X, (int)start.Y].Position + new Vector3(0, 0, 20),
+                        map.MapArray[(int)start.X, (int)start.Y].Position + MSUnit.UNITZ_POSITION,
                         map.GetPath(start, MSDistrictHall.getInstance().TileCoordinate), map, mobmdg);
                 }
                 else
                     person = new MSCitizen(
-                        map.MapArray[(int)start.X, (int)start.Y].Position + new Vector3(0, 0, 20),
+                        map.MapArray[(int)start.X, (int)start.Y].Position + MSUnit.UNITZ_POSITION,
                         path, map, true);
 
                 units.Add(person);
@@ -136,7 +136,7 @@ namespace MoodSwingGame
         {
             List<MSCitizen> toGet = new List<MSCitizen>();
             foreach (MSUnit unit in units)
-                if (unit is MSCitizen)
+                if (unit is MSCitizen && unit.IsMobbable)
                     toGet.Add(unit as MSCitizen);
             
             if (toGet.Count == 0) return;

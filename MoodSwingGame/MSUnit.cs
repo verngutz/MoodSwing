@@ -18,12 +18,12 @@ namespace MoodSwingGame
 {
     public abstract class MSUnit : MS3DComponent
     {
+        public static Vector3 UNITZ_POSITION = new Vector3(0, 0, 10);
         protected abstract Model Model { get; }
         protected abstract Effect Effect { get; }
         protected abstract Texture Texture { get; }
 
         public bool IsStopped { get; set; }
-
         protected bool isMobbable;
         public bool IsMobbable { get { return isMobbable; } }
 
@@ -49,6 +49,7 @@ namespace MoodSwingGame
             this.path = path;
             this.map = map;
             this.isMobbable = mobbable;
+
         }
 
         public override void Draw(GameTime gameTime)
@@ -60,7 +61,7 @@ namespace MoodSwingGame
                     part.Effect = Effect;
                     Effect.Parameters["World"].SetValue(world);
                     Effect.Parameters["View"].SetValue(MSCamera.GetInstance().GetView());
-                    Effect.Parameters["Projection"].SetValue(projection);
+                    Effect.Parameters["Projection"].SetValue(MSCamera.GetInstance().ProjectionMatrix);
                     Matrix worldInverseTransposeMatrix = Matrix.Transpose(Matrix.Invert(mesh.ParentBone.Transform * world));
                     Effect.Parameters["WorldInverseTranspose"].SetValue(worldInverseTransposeMatrix);
                     //effect.Parameters["ViewVector"].SetValue(MSCamera.GetInstance().NormalizedViewVector);
@@ -119,6 +120,12 @@ namespace MoodSwingGame
         {
             path = unit.Path;
             destination = unit.Destination;
+        }
+
+        public void ChangePath(Node path)
+        {
+            this.path = path;
+            this.destination = Vector2.Zero;
         }
     }
 }

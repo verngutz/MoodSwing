@@ -48,14 +48,19 @@ namespace MoodSwingCoreComponents
         private const int ZOOM_MIN_DIST = 100;
         private const int ZOOM_MAX_DIST = 500;
         private const int ZOOM_SPEED = 10;
-        
+
+        private Matrix projectionMatrix;
+        public Matrix ProjectionMatrix { get { return projectionMatrix; } }
+
+        private BoundingFrustum frustum;
+        public BoundingFrustum Frustum { get { return frustum; } }
         private MSCamera()
         {}
 
         /// <summary>
         /// Initializes the position of the camera.
         /// </summary>
-        public static void initialize()
+        public static void initialize( Viewport viewport )
         {
             if (camera == null) camera = new MSCamera();
             camera.upCamera = Vector3.UnitZ;
@@ -68,6 +73,8 @@ namespace MoodSwingCoreComponents
             camera.currAngle = (float)Math.PI / 2 - (float)Math.Acos((float)(Vector3.Dot(camera.viewVector, camera.upCamera) / (float)(Vector3.Distance(camera.cameraPosition, camera.cameraTarget))));
             camera.minAngle = camera.currAngle;
             camera.maxAngle = (float)Math.PI / 2;
+            camera.projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), viewport.AspectRatio, 5, 5000);
+            camera.frustum = new BoundingFrustum(camera.GetView() * camera.ProjectionMatrix);
         }
 
         public void AdjustPitchAxis()
@@ -112,6 +119,7 @@ namespace MoodSwingCoreComponents
             normalizedViewVector = Vector3.Normalize(viewVector);
 
             AdjustPitchAxis();
+            frustum = new BoundingFrustum(camera.GetView() * camera.ProjectionMatrix);
         }
 
         /// <summary>
@@ -127,6 +135,7 @@ namespace MoodSwingCoreComponents
             shiftVector += shift * SHIFT_SPEED;
             Vector3 dim3 = new Vector3(dim.X, dim.Y, 0);
             shiftVector = Vector3.Clamp(shiftVector, Vector3.Zero, dim3);
+            frustum = new BoundingFrustum(camera.GetView() * camera.ProjectionMatrix);
         }
 
         /// <summary>
@@ -143,6 +152,7 @@ namespace MoodSwingCoreComponents
                 viewVector = cameraPosition - cameraTarget;
                 normalizedViewVector = Vector3.Normalize(viewVector);
             }
+            frustum = new BoundingFrustum(camera.GetView() * camera.ProjectionMatrix);
         }
     }
 }

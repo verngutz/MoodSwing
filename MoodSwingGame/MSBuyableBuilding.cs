@@ -54,8 +54,8 @@ namespace MoodSwingGame
         private MS3DTile futureSelf;
         public MS3DTile FutureSelf { get { return futureSelf; } }
 
-        public MSBuyableBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column)
-            : base(model, texture, effect, position, row, column, MSMap.tallheight) 
+        public MSBuyableBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column)
+            : base(model, texture, effect, position, rotation, row, column, MSMap.tallheight) 
         {
             buildTime = 5;
             timeCount = 0;
@@ -90,8 +90,8 @@ namespace MoodSwingGame
         {
             if (State == BuyableBuildingState.TRANSFORMING || State == BuyableBuildingState.WAITING)
             {
-                Vector3 v = MoodSwing.GetInstance().GraphicsDevice.Viewport.Project(Position + new Vector3(0, 0, 20),
-                    ProjectionMatrix, MSCamera.GetInstance().GetView(),
+                Vector3 v = MoodSwing.GetInstance().GraphicsDevice.Viewport.Project(Position + new Vector3(0, 0, 20), // <- offset for progress bar
+                    MSCamera.GetInstance().ProjectionMatrix, MSCamera.GetInstance().GetView(),
                     Matrix.Identity);
                 progressBar.Progress = timeCount / buildTime;
                 progressBar.Position = new Vector2(v.X - MSMap.tileDimension/2, v.Y - MSMap.tileDimension);

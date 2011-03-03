@@ -20,8 +20,8 @@ namespace MoodSwingGame
         private MSTowerStats stats;
         private int capacity;
 
-        public MSTower( Model model, Texture2D texture, Effect effect, Vector3 position, int row, int column, MSTowerStats stats)
-            : base(model, texture, effect, position, row, column, MSMap.tallheight)
+        public MSTower( Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column, MSTowerStats stats)
+            : base(model, texture, effect, position, rotation, row, column, MSMap.tallheight)
         {
             this.stats = stats;
             capacity = stats.GetCapacity();
@@ -33,56 +33,61 @@ namespace MoodSwingGame
             {
                 for (int i = 0; i < unitHandler.Units.Count; i++)
                 {
-                    Vector2 position1 = new Vector2
-                    (
-                        position.X + MSMap.tileDimension / 2,
-                        position.Y + MSMap.tileDimension / 2
-                    );
-
-                    Vector2 position2 = new Vector2
-                    (
-                        unitHandler.Units[i].Position.X, 
-                        unitHandler.Units[i].Position.Y
-                    );
-
-                    Vector2 tileCoords = unitHandler.Units[i].TileCoordinate;
-                    MS3DTile tile = (unitHandler.Units[i] as MSCitizen).Map.MapArray[(int)tileCoords.X, (int)tileCoords.Y]; //Runtime error occurred here. (null reference)
-                    if ( tile is MSRoad && 
-                        unitHandler.Units[i] is MSMobber && 
-                        Vector2.Distance(position1, position2) <= stats.GetRange())
+                    MSUnit unit = unitHandler.Units[i];
+                    if (unit is MSMobber)
                     {
-                        MSMilleniumDevelopmentGoal goal = (unitHandler.Units[i] as MSMobber).Concern;
-                        if (stats.GetEffectiveness(goal) > MSRandom.random.Next(100))
+                        Vector2 position1 = new Vector2
+                        (
+                            position.X + MSMap.tileDimension / 2,
+                            position.Y + MSMap.tileDimension / 2
+                        );
+
+                        Vector2 position2 = new Vector2
+                        (
+                            unit.Position.X,
+                            unit.Position.Y
+                        );
+
+                        Vector2 tileCoords = unit.TileCoordinate;
+                        int distance = Math.Abs(Row - (int)tileCoords.X) + Math.Abs(Column - (int)tileCoords.Y);
+                        MS3DTile tile = (unit as MSMobber).Map.MapArray[(int)tileCoords.X, (int)tileCoords.Y];
+                        if (tile is MSRoad &&
+                            distance <= stats.GetRange())
                         {
-                            capacity--;
+                            MSMilleniumDevelopmentGoal goal = (unit as MSMobber).Concern;
+                            if (stats.GetEffectiveness(goal) > MSRandom.random.Next(100))
+                            {
+                                capacity--;
 
-                            unitHandler.Units[i] = new MSCitizen
-                            (
-                                unitHandler.Units[i].Position, 
-                                unitHandler.Units[i].Path, 
-                                unitHandler.Units[i].Map, 
-                                false
-                            );
+                                unitHandler.Units[i] = new MSCitizen
+                                (
+                                    unit.Position,
+                                    unit.Path,
+                                    unit.Map,
+                                    false
+                                );
 
-                            unitHandler.Units[i].IsStopped = true;
+                                unit = unitHandler.Units[i];
+                                unit.IsStopped = true;
 
-                            Node path1 = map.GetPath(new Vector2(Row, Column), unitHandler.Units[i].TileCoordinate);
-                            Node path2 = map.GetPath(unitHandler.Units[i].TileCoordinate, new Vector2(Row, Column)).next;
+                                Node path1 = map.GetPath(new Vector2(Row, Column), tileCoords);
+                                Node path2 = map.GetPath(tileCoords, new Vector2(Row, Column)).next;
 
-                            MSVolunteer volunteer = new MSVolunteer
-                            (
-                                Position + new Vector3(0, 0, 20), 
-                                path1, 
-                                path2, 
-                                unitHandler.Units[i], 
-                                this, 
-                                map
-                            );
+                                MSVolunteer volunteer = new MSVolunteer
+                                (
+                                    Position + MSUnit.UNITZ_POSITION,
+                                    path1,
+                                    path2,
+                                    unit,
+                                    this,
+                                    map
+                                );
 
-                            MSUnitHandler.GetInstance().AddUnit(volunteer);
-                            MSMoodManager.GetInstance().TakeHealth();
-                            MSMoodManager.GetInstance().AddMDGScore(goal);
-                            return volunteer;
+                                MSUnitHandler.GetInstance().AddUnit(volunteer);
+                                MSMoodManager.GetInstance().TakeHealth();
+                                MSMoodManager.GetInstance().AddMDGScore(goal);
+                                return volunteer;
+                            }
                         }
                     }
                 }
@@ -152,7 +157,7 @@ namespace MoodSwingGame
 
         public override int GetRange()
         {
-            return (3*MSMap.tileDimension)/2;
+            return 2;
         }
 
         private MSFoodCenterStats()
@@ -185,7 +190,7 @@ namespace MoodSwingGame
 
         public override int GetRange()
         {
-            return (3 * MSMap.tileDimension) / 2;
+            return 2;
         }
 
         private MSTutorialCenterStats()
@@ -218,7 +223,7 @@ namespace MoodSwingGame
 
         public override int GetRange()
         {
-            return (3 * MSMap.tileDimension) / 2;
+            return 2;
         }
 
         private MSWomensOrgStats()
@@ -251,7 +256,7 @@ namespace MoodSwingGame
 
         public override int GetRange()
         {
-            return (3 * MSMap.tileDimension) / 2;
+            return 2;
         }
 
         private MSHealthCenterStats()
@@ -284,7 +289,7 @@ namespace MoodSwingGame
 
         public override int GetRange()
         {
-            return (3 * MSMap.tileDimension) / 2;
+            return 2;
         }
 
         private MSEcoParkStats()
@@ -317,7 +322,7 @@ namespace MoodSwingGame
 
         public override int GetRange()
         {
-            return (3 * MSMap.tileDimension) / 2;
+            return 2;
         }
 
         private MSGlobalCenterStats()
