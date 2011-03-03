@@ -62,10 +62,10 @@ namespace MoodSwingGame
             Texture2D borderTexture = MoodSwing.GetInstance().Content.Load<Texture2D>("BorderTexture");
             Texture2D loadingTexture = MoodSwing.GetInstance().Content.Load<Texture2D>("LoadingTexture");
 
-            progressBar = new MSProgressBar(new Vector2(Position.X, Position.Y), new Vector2(50, 10), 
+            progressBar = new MSProgressBar(new Rectangle((int)Position.X, (int)Position.Y, 50, 10), 
                 MoodSwing.GetInstance().SpriteBatch,
                 MoodSwing.GetInstance(), 
-                borderTexture, loadingTexture);
+                borderTexture, loadingTexture, null, MSProgressBar.Orientation.HORIZONTAL);
 
             State = BuyableBuildingState.BUYABLE;
         }

@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="MSAnimatingButton.cs" />
     <Compile Include="MSGUIClickable.cs" />
+    <Compile Include="MSGUIObject.cs" />
     <Compile Include="MSGUIUnclickable.cs" />
     <Compile Include="MSGUIKeyboardParser.cs" />
     <Compile Include="MSGUITypable.cs" />

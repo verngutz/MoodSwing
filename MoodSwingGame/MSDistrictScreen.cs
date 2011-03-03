@@ -114,13 +114,27 @@ namespace MoodSwingGame
                 spriteBatch,
                 game);
 
-            MSPanel topPanel = new MSPanel(
-                game.Content.Load<Texture2D>("GamePanel/TopPanel"),
-                new Rectangle(0, 0, 1024, 71),
+            MSPanel topPanelBack = new MSPanel
+            (
+                Game.Content.Load<Texture2D>("GamePanel/TopPanelUnder"),
+                new Rectangle(0, 0, 1024, 91),
+                null,
+                Shape.RECTANGULAR,
+                SpriteBatch,
+                Game
+            );
+
+            AddComponent(topPanelBack);
+
+            MSPanel topPanel = new MSPanel
+            (
+                Game.Content.Load<Texture2D>("GamePanel/TopPanel"),
+                new Rectangle(0, 0, 1024, 91),
                 null,
                 Shape.AMORPHOUS,
-                spriteBatch,
-                game);
+                SpriteBatch,
+                Game
+            );
 
             topPanel.AddComponent(idleVolunteers);
             topPanel.AddComponent(totalVolunteers);
@@ -131,7 +145,7 @@ namespace MoodSwingGame
             mainMenuButton = new MSButton(
                 null,
                 new OpenMainScreen(),
-                new Rectangle(403, 72, 226, 57),
+                new Rectangle(403, 92, 226, 57),
                 game.Content.Load<Texture2D>("GamePanel/MainMenu"),
                 game.Content.Load<Texture2D>("GamePanel/mainmenuclicked"),
                 game.Content.Load<Texture2D>("GamePanel/mainmenuhovered"),
@@ -143,7 +157,7 @@ namespace MoodSwingGame
             optionsButton = new MSButton(
                 null,
                 new OpenOptionsScreen(),
-                new Rectangle(431, 131, 237, 57),
+                new Rectangle(431, 151, 237, 57),
                 game.Content.Load<Texture2D>("GamePanel/Options"),
                 game.Content.Load<Texture2D>("GamePanel/optionsclicked"),
                 game.Content.Load<Texture2D>("GamePanel/optionshovered"),
@@ -155,7 +169,7 @@ namespace MoodSwingGame
             exitButton = new MSButton(
                 null,
                 new Exit(),
-                new Rectangle(460, 190, 277, 57),
+                new Rectangle(460, 210, 277, 57),
                 game.Content.Load<Texture2D>("GamePanel/quit"),
                 game.Content.Load<Texture2D>("GamePanel/quitclicked"),
                 game.Content.Load<Texture2D>("GamePanel/quithovered"),
@@ -181,7 +195,7 @@ namespace MoodSwingGame
                    game.Content.Load<Texture2D>("GamePanel/LogoHovered"),
                    Color.White,
                    null,
-                   Shape.RECTANGULAR,
+                   Shape.CIRCULAR,
                    SpriteBatch,
                    Game);
             openInGameMenu.UnclickPosition = new MoodButtonOpenMovement();
@@ -190,13 +204,13 @@ namespace MoodSwingGame
             closeInGameMenu = new MSAnimatingButton(
                    null,
                    new CloseInGameMenu(),
-                   new Rectangle(639, 215, 111, 110),
+                   new Rectangle(639, 235, 111, 110),
                    game.Content.Load<Texture2D>("GamePanel/Logo"),
                    game.Content.Load<Texture2D>("GamePanel/LogoClicked"),
                    game.Content.Load<Texture2D>("GamePanel/LogoHovered"),
                    Color.White,
                    null,
-                   Shape.RECTANGULAR,
+                   Shape.CIRCULAR,
                    SpriteBatch,
                    Game);
 
@@ -204,10 +218,18 @@ namespace MoodSwingGame
             closeInGameMenu.UnclickTimerLimit = 12;
             closeInGameMenu.Visible = false;
 
-
             AddComponent(closeInGameMenu);
             AddComponent(openInGameMenu);
 
+            AddComponent(moodManager.PovertyProgressBar);
+            AddComponent(moodManager.EducationProgressBar);
+            AddComponent(moodManager.GenderEqualityProgressBar);
+            AddComponent(moodManager.ChildHealthProgressBar);
+            AddComponent(moodManager.MaternalHealthProgressBar);
+            AddComponent(moodManager.HivAidsProgressBar);
+            AddComponent(moodManager.EnvironmentProgressBar);
+            AddComponent(moodManager.GlobalPartnershipProgressBar);
+            
             Paused = false;
         }
 
@@ -266,13 +288,19 @@ namespace MoodSwingGame
                     (tile as MSBuyableBuilding).DrawLoadingBar(gameTime);
             }
 
-            foreach (MSGUIUnclickable element in Components)
-                if (element.Visible)
-                    element.Draw(gameTime);
-
-            foreach (MSGUIClickable element in ClickableComponents)
-                if (element.Visible)
-                    element.Draw(gameTime);
+            foreach (MSGUIObject component in components)
+            {
+                if (component is MSGUIClickable)
+                {
+                    if ((component as MSGUIClickable).Visible)
+                        (component as MSGUIClickable).Draw(gameTime);
+                }
+                else if (component is MSGUIUnclickable)
+                {
+                    if ((component as MSGUIUnclickable).Visible)
+                        (component as MSGUIUnclickable).Draw(gameTime);
+                }
+            }
 
             if (currentHovered != null && currentHovered.ToolTip != null)
                 currentHovered.ToolTip.Draw(gameTime);

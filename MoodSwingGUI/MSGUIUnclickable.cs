@@ -18,7 +18,7 @@ namespace MoodSwingGUI
     /// <summary>
     /// MSGUIUnclickable is a GUI component that is drawable but not clickable.
     /// </summary>
-    public abstract class MSGUIUnclickable : MS2DComponent
+    public abstract class MSGUIUnclickable : MS2DComponent, MSGUIObject
     {
         public MSGUIUnclickable(Rectangle boundingRectangle, SpriteBatch spriteBatch, Game game)
             : base(boundingRectangle, spriteBatch, game) { }

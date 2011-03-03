@@ -18,7 +18,7 @@ namespace MoodSwingGUI
     /// <summary>
     /// MSGUIClickable is a GUI component that is both drawable and clickable
     /// </summary>
-    public abstract class MSGUIClickable : MS2DClickable
+    public abstract class MSGUIClickable : MS2DClickable, MSGUIObject
     {
         public enum MSGUIClickableState 
         { 

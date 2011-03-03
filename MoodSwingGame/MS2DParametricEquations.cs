@@ -62,11 +62,11 @@ namespace MoodSwingGame
         public int Y(int t, int y0) 
         {
             int t1 = (int)MathHelper.Clamp(t, 0, 12);
-            return y0 + t1 * (215 - y0) / 12; 
+            return y0 + t1 * (235 - y0) / 12; 
         }
 
         public int Dx(int t) { return 639 / 12; }
-        public int Dy(int t) { return 215 / 12; }
+        public int Dy(int t) { return 235 / 12; }
     }
 
     public class MoodButtonCloseMovement : MS2DParametricEquation

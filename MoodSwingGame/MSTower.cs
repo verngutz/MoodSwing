@@ -44,11 +44,10 @@ namespace MoodSwingGame
                         unitHandler.Units[i].Position.X, 
                         unitHandler.Units[i].Position.Y
                     );
-
-                    Vector2 tileCoords = unitHandler.Units[i].TileCoordinate;
                     
                     if (unitHandler.Units[i] is MSMobber)
                     {
+                        Vector2 tileCoords = unitHandler.Units[i].TileCoordinate;
                         MS3DTile tile = (unitHandler.Units[i] as MSMobber).Map.MapArray[(int)tileCoords.X, (int)tileCoords.Y];
                         if (tile is MSRoad &&
                             Vector2.Distance(position1, position2) <= stats.GetRange())
