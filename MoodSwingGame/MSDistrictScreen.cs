@@ -69,50 +69,145 @@ namespace MoodSwingGame
                 tile.LightSource = map.LightSource;
             }
 
-            blackOutPanel = new MSPanel(
+            blackOutPanel = new MSPanel
+            (
                 game.Content.Load<Texture2D>("BlackOut"),
                 BoundingRectangle,
                 null,
                 Shape.RECTANGULAR,
                 spriteBatch,
-                game);
-
+                game
+            );
             blackOutPanel.Visible = false;
-
             AddComponent(blackOutPanel);
 
-            idleVolunteers = new MSTextField(
+            MSToolTip idleVolunteersToolTip = new MSToolTip
+            (
+                null,
+                new Rectangle(52, 25, 50, 14),
+                SpriteBatch,
+                Game
+            );
+            MSPanel idleVolunteersPanel = new MSPanel
+            (
+                null, 
+                new Rectangle(52, 25, 50, 14), 
+                idleVolunteersToolTip, 
+                Shape.RECTANGULAR, 
+                SpriteBatch, 
+                Game
+            );
+            idleVolunteers = new MSTextField
+            (
                 "0",
-                new Rectangle(125, 13, 10, 16),
+                new Rectangle(82, 25, 20, 14),
                 null,
                 null,
-                3,
+                4,
                 game.Content.Load<SpriteFont>("TopPanel"),
                 Color.White,
                 spriteBatch,
-                game);
+                game
+            );
+            idleVolunteersPanel.AddComponent(idleVolunteers);
+            idleVolunteersToolTip.AddComponent(new MSUnresizingLabel
+            (
+                "Idle Volunteers",
+                Game.Content.Load<SpriteFont>("Temp"),
+                Color.White,
+                Game.Content.Load<Texture2D>("BlackOut"),
+                3,
+                3,
+                3,
+                3,
+                SpriteBatch,
+                Game
+            ), Alignment.MIDDLE_LEFT);
 
+
+            MSToolTip totalVolunteersToolTip = new MSToolTip
+            (
+                null,
+                new Rectangle(152, 25, 80, 14),
+                SpriteBatch,
+                Game
+            );
+            MSPanel totalVolunteersPanel = new MSPanel
+            (
+                null,
+                new Rectangle(152, 25, 80, 14),
+                totalVolunteersToolTip,
+                Shape.RECTANGULAR,
+                SpriteBatch,
+                Game
+            );
             totalVolunteers = new MSTextField(
                 "0/0",
-                new Rectangle(210, 19, 25, 16),
+                new Rectangle(192, 34, 40, 14),
                 null,
                 null,
-                7,
+                9,
                 game.Content.Load<SpriteFont>("TopPanel"),
                 Color.White,
                 spriteBatch,
                 game);
+            totalVolunteersPanel.AddComponent(totalVolunteers); 
+            totalVolunteersToolTip.AddComponent(new MSUnresizingLabel
+             (
+                 "Total Volunteers/Volunteers Manageable",
+                 Game.Content.Load<SpriteFont>("Temp"),
+                 Color.White,
+                 Game.Content.Load<Texture2D>("BlackOut"),
+                 3,
+                 3,
+                 3,
+                 3,
+                 SpriteBatch,
+                 Game
+             ), Alignment.MIDDLE_LEFT);
 
-            funds = new MSTextField(
+            MSToolTip fundsToolTip = new MSToolTip
+            (
+                null,
+                new Rectangle(262, 44, 150, 20),
+                SpriteBatch,
+                Game
+            );
+            MSPanel fundsPanel = new MSPanel
+            (
+                null,
+                new Rectangle(262, 44, 150, 20),
+                fundsToolTip,
+                Shape.RECTANGULAR,
+                SpriteBatch,
+                Game
+            );
+            funds = new MSTextField
+            (
                 "0",
-                new Rectangle(350, 28, 60, 20),
+                new Rectangle(332, 44, 80, 20),
                 null,
                 null,
                 8,
                 game.Content.Load<SpriteFont>("TopPanel"),
                 Color.White,
                 spriteBatch,
-                game);
+                game
+            );
+            fundsPanel.AddComponent(funds); 
+            fundsToolTip.AddComponent(new MSUnresizingLabel
+             (
+                 "Funds",
+                 Game.Content.Load<SpriteFont>("Temp"),
+                 Color.White,
+                 Game.Content.Load<Texture2D>("BlackOut"),
+                 3,
+                 3,
+                 3,
+                 3,
+                 SpriteBatch,
+                 Game
+             ), Alignment.MIDDLE_LEFT);
 
             MSPanel topPanelBack = new MSPanel
             (
@@ -136,9 +231,9 @@ namespace MoodSwingGame
                 Game
             );
 
-            topPanel.AddComponent(idleVolunteers);
-            topPanel.AddComponent(totalVolunteers);
-            topPanel.AddComponent(funds);
+            topPanel.AddComponent(idleVolunteersPanel);
+            topPanel.AddComponent(totalVolunteersPanel);
+            topPanel.AddComponent(fundsPanel);
 
             AddComponent(topPanel, Alignment.TOP_CENTER);
 
