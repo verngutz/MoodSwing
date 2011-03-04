@@ -75,13 +75,27 @@ namespace MoodSwingGame
         }
     }
     
-    public class InitiateGameOverSequence : MSAction
+    public class InitiateGameOverLoseSequence : MSAction
     {
         public void PerformAction(Game game)
         {
             MSDistrictScreen screen = ((game as MoodSwing).CurrentScreen as MSDistrictScreen);
             screen.Paused = true;
             screen.BlackOutPanel.Visible = true;
+            if(screen.BuyDialog != null)
+                screen.RemoveComponent(screen.BuyDialog);
+        }
+    }
+
+    public class InitiateGameOverWinSequence : MSAction
+    {
+        public void PerformAction(Game game)
+        {
+            MSDistrictScreen screen = ((game as MoodSwing).CurrentScreen as MSDistrictScreen);
+            screen.Paused = true;
+            screen.BlackOutPanel.Visible = true;
+            if (screen.BuyDialog != null)
+                screen.RemoveComponent(screen.BuyDialog);
         }
     }
 

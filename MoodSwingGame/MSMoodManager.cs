@@ -63,29 +63,29 @@ namespace MoodSwingGame
         private float globalPartnershipScore;
         public float GlobalPartnershipScore { get { return globalPartnershipScore; } }
 
-        private MSProgressBar povertyProgressBar;
-        public MSProgressBar PovertyProgressBar { get { return povertyProgressBar; } }
+        private MSMDGProgressBar povertyProgressBar;
+        public MSMDGProgressBar PovertyProgressBar { get { return povertyProgressBar; } }
 
-        private MSProgressBar educationProgressBar;
-        public MSProgressBar EducationProgressBar { get { return educationProgressBar; } }
+        private MSMDGProgressBar educationProgressBar;
+        public MSMDGProgressBar EducationProgressBar { get { return educationProgressBar; } }
 
-        private MSProgressBar genderEqualityProgressBar;
-        public MSProgressBar GenderEqualityProgressBar { get { return genderEqualityProgressBar; } }
+        private MSMDGProgressBar genderEqualityProgressBar;
+        public MSMDGProgressBar GenderEqualityProgressBar { get { return genderEqualityProgressBar; } }
 
-        private MSProgressBar childHealthProgressBar;
-        public MSProgressBar ChildHealthProgressBar { get { return childHealthProgressBar; } }
+        private MSMDGProgressBar childHealthProgressBar;
+        public MSMDGProgressBar ChildHealthProgressBar { get { return childHealthProgressBar; } }
 
-        private MSProgressBar maternalHealthProgressBar;
-        public MSProgressBar MaternalHealthProgressBar { get { return maternalHealthProgressBar; } }
+        private MSMDGProgressBar maternalHealthProgressBar;
+        public MSMDGProgressBar MaternalHealthProgressBar { get { return maternalHealthProgressBar; } }
 
-        private MSProgressBar hivAidsProgressBar;
-        public MSProgressBar HivAidsProgressBar { get { return hivAidsProgressBar; } }
+        private MSMDGProgressBar hivAidsProgressBar;
+        public MSMDGProgressBar HivAidsProgressBar { get { return hivAidsProgressBar; } }
 
-        private MSProgressBar environmentProgressBar;
-        public MSProgressBar EnvironmentProgressBar { get { return environmentProgressBar; } }
+        private MSMDGProgressBar environmentProgressBar;
+        public MSMDGProgressBar EnvironmentProgressBar { get { return environmentProgressBar; } }
 
-        private MSProgressBar globalPartnershipProgressBar;
-        public MSProgressBar GlobalPartnershipProgressBar { get { return globalPartnershipProgressBar; } }
+        private MSMDGProgressBar globalPartnershipProgressBar;
+        public MSMDGProgressBar GlobalPartnershipProgressBar { get { return globalPartnershipProgressBar; } }
 
         private static MSMoodManager moodManager = null;
 
@@ -124,93 +124,93 @@ namespace MoodSwingGame
             environmentBonusEnabled = true;
             globalPartnershipBonusEnabled = true;
 
-            immortal = true;
+            immortal = false;
 
-            povertyProgressBar = new MSProgressBar
+            povertyProgressBar = new MSMDGProgressBar
             (
-                new Rectangle(0, 0, 1024, 91),
+                new Rectangle(587, 41, 48, 35),
                 MoodSwing.GetInstance().SpriteBatch,
                 MoodSwing.GetInstance(),
-                null,
                 MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/1"),
-                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/1Full"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/a"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/10"),
                 MSProgressBar.Orientation.VERTICAL
             );
 
-            educationProgressBar = new MSProgressBar
+            educationProgressBar = new MSMDGProgressBar
             (
-                new Rectangle(0, 0, 1024, 91),
+                new Rectangle(639, 34, 31, 39),
                 MoodSwing.GetInstance().SpriteBatch,
                 MoodSwing.GetInstance(),
-                null,
                 MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/2"),
-                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/2Full"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/b"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/20"),
                 MSProgressBar.Orientation.VERTICAL
             );
 
-            genderEqualityProgressBar = new MSProgressBar
+            genderEqualityProgressBar = new MSMDGProgressBar
             (
-                new Rectangle(0, 0, 1024, 91),
+                new Rectangle(682, 36, 38, 34),
                 MoodSwing.GetInstance().SpriteBatch,
                 MoodSwing.GetInstance(),
-                null,
                 MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/3"),
-                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/3Full"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/c"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/30"),
                 MSProgressBar.Orientation.VERTICAL
             );
 
-            childHealthProgressBar = new MSProgressBar
+            childHealthProgressBar = new MSMDGProgressBar
             (
-                new Rectangle(0, 0, 1024, 91),
+                new Rectangle(721, 31, 45, 36),
                 MoodSwing.GetInstance().SpriteBatch,
                 MoodSwing.GetInstance(),
-                null,
                 MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/4"),
-                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/4Full"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/d"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/40"),
                 MSProgressBar.Orientation.VERTICAL
             );
 
-            maternalHealthProgressBar = new MSProgressBar
+            maternalHealthProgressBar = new MSMDGProgressBar
             (
-                new Rectangle(0, 0, 1024, 91),
+                new Rectangle(770, 25, 37, 39),
                 MoodSwing.GetInstance().SpriteBatch,
                 MoodSwing.GetInstance(),
-                null,
                 MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/5"),
-                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/5Full"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/e"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/50"),
                 MSProgressBar.Orientation.VERTICAL
             );
 
-            hivAidsProgressBar = new MSProgressBar
+            hivAidsProgressBar = new MSMDGProgressBar
             (
-                new Rectangle(0, 0, 1024, 91),
+                new Rectangle(813, 28, 37, 33),
                 MoodSwing.GetInstance().SpriteBatch,
                 MoodSwing.GetInstance(),
-                null,
                 MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/6"),
-                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/6Full"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/f"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/60"),
                 MSProgressBar.Orientation.VERTICAL
             );
 
-            environmentProgressBar = new MSProgressBar
+            environmentProgressBar = new MSMDGProgressBar
             (
-                new Rectangle(0, 0, 1024, 91),
+                new Rectangle(856, 23, 51, 33),
                 MoodSwing.GetInstance().SpriteBatch,
                 MoodSwing.GetInstance(),
-                null,
                 MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/7"),
-                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/7Full"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/g"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/70"),
                 MSProgressBar.Orientation.VERTICAL
             );
 
-            globalPartnershipProgressBar = new MSProgressBar
+            globalPartnershipProgressBar = new MSMDGProgressBar
             (
-                new Rectangle(0, 0, 1024, 91),
+                new Rectangle(908, 17, 45, 31),
                 MoodSwing.GetInstance().SpriteBatch,
                 MoodSwing.GetInstance(),
-                null,
                 MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/8"),
-                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/8Full"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/h"),
+                MoodSwing.GetInstance().Content.Load<Texture2D>("GamePanel/80"),
                 MSProgressBar.Orientation.VERTICAL
             );
         }
@@ -224,7 +224,7 @@ namespace MoodSwingGame
                 if (!immortal)
                 {
                     isAlive = false;
-                    (new InitiateGameOverSequence()).PerformAction(MoodSwing.GetInstance());
+                    (new InitiateGameOverLoseSequence()).PerformAction(MoodSwing.GetInstance());
                 }
             }
         }
@@ -238,7 +238,7 @@ namespace MoodSwingGame
             isAlive = true;
         }
 
-        private void AddScore(ref float score_variable, ref bool score_enabled, ref MSProgressBar bar)
+        private void AddScore(ref float score_variable, ref bool score_enabled, ref MSMDGProgressBar bar)
         {
             if (score_enabled)
             {
@@ -282,6 +282,10 @@ namespace MoodSwingGame
                     AddScore(ref globalPartnershipScore, ref globalPartnershipBonusEnabled, ref globalPartnershipProgressBar);
                     break;
             }
+
+            if(povertyScore == 1 && educationScore == 1 && genderEqualityScore == 1 && childHealthScore == 1
+                && maternalHealthScore == 1 && hivAidsScore == 1 && environmentScore == 1 && globalPartnershipScore == 1)
+                (new InitiateGameOverWinSequence()).PerformAction(MoodSwing.GetInstance());
         }
     }
 }

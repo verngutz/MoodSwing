@@ -47,7 +47,6 @@ namespace MoodSwingGUI
         private Vector2 boundedSize;
         protected Color highlight;
 
-
         public MSPanel(Texture2D background, Rectangle boundingRectangle, MSToolTip toolTip, Shape shape, SpriteBatch spriteBatch, Game game)
             : this(background, boundingRectangle, 0, 0, 0, 0, Color.White, toolTip, shape, spriteBatch, game) { }
 
@@ -198,12 +197,12 @@ namespace MoodSwingGUI
         {
             base.Update(gameTime);
 
-            foreach (MSGUIUnclickable element in unclickableComponents)
-                if(element.Visible)
-                    element.Update(gameTime);
-            foreach (MSGUIClickable element in clickableComponents)
-                if(element.Visible)
-                    element.Update(gameTime);
+            foreach (MSGUIUnclickable component in unclickableComponents)
+                if(component.Visible)
+                    component.Update(gameTime);
+            foreach (MSGUIClickable component in clickableComponents)
+                if(component.Visible)
+                    component.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)

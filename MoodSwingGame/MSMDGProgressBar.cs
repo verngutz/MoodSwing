@@ -15,18 +15,16 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGUI
 {
-    public class MSProgressBar : MSGUIUnclickable
+    public class MSMDGProgressBar : MSGUIUnclickable
     {
-        public enum Orientation { HORIZONTAL, VERTICAL }
-
         private Texture2D borderTexture;
         private Texture2D fillTexture;
         private Texture2D fullTexture;
-        private Orientation orientation;
+        private MSProgressBar.Orientation orientation;
         public double Progress { get; set; }
 
-        public MSProgressBar(Rectangle bounding_rectangle, SpriteBatch sprite_batch, Game game,
-            Texture2D border_texture, Texture2D fill_texture, Texture2D full_texture, Orientation orientation)
+        public MSMDGProgressBar(Rectangle bounding_rectangle, SpriteBatch sprite_batch, Game game,
+            Texture2D border_texture, Texture2D fill_texture, Texture2D full_texture, MSProgressBar.Orientation orientation)
             : base(bounding_rectangle, sprite_batch, game)
         {
             this.borderTexture = border_texture;
@@ -41,10 +39,10 @@ namespace MoodSwingGUI
             Rectangle fillRectangle = new Rectangle();
             switch (orientation)
             {
-                case Orientation.HORIZONTAL:
+                case MSProgressBar.Orientation.HORIZONTAL:
                     fillRectangle = new Rectangle((int)Position.X, (int)Position.Y, (int)(Progress * Size.X), (int)Size.Y);
                     break;
-                case Orientation.VERTICAL:
+                case MSProgressBar.Orientation.VERTICAL:
                     fillRectangle = new Rectangle((int)Position.X, (int)(Position.Y + (1 - Progress) * Size.Y), (int)(Size.X), (int)(Progress * Size.Y));
                     break;
             }
@@ -55,7 +53,7 @@ namespace MoodSwingGUI
                 spriteBatch.Draw(borderTexture, BoundingRectangle, Color.White);
 
             if (fullTexture != null && Progress >= 1)
-                spriteBatch.Draw(fullTexture, BoundingRectangle, Color.White);
+                spriteBatch.Draw(fullTexture, new Rectangle(BoundingRectangle.X, 0, BoundingRectangle.Width, 91), Color.White);
 
             base.Draw(gameTime);
         }
