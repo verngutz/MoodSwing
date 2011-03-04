@@ -134,7 +134,7 @@ namespace MoodSwingCoreComponents
             
             shiftVector += shift * SHIFT_SPEED;
             Vector3 dim3 = new Vector3(dim.X, dim.Y, 0);
-            shiftVector = Vector3.Clamp(shiftVector, Vector3.Zero, dim3);
+            //shiftVector = Vector3.Clamp(shiftVector, Vector3.Zero, dim3);
             frustum = new BoundingFrustum(camera.GetView() * camera.ProjectionMatrix);
         }
 

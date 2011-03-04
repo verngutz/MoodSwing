@@ -380,13 +380,22 @@ namespace MoodSwingGame
                     }
 
 
+                    int maxY = 0;
+                    if (position.X >= 0 && position.X <= 465)
+                        maxY = (91 - 53) / 465 * (int)(position.X) + 53;
+                    else if (position.X > 465 && position.X < 540)
+                        maxY = 91;
+                    else if (position.X >= 540 && position.X <= 1024)
+                        maxY = (91 - 53) / (540 - 1024) * (int)(position.X - 1024) + 53;
 
-                    if (position.Y + 50 < 0 ||
+                    maxY += 20;
+
+                    if (position.Y  < maxY ||
                         position.Y + 50 + boundingRectangle.Height > MoodSwing.GetInstance().GraphicsDevice.Viewport.Height)
                     {
                         
                         Vector3 top = MSCamera.GetInstance().Frustum.GetCorners()[4];
-                        Vector3 bottom = MSCamera.GetInstance().Frustum.GetCorners()[6];
+                        Vector3 bottom = MSCamera.GetInstance().Frustum.GetCorners()[7];
                         
                         double distTop = Vector3.Distance(top, unit.Position);
                         double distBottom = Vector3.Distance(bottom, unit.Position);
@@ -394,7 +403,7 @@ namespace MoodSwingGame
                         if( distTop < distBottom ) 
                         {
                             effect = SpriteEffects.FlipVertically;
-                            position.Y = 0;
+                            position.Y = maxY;
                         }
                         else 
                         {
