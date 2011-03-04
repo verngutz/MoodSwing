@@ -28,12 +28,59 @@ namespace MoodSwingGame
 
         private Queue<string> notifications;
         private SpriteFont notificationFont;
+        private Color fadeEffect;
+        private int fadeAlpha;
+        private int fadeIncrement;
 
         private MSNotifier() 
-            : base(MoodSwing.GetInstance().Content.Load<Texture2D>("BlackOut"), new Rectangle(0, 728, 1024, 40), null, Shape.RECTANGULAR, MoodSwing.GetInstance().SpriteBatch, MoodSwing.GetInstance()) 
+            : base(MoodSwing.GetInstance().Content.Load<Texture2D>("BlackOut"), new Rectangle(0, 400, 1024, 100), null, Shape.RECTANGULAR, MoodSwing.GetInstance().SpriteBatch, MoodSwing.GetInstance()) 
         {
-            notifications = new Queue<string>();
             notificationFont = Game.Content.Load<SpriteFont>("Temp");
+            notifications = new Queue<string>();
+            fadeAlpha = 1;
+            fadeEffect = new Color(255, 255, 255, fadeAlpha);
+            fadeIncrement = 5;
+        }
+
+        public void InvokeNotification(string notification)
+        {
+            notifications.Enqueue(notification);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            if (fadeAlpha > 0 && notifications.Count > 0)
+            {
+                fadeAlpha += fadeIncrement;
+                if (fadeAlpha >= 255)
+                {
+                    fadeIncrement = -5;
+                }
+            }
+            if (fadeAlpha <= 0)
+            {
+                notifications.Dequeue();
+                fadeIncrement = 5;
+                fadeAlpha = 1;
+            }
+            fadeEffect.A = (byte)fadeAlpha;
+            System.Console.WriteLine(fadeAlpha);
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            if (notifications.Count > 0)
+            {
+                SpriteBatch.Draw(background, BoundingRectangle, fadeEffect);
+                SpriteBatch.DrawString
+                (
+                    notificationFont,
+                    notifications.Peek(),
+                    Position + (Size - notificationFont.MeasureString(notifications.Peek()) / 2),
+                    fadeEffect
+                );
+            }
         }
     }
 }

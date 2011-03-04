@@ -251,7 +251,7 @@ namespace MoodSwingGame
 
         public override int GetCapacity()
         {
-            return 2;
+            return 4;
         }
 
         public override int GetRange()

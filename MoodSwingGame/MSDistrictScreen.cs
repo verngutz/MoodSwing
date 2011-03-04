@@ -450,6 +450,8 @@ namespace MoodSwingGame
                 spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Awesome Mood Reached", new Vector2(500, 10), Color.White);
             else if(moodManager.Mood > 0.75f)
                 spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Good Mood Reached", new Vector2(500, 10), Color.White);
+
+            MSNotifier.GetInstance().Draw(gameTime);
         }
 
         public override void Update(GameTime gameTime)
@@ -478,7 +480,9 @@ namespace MoodSwingGame
                 totalVolunteers.Text = resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity;
                 funds.Text = resourceManager.Funds + "";
 
-            }    
+            }
+
+            MSNotifier.GetInstance().Update(gameTime);
         }
 
         public void CheckCollision()
