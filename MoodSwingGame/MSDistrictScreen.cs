@@ -614,6 +614,39 @@ namespace MoodSwingGame
                     shift = new Vector2(0, 1);
                     hasMoved = true;
                 }
+
+                if (newMouseState.RightButton == ButtonState.Pressed && 
+                    oldMouseState.RightButton == ButtonState.Released)
+                {
+                    mouseMidHold = new Vector2(newMouseState.X, newMouseState.Y);
+                }
+                else if (newMouseState.RightButton == ButtonState.Pressed &&
+                    newMouseState.RightButton == ButtonState.Pressed)
+                {
+                    Vector2 delta2 = new Vector2(newMouseState.X - mouseMidHold.X, newMouseState.Y - mouseMidHold.Y);
+
+                    if ( delta2.X <= -20 )
+                    {
+                        shift = new Vector2(1, 0);
+                        hasMoved = true;
+                    }
+                    else if ( delta2.X >= 20 )
+                    {
+                        shift = new Vector2(-1, 0);
+                        hasMoved = true;
+                    }
+                    else if ( delta2.Y <= -20 )
+                    {
+                        shift = new Vector2(0, -1);
+                        hasMoved = true;
+                    }
+                    else if (delta2.Y >= 20 )
+                    {
+                        shift = new Vector2(0, 1);
+                        hasMoved = true;
+                    }
+                }
+
                 MSCamera.GetInstance().Shift(shift, map.Dimension);
                 int delta = (newMouseState.ScrollWheelValue - oldMouseState.ScrollWheelValue);
                 if (delta != 0)
