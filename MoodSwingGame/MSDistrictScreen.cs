@@ -615,6 +615,7 @@ namespace MoodSwingGame
                     hasMoved = true;
                 }
 
+                //camera movement using right mouse button.
                 if (newMouseState.RightButton == ButtonState.Pressed && 
                     oldMouseState.RightButton == ButtonState.Released)
                 {
