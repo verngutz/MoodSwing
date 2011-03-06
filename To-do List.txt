@@ -11,8 +11,6 @@ Things Still Needed
 
 Fix fonts.
 Add sound effects.
-Implement "Game Over" sequences (both for winning and losing).
-Implement "Bad Mood" warning.
 Implement dialog box for "return to main menu" and "exit" confirmation.
 Hide all the unused screens for now.
 Hide debug code and debug onscreen items.

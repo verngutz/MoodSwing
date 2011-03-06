@@ -461,6 +461,7 @@ namespace MoodSwingGame
                 resourceManager.Update(gameTime);
                 MSUnit person = unitHandler.TryForBaby(map);
 
+                moodManager.Update(gameTime);
                 unitHandler.Update(map);
 
                 foreach (MS3DTile tile in map.MapArray)
@@ -475,10 +476,8 @@ namespace MoodSwingGame
                 idleVolunteers.Text = resourceManager.IdleVolunteers + "";
                 totalVolunteers.Text = resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity;
                 funds.Text = resourceManager.Funds + "";
-
+                MSNotifier.GetInstance().Update(gameTime);
             }
-
-            MSNotifier.GetInstance().Update(gameTime);
         }
 
         public void CheckCollision()
