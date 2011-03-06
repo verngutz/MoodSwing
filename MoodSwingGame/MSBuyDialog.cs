@@ -36,6 +36,21 @@ namespace MoodSwingGame
             this.toBuy = toBuy;
             toBuyEffect = toBuy.Effect;
             toBuy.Effect = Game.Content.Load<Effect>("highlight");
+            MSImageHolder bucksIcon = new MSImageHolder
+            (
+                new Rectangle(0, 0, 40, 24),
+                Game.Content.Load<Texture2D>("BuyDialog/bucks"),
+                SpriteBatch,
+                Game
+            );
+
+            MSImageHolder gingerBreadManIcon = new MSImageHolder
+            (
+                new Rectangle(0, 0, 20, 26),
+                Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
+                SpriteBatch,
+                Game
+            );
 
             #region Child Health Tool Tip
             MSToolTip childHealthToolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
@@ -66,17 +81,7 @@ namespace MoodSwingGame
 
             childHealthToolTip.AddComponent(childHealthCostToolTip, Alignment.MIDDLE_CENTER);
 
-            childHealthCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.MIDDLE_LEFT
-            );
+            childHealthCostToolTip.AddComponent(bucksIcon, Alignment.MIDDLE_LEFT);
 
             childHealthCostToolTip.AddComponent
             (
@@ -93,17 +98,7 @@ namespace MoodSwingGame
                 Alignment.MIDDLE_RIGHT
             );
 
-            childHealthCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.BOTTOM_LEFT
-            );
+            childHealthCostToolTip.AddComponent(gingerBreadManIcon, Alignment.BOTTOM_LEFT);
 
             childHealthCostToolTip.AddComponent
             (
@@ -159,17 +154,7 @@ namespace MoodSwingGame
 
             povertyToolTip.AddComponent(povertyCostToolTip, Alignment.MIDDLE_CENTER);
 
-            povertyCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.MIDDLE_LEFT
-            );
+            povertyCostToolTip.AddComponent(bucksIcon, Alignment.MIDDLE_LEFT);
 
             povertyCostToolTip.AddComponent
             (
@@ -186,17 +171,7 @@ namespace MoodSwingGame
                 Alignment.MIDDLE_RIGHT
             );
 
-            povertyCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.BOTTOM_LEFT
-            );
+            povertyCostToolTip.AddComponent(gingerBreadManIcon, Alignment.BOTTOM_LEFT);
 
             povertyCostToolTip.AddComponent
             (
@@ -252,17 +227,7 @@ namespace MoodSwingGame
 
             genderEqualityToolTip.AddComponent(genderEqualityCostToolTip, Alignment.MIDDLE_CENTER);
 
-            genderEqualityCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.MIDDLE_LEFT
-            );
+            genderEqualityCostToolTip.AddComponent(bucksIcon, Alignment.MIDDLE_LEFT);
 
             genderEqualityCostToolTip.AddComponent
             (
@@ -279,17 +244,7 @@ namespace MoodSwingGame
                 Alignment.MIDDLE_RIGHT
             );
 
-            genderEqualityCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.BOTTOM_LEFT
-            );
+            genderEqualityCostToolTip.AddComponent(gingerBreadManIcon, Alignment.BOTTOM_LEFT);
 
             genderEqualityCostToolTip.AddComponent
             (
@@ -345,17 +300,7 @@ namespace MoodSwingGame
 
             educationToolTip.AddComponent(educationCostToolTip, Alignment.MIDDLE_CENTER);
 
-            educationCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.MIDDLE_LEFT
-            );
+            educationCostToolTip.AddComponent(bucksIcon, Alignment.MIDDLE_LEFT);
 
             educationCostToolTip.AddComponent
             (
@@ -372,17 +317,7 @@ namespace MoodSwingGame
                 Alignment.MIDDLE_RIGHT
             );
 
-            educationCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.BOTTOM_LEFT
-            );
+            educationCostToolTip.AddComponent(gingerBreadManIcon, Alignment.BOTTOM_LEFT);
 
             educationCostToolTip.AddComponent
             (
@@ -438,17 +373,7 @@ namespace MoodSwingGame
 
             maternalHealthToolTip.AddComponent(maternalHealthCostToolTip, Alignment.MIDDLE_CENTER);
 
-            maternalHealthCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.MIDDLE_LEFT
-            );
+            maternalHealthCostToolTip.AddComponent(bucksIcon, Alignment.MIDDLE_LEFT);
 
             maternalHealthCostToolTip.AddComponent
             (
@@ -465,17 +390,7 @@ namespace MoodSwingGame
                 Alignment.MIDDLE_RIGHT
             );
 
-            maternalHealthCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.BOTTOM_LEFT
-            );
+            maternalHealthCostToolTip.AddComponent(gingerBreadManIcon, Alignment.BOTTOM_LEFT);
 
             maternalHealthCostToolTip.AddComponent
             (
@@ -531,17 +446,7 @@ namespace MoodSwingGame
 
             environmentToolTip.AddComponent(environmentCostToolTip, Alignment.MIDDLE_CENTER);
 
-            environmentCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.MIDDLE_LEFT
-            );
+            environmentCostToolTip.AddComponent(bucksIcon, Alignment.MIDDLE_LEFT);
 
             environmentCostToolTip.AddComponent
             (
@@ -558,17 +463,7 @@ namespace MoodSwingGame
                 Alignment.MIDDLE_RIGHT
             );
 
-            environmentCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.BOTTOM_LEFT
-            );
+            environmentCostToolTip.AddComponent(gingerBreadManIcon, Alignment.BOTTOM_LEFT);
 
             environmentCostToolTip.AddComponent
             (
@@ -624,17 +519,7 @@ namespace MoodSwingGame
 
             globalPartnershipToolTip.AddComponent(globalPartnershipCostToolTip, Alignment.MIDDLE_CENTER);
 
-            globalPartnershipCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.MIDDLE_LEFT
-            );
+            globalPartnershipCostToolTip.AddComponent(bucksIcon, Alignment.MIDDLE_LEFT);
 
             globalPartnershipCostToolTip.AddComponent
             (
@@ -651,17 +536,7 @@ namespace MoodSwingGame
                 Alignment.MIDDLE_RIGHT
             );
 
-            globalPartnershipCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.BOTTOM_LEFT
-            );
+            globalPartnershipCostToolTip.AddComponent(gingerBreadManIcon, Alignment.BOTTOM_LEFT);
 
             globalPartnershipCostToolTip.AddComponent
             (
@@ -717,17 +592,7 @@ namespace MoodSwingGame
 
             hivAidsToolTip.AddComponent(hivAidsCostToolTip, Alignment.MIDDLE_CENTER);
 
-            hivAidsCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.MIDDLE_LEFT
-            );
+            hivAidsCostToolTip.AddComponent(bucksIcon, Alignment.MIDDLE_LEFT);
 
             hivAidsCostToolTip.AddComponent
             (
@@ -744,17 +609,7 @@ namespace MoodSwingGame
                 Alignment.MIDDLE_RIGHT
             );
 
-            hivAidsCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.BOTTOM_LEFT
-            );
+            hivAidsCostToolTip.AddComponent(gingerBreadManIcon, Alignment.BOTTOM_LEFT);
 
             hivAidsCostToolTip.AddComponent
             (
@@ -825,17 +680,7 @@ namespace MoodSwingGame
 
             volunteerCenterToolTip.AddComponent(volunteerCenterCostToolTip, Alignment.MIDDLE_CENTER);
 
-            volunteerCenterCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.MIDDLE_LEFT
-            );
+            volunteerCenterCostToolTip.AddComponent(bucksIcon, Alignment.MIDDLE_LEFT);
 
             volunteerCenterCostToolTip.AddComponent
             (
@@ -891,17 +736,7 @@ namespace MoodSwingGame
 
             fundraiserToolTip.AddComponent(fundraiserCostToolTip, Alignment.MIDDLE_CENTER);
 
-            fundraiserCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.MIDDLE_LEFT
-            );
+            fundraiserCostToolTip.AddComponent(bucksIcon, Alignment.MIDDLE_LEFT);
 
             fundraiserCostToolTip.AddComponent
             (
@@ -918,17 +753,7 @@ namespace MoodSwingGame
                 Alignment.MIDDLE_RIGHT
             );
 
-            fundraiserCostToolTip.AddComponent
-            (
-                new MSImageHolder
-                (
-                    new Rectangle(0, 0, 20, 20),
-                    Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.BOTTOM_LEFT
-            );
+            fundraiserCostToolTip.AddComponent(gingerBreadManIcon, Alignment.BOTTOM_LEFT);
 
             fundraiserCostToolTip.AddComponent
             (
