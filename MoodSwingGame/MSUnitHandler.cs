@@ -132,11 +132,28 @@ namespace MoodSwingGame
             units.Add(unit);
         }
 
+        public void SendVolunteer(MSMap map, MSUnit unit, MSTower bldg )
+        {
+            Node path1 = map.GetPath(new Vector2(bldg.Row, bldg.Column), unit.TileCoordinate);
+            Node path2 = map.GetPath(unit.TileCoordinate, new Vector2(bldg.Row, bldg.Column)).next;
+
+            MSVolunteer volunteer = new MSVolunteer
+            (
+                bldg.Position + MSUnit.UNITZ_POSITION,
+                path1,
+                path2,
+                unit,
+                bldg,
+                map
+            );
+
+            MSUnitHandler.GetInstance().AddUnit(volunteer);
+        }
+
         public void SendWorkers( MSMap map, MSBuyableBuilding bldg, int qty)
         {
             MSVolunteerCenter center = map.GetNearestVolunteerCenter(bldg);
             Node path = map.GetPath(center.TileCoordinate, bldg.TileCoordinate);
-
 
             for (int i = 0; i < qty; i++)
             {

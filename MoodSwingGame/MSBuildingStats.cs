@@ -43,20 +43,20 @@ namespace MoodSwingGame
 
     public abstract class MSTowerStats : MSBuildingStats
     {
-        protected int povertyEffectiveness;
-        protected int educationEffectiveness;
-        protected int genderEqualityEffectiveness;
-        protected int childHealthEffectiveness;
-        protected int maternalHealthEffectiveness;
-        protected int hivAidsEffectiveness;
-        protected int environmentEffectiveness;
-        protected int globalEffectiveness;
+        protected bool povertyEffectiveness;
+        protected bool educationEffectiveness;
+        protected bool genderEqualityEffectiveness;
+        protected bool childHealthEffectiveness;
+        protected bool maternalHealthEffectiveness;
+        protected bool hivAidsEffectiveness;
+        protected bool environmentEffectiveness;
+        protected bool globalEffectiveness;
 
         public virtual int GetVolunteerCost() { return 4; }
         public virtual int GetFundsCost() { return 200; }
         public virtual int GetRange() { return 2; }
 
-        public int GetEffectiveness(MSMilleniumDevelopmentGoal type)
+        public bool GetEffectiveness(MSMilleniumDevelopmentGoal type)
         {
             switch (type)
             {
@@ -93,14 +93,14 @@ namespace MoodSwingGame
 
         private MSFoodCenterStats()
         {
-            povertyEffectiveness = 100;
-            educationEffectiveness = 0;
-            genderEqualityEffectiveness = 0;
-            childHealthEffectiveness = 0;
-            maternalHealthEffectiveness = 0;
-            hivAidsEffectiveness = 0;
-            environmentEffectiveness = 0;
-            globalEffectiveness = 0;
+            povertyEffectiveness = true;
+            educationEffectiveness = false;
+            genderEqualityEffectiveness = false;
+            childHealthEffectiveness = false;
+            maternalHealthEffectiveness = false;
+            hivAidsEffectiveness = false;
+            environmentEffectiveness = false;
+            globalEffectiveness = false;
         }
     }
 
@@ -116,14 +116,14 @@ namespace MoodSwingGame
 
         private MSTutorialCenterStats()
         {
-            povertyEffectiveness = 0;
-            educationEffectiveness = 100;
-            genderEqualityEffectiveness = 0;
-            childHealthEffectiveness = 0;
-            maternalHealthEffectiveness = 0;
-            hivAidsEffectiveness = 0;
-            environmentEffectiveness = 0;
-            globalEffectiveness = 0;
+            povertyEffectiveness = false;
+            educationEffectiveness = true;
+            genderEqualityEffectiveness = false;
+            childHealthEffectiveness = false;
+            maternalHealthEffectiveness = false;
+            hivAidsEffectiveness = false;
+            environmentEffectiveness = false;
+            globalEffectiveness = false;
         }
     }
 
@@ -139,14 +139,14 @@ namespace MoodSwingGame
 
         private MSWomensOrgStats()
         {
-            povertyEffectiveness = 0;
-            educationEffectiveness = 0;
-            genderEqualityEffectiveness = 100;
-            childHealthEffectiveness = 0;
-            maternalHealthEffectiveness = 0;
-            hivAidsEffectiveness = 0;
-            environmentEffectiveness = 0;
-            globalEffectiveness = 0;
+            povertyEffectiveness = false;
+            educationEffectiveness = false;
+            genderEqualityEffectiveness = true;
+            childHealthEffectiveness = false;
+            maternalHealthEffectiveness = false;
+            hivAidsEffectiveness = false;
+            environmentEffectiveness = false;
+            globalEffectiveness = false;
         }
     }
 
@@ -162,14 +162,14 @@ namespace MoodSwingGame
 
         private MSChildHealthCenterStats()
         {
-            povertyEffectiveness = 0;
-            educationEffectiveness = 0;
-            genderEqualityEffectiveness = 0;
-            childHealthEffectiveness = 100;
-            maternalHealthEffectiveness = 0;
-            hivAidsEffectiveness = 0;
-            environmentEffectiveness = 0;
-            globalEffectiveness = 0;
+            povertyEffectiveness = false;
+            educationEffectiveness = false;
+            genderEqualityEffectiveness = false;
+            childHealthEffectiveness = true;
+            maternalHealthEffectiveness = false;
+            hivAidsEffectiveness = false;
+            environmentEffectiveness = false;
+            globalEffectiveness = false;
         }
     }
 
@@ -185,14 +185,14 @@ namespace MoodSwingGame
 
         private MSMaternalHealthCenterStats()
         {
-            povertyEffectiveness = 0;
-            educationEffectiveness = 0;
-            genderEqualityEffectiveness = 0;
-            childHealthEffectiveness = 0;
-            maternalHealthEffectiveness = 100;
-            hivAidsEffectiveness = 0;
-            environmentEffectiveness = 0;
-            globalEffectiveness = 0;
+            povertyEffectiveness = false;
+            educationEffectiveness = false;
+            genderEqualityEffectiveness = false;
+            childHealthEffectiveness = false;
+            maternalHealthEffectiveness = true;
+            hivAidsEffectiveness = false;
+            environmentEffectiveness = false;
+            globalEffectiveness = false;
         }
     }
 
@@ -208,14 +208,14 @@ namespace MoodSwingGame
 
         private MSHivAidsHealthCenterStats()
         {
-            povertyEffectiveness = 0;
-            educationEffectiveness = 0;
-            genderEqualityEffectiveness = 0;
-            childHealthEffectiveness = 0;
-            maternalHealthEffectiveness = 0;
-            hivAidsEffectiveness = 100;
-            environmentEffectiveness = 0;
-            globalEffectiveness = 0;
+            povertyEffectiveness = false;
+            educationEffectiveness = false;
+            genderEqualityEffectiveness = false;
+            childHealthEffectiveness = false;
+            maternalHealthEffectiveness = false;
+            hivAidsEffectiveness = true;
+            environmentEffectiveness = false;
+            globalEffectiveness = false;
         }
     }
 
@@ -231,14 +231,14 @@ namespace MoodSwingGame
 
         private MSEcoParkStats()
         {
-            povertyEffectiveness = 0;
-            educationEffectiveness = 0;
-            genderEqualityEffectiveness = 0;
-            childHealthEffectiveness = 0;
-            maternalHealthEffectiveness = 0;
-            hivAidsEffectiveness = 0;
-            environmentEffectiveness = 100;
-            globalEffectiveness = 0;
+            povertyEffectiveness = false;
+            educationEffectiveness = false;
+            genderEqualityEffectiveness = false;
+            childHealthEffectiveness = false;
+            maternalHealthEffectiveness = false;
+            hivAidsEffectiveness = false;
+            environmentEffectiveness = true;
+            globalEffectiveness = false;
         }
     }
 
@@ -254,14 +254,14 @@ namespace MoodSwingGame
 
         private MSGlobalCenterStats()
         {
-            povertyEffectiveness = 1;
-            educationEffectiveness = 1;
-            genderEqualityEffectiveness = 1;
-            childHealthEffectiveness = 1;
-            maternalHealthEffectiveness = 1;
-            hivAidsEffectiveness = 1;
-            environmentEffectiveness = 1;
-            globalEffectiveness = 100;
+            povertyEffectiveness = false;
+            educationEffectiveness = false;
+            genderEqualityEffectiveness = false;
+            childHealthEffectiveness = false;
+            maternalHealthEffectiveness = false;
+            hivAidsEffectiveness = false;
+            environmentEffectiveness = false;
+            globalEffectiveness = true;
         }
     }
 }

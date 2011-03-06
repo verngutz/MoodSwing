@@ -181,7 +181,8 @@ namespace MoodSwingGame
         /// </summary>
         /// <param name="start">The start tile coordinate.</param>
         /// <param name="end">The end tile coordinate.</param>
-        /// <returns> The head of the linked-list of nodes. </returns>
+        /// <returns> The head of the linked-list of nodes. Returns null if path doesnt exist. </returns>
+        
         public Node GetPath(Vector2 start, Vector2 end)
         {
             List<Node> toCheck = new List<Node>();
@@ -194,6 +195,7 @@ namespace MoodSwingGame
             Node last = null;
             bool getRoadFirst = true;
             if (mapArray[(int)start.X, (int)start.Y] is MSRoad) getRoadFirst = false;
+
             while (toCheck.Count != 0)
             {
                 toCheck.Sort();
@@ -211,7 +213,9 @@ namespace MoodSwingGame
                     int x = (int)visiting.Position.X;
                     int y = (int)visiting.Position.Y;
                     
-                    if (y + 1 < columns && mapArray[x, y + 1] is MSRoad || (!getRoadFirst && new Vector2(x,y+1) == end) ) 
+                    //Check tile below.
+                    if (y + 1 < columns && mapArray[x, y + 1] is MSRoad || 
+                        (!getRoadFirst && new Vector2(x,y+1) == end) ) 
                     {
                         if (hasVis[x, y + 1] == false)
                         {
@@ -231,7 +235,9 @@ namespace MoodSwingGame
                         }
                     }
 
-                    if (y - 1 >= 0 && mapArray[x, y - 1] is MSRoad || ( !getRoadFirst && new Vector2(x, y - 1) == end) ) 
+                    //check tile above
+                    if (y - 1 >= 0 && mapArray[x, y - 1] is MSRoad || 
+                        ( !getRoadFirst && new Vector2(x, y - 1) == end) ) 
                     {
                         if (hasVis[x, y - 1] == false)
                         {
@@ -250,7 +256,10 @@ namespace MoodSwingGame
                             }
                         }
                     }
-                    if (x + 1 < rows && mapArray[x + 1, y] is MSRoad || ( !getRoadFirst && new Vector2(x + 1, y) == end) ) 
+
+                    //check tile on the right
+                    if (x + 1 < rows && mapArray[x + 1, y] is MSRoad || 
+                        ( !getRoadFirst && new Vector2(x + 1, y) == end ) ) 
                     {
                         if (hasVis[x + 1, y] == false)
                         {
@@ -269,7 +278,10 @@ namespace MoodSwingGame
                             }
                         }
                     }
-                    if (x - 1 >= 0 && mapArray[x - 1, y] is MSRoad || (!getRoadFirst && new Vector2(x - 1, y) == end) )
+                    
+                    //check tile on the left
+                    if (x - 1 >= 0 && mapArray[x - 1, y] is MSRoad || 
+                        (!getRoadFirst && new Vector2(x - 1, y) == end) )
                     {
                         if (hasVis[x - 1, y] == false)
                         {
@@ -292,11 +304,14 @@ namespace MoodSwingGame
                 }
             }
 
-            while (last.parent != null)
+            if (last != null)
             {
-                Node par = last.parent;
-                par.next = last;
-                last = par;
+                while (last.parent != null)
+                {
+                    Node par = last.parent;
+                    par.next = last;
+                    last = par;
+                }
             }
 
             return last;
