@@ -18,7 +18,7 @@ namespace MoodSwingGame
 {
     public class MSNotifier : MSPanel
     {
-        public static MSNotifier instance;
+        private static MSNotifier instance;
         public static MSNotifier GetInstance()
         {
             if (instance == null)
@@ -43,6 +43,11 @@ namespace MoodSwingGame
             fadeEffect = new Color(255, 255, 255, fadeAlpha);
             fadeIncrement = 5;
             holdTimer = 0;
+        }
+
+        public void ClearNotifications()
+        {
+            notifications = new Queue<string>();
         }
 
         public void InvokeNotification(string notification)

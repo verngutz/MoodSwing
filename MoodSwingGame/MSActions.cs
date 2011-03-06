@@ -84,6 +84,8 @@ namespace MoodSwingGame
             screen.BlackOutPanel.Visible = true;
             if(screen.BuyDialog != null)
                 screen.RemoveComponent(screen.BuyDialog);
+            MSNotifier.GetInstance().ClearNotifications();
+            MSNotifier.GetInstance().InvokeNotification("Try Again\n\tThe district went into a wild uproar before you could achieve the Millenium Development Goals.");
         }
     }
 
@@ -96,6 +98,8 @@ namespace MoodSwingGame
             screen.BlackOutPanel.Visible = true;
             if (screen.BuyDialog != null)
                 screen.RemoveComponent(screen.BuyDialog);
+            MSNotifier.GetInstance().ClearNotifications();
+            MSNotifier.GetInstance().InvokeNotification("You win!\n\tYou have successfully achieved the eight Millenium Development Goals.");
         }
     }
 
