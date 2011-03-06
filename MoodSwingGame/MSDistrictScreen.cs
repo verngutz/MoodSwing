@@ -57,7 +57,8 @@ namespace MoodSwingGame
             : base(game.Content.Load<Texture2D>("districtmap"), 0, 0, 0, 0, game.SpriteBatch, game)
         {
             map = new MSMap(filename);
-            MSCamera.initialize((game as MoodSwing).GraphicsDevice.Viewport, MSDistrictHall.getInstance().Position);
+            MSCamera.initialize((game as MoodSwing).GraphicsDevice.Viewport, 
+                MSDistrictHall.getInstance().Position, MSDistrictHall.getInstance().Rotation );
             //citizensList = new List<MSCitizen>();
             unitHandler = MSUnitHandler.Restart();
             moodManager = MSMoodManager.GetInstance();
