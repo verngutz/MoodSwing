@@ -62,7 +62,6 @@ namespace MoodSwingCoreComponents
         /// </summary>
         public static void initialize( Viewport viewport, Vector3 initialLookAt, float rotation )
         {
-            System.Console.WriteLine(MathHelper.ToDegrees(rotation));
             if (camera == null) camera = new MSCamera();
             camera.upCamera = Vector3.UnitZ;
             camera.cameraPosition = new Vector3(282f, 4.5f, 150);
