@@ -23,10 +23,11 @@ namespace MoodSwingGame
         private MS3DTile[,] mapArray;
         public MS3DTile[,] MapArray { get { return mapArray; } }
 
-        public static int tileDimension = 31;
-        public static int floorheight = 31;
-        public static int shortheight = 47;
-        public static int tallheight = 54;
+        public static int tileDimension = 32;
+        public static int floorheight = tileDimension;
+        public static int shortheight = tileDimension * 1375 / 1000;
+        public static int tallheight = tileDimension * 1500 / 1000;
+        public static int hallheight = tileDimension * 1810 / 1000;
 
         public Vector3 LightSource { set; get; }
 
