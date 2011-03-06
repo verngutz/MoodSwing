@@ -39,16 +39,17 @@ namespace MoodSwingGame
         public int InitialVolunteerCenters { get { return (initialVolunteerCenters); } }
 
         public Vector2 Dimension { get { return (new Vector2(rows, columns) * tileDimension); } }
-        public MSMap(String filename) : base( MoodSwing.GetInstance() )
+        public MSMap(String filename)
+            : base(MoodSwing.GetInstance())
         {
             StreamReader sr = new StreamReader(filename);
             string[] line = sr.ReadLine().Split(' ');
             rows = Int32.Parse(line[0]);
             columns = Int32.Parse(line[1]);
             initialVolunteerCenters = 0;
-            mapArray = new MS3DTile[rows,columns];
+            mapArray = new MS3DTile[rows, columns];
             citizenSources = new List<MSUnbuyableBuilding>();
-            for(int j = 0; j < columns; j++)
+            for (int j = 0; j < columns; j++)
             {
                 line = sr.ReadLine().Split(' ');
                 for (int i = 0; i < rows; i++)
@@ -59,7 +60,7 @@ namespace MoodSwingGame
                         citizenSources.Add(toAdd as MSUnbuyableBuilding);
                     if (toAdd is MSVolunteerCenter)
                         initialVolunteerCenters++;
-                } 
+                }
             }
             LightSource = new Vector3(tileDimension * rows << 1, tileDimension * columns << 1, 10000);
         }
@@ -106,11 +107,11 @@ namespace MoodSwingGame
         {
             float? minDistance = null;
             MS3DTile tile = null;
-            foreach ( MS3DTile t in mapArray )
+            foreach (MS3DTile t in mapArray)
             {
                 if (true/*!(t is MSRoad)*/)
                 {
-                    float? dist = Intersects(t.BoundingBox, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), 
+                    float? dist = Intersects(t.BoundingBox, new Vector2(Mouse.GetState().X, Mouse.GetState().Y),
                         MSCamera.GetInstance().GetView(),
                         MSCamera.GetInstance().ProjectionMatrix,
                         MoodSwing.GetInstance().GraphicsDevice.Viewport);
@@ -122,7 +123,7 @@ namespace MoodSwingGame
                             minDistance = dist;
                             tile = t;
                         }
-                    }  
+                    }
                 }
             }
             return tile;
@@ -154,7 +155,7 @@ namespace MoodSwingGame
 
             return new Ray(nearPoint, direction);
         }
-        
+
         /// <summary>
         /// Checks whether the mouse intersects the bounding box of an object.
         /// </summary>
@@ -164,13 +165,13 @@ namespace MoodSwingGame
         /// <param name="projection"> Projection matrix used</param>
         /// <param name="viewport"> Viewport of the game</param>
         /// <returns>The distance at which the mouse intersects the bounding box of the object. Null if it doesnt intersect</returns>
-       
+
         public float? Intersects(BoundingBox box, Vector2 mouseLocation,
             Matrix view, Matrix projection, Viewport viewport)
         {
             Ray mouseRay = CalculateRay(mouseLocation, view, projection, viewport);
             return mouseRay.Intersects(box);
-            
+
         }
 
 
@@ -182,15 +183,15 @@ namespace MoodSwingGame
         /// <param name="start">The start tile coordinate.</param>
         /// <param name="end">The end tile coordinate.</param>
         /// <returns> The head of the linked-list of nodes. Returns null if path doesnt exist. </returns>
-        
+
         public Node GetPath(Vector2 start, Vector2 end)
         {
             List<Node> toCheck = new List<Node>();
             List<Node> done = new List<Node>();
 
-            bool [,] hasVis = new  bool[rows,columns];
+            bool[,] hasVis = new bool[rows, columns];
 
-            toCheck.Add(new Node((int)start.X, (int)start.Y, 1, 0, null) );
+            toCheck.Add(new Node((int)start.X, (int)start.Y, 1, 0, null));
             hasVis[(int)start.X, (int)start.Y] = true;
             Node last = null;
             bool getRoadFirst = true;
@@ -212,10 +213,11 @@ namespace MoodSwingGame
                 {
                     int x = (int)visiting.Position.X;
                     int y = (int)visiting.Position.Y;
-                    
-                    //Check tile below.
-                    if (y + 1 < columns && mapArray[x, y + 1] is MSRoad || 
-                        (!getRoadFirst && new Vector2(x,y+1) == end) ) 
+
+                    //Check tile above.
+                    if (y + 1 < columns && mapArray[x, y + 1] is MSRoad && 
+                        (!(mapArray[x,y] is MSBuilding) || mapArray[x,y].Rotation == MathHelper.ToRadians(0)) ||
+                        (!getRoadFirst && new Vector2(x, y + 1) == end) && mapArray[x, y + 1].Rotation == MathHelper.ToRadians(180))
                     {
                         if (hasVis[x, y + 1] == false)
                         {
@@ -235,9 +237,10 @@ namespace MoodSwingGame
                         }
                     }
 
-                    //check tile above
-                    if (y - 1 >= 0 && mapArray[x, y - 1] is MSRoad || 
-                        ( !getRoadFirst && new Vector2(x, y - 1) == end) ) 
+                    //check tile below
+                    if (y - 1 >= 0 && mapArray[x, y - 1] is MSRoad &&
+                        (!(mapArray[x, y] is MSBuilding) || mapArray[x, y].Rotation == MathHelper.ToRadians(180)) ||
+                        (!getRoadFirst && new Vector2(x, y - 1) == end && mapArray[x, y - 1].Rotation == MathHelper.ToRadians(0)))
                     {
                         if (hasVis[x, y - 1] == false)
                         {
@@ -258,8 +261,9 @@ namespace MoodSwingGame
                     }
 
                     //check tile on the right
-                    if (x + 1 < rows && mapArray[x + 1, y] is MSRoad || 
-                        ( !getRoadFirst && new Vector2(x + 1, y) == end ) ) 
+                    if (x + 1 < rows && mapArray[x + 1, y] is MSRoad &&
+                        (!(mapArray[x, y] is MSBuilding) || mapArray[x, y].Rotation == MathHelper.ToRadians(90)) ||
+                        (!getRoadFirst && new Vector2(x + 1, y) == end && mapArray[x + 1, y].Rotation == MathHelper.ToRadians(270)))
                     {
                         if (hasVis[x + 1, y] == false)
                         {
@@ -278,10 +282,11 @@ namespace MoodSwingGame
                             }
                         }
                     }
-                    
+
                     //check tile on the left
-                    if (x - 1 >= 0 && mapArray[x - 1, y] is MSRoad || 
-                        (!getRoadFirst && new Vector2(x - 1, y) == end) )
+                    if (x - 1 >= 0 && mapArray[x - 1, y] is MSRoad &&
+                        (!(mapArray[x, y] is MSBuilding) || mapArray[x, y].Rotation == MathHelper.ToRadians(270)) ||
+                        (!getRoadFirst && new Vector2(x - 1, y) == end && mapArray[x - 1, y].Rotation == MathHelper.ToRadians(90)))
                     {
                         if (hasVis[x - 1, y] == false)
                         {
@@ -304,15 +309,14 @@ namespace MoodSwingGame
                 }
             }
 
-            if (last != null)
+
+            while (last.parent != null)
             {
-                while (last.parent != null)
-                {
-                    Node par = last.parent;
-                    par.next = last;
-                    last = par;
-                }
+                Node par = last.parent;
+                par.next = last;
+                last = par;
             }
+
 
             return last;
         }
@@ -333,11 +337,11 @@ namespace MoodSwingGame
             }
             foreach (Vector2 coord in toTransform)
             {
-                if( (mapArray[(int)coord.X, (int)coord.Y] as MSBuyableBuilding).FutureSelf is MSVolunteerCenter)
+                if ((mapArray[(int)coord.X, (int)coord.Y] as MSBuyableBuilding).FutureSelf is MSVolunteerCenter)
                     MSResourceManager.GetInstance().VolunteerCapacity += MSResourceManager.VOLUNTEER_CENTER_GAIN;
-                mapArray[(int)coord.X, (int)coord.Y] = 
+                mapArray[(int)coord.X, (int)coord.Y] =
                     (mapArray[(int)coord.X, (int)coord.Y] as MSBuyableBuilding).FutureSelf;
-                
+
             }
         }
 
@@ -361,10 +365,10 @@ namespace MoodSwingGame
         int h;
 
         public Vector2 Position { get { return new Vector2(x, y); } }
-        public int G { get { return g; } set { if (value < g) g = value; } } 
+        public int G { get { return g; } set { if (value < g) g = value; } }
         public int F { get { return g + h; } }
 
-        public Node(int a, int b, int value, int est, Node par )
+        public Node(int a, int b, int value, int est, Node par)
         {
             x = a;
             y = b;
