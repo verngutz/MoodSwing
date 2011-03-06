@@ -132,6 +132,18 @@ namespace MoodSwingGame
             units.Add(unit);
         }
 
+        public void SendWorkers( MSMap map, MSBuyableBuilding bldg, int qty)
+        {
+            MSVolunteerCenter center = map.GetNearestVolunteerCenter(bldg);
+            Node path = map.GetPath(center.TileCoordinate, bldg.TileCoordinate);
+
+
+            for (int i = 0; i < qty; i++)
+            {
+                MSWorker worker = new MSWorker(center.Position + MSUnit.UNITZ_POSITION, path, bldg, map);
+                units.Add(worker);
+            }
+        }
         public void VolunteerCitizen( MSMap map )
         {
             MS3DTile bldg = map.GetRandomCitizenSource();
