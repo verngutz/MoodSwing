@@ -54,11 +54,11 @@ namespace MoodSwingGame
         public MSPanel BlackOutPanel { get { return blackOutPanel; } }
 
         public MSDistrictScreen(String filename, MoodSwing game)
-            : base(game.Content.Load<Texture2D>("districtmap"), 0, 0, 0, 0, game.SpriteBatch, game) 
+            : base(game.Content.Load<Texture2D>("districtmap"), 0, 0, 0, 0, game.SpriteBatch, game)
         {
             map = new MSMap(filename);
+            MSCamera.initialize((game as MoodSwing).GraphicsDevice.Viewport, MSDistrictHall.getInstance().Position);
             //citizensList = new List<MSCitizen>();
-            MSCamera.initialize((game as MoodSwing).GraphicsDevice.Viewport);
             unitHandler = MSUnitHandler.Restart();
             moodManager = MSMoodManager.GetInstance();
             resourceManager = MSResourceManager.GetInstance();
@@ -541,7 +541,10 @@ namespace MoodSwingGame
             if (base.HandleMouseInput(oldMouseState))
             {
                 if (BuyDialog != null)
+                {
                     RemoveComponent(BuyDialog);
+                    BuyDialog.Dispose();
+                }
                 BuyDialog = null;
                 return;
             }
@@ -551,7 +554,10 @@ namespace MoodSwingGame
                     && oldMouseState.LeftButton == ButtonState.Pressed)
             {
                 if (BuyDialog != null)
+                {
                     RemoveComponent(BuyDialog);
+                    BuyDialog.Dispose();
+                }
                 BuyDialog = null;
                 CheckCollision();
             }
@@ -579,7 +585,10 @@ namespace MoodSwingGame
                 movement /= distance;
                 camera.Rotate(movement);
                 if (BuyDialog != null)
+                {
                     RemoveComponent(BuyDialog);
+                    BuyDialog.Dispose();
+                }
                 BuyDialog = null;
             }
             else if( !Paused )
@@ -654,7 +663,10 @@ namespace MoodSwingGame
                 if (hasMoved)
                 {
                     if (BuyDialog != null)
+                    {
                         RemoveComponent(BuyDialog);
+                        BuyDialog.Dispose();
+                    }
                     BuyDialog = null;
                 }
             }
