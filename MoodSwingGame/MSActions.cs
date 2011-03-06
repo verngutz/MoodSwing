@@ -85,7 +85,7 @@ namespace MoodSwingGame
             if(screen.BuyDialog != null)
                 screen.RemoveComponent(screen.BuyDialog);
             MSNotifier.GetInstance().ClearNotifications();
-            MSNotifier.GetInstance().InvokeNotification("Try Again\nThe district went into a wild uproar before you could achieve the Millenium Development Goals.");
+            MSNotifier.GetInstance().InvokeNotification("Try Again\nThe district went into a wild uproar\nbefore you could achieve the Millenium Development Goals.");
         }
     }
 
