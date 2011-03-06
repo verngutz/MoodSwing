@@ -87,6 +87,7 @@
     <Compile Include="BoundingBox3D.cs" />
     <Compile Include="BoundingSphere3D.cs" />
     <Compile Include="Line3D.cs" />
+    <Compile Include="MSBuildingStats.cs" />
     <Compile Include="MSFundraiser.cs" />
     <Compile Include="MSMDGProgressBar.cs" />
     <Compile Include="MSMobber.cs" />

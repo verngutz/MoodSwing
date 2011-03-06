@@ -43,7 +43,19 @@ namespace MoodSwingGame
                 texture = moodSwing.Content.Load<Texture2D>("MTextures/BuildingCross");
                 effect = moodSwing.Content.Load<Effect>("Mood");
             }
-            else if (stats is MSHealthCenterStats)
+            else if (stats is MSChildHealthCenterStats)
+            {
+                model = moodSwing.Content.Load<Model>("TallBuilding");
+                texture = moodSwing.Content.Load<Texture2D>("MTextures/BuildingTeddy");
+                effect = moodSwing.Content.Load<Effect>("Mood");
+            }
+            else if (stats is MSMaternalHealthCenterStats)
+            {
+                model = moodSwing.Content.Load<Model>("TallBuilding");
+                texture = moodSwing.Content.Load<Texture2D>("MTextures/BuildingBuntis");
+                effect = moodSwing.Content.Load<Effect>("Mood");
+            }
+            else if (stats is MSHivAidsHealthCenterStats)
             {
                 model = moodSwing.Content.Load<Model>("TallBuilding");
                 texture = moodSwing.Content.Load<Texture2D>("MTextures/BuildingGamot");

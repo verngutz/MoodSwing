@@ -144,20 +144,20 @@ namespace MoodSwingGame
         {
             MoodSwing moodSwing = (MoodSwing)game;
             MSDistrictScreen screen = moodSwing.CurrentScreen as MSDistrictScreen;
-            if (screen.ResourceManager.Funds >= MSResourceManager.TOWER_MONEY_COST
-                && screen.ResourceManager.IdleVolunteers >= toBuildStats.GetCapacity())
+            if (screen.ResourceManager.Funds >= toBuildStats.GetFundsCost()
+                && screen.ResourceManager.IdleVolunteers >= toBuildStats.GetVolunteerCost())
             {
-                screen.ResourceManager.Funds -= MSResourceManager.TOWER_MONEY_COST;
-                screen.ResourceManager.IdleVolunteers -= toBuildStats.GetCapacity();
+                screen.ResourceManager.Funds -= toBuildStats.GetFundsCost();
+                screen.ResourceManager.IdleVolunteers -= toBuildStats.GetVolunteerCost();
                 MS3DTile futureSelf = MSTowerFactory.CreateMSTower(toBuildStats, toBuy.Position, toBuy.Rotation, toBuy.TileCoordinate);
 
                 futureSelf.LightSource = screen.Map.LightSource;
 
                 MSVolunteerCenter center = screen.Map.GetNearestVolunteerCenter(toBuy);
                 Node path = screen.Map.GetPath(center.TileCoordinate, toBuy.TileCoordinate);
-                toBuy.StartBuildProcess(toBuildStats.GetCapacity(), futureSelf);
+                toBuy.StartBuildProcess(toBuildStats.GetVolunteerCost(), futureSelf);
 
-                for (int i = 0; i < toBuildStats.GetCapacity(); i++)
+                for (int i = 0; i < toBuildStats.GetVolunteerCost(); i++)
                 {
                     MSWorker worker = new MSWorker(center.Position + MSUnit.UNITZ_POSITION, path, toBuy, screen.Map);
                     MSUnitHandler.GetInstance().AddUnit(worker);
@@ -184,9 +184,9 @@ namespace MoodSwingGame
             MoodSwing moodSwing = (MoodSwing)game;
             MSDistrictScreen screen = moodSwing.CurrentScreen as MSDistrictScreen;
             if (!MSUnitHandler.GetInstance().IsLeaderBusy &&
-                screen.ResourceManager.Funds >= MSResourceManager.VOLUNTEER_CENTER_COST)
+                screen.ResourceManager.Funds >= MSVolunteerCenterStats.GetInstance().GetFundsCost())
             {
-                screen.ResourceManager.Funds -= MSResourceManager.VOLUNTEER_CENTER_COST;
+                screen.ResourceManager.Funds -= MSVolunteerCenterStats.GetInstance().GetFundsCost();
                 //screen.ResourceManager.VolunteerCapacity += MSResourceManager.VOLUNTEER_CENTER_GAIN;
                 MS3DTile futureSelf = new MSVolunteerCenter(moodSwing.Content.Load<Model>("TallBuilding"), 
                     moodSwing.Content.Load<Texture2D>("MTextures/BuildingVolunteer"),
@@ -225,11 +225,11 @@ namespace MoodSwingGame
         {
             MoodSwing moodSwing = (MoodSwing)game;
             MSDistrictScreen screen = moodSwing.CurrentScreen as MSDistrictScreen;
-            if (screen.ResourceManager.Funds >= MSResourceManager.FUNDRAISER_MONEY_COST
-                && screen.ResourceManager.IdleVolunteers >= MSResourceManager.FUNDRAISER_VOLUNTEER_COST)
+            if (screen.ResourceManager.Funds >= MSFundraiserStats.GetInstance().GetFundsCost()
+                && screen.ResourceManager.IdleVolunteers >= MSFundraiserStats.GetInstance().GetVolunteerCost())
             {
-                screen.ResourceManager.Funds -= MSResourceManager.FUNDRAISER_MONEY_COST;
-                screen.ResourceManager.IdleVolunteers -= MSResourceManager.FUNDRAISER_VOLUNTEER_COST;
+                screen.ResourceManager.Funds -= MSFundraiserStats.GetInstance().GetFundsCost();
+                screen.ResourceManager.IdleVolunteers -= MSFundraiserStats.GetInstance().GetVolunteerCost();
                 MS3DTile futureSelf = new MSFundraiser(moodSwing.Content.Load<Model>("TallBuilding"),
                     moodSwing.Content.Load<Texture2D>("MTextures/BuildingFunds"),
                     moodSwing.Content.Load<Effect>("Mood"),
@@ -242,9 +242,9 @@ namespace MoodSwingGame
 
                 MSVolunteerCenter center = screen.Map.GetNearestVolunteerCenter(toBuy);
                 Node path = screen.Map.GetPath(center.TileCoordinate, toBuy.TileCoordinate);
-                toBuy.StartBuildProcess(MSResourceManager.FUNDRAISER_VOLUNTEER_COST, futureSelf);
+                toBuy.StartBuildProcess(MSFundraiserStats.GetInstance().GetVolunteerCost(), futureSelf);
 
-                for (int i = 0; i < MSResourceManager.FUNDRAISER_VOLUNTEER_COST; i++)
+                for (int i = 0; i < MSFundraiserStats.GetInstance().GetVolunteerCost(); i++)
                 {
                     MSWorker worker = new MSWorker(center.Position + MSUnit.UNITZ_POSITION, path, toBuy, screen.Map);
                     MSUnitHandler.GetInstance().AddUnit(worker);

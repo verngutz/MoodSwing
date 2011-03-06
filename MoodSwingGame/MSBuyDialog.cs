@@ -74,7 +74,7 @@ namespace MoodSwingGame
             (
                 new MSResizingLabel
                 (
-                    MSResourceManager.TOWER_MONEY_COST.ToString(),
+                    MSFundraiserStats.GetInstance().GetFundsCost().ToString(),
                     new Rectangle(0, 0, 20, 20),
                     Game.Content.Load<SpriteFont>("Temp"),
                     SpriteBatch,
@@ -99,7 +99,7 @@ namespace MoodSwingGame
             (
                 new MSResizingLabel
                 (
-                    MSResourceManager.TOWER_VOLUNTEER_COST.ToString(),
+                    MSFundraiserStats.GetInstance().GetVolunteerCost().ToString(),
                     new Rectangle(0, 0, 20, 20),
                     Game.Content.Load<SpriteFont>("Temp"),
                     SpriteBatch,
@@ -109,7 +109,7 @@ namespace MoodSwingGame
             );
 
             AddComponent(new MSButton(null,
-                new BuyTower(toBuy, MSHealthCenterStats.GetInstance()),
+                new BuyTower(toBuy, MSChildHealthCenterStats.GetInstance()),
                 new Rectangle(boundingRectangle.X, boundingRectangle.Y + 38, 73, 93),
                 Game.Content.Load<Texture2D>("BuyDialog/1"),
                 Game.Content.Load<Texture2D>("BuyDialog/1clicked"),
@@ -145,7 +145,7 @@ namespace MoodSwingGame
                 Shape.AMORPHOUS, spriteBatch, game));
 
             AddComponent(new MSButton(null, 
-                new BuyTower(toBuy, MSHealthCenterStats.GetInstance()), 
+                new BuyTower(toBuy, MSMaternalHealthCenterStats.GetInstance()), 
                 new Rectangle(boundingRectangle.X + 187, boundingRectangle.Y + 129, 73, 93),
                 Game.Content.Load<Texture2D>("BuyDialog/5"),
                 Game.Content.Load<Texture2D>("BuyDialog/5clicked"),
@@ -172,7 +172,7 @@ namespace MoodSwingGame
                 Shape.AMORPHOUS, spriteBatch, game));
 
             AddComponent(new MSButton(null,
-                new BuyTower(toBuy, MSHealthCenterStats.GetInstance()),
+                new BuyTower(toBuy, MSHivAidsHealthCenterStats.GetInstance()),
                 new Rectangle(boundingRectangle.X, boundingRectangle.Y + 129, 73, 93),
                 Game.Content.Load<Texture2D>("BuyDialog/8"),
                 Game.Content.Load<Texture2D>("BuyDialog/8clicked"),

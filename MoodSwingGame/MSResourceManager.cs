@@ -25,26 +25,17 @@ namespace MoodSwingGame
             return resourceManager;
         }
 
-        public const int TOWER_MONEY_COST = 200;
-        public const int TOWER_VOLUNTEER_COST = 5;
-        public const int FUNDRAISER_MONEY_COST = 100;
-        public const int FUNDRAISER_VOLUNTEER_COST = 2;
-        public const int VOLUNTEER_CENTER_COST = 250;
         public const int VOLUNTEER_CENTER_GAIN = 10; 
         public const int VOLUNTEER_GENERATION_DIFFICULTY = 100;
 
         private int volunteerGenerationCounter;
-
 
         public int Funds { get; set; }
         public int VolunteerCapacity { get; set; }
         public int TotalVolunteers { get; set; }
         public int IdleVolunteers { get; set; }
 
-        private MSResourceManager() : base(MoodSwing.GetInstance()) 
-        {
-            
-        }
+        private MSResourceManager() : base(MoodSwing.GetInstance()) { }
 
         public static void instantiate(int initial_funds, int initial_volunteer_centers)
         {

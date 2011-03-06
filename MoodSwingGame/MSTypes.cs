@@ -7,7 +7,6 @@ namespace MoodSwingGame
 {
     public enum MSMilleniumDevelopmentGoal
     {
-        GENERAL,
         POVERTY,
         EDUCATION,
         GENDER_EQUALITY,
