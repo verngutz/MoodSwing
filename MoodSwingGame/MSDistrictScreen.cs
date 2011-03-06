@@ -596,27 +596,29 @@ namespace MoodSwingGame
             {
                 bool hasMoved = false;
                 Vector2 shift = Vector2.Zero;
+
                 //Camera movement using mouse
                 if (newMouseState.X >= 0 && newMouseState.X <= 5)
                 {
-                    shift = new Vector2(1, 0);
+                    shift += new Vector2(1, 0);
                     hasMoved = true;
                 }
                 else if (newMouseState.X <= MoodSwing.GetInstance().GraphicsDevice.Viewport.Width &&
                     newMouseState.X >= MoodSwing.GetInstance().GraphicsDevice.Viewport.Width - 5)
                 {
-                    shift = new Vector2(-1, 0);
+                    shift += new Vector2(-1, 0);
                     hasMoved = true;
                 }
-                else if (newMouseState.Y >= 0 && newMouseState.Y <= 5)
+
+                if (newMouseState.Y >= 0 && newMouseState.Y <= 5)
                 {
-                    shift = new Vector2(0, -1);
+                    shift += new Vector2(0, -1);
                     hasMoved = true;
                 }
                 else if (newMouseState.Y <= MoodSwing.GetInstance().GraphicsDevice.Viewport.Height &&
                     newMouseState.Y >= MoodSwing.GetInstance().GraphicsDevice.Viewport.Height - 5)
                 {
-                    shift = new Vector2(0, 1);
+                    shift += new Vector2(0, 1);
                     hasMoved = true;
                 }
 
@@ -633,22 +635,22 @@ namespace MoodSwingGame
 
                     if ( delta2.X <= -20 )
                     {
-                        shift = new Vector2(1, 0);
+                        shift += new Vector2(1, 0);
                         hasMoved = true;
                     }
                     else if ( delta2.X >= 20 )
                     {
-                        shift = new Vector2(-1, 0);
+                        shift += new Vector2(-1, 0);
                         hasMoved = true;
                     }
-                    else if ( delta2.Y <= -20 )
+                    if ( delta2.Y <= -20 )
                     {
-                        shift = new Vector2(0, -1);
+                        shift += new Vector2(0, -1);
                         hasMoved = true;
                     }
                     else if (delta2.Y >= 20 )
                     {
-                        shift = new Vector2(0, 1);
+                        shift += new Vector2(0, 1);
                         hasMoved = true;
                     }
                 }
