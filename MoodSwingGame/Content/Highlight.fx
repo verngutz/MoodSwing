@@ -6,8 +6,8 @@ float4x4 WorldInverseTranspose;
 float4 AmbientColor = float4(0.15, 0.15, 0.15, 1);
  
 float3 DiffuseLightDirection = float3(0, 0, 0);
-float4 DiffuseColor = float4(1, 1, 1, 1);
-float DiffuseIntensity = 0.5;
+float4 DiffuseColor = float4(1, 1, 0, 1);
+float DiffuseIntensity = 1;
  
 float Shininess = 100;
 float4 SpecularColor = float4(1, 1, 1, 1);
@@ -71,11 +71,6 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
     float4 color = tex2D(textureSampler, input.TextureCoordinate);
     color.a = 1;
     
-    float value = 0.3 * color.r + 0.5 * color.g + 0.2 * color.b;
-    color.r = Saturation * (color.r - value) + value;
-    color.g = Saturation * (color.g - value) + value;
-    color.b = Saturation * (color.b - value) + value;
-    
     return saturate(color * (input.Color) + AmbientColor); //+ specular);
 }
  
@@ -92,4 +87,3 @@ technique Mood
         PixelShader = compile ps_2_0 PixelShaderFunction();
     }
 }
-
