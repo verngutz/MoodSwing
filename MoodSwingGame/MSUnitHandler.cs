@@ -132,23 +132,13 @@ namespace MoodSwingGame
             units.Add(unit);
         }
 
-        public void VolunteerRandomCitizen( MSMap map )
+        public void VolunteerCitizen( MSMap map )
         {
-            List<MSCitizen> toGet = new List<MSCitizen>();
-            foreach (MSUnit unit in units)
-                if (unit is MSCitizen && unit.IsMobbable)
-                    toGet.Add(unit as MSCitizen);
-            
-            if (toGet.Count == 0) return;
-            else
-            {
-                MSCitizen cit = toGet.ElementAt<MSCitizen>(MSRandom.random.Next(toGet.Count));
-                MSVolunteerCenter center = map.GetNearestVolunteerCenter(cit.TileCoordinate);
-                Node path = map.GetPath(cit.TileCoordinate, center.TileCoordinate);
-                MSVolunteeringCitizen v = new MSVolunteeringCitizen(cit.Position, path, map);
-                units.Remove(cit);
-                units.Add(v);
-            }
+            MS3DTile bldg = map.GetRandomCitizenSource();
+            MS3DTile center = map.GetNearestVolunteerCenter(bldg);
+            Node path = map.GetPath(bldg.TileCoordinate, center.TileCoordinate);
+            MSVolunteeringCitizen v = new MSVolunteeringCitizen(bldg.Position + MSUnit.UNITZ_POSITION, path, map);
+            units.Add(v);
         }
 
         public void Update(MSMap map)
