@@ -45,8 +45,8 @@ namespace MoodSwingCoreComponents
         private float maxAngle;
         private const int SHIFT_SPEED = 3;
 
-        private const int ZOOM_MIN_DIST = 100;
-        private const int ZOOM_MAX_DIST = 500;
+        private const int ZOOM_MIN_DIST = 200;
+        private const int ZOOM_MAX_DIST = 1000;
         private const int ZOOM_SPEED = 10;
 
         private Matrix projectionMatrix;
@@ -60,7 +60,7 @@ namespace MoodSwingCoreComponents
         /// <summary>
         /// Initializes the position of the camera.
         /// </summary>
-        public static void initialize( Viewport viewport )
+        public static void initialize( Viewport viewport, Vector3 initialLookAt )
         {
             if (camera == null) camera = new MSCamera();
             camera.upCamera = Vector3.UnitZ;
@@ -68,10 +68,10 @@ namespace MoodSwingCoreComponents
             camera.cameraTarget = new Vector3(0, 0, 0);
             camera.viewVector = camera.cameraPosition - camera.cameraTarget;
             camera.normalizedViewVector = Vector3.Normalize(camera.viewVector);
-            camera.shiftVector = Vector3.Zero;
+            camera.shiftVector = initialLookAt;
             camera.AdjustPitchAxis();
             camera.currAngle = (float)Math.PI / 2 - (float)Math.Acos((float)(Vector3.Dot(camera.viewVector, camera.upCamera) / (float)(Vector3.Distance(camera.cameraPosition, camera.cameraTarget))));
-            camera.minAngle = camera.currAngle;
+            camera.minAngle = (float)Math.PI / 9;
             camera.maxAngle = (float)Math.PI / 2;
             camera.projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), viewport.AspectRatio, 5, 5000);
             camera.frustum = new BoundingFrustum(camera.GetView() * camera.ProjectionMatrix);

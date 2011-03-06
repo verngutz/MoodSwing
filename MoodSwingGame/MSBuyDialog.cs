@@ -19,6 +19,7 @@ namespace MoodSwingGame
     public class MSBuyDialog : MSPanel
     {
         private MSBuyableBuilding toBuy;
+        private Effect toBuyEffect;
 
         public MSBuyDialog(Texture2D background, Rectangle boundingRectangle, MSBuyableBuilding toBuy, Shape shape, SpriteBatch spriteBatch, Game game)
             : this(background, boundingRectangle, 0, 0, 0, 0, toBuy, Color.White, shape, spriteBatch, game) { }
@@ -33,6 +34,8 @@ namespace MoodSwingGame
             : base(background, boundingRectangle, topPadding, bottomPadding, leftPadding, rightPadding, null, shape, spriteBatch, game)
         {
             this.toBuy = toBuy;
+            toBuyEffect = toBuy.Effect;
+            toBuy.Effect = Game.Content.Load<Effect>("highlight");
 
             #region Child Health Tool Tip
             MSToolTip childHealthToolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
@@ -952,6 +955,12 @@ namespace MoodSwingGame
                 fundraiserToolTip,
                 Shape.AMORPHOUS, spriteBatch, game));
              
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+ 	        base.Dispose(disposing);
+            toBuy.Effect = toBuyEffect;
         }
     }
 }

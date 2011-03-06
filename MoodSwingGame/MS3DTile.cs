@@ -20,7 +20,7 @@ namespace MoodSwingGame
     {
         private Model model;
         private Texture2D texture;
-        private Effect effect;
+        public Effect Effect { set; get; }
         public Vector3 LightSource { set; get; }
 
         private float rotation;
@@ -43,7 +43,7 @@ namespace MoodSwingGame
         {
             this.model = model;
             this.texture = texture;
-            this.effect = effect;
+            this.Effect = effect;
             int tileDimension = MSMap.tileDimension;
             foreach(ModelMesh mesh in model.Meshes)
             {
@@ -69,16 +69,16 @@ namespace MoodSwingGame
             {
                 foreach (ModelMeshPart part in mesh.MeshParts)
                 {
-                    part.Effect = effect;
-                    effect.Parameters["World"].SetValue(world);
-                    effect.Parameters["View"].SetValue(MSCamera.GetInstance().GetView());
-                    effect.Parameters["Projection"].SetValue(MSCamera.GetInstance().ProjectionMatrix);
+                    part.Effect = Effect;
+                    Effect.Parameters["World"].SetValue(world);
+                    Effect.Parameters["View"].SetValue(MSCamera.GetInstance().GetView());
+                    Effect.Parameters["Projection"].SetValue(MSCamera.GetInstance().ProjectionMatrix);
                     Matrix worldInverseTransposeMatrix = Matrix.Transpose(Matrix.Invert(mesh.ParentBone.Transform * world));
-                    effect.Parameters["WorldInverseTranspose"].SetValue(worldInverseTransposeMatrix);
+                    Effect.Parameters["WorldInverseTranspose"].SetValue(worldInverseTransposeMatrix);
                     //effect.Parameters["ViewVector"].SetValue(MSCamera.GetInstance().NormalizedViewVector);
-                    effect.Parameters["DiffuseLightDirection"].SetValue(LightSource - Position);
-                    effect.Parameters["Saturation"].SetValue(MSMoodManager.GetInstance().Mood);
-                    effect.Parameters["ModelTexture"].SetValue(texture);
+                    Effect.Parameters["DiffuseLightDirection"].SetValue(LightSource - Position);
+                    Effect.Parameters["Saturation"].SetValue(MSMoodManager.GetInstance().Mood);
+                    Effect.Parameters["ModelTexture"].SetValue(texture);
                 }
                 mesh.Draw();
             }
