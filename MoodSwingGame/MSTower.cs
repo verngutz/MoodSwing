@@ -27,7 +27,7 @@ namespace MoodSwingGame
             capacity = stats.GetVolunteerCost();
         }
 
-        public MSVolunteer sentinel(MSMap map, MSUnitHandler unitHandler)
+        public void sentinel(MSMap map, MSUnitHandler unitHandler)
         {
             if (capacity > 0)
             {
@@ -70,29 +70,15 @@ namespace MoodSwingGame
                                 unit = unitHandler.Units[i];
                                 unit.IsStopped = true;
 
-                                Node path1 = map.GetPath(new Vector2(Row, Column), tileCoords);
-                                Node path2 = map.GetPath(tileCoords, new Vector2(Row, Column)).next;
-
-                                MSVolunteer volunteer = new MSVolunteer
-                                (
-                                    Position + MSUnit.UNITZ_POSITION,
-                                    path1,
-                                    path2,
-                                    unit,
-                                    this,
-                                    map
-                                );
-
-                                MSUnitHandler.GetInstance().AddUnit(volunteer);
+                                MSUnitHandler.GetInstance().SendVolunteer(map, unit, this);
                                 MSMoodManager.GetInstance().TakeHealth();
                                 MSMoodManager.GetInstance().AddMDGScore(goal);
-                                return volunteer;
+                                
                             }
                         }
                     }
                 }
             }
-            return null;
         }
 
         public void VolunteerReturned()

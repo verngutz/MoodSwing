@@ -467,7 +467,7 @@ namespace MoodSwingGame
                     if (tile is MSTower)
                     {
                         MSTower tower = tile as MSTower;
-                        MSVolunteer volunteer = tower.sentinel(map, unitHandler);
+                        tower.sentinel(map, unitHandler);
                     }
                 }
 
