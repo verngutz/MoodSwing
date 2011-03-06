@@ -70,8 +70,8 @@ namespace MoodSwingGUI
         /// <param name="color">the text color of this MSLabel</param>
         /// <param name="spriteBatch">the SpriteBatch that will draw this MSLabel</param>
         /// <param name="game">the Game where this MSLabel is used</param>
-        public MSUnresizingLabel(String text, SpriteFont sprite_font, Color text_color, Texture2D background, SpriteBatch spriteBatch, Game game)
-            : this(text, sprite_font, text_color, background, 0, 0, 0, 0, spriteBatch, game) { }
+        public MSUnresizingLabel(Point position, String text, SpriteFont sprite_font, Color text_color, Texture2D background, SpriteBatch spriteBatch, Game game)
+            : this(position, text, sprite_font, text_color, background, 0, 0, 0, 0, spriteBatch, game) { }
 
         /// <summary>
         /// Constructs a new MSLabel.
@@ -82,8 +82,8 @@ namespace MoodSwingGUI
         /// <param name="color">the text color of this MSLabel</param>
         /// <param name="spriteBatch">the SpriteBatch that will draw this MSLabel</param>
         /// <param name="game">the Game where this MSLabel is used</param>
-        public MSUnresizingLabel(String text, SpriteFont sprite_font, Color text_color, Texture2D background, int topPadding, int bottomPadding, int leftPadding, int rightPadding, SpriteBatch spriteBatch, Game game)
-            : base(new Rectangle(), spriteBatch, game)
+        public MSUnresizingLabel(Point position, String text, SpriteFont sprite_font, Color text_color, Texture2D background, int topPadding, int bottomPadding, int leftPadding, int rightPadding, SpriteBatch spriteBatch, Game game)
+            : base(new Rectangle(position.X, position.Y, 0, 0), spriteBatch, game)
         {
             this.spriteFont = sprite_font;
             this.textColor = text_color;

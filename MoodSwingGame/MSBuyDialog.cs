@@ -34,16 +34,10 @@ namespace MoodSwingGame
         {
             this.toBuy = toBuy;
 
-            MSToolTip testToolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
-            MSToolTip descriptionToolTip = new MSToolTip
-            (
-                Game.Content.Load<Texture2D>("BlackOut"),
-                new Rectangle(BoundingRectangle.X, BoundingRectangle.Y, 100, 50),
-                SpriteBatch,
-                Game
-            );
+            #region Child Health Tool Tip
+            MSToolTip childHealthToolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
 
-            MSToolTip costToolTip = new MSToolTip
+            MSToolTip childHealthCostToolTip = new MSToolTip
             (
                 null,
                 new Rectangle(0, 0, 75, 50),
@@ -55,10 +49,21 @@ namespace MoodSwingGame
                 Game
             );
 
-            testToolTip.AddComponent(descriptionToolTip);
-            testToolTip.AddComponent(costToolTip, Alignment.MIDDLE_CENTER);
+            childHealthToolTip.AddComponent(new MSUnresizingLabel
+            (
+                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                "Build a children's health center",
+                Game.Content.Load<SpriteFont>("Temp"),
+                Color.White,
+                Game.Content.Load<Texture2D>("BlackOut"),
+                2, 2, 2, 2,
+                SpriteBatch,
+                Game
+            ));
 
-            costToolTip.AddComponent
+            childHealthToolTip.AddComponent(childHealthCostToolTip, Alignment.MIDDLE_CENTER);
+
+            childHealthCostToolTip.AddComponent
             (
                 new MSImageHolder
                 (
@@ -70,20 +75,22 @@ namespace MoodSwingGame
                 Alignment.MIDDLE_LEFT
             );
 
-            costToolTip.AddComponent
+            childHealthCostToolTip.AddComponent
             (
-                new MSResizingLabel
+                new MSUnresizingLabel
                 (
-                    MSFundraiserStats.GetInstance().GetFundsCost().ToString(),
-                    new Rectangle(0, 0, 20, 20),
+                    new Point(0, 0),
+                    MSChildHealthCenterStats.GetInstance().GetFundsCost().ToString(),
                     Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
                     SpriteBatch,
                     Game
                 ),
                 Alignment.MIDDLE_RIGHT
             );
 
-            costToolTip.AddComponent
+            childHealthCostToolTip.AddComponent
             (
                 new MSImageHolder
                 (
@@ -95,18 +102,21 @@ namespace MoodSwingGame
                 Alignment.BOTTOM_LEFT
             );
 
-            costToolTip.AddComponent
+            childHealthCostToolTip.AddComponent
             (
-                new MSResizingLabel
+                new MSUnresizingLabel
                 (
-                    MSFundraiserStats.GetInstance().GetVolunteerCost().ToString(),
-                    new Rectangle(0, 0, 20, 20),
+                    new Point(0, 0),
+                    MSChildHealthCenterStats.GetInstance().GetVolunteerCost().ToString(),
                     Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
                     SpriteBatch,
                     Game
                 ),
                 Alignment.BOTTOM_RIGHT
             );
+            #endregion
 
             AddComponent(new MSButton(null,
                 new BuyTower(toBuy, MSChildHealthCenterStats.GetInstance()),
@@ -114,8 +124,92 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/1"),
                 Game.Content.Load<Texture2D>("BuyDialog/1clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/1hovered"),
-                testToolTip,
+                childHealthToolTip,
                 Shape.AMORPHOUS, spriteBatch, game));
+
+            #region Poverty Tool Tip
+            MSToolTip povertyToolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
+
+            MSToolTip povertyCostToolTip = new MSToolTip
+            (
+                null,
+                new Rectangle(0, 0, 75, 50),
+                -30,
+                0,
+                0,
+                0,
+                SpriteBatch,
+                Game
+            );
+
+            povertyToolTip.AddComponent(new MSUnresizingLabel
+            (
+                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                "Build a feeding center for the poor",
+                Game.Content.Load<SpriteFont>("Temp"),
+                Color.White,
+                Game.Content.Load<Texture2D>("BlackOut"),
+                2, 2, 2, 2,
+                SpriteBatch,
+                Game
+            ));
+
+            povertyToolTip.AddComponent(povertyCostToolTip, Alignment.MIDDLE_CENTER);
+
+            povertyCostToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_LEFT
+            );
+
+            povertyCostToolTip.AddComponent
+            (
+                new MSUnresizingLabel
+                (
+                    new Point(0, 0),
+                    MSFoodCenterStats.GetInstance().GetFundsCost().ToString(),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_RIGHT
+            );
+
+            povertyCostToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.BOTTOM_LEFT
+            );
+
+            povertyCostToolTip.AddComponent
+            (
+                new MSUnresizingLabel
+                (
+                    new Point(0, 0),
+                    MSFoodCenterStats.GetInstance().GetVolunteerCost().ToString(),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.BOTTOM_RIGHT
+            );
+            #endregion
 
             AddComponent(new MSButton(null, 
                 new BuyTower(toBuy, MSFoodCenterStats.GetInstance()), 
@@ -123,8 +217,92 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/2"),
                 Game.Content.Load<Texture2D>("BuyDialog/2clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/2hovered"),
-                testToolTip,
+                povertyToolTip,
                 Shape.AMORPHOUS, spriteBatch, game));
+
+            #region Gender Equality Tool Tip
+            MSToolTip genderEqualityToolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
+
+            MSToolTip genderEqualityCostToolTip = new MSToolTip
+            (
+                null,
+                new Rectangle(0, 0, 75, 50),
+                -30,
+                0,
+                0,
+                0,
+                SpriteBatch,
+                Game
+            );
+
+            genderEqualityToolTip.AddComponent(new MSUnresizingLabel
+            (
+                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                "Build an employment agency for women",
+                Game.Content.Load<SpriteFont>("Temp"),
+                Color.White,
+                Game.Content.Load<Texture2D>("BlackOut"),
+                2, 2, 2, 2,
+                SpriteBatch,
+                Game
+            ));
+
+            genderEqualityToolTip.AddComponent(genderEqualityCostToolTip, Alignment.MIDDLE_CENTER);
+
+            genderEqualityCostToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_LEFT
+            );
+
+            genderEqualityCostToolTip.AddComponent
+            (
+                new MSUnresizingLabel
+                (
+                    new Point(0, 0),
+                    MSWomensOrgStats.GetInstance().GetFundsCost().ToString(),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_RIGHT
+            );
+
+            genderEqualityCostToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.BOTTOM_LEFT
+            );
+
+            genderEqualityCostToolTip.AddComponent
+            (
+                new MSUnresizingLabel
+                (
+                    new Point(0, 0),
+                    MSWomensOrgStats.GetInstance().GetVolunteerCost().ToString(),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.BOTTOM_RIGHT
+            );
+            #endregion
 
             AddComponent(new MSButton(null, 
                 new BuyTower(toBuy, MSWomensOrgStats.GetInstance()), 
@@ -132,8 +310,92 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/3"),
                 Game.Content.Load<Texture2D>("BuyDialog/3clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/3hovered"),
-                testToolTip, 
+                genderEqualityToolTip, 
                 Shape.AMORPHOUS, spriteBatch, game));
+
+            #region Education Tool Tip
+            MSToolTip educationToolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
+
+            MSToolTip educationCostToolTip = new MSToolTip
+            (
+                null,
+                new Rectangle(0, 0, 75, 50),
+                -30,
+                0,
+                0,
+                0,
+                SpriteBatch,
+                Game
+            );
+
+            educationToolTip.AddComponent(new MSUnresizingLabel
+            (
+                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                "Build a free school for boys and girls",
+                Game.Content.Load<SpriteFont>("Temp"),
+                Color.White,
+                Game.Content.Load<Texture2D>("BlackOut"),
+                2, 2, 2, 2,
+                SpriteBatch,
+                Game
+            ));
+
+            educationToolTip.AddComponent(educationCostToolTip, Alignment.MIDDLE_CENTER);
+
+            educationCostToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_LEFT
+            );
+
+            educationCostToolTip.AddComponent
+            (
+                new MSUnresizingLabel
+                (
+                    new Point(0, 0),
+                    MSTutorialCenterStats.GetInstance().GetFundsCost().ToString(),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_RIGHT
+            );
+
+            educationCostToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.BOTTOM_LEFT
+            );
+
+            educationCostToolTip.AddComponent
+            (
+                new MSUnresizingLabel
+                (
+                    new Point(0, 0),
+                    MSTutorialCenterStats.GetInstance().GetVolunteerCost().ToString(),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.BOTTOM_RIGHT
+            );
+            #endregion
 
             AddComponent(new MSButton(null, 
                 new BuyTower(toBuy, MSTutorialCenterStats.GetInstance()),
@@ -141,8 +403,92 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/4"),
                 Game.Content.Load<Texture2D>("BuyDialog/4clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/4hovered"),
-                testToolTip, 
+                educationToolTip, 
                 Shape.AMORPHOUS, spriteBatch, game));
+
+            #region Maternal Health Tool Tip
+            MSToolTip maternalHealthToolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
+
+            MSToolTip maternalHealthCostToolTip = new MSToolTip
+            (
+                null,
+                new Rectangle(0, 0, 75, 50),
+                -30,
+                0,
+                0,
+                0,
+                SpriteBatch,
+                Game
+            );
+
+            maternalHealthToolTip.AddComponent(new MSUnresizingLabel
+            (
+                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                "Build a reproductive and maternal health center",
+                Game.Content.Load<SpriteFont>("Temp"),
+                Color.White,
+                Game.Content.Load<Texture2D>("BlackOut"),
+                2, 2, 2, 2,
+                SpriteBatch,
+                Game
+            ));
+
+            maternalHealthToolTip.AddComponent(maternalHealthCostToolTip, Alignment.MIDDLE_CENTER);
+
+            maternalHealthCostToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_LEFT
+            );
+
+            maternalHealthCostToolTip.AddComponent
+            (
+                new MSUnresizingLabel
+                (
+                    new Point(0, 0),
+                    MSMaternalHealthCenterStats.GetInstance().GetFundsCost().ToString(),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_RIGHT
+            );
+
+            maternalHealthCostToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.BOTTOM_LEFT
+            );
+
+            maternalHealthCostToolTip.AddComponent
+            (
+                new MSUnresizingLabel
+                (
+                    new Point(0, 0),
+                    MSMaternalHealthCenterStats.GetInstance().GetVolunteerCost().ToString(),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.BOTTOM_RIGHT
+            );
+            #endregion
 
             AddComponent(new MSButton(null, 
                 new BuyTower(toBuy, MSMaternalHealthCenterStats.GetInstance()), 
@@ -150,8 +496,92 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/5"),
                 Game.Content.Load<Texture2D>("BuyDialog/5clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/5hovered"),
-                testToolTip,
+                maternalHealthToolTip,
                 Shape.AMORPHOUS, spriteBatch, game));
+
+            #region Environment Tool Tip
+            MSToolTip environmentToolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
+
+            MSToolTip environmentCostToolTip = new MSToolTip
+            (
+                null,
+                new Rectangle(0, 0, 75, 50),
+                -30,
+                0,
+                0,
+                0,
+                SpriteBatch,
+                Game
+            );
+
+            environmentToolTip.AddComponent(new MSUnresizingLabel
+            (
+                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                "Build an environmental awareness center",
+                Game.Content.Load<SpriteFont>("Temp"),
+                Color.White,
+                Game.Content.Load<Texture2D>("BlackOut"),
+                2, 2, 2, 2,
+                SpriteBatch,
+                Game
+            ));
+
+            environmentToolTip.AddComponent(environmentCostToolTip, Alignment.MIDDLE_CENTER);
+
+            environmentCostToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_LEFT
+            );
+
+            environmentCostToolTip.AddComponent
+            (
+                new MSUnresizingLabel
+                (
+                    new Point(0, 0),
+                    MSEcoParkStats.GetInstance().GetFundsCost().ToString(),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_RIGHT
+            );
+
+            environmentCostToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.BOTTOM_LEFT
+            );
+
+            environmentCostToolTip.AddComponent
+            (
+                new MSUnresizingLabel
+                (
+                    new Point(0, 0),
+                    MSEcoParkStats.GetInstance().GetVolunteerCost().ToString(),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.BOTTOM_RIGHT
+            );
+            #endregion
 
             AddComponent(new MSButton(null, 
                 new BuyTower(toBuy, MSEcoParkStats.GetInstance()), 
@@ -159,8 +589,92 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/6"),
                 Game.Content.Load<Texture2D>("BuyDialog/6clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/6hovered"),
-                testToolTip,
+                environmentToolTip,
                 Shape.AMORPHOUS, spriteBatch, game));
+
+            #region Global Partnership Tool Tip
+            MSToolTip globalPartnershipToolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
+
+            MSToolTip globalPartnershipCostToolTip = new MSToolTip
+            (
+                null,
+                new Rectangle(0, 0, 75, 50),
+                -30,
+                0,
+                0,
+                0,
+                SpriteBatch,
+                Game
+            );
+
+            globalPartnershipToolTip.AddComponent(new MSUnresizingLabel
+            (
+                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                "Build Global Trade Center",
+                Game.Content.Load<SpriteFont>("Temp"),
+                Color.White,
+                Game.Content.Load<Texture2D>("BlackOut"), 
+                2, 2, 2, 2,
+                SpriteBatch,
+                Game
+            ));
+
+            globalPartnershipToolTip.AddComponent(globalPartnershipCostToolTip, Alignment.MIDDLE_CENTER);
+
+            globalPartnershipCostToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_LEFT
+            );
+
+            globalPartnershipCostToolTip.AddComponent
+            (
+                new MSUnresizingLabel
+                (
+                    new Point(0, 0),
+                    MSGlobalCenterStats.GetInstance().GetFundsCost().ToString(),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_RIGHT
+            );
+
+            globalPartnershipCostToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.BOTTOM_LEFT
+            );
+
+            globalPartnershipCostToolTip.AddComponent
+            (
+                new MSUnresizingLabel
+                (
+                    new Point(0, 0),
+                    MSGlobalCenterStats.GetInstance().GetVolunteerCost().ToString(),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.BOTTOM_RIGHT
+            );
+            #endregion
 
             AddComponent(new MSButton(null, 
                 new BuyTower(toBuy, MSGlobalCenterStats.GetInstance()),
@@ -168,8 +682,92 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/7"),
                 Game.Content.Load<Texture2D>("BuyDialog/7clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/7hovered"),
-                testToolTip,
+                globalPartnershipToolTip,
                 Shape.AMORPHOUS, spriteBatch, game));
+
+            #region HIV AIDS Tool Tip
+            MSToolTip hivAidsToolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
+
+            MSToolTip hivAidsCostToolTip = new MSToolTip
+            (
+                null,
+                new Rectangle(0, 0, 75, 50),
+                -30,
+                0,
+                0,
+                0,
+                SpriteBatch,
+                Game
+            );
+
+            hivAidsToolTip.AddComponent(new MSUnresizingLabel
+            (
+                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                "Build HIV treatment center",
+                Game.Content.Load<SpriteFont>("Temp"),
+                Color.White,
+                Game.Content.Load<Texture2D>("BlackOut"),
+                2, 2, 2, 2,
+                SpriteBatch,
+                Game
+            ));
+
+            hivAidsToolTip.AddComponent(hivAidsCostToolTip, Alignment.MIDDLE_CENTER);
+
+            hivAidsCostToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_LEFT
+            );
+
+            hivAidsCostToolTip.AddComponent
+            (
+                new MSUnresizingLabel
+                (
+                    new Point(0, 0),
+                    MSHivAidsHealthCenterStats.GetInstance().GetFundsCost().ToString(),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_RIGHT
+            );
+
+            hivAidsCostToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.BOTTOM_LEFT
+            );
+
+            hivAidsCostToolTip.AddComponent
+            (
+                new MSUnresizingLabel
+                (
+                    new Point(0, 0),
+                    MSHivAidsHealthCenterStats.GetInstance().GetVolunteerCost().ToString(),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.BOTTOM_RIGHT
+            );
+            #endregion
 
             AddComponent(new MSButton(null,
                 new BuyTower(toBuy, MSHivAidsHealthCenterStats.GetInstance()),
@@ -177,7 +775,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/8"),
                 Game.Content.Load<Texture2D>("BuyDialog/8clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/8hovered"),
-                testToolTip,
+                hivAidsToolTip,
                 Shape.AMORPHOUS, spriteBatch, game));
 
             MSPanel middleOrb = new MSPanel(Game.Content.Load<Texture2D>("BuyDialog/middleOrb"), new Rectangle(0, 0, 184, 184), 30, 0, 0, 0, null, Shape.CIRCULAR, spriteBatch, game);
@@ -194,6 +792,63 @@ namespace MoodSwingGame
                 ),
                 Alignment.TOP_CENTER
             );
+
+            #region Volunteer Center Tool Tip
+            MSToolTip volunteerCenterToolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
+
+            MSToolTip volunteerCenterCostToolTip = new MSToolTip
+            (
+                null,
+                new Rectangle(0, 0, 75, 50),
+                -30,
+                0,
+                0,
+                0,
+                SpriteBatch,
+                Game
+            );
+
+            volunteerCenterToolTip.AddComponent(new MSUnresizingLabel
+            (
+                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                "Build a Volunteer Center",
+                Game.Content.Load<SpriteFont>("Temp"),
+                Color.White,
+                Game.Content.Load<Texture2D>("BlackOut"), 
+                2, 2, 2, 2,
+                SpriteBatch,
+                Game
+            ));
+
+            volunteerCenterToolTip.AddComponent(volunteerCenterCostToolTip, Alignment.MIDDLE_CENTER);
+
+            volunteerCenterCostToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_LEFT
+            );
+
+            volunteerCenterCostToolTip.AddComponent
+            (
+                new MSUnresizingLabel
+                (
+                    new Point(0, 0),
+                    MSVolunteerCenterStats.GetInstance().GetFundsCost().ToString(),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_RIGHT
+            );
+            #endregion
             
             AddComponent(new MSButton(null,
                 new BuyVolunteerCenter(toBuy),
@@ -201,9 +856,92 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/volunteer"),
                 Game.Content.Load<Texture2D>("BuyDialog/volunteerclicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/volunteerhover"),
-                testToolTip,
+                volunteerCenterToolTip,
                 Shape.AMORPHOUS, spriteBatch, game));
-            
+
+            #region Fundraiser Tool Tip
+            MSToolTip fundraiserToolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
+
+            MSToolTip fundraiserCostToolTip = new MSToolTip
+            (
+                null,
+                new Rectangle(0, 0, 75, 50),
+                -30,
+                0,
+                0,
+                0,
+                SpriteBatch,
+                Game
+            );
+
+            fundraiserToolTip.AddComponent(new MSUnresizingLabel
+            (
+                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                "Build a Donations Center",
+                Game.Content.Load<SpriteFont>("Temp"),
+                Color.White,
+                Game.Content.Load<Texture2D>("BlackOut"), 
+                2, 2, 2, 2,
+                SpriteBatch,
+                Game
+            ));
+
+            fundraiserToolTip.AddComponent(fundraiserCostToolTip, Alignment.MIDDLE_CENTER);
+
+            fundraiserCostToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/bucks"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_LEFT
+            );
+
+            fundraiserCostToolTip.AddComponent
+            (
+                new MSUnresizingLabel
+                (
+                    new Point(0, 0),
+                    MSFundraiserStats.GetInstance().GetFundsCost().ToString(),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.MIDDLE_RIGHT
+            );
+
+            fundraiserCostToolTip.AddComponent
+            (
+                new MSImageHolder
+                (
+                    new Rectangle(0, 0, 20, 20),
+                    Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.BOTTOM_LEFT
+            );
+
+            fundraiserCostToolTip.AddComponent
+            (
+                new MSUnresizingLabel
+                (
+                    new Point(0, 0),
+                    MSFundraiserStats.GetInstance().GetVolunteerCost().ToString(),
+                    Game.Content.Load<SpriteFont>("Temp"),
+                    Color.Black,
+                    null,
+                    SpriteBatch,
+                    Game
+                ),
+                Alignment.BOTTOM_RIGHT
+            );
+            #endregion
             
             AddComponent(new MSButton(null,
                 new BuyFundraiser(toBuy),
@@ -211,7 +949,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/money"),
                 Game.Content.Load<Texture2D>("BuyDialog/moneyClicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/moneyHover"),
-                testToolTip,
+                fundraiserToolTip,
                 Shape.AMORPHOUS, spriteBatch, game));
              
         }

@@ -45,13 +45,13 @@ namespace MoodSwingGame
             }
             else if (stats is MSChildHealthCenterStats)
             {
-                model = moodSwing.Content.Load<Model>("TallBuilding");
+                model = moodSwing.Content.Load<Model>("MModels/BuildingBig");
                 texture = moodSwing.Content.Load<Texture2D>("MTextures/BuildingTeddy");
                 effect = moodSwing.Content.Load<Effect>("Mood");
             }
             else if (stats is MSMaternalHealthCenterStats)
             {
-                model = moodSwing.Content.Load<Model>("TallBuilding");
+                model = moodSwing.Content.Load<Model>("MModels/BuildingBig");
                 texture = moodSwing.Content.Load<Texture2D>("MTextures/BuildingBuntis");
                 effect = moodSwing.Content.Load<Effect>("Mood");
             }

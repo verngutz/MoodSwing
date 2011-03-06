@@ -144,22 +144,28 @@ namespace MoodSwingGame
         {
             MoodSwing moodSwing = (MoodSwing)game;
             MSDistrictScreen screen = moodSwing.CurrentScreen as MSDistrictScreen;
-            if (screen.ResourceManager.Funds >= toBuildStats.GetFundsCost()
-                && screen.ResourceManager.IdleVolunteers >= toBuildStats.GetVolunteerCost())
+            if (screen.ResourceManager.Funds >= toBuildStats.GetFundsCost())
             {
-                screen.ResourceManager.Funds -= toBuildStats.GetFundsCost();
-                screen.ResourceManager.IdleVolunteers -= toBuildStats.GetVolunteerCost();
-                MS3DTile futureSelf = MSTowerFactory.CreateMSTower(toBuildStats, toBuy.Position, toBuy.Rotation, toBuy.TileCoordinate);
+                if (screen.ResourceManager.IdleVolunteers >= toBuildStats.GetVolunteerCost())
+                {
+                    screen.ResourceManager.Funds -= toBuildStats.GetFundsCost();
+                    screen.ResourceManager.IdleVolunteers -= toBuildStats.GetVolunteerCost();
+                    MS3DTile futureSelf = MSTowerFactory.CreateMSTower(toBuildStats, toBuy.Position, toBuy.Rotation, toBuy.TileCoordinate);
+                    
+                    futureSelf.LightSource = screen.Map.LightSource;
+                    toBuy.StartBuildProcess(toBuildStats.GetVolunteerCost(), futureSelf);
 
-                futureSelf.LightSource = screen.Map.LightSource;
-                toBuy.StartBuildProcess(toBuildStats.GetVolunteerCost(), futureSelf);
-
-                MSUnitHandler.GetInstance().SendWorkers(screen.Map, toBuy, toBuildStats.GetVolunteerCost());
-                screen.RemoveComponent(screen.BuyDialog);
+                    MSUnitHandler.GetInstance().SendWorkers(screen.Map, toBuy, toBuildStats.GetVolunteerCost());
+                    screen.RemoveComponent(screen.BuyDialog);
+                }
+                else
+                {
+                    MSNotifier.GetInstance().InvokeNotification("You need more volunteers.");
+                }
             }
             else
             {
-                MSNotifier.GetInstance().InvokeNotification("Not enough resources.");
+                MSNotifier.GetInstance().InvokeNotification("You need more funds.");
             }
         }
     }
@@ -197,7 +203,7 @@ namespace MoodSwingGame
             }
             else
             {
-                MSNotifier.GetInstance().InvokeNotification("Not enough resources.");
+                MSNotifier.GetInstance().InvokeNotification("You need more funds.");
             }
         }
     }
@@ -215,29 +221,35 @@ namespace MoodSwingGame
         {
             MoodSwing moodSwing = (MoodSwing)game;
             MSDistrictScreen screen = moodSwing.CurrentScreen as MSDistrictScreen;
-            if (screen.ResourceManager.Funds >= MSFundraiserStats.GetInstance().GetFundsCost()
-                && screen.ResourceManager.IdleVolunteers >= MSFundraiserStats.GetInstance().GetVolunteerCost())
+            if (screen.ResourceManager.Funds >= MSFundraiserStats.GetInstance().GetFundsCost())
             {
-                screen.ResourceManager.Funds -= MSFundraiserStats.GetInstance().GetFundsCost();
-                screen.ResourceManager.IdleVolunteers -= MSFundraiserStats.GetInstance().GetVolunteerCost();
-                MS3DTile futureSelf = new MSFundraiser(moodSwing.Content.Load<Model>("MModels/BuildingBig"),
-                    moodSwing.Content.Load<Texture2D>("MTextures/BuildingFunds"),
-                    moodSwing.Content.Load<Effect>("Mood"),
-                    toBuy.Position,
-                    toBuy.Rotation,
-                    toBuy.Row,
-                    toBuy.Column,
-                    screen.ResourceManager);
-                futureSelf.LightSource = screen.Map.LightSource;
-                toBuy.StartBuildProcess(MSFundraiserStats.GetInstance().GetVolunteerCost(), futureSelf);
+                if (screen.ResourceManager.IdleVolunteers >= MSFundraiserStats.GetInstance().GetVolunteerCost())
+                {
+                    screen.ResourceManager.Funds -= MSFundraiserStats.GetInstance().GetFundsCost();
+                    screen.ResourceManager.IdleVolunteers -= MSFundraiserStats.GetInstance().GetVolunteerCost();
+                    MS3DTile futureSelf = new MSFundraiser(moodSwing.Content.Load<Model>("MModels/BuildingBig"),
+                        moodSwing.Content.Load<Texture2D>("MTextures/BuildingFunds"),
+                        moodSwing.Content.Load<Effect>("Mood"),
+                        toBuy.Position,
+                        toBuy.Rotation,
+                        toBuy.Row,
+                        toBuy.Column,
+                        screen.ResourceManager);
+                    futureSelf.LightSource = screen.Map.LightSource;
+                    toBuy.StartBuildProcess(MSFundraiserStats.GetInstance().GetVolunteerCost(), futureSelf);
 
-                MSUnitHandler.GetInstance().SendWorkers(screen.Map, toBuy, 
-                    MSFundraiserStats.GetInstance().GetVolunteerCost());
-                screen.RemoveComponent(screen.BuyDialog);
+                    MSUnitHandler.GetInstance().SendWorkers(screen.Map, toBuy, 
+                        MSFundraiserStats.GetInstance().GetVolunteerCost());
+                    screen.RemoveComponent(screen.BuyDialog);
+                }
+                else
+                {
+                    MSNotifier.GetInstance().InvokeNotification("You need more volunteers.");
+                }
             }
             else
             {
-                MSNotifier.GetInstance().InvokeNotification("Not enough resources.");
+                MSNotifier.GetInstance().InvokeNotification("You need more funds.");
             }
         }
     }

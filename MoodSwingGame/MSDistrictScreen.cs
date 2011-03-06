@@ -112,6 +112,7 @@ namespace MoodSwingGame
             idleVolunteersPanel.AddComponent(idleVolunteers);
             idleVolunteersToolTip.AddComponent(new MSUnresizingLabel
             (
+                new Point(82, 39),
                 "Idle Volunteers",
                 Game.Content.Load<SpriteFont>("Temp"),
                 Color.White,
@@ -122,7 +123,7 @@ namespace MoodSwingGame
                 3,
                 SpriteBatch,
                 Game
-            ), Alignment.MIDDLE_LEFT);
+            ));
 
 
             MSToolTip totalVolunteersToolTip = new MSToolTip
@@ -153,18 +154,19 @@ namespace MoodSwingGame
                 game);
             totalVolunteersPanel.AddComponent(totalVolunteers); 
             totalVolunteersToolTip.AddComponent(new MSUnresizingLabel
-             (
-                 "Total Volunteers/Volunteers Manageable",
-                 Game.Content.Load<SpriteFont>("Temp"),
-                 Color.White,
-                 Game.Content.Load<Texture2D>("BlackOut"),
-                 3,
-                 3,
-                 3,
-                 3,
-                 SpriteBatch,
-                 Game
-             ), Alignment.MIDDLE_LEFT);
+            (
+                new Point(192, 48),
+                "Total Volunteers/Volunteers Manageable",
+                Game.Content.Load<SpriteFont>("Temp"),
+                Color.White,
+                Game.Content.Load<Texture2D>("BlackOut"),
+                3,
+                3,
+                3,
+                3,
+                SpriteBatch,
+                Game
+            ));
 
             MSToolTip fundsToolTip = new MSToolTip
             (
@@ -196,18 +198,19 @@ namespace MoodSwingGame
             );
             fundsPanel.AddComponent(funds); 
             fundsToolTip.AddComponent(new MSUnresizingLabel
-             (
-                 "Funds",
-                 Game.Content.Load<SpriteFont>("Temp"),
-                 Color.White,
-                 Game.Content.Load<Texture2D>("BlackOut"),
-                 3,
-                 3,
-                 3,
-                 3,
-                 SpriteBatch,
-                 Game
-             ), Alignment.MIDDLE_LEFT);
+            (
+                new Point(332, 64),
+                "Funds",
+                Game.Content.Load<SpriteFont>("Temp"),
+                Color.White,
+                Game.Content.Load<Texture2D>("BlackOut"),
+                3,
+                3,
+                3,
+                3,
+                SpriteBatch,
+                Game
+            ));
 
             MSPanel topPanelBack = new MSPanel
             (
@@ -442,14 +445,6 @@ namespace MoodSwingGame
 
             if (currentHovered != null && currentHovered.ToolTip != null)
                 currentHovered.ToolTip.Draw(gameTime);
-
-            if(!(moodManager.IsAlive))
-                spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "GAME OVER, LOSER.", new Vector2(500, 10), Color.White);
-
-            if(moodManager.Mood > 0.9f)
-                spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Awesome Mood Reached", new Vector2(500, 10), Color.White);
-            else if(moodManager.Mood > 0.75f)
-                spriteBatch.DrawString(Game.Content.Load<SpriteFont>("Temp"), "Good Mood Reached", new Vector2(500, 10), Color.White);
 
             MSNotifier.GetInstance().Draw(gameTime);
         }
