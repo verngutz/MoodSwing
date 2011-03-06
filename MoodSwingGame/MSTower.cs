@@ -55,7 +55,7 @@ namespace MoodSwingGame
                             distance <= stats.GetRange())
                         {
                             MSMilleniumDevelopmentGoal goal = (unit as MSMobber).Concern;
-                            if (stats.GetEffectiveness(goal) > MSRandom.random.Next(100))
+                            if (stats.GetEffectiveness(goal) == true)
                             {
                                 capacity--;
 

@@ -259,7 +259,7 @@ namespace MoodSwingGame
 
                     //check tile on the right
                     if (x + 1 < rows && mapArray[x + 1, y] is MSRoad || 
-                        ( !getRoadFirst && new Vector2(x + 1, y) == end) ) 
+                        ( !getRoadFirst && new Vector2(x + 1, y) == end ) ) 
                     {
                         if (hasVis[x + 1, y] == false)
                         {
