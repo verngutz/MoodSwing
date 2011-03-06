@@ -18,7 +18,7 @@ namespace MoodSwingGUI
     /// <summary>
     /// MSLabel is an MSGUIUnclickable component that displays text with the use of a SpriteFont. The text is always scaled to fit the bounding Rectangle of this MSLabel.
     /// </summary>
-    public class MSLabel : MSGUIUnclickable
+    public class MSResizingLabel : MSGUIUnclickable
     {
         private String text;
 
@@ -47,7 +47,7 @@ namespace MoodSwingGUI
         /// <param name="spriteFont">the SpriteFont used to draw the text</param>
         /// <param name="spriteBatch">the SpriteBatch that will draw this MSLabel</param>
         /// <param name="game">the Game where this MSLabel is used</param>
-        public MSLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, SpriteBatch spriteBatch, Game game)
+        public MSResizingLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, SpriteBatch spriteBatch, Game game)
             : this(text, boundingRectangle, spriteFont, Color.Black, spriteBatch, game) { }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace MoodSwingGUI
         /// <param name="color">the text color of this MSLabel</param>
         /// <param name="spriteBatch">the SpriteBatch that will draw this MSLabel</param>
         /// <param name="game">the Game where this MSLabel is used</param>
-        public MSLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
+        public MSResizingLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
             : base(boundingRectangle, spriteBatch, game)
         {
             this.spriteFont = spriteFont;

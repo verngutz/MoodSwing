@@ -13,12 +13,10 @@ Citizens are flying (their z-positions are wrong).
 Things Still Needed
 -------------------
 
-Fix MDG score progress bars.
 Implement "Game Over" sequences (both for winning and losing).
 Implement "Bad Mood" warning.
 Fix tooltips.
-Add cost information when buying buildings.
-Add the pointer to the buy dialog (clicker) and implement the auto-adjust position.
+Finalize cost information for buying buildings.
 Implement ALL 8 MDG buildings (and maybe one general purpose building).
 Implement dialog box for "return to main menu" and "exit" confirmation.
 Implement highlighting for hovered buyable buildings.

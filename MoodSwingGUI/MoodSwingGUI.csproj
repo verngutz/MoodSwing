@@ -92,7 +92,7 @@
     <Compile Include="MSMiscellaneous.cs" />
     <Compile Include="MSButton.cs" />
     <Compile Include="MSCheckbox.cs" />
-    <Compile Include="MSLabel.cs" />
+    <Compile Include="MSResizingLabel.cs" />
     <Compile Include="MSPanel.cs" />
     <Compile Include="MSProgressBar.cs" />
     <Compile Include="MSRadioButtonGroup.cs" />
@@ -101,6 +101,7 @@
     <Compile Include="MSTextArea.cs" />
     <Compile Include="MSTextField.cs" />
     <Compile Include="MSToolTip.cs" />
+    <Compile Include="MSUnresizingLabel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

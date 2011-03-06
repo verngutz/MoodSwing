@@ -30,7 +30,11 @@ namespace MoodSwingCoreComponents
         /// </summary>
         public virtual Rectangle BoundingRectangle
         {
-            set { boundingRectangle = value; }
+            set 
+            {
+                Position = new Vector2(value.X, value.Y);
+                Size = new Vector2(value.Width, value.Height);
+            }
             get { return boundingRectangle; }
         }
 

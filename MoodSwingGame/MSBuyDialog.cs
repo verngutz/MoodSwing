@@ -72,7 +72,7 @@ namespace MoodSwingGame
 
             costToolTip.AddComponent
             (
-                new MSLabel
+                new MSResizingLabel
                 (
                     MSResourceManager.TOWER_MONEY_COST.ToString(),
                     new Rectangle(0, 0, 20, 20),
@@ -97,7 +97,7 @@ namespace MoodSwingGame
 
             costToolTip.AddComponent
             (
-                new MSLabel
+                new MSResizingLabel
                 (
                     MSResourceManager.TOWER_VOLUNTEER_COST.ToString(),
                     new Rectangle(0, 0, 20, 20),
@@ -184,7 +184,7 @@ namespace MoodSwingGame
             AddComponent(middleOrb, Alignment.MIDDLE_CENTER);
             middleOrb.AddComponent
             (
-                new MSLabel
+                new MSResizingLabel
                 (
                     "For Sale",
                     new Rectangle(0, 0, 75, 20),
