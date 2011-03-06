@@ -31,6 +31,8 @@ namespace MoodSwingGame
         private Color fadeEffect;
         private int fadeAlpha;
         private int fadeIncrement;
+        private int holdTimer;
+        private const int HOLD_TIME = 50;
 
         private MSNotifier() 
             : base(MoodSwing.GetInstance().Content.Load<Texture2D>("BlackOut"), new Rectangle(0, 400, 1024, 100), null, Shape.RECTANGULAR, MoodSwing.GetInstance().SpriteBatch, MoodSwing.GetInstance()) 
@@ -40,6 +42,7 @@ namespace MoodSwingGame
             fadeAlpha = 1;
             fadeEffect = new Color(255, 255, 255, fadeAlpha);
             fadeIncrement = 5;
+            holdTimer = 0;
         }
 
         public void InvokeNotification(string notification)
@@ -55,7 +58,13 @@ namespace MoodSwingGame
                 fadeAlpha += fadeIncrement;
                 if (fadeAlpha >= 255)
                 {
-                    fadeIncrement = -5;
+                    fadeAlpha = 255;
+                    fadeIncrement = 0;
+                    if (holdTimer++ > HOLD_TIME)
+                    {
+                        holdTimer = 0;
+                        fadeIncrement = -5;
+                    }
                 }
             }
             if (fadeAlpha <= 0)
@@ -65,7 +74,6 @@ namespace MoodSwingGame
                 fadeAlpha = 1;
             }
             fadeEffect.A = (byte)fadeAlpha;
-            System.Console.WriteLine(fadeAlpha);
         }
 
         public override void Draw(GameTime gameTime)
@@ -77,7 +85,7 @@ namespace MoodSwingGame
                 (
                     notificationFont,
                     notifications.Peek(),
-                    Position + (Size - notificationFont.MeasureString(notifications.Peek()) / 2),
+                    Position + (Size - notificationFont.MeasureString(notifications.Peek())) / 2,
                     fadeEffect
                 );
             }
