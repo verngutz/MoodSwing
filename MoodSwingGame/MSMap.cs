@@ -126,7 +126,6 @@ namespace MoodSwingGame
                     }
                 }
             }
-            if( tile != null ) System.Console.WriteLine(tile.TileCoordinate);
             return tile;
         }
 
