@@ -310,11 +310,14 @@ namespace MoodSwingGame
             }
 
 
-            while (last.parent != null)
+            if (last != null)
             {
-                Node par = last.parent;
-                par.next = last;
-                last = par;
+                while (last.parent != null)
+                {
+                    Node par = last.parent;
+                    par.next = last;
+                    last = par;
+                }
             }
 
 
