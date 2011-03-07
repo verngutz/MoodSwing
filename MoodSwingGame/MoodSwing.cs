@@ -139,8 +139,8 @@ namespace MoodSwingGame
             spriteBatch.Begin();
             CurrentScreen.Draw(gameTime);
 
-            int frameRate = (int)(1 / (float)gameTime.ElapsedGameTime.TotalSeconds);
-            spriteBatch.DrawString(Content.Load<SpriteFont>("Temp"), "Frame Rate: " + frameRate + "fps", new Vector2(5, 735), Color.White);
+            //int frameRate = (int)(1 / (float)gameTime.ElapsedGameTime.TotalSeconds);
+            //spriteBatch.DrawString(Content.Load<SpriteFont>("ToolTipFont"), "Frame Rate: " + frameRate + "fps", new Vector2(5, 735), Color.White);
 
             spriteBatch.End();
             base.Draw(gameTime);

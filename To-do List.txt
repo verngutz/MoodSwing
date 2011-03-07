@@ -2,7 +2,6 @@
 Bug Checklist
 -------------
 
-Game can be controlled even when underneath other windows.
 Citizens are flying (their z-positions are wrong).
 
 -------------------

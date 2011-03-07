@@ -115,7 +115,7 @@ namespace MoodSwingGame
             (
                 new Point(82, 39),
                 "Idle Volunteers",
-                Game.Content.Load<SpriteFont>("Temp"),
+                Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
                 3,
@@ -158,7 +158,7 @@ namespace MoodSwingGame
             (
                 new Point(192, 48),
                 "Total Volunteers/Volunteers Manageable",
-                Game.Content.Load<SpriteFont>("Temp"),
+                Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
                 3,
@@ -202,7 +202,7 @@ namespace MoodSwingGame
             (
                 new Point(332, 64),
                 "Funds",
-                Game.Content.Load<SpriteFont>("Temp"),
+                Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
                 3,

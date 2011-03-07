@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
+using MoodSwingGUI;
 using MoodSwingCoreComponents;
 
 namespace MoodSwingGame

@@ -71,7 +71,7 @@ namespace MoodSwingGame
             (
                 new Point(BoundingRectangle.X, BoundingRectangle.Y),
                 "Build a children's health center",
-                Game.Content.Load<SpriteFont>("Temp"),
+                Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
                 2, 2, 2, 2,
@@ -89,7 +89,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSChildHealthCenterStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -106,7 +106,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSChildHealthCenterStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -144,7 +144,7 @@ namespace MoodSwingGame
             (
                 new Point(BoundingRectangle.X, BoundingRectangle.Y),
                 "Build a feeding center for the poor",
-                Game.Content.Load<SpriteFont>("Temp"),
+                Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
                 2, 2, 2, 2,
@@ -162,7 +162,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSFoodCenterStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -179,7 +179,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSFoodCenterStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -217,7 +217,7 @@ namespace MoodSwingGame
             (
                 new Point(BoundingRectangle.X, BoundingRectangle.Y),
                 "Build an employment agency for women",
-                Game.Content.Load<SpriteFont>("Temp"),
+                Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
                 2, 2, 2, 2,
@@ -235,7 +235,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSWomensOrgStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -252,7 +252,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSWomensOrgStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -290,7 +290,7 @@ namespace MoodSwingGame
             (
                 new Point(BoundingRectangle.X, BoundingRectangle.Y),
                 "Build a free school for boys and girls",
-                Game.Content.Load<SpriteFont>("Temp"),
+                Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
                 2, 2, 2, 2,
@@ -308,7 +308,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSTutorialCenterStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -325,7 +325,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSTutorialCenterStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -363,7 +363,7 @@ namespace MoodSwingGame
             (
                 new Point(BoundingRectangle.X, BoundingRectangle.Y),
                 "Build a reproductive and maternal health center",
-                Game.Content.Load<SpriteFont>("Temp"),
+                Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
                 2, 2, 2, 2,
@@ -381,7 +381,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSMaternalHealthCenterStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -398,7 +398,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSMaternalHealthCenterStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -436,7 +436,7 @@ namespace MoodSwingGame
             (
                 new Point(BoundingRectangle.X, BoundingRectangle.Y),
                 "Build an environmental awareness center",
-                Game.Content.Load<SpriteFont>("Temp"),
+                Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
                 2, 2, 2, 2,
@@ -454,7 +454,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSEcoParkStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -471,7 +471,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSEcoParkStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -509,7 +509,7 @@ namespace MoodSwingGame
             (
                 new Point(BoundingRectangle.X, BoundingRectangle.Y),
                 "Build Global Trade Center",
-                Game.Content.Load<SpriteFont>("Temp"),
+                Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"), 
                 2, 2, 2, 2,
@@ -527,7 +527,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSGlobalCenterStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -544,7 +544,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSGlobalCenterStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -582,7 +582,7 @@ namespace MoodSwingGame
             (
                 new Point(BoundingRectangle.X, BoundingRectangle.Y),
                 "Build HIV treatment center",
-                Game.Content.Load<SpriteFont>("Temp"),
+                Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
                 2, 2, 2, 2,
@@ -600,7 +600,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSHivAidsHealthCenterStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -617,7 +617,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSHivAidsHealthCenterStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -644,7 +644,7 @@ namespace MoodSwingGame
                 (
                     "For Sale",
                     new Rectangle(0, 0, 75, 20),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     SpriteBatch,
                     Game
                 ),
@@ -670,7 +670,7 @@ namespace MoodSwingGame
             (
                 new Point(BoundingRectangle.X, BoundingRectangle.Y),
                 "Build a Volunteer Center",
-                Game.Content.Load<SpriteFont>("Temp"),
+                Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"), 
                 2, 2, 2, 2,
@@ -688,7 +688,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSVolunteerCenterStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -726,7 +726,7 @@ namespace MoodSwingGame
             (
                 new Point(BoundingRectangle.X, BoundingRectangle.Y),
                 "Build a Donations Center",
-                Game.Content.Load<SpriteFont>("Temp"),
+                Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"), 
                 2, 2, 2, 2,
@@ -744,7 +744,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSFundraiserStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -761,7 +761,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSFundraiserStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("Temp"),
+                    Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.Black,
                     null,
                     SpriteBatch,

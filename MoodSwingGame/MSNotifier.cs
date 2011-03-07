@@ -37,7 +37,7 @@ namespace MoodSwingGame
         private MSNotifier() 
             : base(MoodSwing.GetInstance().Content.Load<Texture2D>("BlackOut"), new Rectangle(0, 400, 1024, 100), null, Shape.RECTANGULAR, MoodSwing.GetInstance().SpriteBatch, MoodSwing.GetInstance()) 
         {
-            notificationFont = Game.Content.Load<SpriteFont>("Temp");
+            notificationFont = Game.Content.Load<SpriteFont>("ToolTipFont");
             notifications = new Queue<string>();
             fadeAlpha = 1;
             fadeEffect = new Color(255, 255, 255, fadeAlpha);
