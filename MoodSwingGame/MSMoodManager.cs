@@ -226,7 +226,7 @@ namespace MoodSwingGame
             base.Update(gameTime);
             if (mood <= LOW_MOOD_LEVEL)
             {
-                if (MoodSwing.GetInstance().BGM.Count == 3)
+                if (lowMoodWarningTimer == 0 && MoodSwing.GetInstance().BGM.Count == 3)
                 {
                     MoodSwing.GetInstance().BGM = new Queue<Song>();
                     Queue<Song> bgm = MoodSwing.GetInstance().BGM;
@@ -235,10 +235,7 @@ namespace MoodSwingGame
                     Song nextSong = bgm.Dequeue();
                     MediaPlayer.Play(nextSong);
                     bgm.Enqueue(nextSong);
-                }
-                if (lowMoodWarningTimer == 0)
-                {
-                    //MSNotifier.GetInstance().InvokeNotification("Warning: The district is in a bad mood.");
+                    MSNotifier.GetInstance().InvokeNotification("Warning: The district is in a bad mood.");
                     lowMoodWarningTimer = LOW_MOOD_WARNING_DELAY;
                 }
                 else
