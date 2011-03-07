@@ -205,6 +205,10 @@ namespace MoodSwingGame
                 MSUnitHandler.GetInstance().IsLeaderBusy = true;
                 screen.RemoveComponent(screen.BuyDialog);
             }
+            else if (MSUnitHandler.GetInstance().IsLeaderBusy)
+            {
+                MSNotifier.GetInstance().InvokeNotification("John Doe is currently busy.");
+            }
             else
             {
                 MSNotifier.GetInstance().InvokeNotification("You need more funds.");
