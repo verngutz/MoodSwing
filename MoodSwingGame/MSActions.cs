@@ -214,7 +214,7 @@ namespace MoodSwingGame
             }
             else if (MSUnitHandler.GetInstance().IsLeaderBusy)
             {
-                MSNotifier.GetInstance().InvokeNotification("John Doe is currently busy.");
+                MSNotifier.GetInstance().InvokeNotification("You may only build one Volunteer Center at a time.");
             }
             else
             {

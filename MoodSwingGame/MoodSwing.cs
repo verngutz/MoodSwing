@@ -44,6 +44,7 @@ namespace MoodSwingGame
         public MouseState OldMouseState { get { return oldMouseState; } }
 
         private Queue<Song> bgm;
+        public Queue<Song> BGM { get { return bgm; } set { bgm = value; } }
 
         public GameTime prevGameTime;
         private MoodSwing()
@@ -51,7 +52,7 @@ namespace MoodSwingGame
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             
             //graphics.PreferMultiSampling = true;
 
@@ -63,6 +64,7 @@ namespace MoodSwingGame
             bgm = new Queue<Song>();
             bgm.Enqueue(Content.Load<Song>("MoodSwing"));
             bgm.Enqueue(Content.Load<Song>("7thFloor"));
+            bgm.Enqueue(Content.Load<Song>("Bliss"));
         }
 
         /// <summary>
@@ -120,7 +122,7 @@ namespace MoodSwingGame
                 prevGameTime = gameTime;
                 base.Update(gameTime);
 
-                if (MediaPlayer.State == MediaState.Stopped)
+                if (MediaPlayer.State == MediaState.Stopped && !(CurrentScreen is MSIntroScreen))
                 {
                     Song nextSong = bgm.Dequeue();
                     MediaPlayer.Play(nextSong);

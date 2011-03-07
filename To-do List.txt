@@ -23,3 +23,6 @@ Level editor does not ensure that there should be a road adjacent to a building.
 Level editor does not ensure that there is a district hall.
 Level editor does not ensure that there is at least one volunteer centre.
 Level editor cannot load maps from a txt file.
+Restart Button after losing.
+BuyDialog is too big compared to buildings.
+BuyDialog is not very responsive.
