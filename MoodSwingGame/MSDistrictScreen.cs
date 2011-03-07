@@ -459,7 +459,7 @@ namespace MoodSwingGame
             {
                 map.Update(gameTime);
                 resourceManager.Update(gameTime);
-                MSUnit person = unitHandler.TryForBaby(map);
+                MSUnit person = unitHandler.TryForBaby(map, gameTime);
 
                 moodManager.Update(gameTime);
                 unitHandler.Update(map);

@@ -35,9 +35,11 @@ namespace MoodSwingGame
         }
         //probability constant that handles unit generation
         private const int INITIAL_BIRTH_RATE = 100;
-        private const int MAX_PROBABILITY = 5000;
+        private const int MAX_PROBABILITY = 10000;
+        private const int MAX_MOB_PROBABILITY = 60;
         //probability constant that handles mob generation
-        private const int MOB_PROBABILITY = 25;
+        private int MOB_WAVE_PROBABILITY = 5;
+        private int MOB_STABLE_PROBABILITY = 5;
         private const int MOB_RECRUIT_RATE = 3000;
         private const int MOB_RECRUIT_DISTANCE = 5;
 
@@ -51,6 +53,8 @@ namespace MoodSwingGame
         {
             units = new List<MSUnit>();
             IsLeaderBusy = false;
+            prevCheckpoint = 0 ;
+            IsRelativelyPeaceful = true;
             birthRate = INITIAL_BIRTH_RATE;
         }
 
@@ -58,8 +62,33 @@ namespace MoodSwingGame
         //used for testing only
         private bool oneOnly = false;
         private bool checkOne = false;
-        public MSUnit TryForBaby( MSMap map )
+
+        private double prevCheckpoint;
+        private bool IsRelativelyPeaceful;
+
+        public MSUnit TryForBaby( MSMap map, GameTime gameTime )
         {
+
+            int timeDiff = (int)(gameTime.TotalGameTime.TotalSeconds - prevCheckpoint);
+            if ( (timeDiff == 30 &&  !IsRelativelyPeaceful) ||
+                 (timeDiff == 20 && IsRelativelyPeaceful) )
+            {
+                IsRelativelyPeaceful = !IsRelativelyPeaceful;
+                prevCheckpoint = gameTime.TotalGameTime.TotalSeconds;
+                if (IsRelativelyPeaceful &&
+                    MOB_WAVE_PROBABILITY + (MOB_WAVE_PROBABILITY+"").Length <= MAX_MOB_PROBABILITY)
+                {
+                    if (birthRate < MAX_PROBABILITY)  birthRate += 0.05f;
+                    MOB_WAVE_PROBABILITY += (MOB_WAVE_PROBABILITY + "").Length;
+                }
+
+                System.Console.WriteLine(MOB_WAVE_PROBABILITY);
+                System.Console.WriteLine(IsRelativelyPeaceful);
+            }
+
+            int mob_probability = MOB_WAVE_PROBABILITY ;
+            if (IsRelativelyPeaceful) mob_probability = MOB_STABLE_PROBABILITY;
+
             int rnd = MSRandom.random.Next(MAX_PROBABILITY);
 
             if (oneOnly && checkOne)
@@ -84,28 +113,28 @@ namespace MoodSwingGame
                 
                 Node path = map.GetPath(start, end);
 
-                if (rnd < MOB_PROBABILITY)
+                if (rnd < mob_probability)
                 {
                     MSMilleniumDevelopmentGoal mobmdg;
-                    if (rnd > MOB_PROBABILITY * 7 / 8)
+                    if (rnd > mob_probability * 7 / 8)
                         mobmdg = MSMilleniumDevelopmentGoal.POVERTY;
 
-                    else if (rnd > MOB_PROBABILITY * 6 / 8)
+                    else if (rnd > mob_probability * 6 / 8)
                         mobmdg = MSMilleniumDevelopmentGoal.EDUCATION;
 
-                    else if (rnd > MOB_PROBABILITY * 5 / 8)
+                    else if (rnd > mob_probability * 5 / 8)
                         mobmdg = MSMilleniumDevelopmentGoal.GENDER_EQUALITY;
 
-                    else if (rnd > MOB_PROBABILITY * 4 / 8)
+                    else if (rnd > mob_probability * 4 / 8)
                         mobmdg = MSMilleniumDevelopmentGoal.CHILD_HEALTH;
 
-                    else if (rnd > MOB_PROBABILITY * 3 / 8)
+                    else if (rnd > mob_probability * 3 / 8)
                         mobmdg = MSMilleniumDevelopmentGoal.MATERNAL_HEALTH;
 
-                    else if (rnd > MOB_PROBABILITY * 2 / 8)
+                    else if (rnd > mob_probability * 2 / 8)
                         mobmdg = MSMilleniumDevelopmentGoal.HIV_AIDS;
 
-                    else if (rnd > MOB_PROBABILITY * 1 / 8)
+                    else if (rnd > mob_probability * 1 / 8)
                         mobmdg = MSMilleniumDevelopmentGoal.ENVIRONMENT;
 
                     else

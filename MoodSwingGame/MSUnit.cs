@@ -64,7 +64,7 @@ namespace MoodSwingGame
                     Effect.Parameters["Projection"].SetValue(MSCamera.GetInstance().ProjectionMatrix);
                     Matrix worldInverseTransposeMatrix = Matrix.Transpose(Matrix.Invert(mesh.ParentBone.Transform * world));
                     Effect.Parameters["WorldInverseTranspose"].SetValue(worldInverseTransposeMatrix);
-                    //effect.Parameters["ViewVector"].SetValue(MSCamera.GetInstance().NormalizedViewVector);
+                    //Effect.Parameters["ViewVector"].SetValue(MSCamera.GetInstance().NormalizedViewVector);
                     Effect.Parameters["DiffuseLightDirection"].SetValue(map.LightSource - Position);
                     Effect.Parameters["Saturation"].SetValue(MSMoodManager.GetInstance().Mood);
                     Effect.Parameters["ModelTexture"].SetValue(Texture);
