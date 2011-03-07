@@ -18,7 +18,7 @@ namespace MoodSwingGame
 {
     public class MSMoodManager : GameComponent
     {
-        private const float INITIAL_MOOD = 0.1f;
+        private const float INITIAL_MOOD = 1f;
         private const float MOB_SUCCESS_MOOD_DAMAGE = 0.05f;
         private const float PERSON_HELPED_MOOD_BONUS = 0.01f;
         private const float PERSON_HELPED_SCORE_INCREASE = 0.01f;
