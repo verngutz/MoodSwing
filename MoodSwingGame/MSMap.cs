@@ -38,7 +38,7 @@ namespace MoodSwingGame
         private int initialVolunteerCenters;
         public int InitialVolunteerCenters { get { return (initialVolunteerCenters); } }
 
-        public Vector2 Dimension { get { return (new Vector2(rows, columns) * tileDimension); } }
+        public Vector2 Dimension { get { return (new Vector2(rows, columns) * tileDimension * 2); } }
         public MSMap(String filename)
             : base(MoodSwing.GetInstance())
         {

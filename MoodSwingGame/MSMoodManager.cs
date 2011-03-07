@@ -226,6 +226,16 @@ namespace MoodSwingGame
             base.Update(gameTime);
             if (mood <= LOW_MOOD_LEVEL)
             {
+                if (MoodSwing.GetInstance().BGM.Count == 3)
+                {
+                    MoodSwing.GetInstance().BGM = new Queue<Song>();
+                    Queue<Song> bgm = MoodSwing.GetInstance().BGM;
+                    bgm.Enqueue(Game.Content.Load<Song>("DefendroThemeB"));
+                    MediaPlayer.Stop();
+                    Song nextSong = bgm.Dequeue();
+                    MediaPlayer.Play(nextSong);
+                    bgm.Enqueue(nextSong);
+                }
                 if (lowMoodWarningTimer == 0)
                 {
                     //MSNotifier.GetInstance().InvokeNotification("Warning: The district is in a bad mood.");
@@ -234,6 +244,21 @@ namespace MoodSwingGame
                 else
                     lowMoodWarningTimer--;
 
+            }
+            else
+            {
+                if (MoodSwing.GetInstance().BGM.Count == 1)
+                {
+                    MoodSwing.GetInstance().BGM = new Queue<Song>();
+                    Queue<Song> bgm = MoodSwing.GetInstance().BGM;
+                    bgm.Enqueue(Game.Content.Load<Song>("MoodSwing"));
+                    bgm.Enqueue(Game.Content.Load<Song>("7thFloor"));
+                    bgm.Enqueue(Game.Content.Load<Song>("Bliss"));
+                    MediaPlayer.Stop();
+                    Song nextSong = bgm.Dequeue();
+                    MediaPlayer.Play(nextSong);
+                    bgm.Enqueue(nextSong);
+                }
             }
         }
 
