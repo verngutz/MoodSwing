@@ -25,7 +25,7 @@ namespace MoodSwingGame
         {
             MSAnimatingButton startGameButton = new MSAnimatingButton(
                     null,
-                    new OpenCityScreen(),
+                    new OpenDistrictScreen(),
                     new Rectangle(330, 250, 559, 60),
                     game.Content.Load<Texture2D>("startgame"),
                     game.Content.Load<Texture2D>("startgameclicked"),
@@ -76,6 +76,7 @@ namespace MoodSwingGame
             AddComponent(optionsButton);
 
             AddComponent(exitButton);
+            AddComponent(new MSPanel(Game.Content.Load<Texture2D>("gamescreen"), new Rectangle(0, 0, Game.GraphicsDevice.Viewport.Width, Game.GraphicsDevice.Viewport.Height), null, Shape.AMORPHOUS, SpriteBatch, Game));
         }
 
         public override void Update(GameTime gameTime)

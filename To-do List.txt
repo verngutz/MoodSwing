@@ -6,7 +6,7 @@ Bug Checklist
 Things Still Needed
 -------------------
 
-Create necessary documentation (Game Summary, Game Tutorial, and Game Video).
+Create necessary documentation (Game Tutorial, and Game Video).
 
 ----------
 Next Round

@@ -31,6 +31,9 @@ namespace MoodSwingGame
         public static MSUnitHandler Restart()
         {
             unitHandler = new MSUnitHandler();
+            unitHandler.MOB_WAVE_PROBABILITY = 7;
+            unitHandler.MOB_STABLE_PROBABILITY = 0;
+            unitHandler.MOB_MDG_OPTIONS = 1;
             return unitHandler;
         }
         //probability constant that handles unit generation
