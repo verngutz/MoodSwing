@@ -446,8 +446,6 @@ namespace MoodSwingGame
 
             if (currentHovered != null && currentHovered.ToolTip != null)
                 currentHovered.ToolTip.Draw(gameTime);
-
-            MSNotifier.GetInstance().Draw(gameTime);
         }
 
         public override void Update(GameTime gameTime)
@@ -477,7 +475,6 @@ namespace MoodSwingGame
                 totalVolunteers.Text = resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity;
                 funds.Text = resourceManager.Funds + "";
             }
-            MSNotifier.GetInstance().Update(gameTime);
         }
 
         public void CheckCollision()

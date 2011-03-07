@@ -32,6 +32,9 @@ namespace MoodSwingGame
             moodSwing.CurrentScreen.ResetHovers();
             moodSwing.CurrentScreen = MSMainScreen.getInstance();
             MSMoodManager.Reset();
+
+            MSNotifier.GetInstance().ClearNotifications();
+            MSNotifier.GetInstance().FreezeNotifications = false;
         }
     }
 
@@ -49,10 +52,14 @@ namespace MoodSwingGame
     {
         public void PerformAction(Game game)
         {
+            /**
             MoodSwing moodSwing = (MoodSwing)game;
             MSOptionsScreen.getInstance().ReturnScreen = moodSwing.CurrentScreen;
             moodSwing.CurrentScreen.ResetHovers();
             moodSwing.CurrentScreen = MSOptionsScreen.getInstance();
+             */
+            MSNotifier.GetInstance().ClearNotifications();
+            MSNotifier.GetInstance().InvokeNotification("This feature is not yet available in this version of the game.");
         }
     }
 
@@ -89,7 +96,7 @@ namespace MoodSwingGame
                 screen.RemoveComponent(screen.BuyDialog);
             screen.HandleMouseInput((game as MoodSwing).OldMouseState, false);
             MSNotifier.GetInstance().ClearNotifications();
-            MSNotifier.GetInstance().InvokeNotification("Try Again\nThe district went into a wild uproar before you could achieve the Millenium Development Goals.");
+            MSNotifier.GetInstance().InvokeNotification("Try Again\nThe city went into a wild uproar before you could achieve the Millenium Development Goals.");
             MSNotifier.GetInstance().FreezeNotifications = true;
         }
     }

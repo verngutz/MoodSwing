@@ -122,6 +122,8 @@ namespace MoodSwingGame
                 prevGameTime = gameTime;
                 base.Update(gameTime);
 
+                MSNotifier.GetInstance().Update(gameTime);
+
                 if (MediaPlayer.State == MediaState.Stopped && !(CurrentScreen is MSIntroScreen))
                 {
                     Song nextSong = bgm.Dequeue();
@@ -143,7 +145,7 @@ namespace MoodSwingGame
 
             //int frameRate = (int)(1 / (float)gameTime.ElapsedGameTime.TotalSeconds);
             //spriteBatch.DrawString(Content.Load<SpriteFont>("ToolTipFont"), "Frame Rate: " + frameRate + "fps", new Vector2(5, 735), Color.White);
-
+            MSNotifier.GetInstance().Draw(gameTime);
             spriteBatch.End();
             base.Draw(gameTime);
         }
