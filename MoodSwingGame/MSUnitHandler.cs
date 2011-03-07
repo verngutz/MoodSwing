@@ -36,12 +36,15 @@ namespace MoodSwingGame
         //probability constant that handles unit generation
         private const int INITIAL_BIRTH_RATE = 100;
         private const int MAX_PROBABILITY = 10000;
-        private const int MAX_MOB_PROBABILITY = 60;
+        private const int MAX_MOB_PROBABILITY = 100;
         //probability constant that handles mob generation
-        private int MOB_WAVE_PROBABILITY = 5;
-        private int MOB_STABLE_PROBABILITY = 5;
+        private int MOB_WAVE_PROBABILITY = 7;
+        private int MOB_STABLE_PROBABILITY = 0;
         private const int MOB_RECRUIT_RATE = 3000;
         private const int MOB_RECRUIT_DISTANCE = 5;
+        //probability of kind of mdg in mob
+        private int MOB_MDG_OPTIONS = 1;
+        private const int MOB_MDG_DELAY = 4;
 
         //list of citizens
         private List<MSUnit> units;
@@ -81,6 +84,7 @@ namespace MoodSwingGame
                     if (birthRate < MAX_PROBABILITY)  birthRate += 0.05f;
                     MOB_WAVE_PROBABILITY += (MOB_WAVE_PROBABILITY + "").Length;
                 }
+                MOB_MDG_OPTIONS++;
 
                 System.Console.WriteLine(MOB_WAVE_PROBABILITY);
                 System.Console.WriteLine(IsRelativelyPeaceful);
@@ -115,28 +119,22 @@ namespace MoodSwingGame
 
                 if (rnd < mob_probability)
                 {
+                    int typeRnd = ((MSRandom.random.Next(MOB_MDG_OPTIONS))/MOB_MDG_DELAY)%8;
                     MSMilleniumDevelopmentGoal mobmdg;
-                    if (rnd > mob_probability * 7 / 8)
+                    if (typeRnd == 0)
                         mobmdg = MSMilleniumDevelopmentGoal.POVERTY;
-
-                    else if (rnd > mob_probability * 6 / 8)
+                    else if (typeRnd == 1)
                         mobmdg = MSMilleniumDevelopmentGoal.EDUCATION;
-
-                    else if (rnd > mob_probability * 5 / 8)
+                    else if (typeRnd == 2)
                         mobmdg = MSMilleniumDevelopmentGoal.GENDER_EQUALITY;
-
-                    else if (rnd > mob_probability * 4 / 8)
+                    else if (typeRnd == 3)
                         mobmdg = MSMilleniumDevelopmentGoal.CHILD_HEALTH;
-
-                    else if (rnd > mob_probability * 3 / 8)
+                    else if (typeRnd == 4)
                         mobmdg = MSMilleniumDevelopmentGoal.MATERNAL_HEALTH;
-
-                    else if (rnd > mob_probability * 2 / 8)
+                    else if (typeRnd == 5)
                         mobmdg = MSMilleniumDevelopmentGoal.HIV_AIDS;
-
-                    else if (rnd > mob_probability * 1 / 8)
+                    else if (typeRnd == 6)
                         mobmdg = MSMilleniumDevelopmentGoal.ENVIRONMENT;
-
                     else
                         mobmdg = MSMilleniumDevelopmentGoal.GLOBAL_PARTNERSHIP;
 
