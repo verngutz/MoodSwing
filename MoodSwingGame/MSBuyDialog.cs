@@ -216,7 +216,7 @@ namespace MoodSwingGame
             genderEqualityToolTip.AddComponent(new MSUnresizingLabel
             (
                 new Point(BoundingRectangle.X, BoundingRectangle.Y + BoundingRectangle.Height),
-                "Build an employment agency for women",
+                "Build an employment center for women",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
@@ -289,7 +289,7 @@ namespace MoodSwingGame
             educationToolTip.AddComponent(new MSUnresizingLabel
             (
                 new Point(BoundingRectangle.X, BoundingRectangle.Y + BoundingRectangle.Height),
-                "Build a free school for boys and girls",
+                "Build a free tutorial center for children",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
@@ -508,7 +508,7 @@ namespace MoodSwingGame
             globalPartnershipToolTip.AddComponent(new MSUnresizingLabel
             (
                 new Point(BoundingRectangle.X, BoundingRectangle.Y + BoundingRectangle.Height),
-                "Build Global Trade Center",
+                "Build global trade center",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"), 
