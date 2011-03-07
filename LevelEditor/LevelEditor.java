@@ -49,7 +49,7 @@ public class LevelEditor extends JFrame{
     	kthxbai.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent ae){
     			int[][] map = ((LevelEditorCanvas) c).getMap();
-    			out.println(rows+" "+columns);
+    			out.println(columns+" "+rows);
     			for(int[] row : map){
     				for(int column : row){
     					out.print(column+" ");
