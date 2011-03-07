@@ -25,7 +25,7 @@ namespace MoodSwingGame
             return resourceManager;
         }
 
-        public const int VOLUNTEER_CENTER_GAIN = 10; 
+        public const int VOLUNTEER_CENTER_GAIN = 30; 
         public const int VOLUNTEER_GENERATION_DIFFICULTY = 100;
 
         private int volunteerGenerationCounter;
