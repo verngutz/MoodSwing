@@ -128,7 +128,7 @@ namespace MoodSwingGame
             environmentBonusEnabled = true;
             globalPartnershipBonusEnabled = true;
 
-            immortal = false;
+            immortal = true;
 
             povertyProgressBar = new MSMDGProgressBar
             (

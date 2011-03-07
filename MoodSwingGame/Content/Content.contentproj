@@ -638,25 +638,21 @@
       <Name>BuildingBig</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>2.4</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="MModels\BuildingSmall.fbx">
       <Name>BuildingSmall</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>2.4</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="MModels\DistrictHall.fbx">
       <Name>DistrictHall</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>2.4</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="MModels\Floor.fbx">
       <Name>Floor</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>2.4</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <ItemGroup>
