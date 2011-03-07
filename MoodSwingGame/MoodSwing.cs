@@ -108,20 +108,24 @@ namespace MoodSwingGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            CurrentScreen.Update(gameTime);
-            KeyboardState newKeyBoardState = Keyboard.GetState();
-            MouseState newMouseState = Mouse.GetState();
-
-            oldMouseState = newMouseState;
-            oldKeyboardState = newKeyBoardState;
-            prevGameTime = gameTime;
-            base.Update(gameTime);
-
-            if (MediaPlayer.State == MediaState.Stopped)
+            if (IsActive)
             {
-                Song nextSong = bgm.Dequeue();
-                MediaPlayer.Play(nextSong);
-                bgm.Enqueue(nextSong);
+                CurrentScreen.Update(gameTime);
+
+                KeyboardState newKeyBoardState = Keyboard.GetState();
+                MouseState newMouseState = Mouse.GetState();
+
+                oldMouseState = newMouseState;
+                oldKeyboardState = newKeyBoardState;
+                prevGameTime = gameTime;
+                base.Update(gameTime);
+
+                if (MediaPlayer.State == MediaState.Stopped)
+                {
+                    Song nextSong = bgm.Dequeue();
+                    MediaPlayer.Play(nextSong);
+                    bgm.Enqueue(nextSong);
+                }
             }
         }
 
