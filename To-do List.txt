@@ -6,16 +6,14 @@ Bug Checklist
 Things Still Needed
 -------------------
 
-Add sound effects.
-Implement dialog box for "return to main menu" and "exit" confirmation.
-Hide all the unused screens for now.
-Hide debug code and debug onscreen items.
 Create necessary documentation (Game Summary, Game Tutorial, and Game Video).
 
------------
-Other Stuff
------------
+----------
+Next Round
+----------
 
+Implement dialog box for "return to main menu" and "exit" confirmation.
+Add sound effects.
 Fix the HLSL code for lighting.
 I suggest a possibility of queueing another volunteer centre, but John Doe should only be at one place at a time.
 Add new 3d models.
