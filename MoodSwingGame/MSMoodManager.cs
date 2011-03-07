@@ -228,7 +228,7 @@ namespace MoodSwingGame
             {
                 if (lowMoodWarningTimer == 0)
                 {
-                    MSNotifier.GetInstance().InvokeNotification("Warning: The district is in a bad mood.");
+                    //MSNotifier.GetInstance().InvokeNotification("Warning: The district is in a bad mood.");
                     lowMoodWarningTimer = LOW_MOOD_WARNING_DELAY;
                 }
                 else
