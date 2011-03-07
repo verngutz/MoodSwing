@@ -69,7 +69,7 @@ namespace MoodSwingGame
 
             childHealthToolTip.AddComponent(new MSUnresizingLabel
             (
-                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                new Point(BoundingRectangle.X, BoundingRectangle.Y + BoundingRectangle.Height),
                 "Build a children's health center",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
@@ -89,7 +89,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSChildHealthCenterStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -106,7 +106,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSChildHealthCenterStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -142,7 +142,7 @@ namespace MoodSwingGame
 
             povertyToolTip.AddComponent(new MSUnresizingLabel
             (
-                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                new Point(BoundingRectangle.X, BoundingRectangle.Y + BoundingRectangle.Height),
                 "Build a feeding center for the poor",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
@@ -162,7 +162,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSFoodCenterStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -179,7 +179,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSFoodCenterStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -215,7 +215,7 @@ namespace MoodSwingGame
 
             genderEqualityToolTip.AddComponent(new MSUnresizingLabel
             (
-                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                new Point(BoundingRectangle.X, BoundingRectangle.Y + BoundingRectangle.Height),
                 "Build an employment agency for women",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
@@ -235,7 +235,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSWomensOrgStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -252,7 +252,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSWomensOrgStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -288,7 +288,7 @@ namespace MoodSwingGame
 
             educationToolTip.AddComponent(new MSUnresizingLabel
             (
-                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                new Point(BoundingRectangle.X, BoundingRectangle.Y + BoundingRectangle.Height),
                 "Build a free school for boys and girls",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
@@ -308,7 +308,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSTutorialCenterStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -325,7 +325,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSTutorialCenterStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -361,7 +361,7 @@ namespace MoodSwingGame
 
             maternalHealthToolTip.AddComponent(new MSUnresizingLabel
             (
-                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                new Point(BoundingRectangle.X, BoundingRectangle.Y + BoundingRectangle.Height),
                 "Build a reproductive and maternal health center",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
@@ -381,7 +381,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSMaternalHealthCenterStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -398,7 +398,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSMaternalHealthCenterStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -434,7 +434,7 @@ namespace MoodSwingGame
 
             environmentToolTip.AddComponent(new MSUnresizingLabel
             (
-                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                new Point(BoundingRectangle.X, BoundingRectangle.Y + BoundingRectangle.Height),
                 "Build an environmental awareness center",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
@@ -454,7 +454,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSEcoParkStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -471,7 +471,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSEcoParkStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -507,7 +507,7 @@ namespace MoodSwingGame
 
             globalPartnershipToolTip.AddComponent(new MSUnresizingLabel
             (
-                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                new Point(BoundingRectangle.X, BoundingRectangle.Y + BoundingRectangle.Height),
                 "Build Global Trade Center",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
@@ -527,7 +527,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSGlobalCenterStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -544,7 +544,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSGlobalCenterStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -580,7 +580,7 @@ namespace MoodSwingGame
 
             hivAidsToolTip.AddComponent(new MSUnresizingLabel
             (
-                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                new Point(BoundingRectangle.X, BoundingRectangle.Y + BoundingRectangle.Height),
                 "Build HIV treatment center",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
@@ -600,7 +600,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSHivAidsHealthCenterStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -617,7 +617,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSHivAidsHealthCenterStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -643,8 +643,8 @@ namespace MoodSwingGame
                 new MSResizingLabel
                 (
                     "For Sale",
-                    new Rectangle(0, 0, 75, 20),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    new Rectangle(86, 82, 91, 27),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     SpriteBatch,
                     Game
                 ),
@@ -668,7 +668,7 @@ namespace MoodSwingGame
 
             volunteerCenterToolTip.AddComponent(new MSUnresizingLabel
             (
-                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                new Point(BoundingRectangle.X, BoundingRectangle.Y + BoundingRectangle.Height),
                 "Build a Volunteer Center",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
@@ -688,7 +688,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSVolunteerCenterStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -724,7 +724,7 @@ namespace MoodSwingGame
 
             fundraiserToolTip.AddComponent(new MSUnresizingLabel
             (
-                new Point(BoundingRectangle.X, BoundingRectangle.Y),
+                new Point(BoundingRectangle.X, BoundingRectangle.Y + BoundingRectangle.Height),
                 "Build a Donations Center",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
@@ -744,7 +744,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSFundraiserStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,
@@ -761,7 +761,7 @@ namespace MoodSwingGame
                 (
                     new Point(0, 0),
                     MSFundraiserStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
+                    Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
                     SpriteBatch,

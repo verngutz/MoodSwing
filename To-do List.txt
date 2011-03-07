@@ -2,13 +2,10 @@
 Bug Checklist
 -------------
 
-Citizens are flying (their z-positions are wrong).
-
 -------------------
 Things Still Needed
 -------------------
 
-Fix fonts.
 Add sound effects.
 Implement dialog box for "return to main menu" and "exit" confirmation.
 Hide all the unused screens for now.

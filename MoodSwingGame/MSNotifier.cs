@@ -26,6 +26,8 @@ namespace MoodSwingGame
             return instance;
         }
 
+        public bool FreezeNotifications { set; get; }
+
         private Queue<string> notifications;
         private SpriteFont notificationFont;
         private Color fadeEffect;
@@ -55,6 +57,7 @@ namespace MoodSwingGame
             notifications.Enqueue(notification);
         }
 
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
@@ -67,8 +70,11 @@ namespace MoodSwingGame
                     fadeIncrement = 0;
                     if (holdTimer++ > HOLD_TIME)
                     {
-                        holdTimer = 0;
-                        fadeIncrement = -5;
+                        if (!FreezeNotifications)
+                        {
+                            holdTimer = 0;
+                            fadeIncrement = -5;
+                        }
                     }
                 }
             }

@@ -73,6 +73,8 @@ namespace MoodSwingGame
             MoodSwing moodSwing = (MoodSwing)game;
             moodSwing.CurrentScreen.ResetHovers();
             moodSwing.CurrentScreen = new MSDistrictScreen(@"Content\mapinfo.txt", moodSwing);
+            MSNotifier.GetInstance().ClearNotifications();
+            MSNotifier.GetInstance().FreezeNotifications = false;
         }
     }
     
@@ -85,8 +87,10 @@ namespace MoodSwingGame
             screen.BlackOutPanel.Visible = true;
             if(screen.BuyDialog != null)
                 screen.RemoveComponent(screen.BuyDialog);
+            screen.HandleMouseInput((game as MoodSwing).OldMouseState, false);
             MSNotifier.GetInstance().ClearNotifications();
-            MSNotifier.GetInstance().InvokeNotification("Try Again\nThe district went into a wild uproar\nbefore you could achieve the Millenium Development Goals.");
+            MSNotifier.GetInstance().InvokeNotification("Try Again\nThe district went into a wild uproar before you could achieve the Millenium Development Goals.");
+            MSNotifier.GetInstance().FreezeNotifications = true;
         }
     }
 
@@ -99,8 +103,10 @@ namespace MoodSwingGame
             screen.BlackOutPanel.Visible = true;
             if (screen.BuyDialog != null)
                 screen.RemoveComponent(screen.BuyDialog);
+            screen.HandleMouseInput((game as MoodSwing).OldMouseState, false);
             MSNotifier.GetInstance().ClearNotifications();
             MSNotifier.GetInstance().InvokeNotification("You win!\nYou have successfully achieved the eight Millenium Development Goals.");
+            MSNotifier.GetInstance().FreezeNotifications = true;
         }
     }
 

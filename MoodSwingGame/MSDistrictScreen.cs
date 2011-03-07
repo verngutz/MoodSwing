@@ -476,8 +476,8 @@ namespace MoodSwingGame
                 idleVolunteers.Text = resourceManager.IdleVolunteers + "";
                 totalVolunteers.Text = resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity;
                 funds.Text = resourceManager.Funds + "";
-                MSNotifier.GetInstance().Update(gameTime);
             }
+            MSNotifier.GetInstance().Update(gameTime);
         }
 
         public void CheckCollision()
@@ -534,11 +534,11 @@ namespace MoodSwingGame
         }
 
         private Vector2 mouseMidHold;
-        public void HandleMouseInput(MouseState oldMouseState)
+        public override bool HandleMouseInput(MouseState oldMouseState, bool careIfMouseHasMoved)
         {
             MouseState newMouseState = Mouse.GetState();
 
-            if (base.HandleMouseInput(oldMouseState))
+            if (base.HandleMouseInput(oldMouseState, careIfMouseHasMoved))
             {
                 if (BuyDialog != null)
                 {
@@ -546,7 +546,7 @@ namespace MoodSwingGame
                     BuyDialog.Dispose();
                 }
                 BuyDialog = null;
-                return;
+                return false;
             }
 
             //Picking
@@ -591,7 +591,7 @@ namespace MoodSwingGame
                 }
                 BuyDialog = null;
             }
-            else if( !Paused )
+            else if (!Paused)
             {
                 bool hasMoved = false;
                 Vector2 shift = Vector2.Zero;
@@ -622,7 +622,7 @@ namespace MoodSwingGame
                 }
 
                 //camera movement using right mouse button.
-                if (newMouseState.RightButton == ButtonState.Pressed && 
+                if (newMouseState.RightButton == ButtonState.Pressed &&
                     oldMouseState.RightButton == ButtonState.Released)
                 {
                     mouseMidHold = new Vector2(newMouseState.X, newMouseState.Y);
@@ -632,22 +632,22 @@ namespace MoodSwingGame
                 {
                     Vector2 delta2 = new Vector2(newMouseState.X - mouseMidHold.X, newMouseState.Y - mouseMidHold.Y);
 
-                    if ( delta2.X <= -20 )
+                    if (delta2.X <= -20)
                     {
                         shift += new Vector2(1, 0);
                         hasMoved = true;
                     }
-                    else if ( delta2.X >= 20 )
+                    else if (delta2.X >= 20)
                     {
                         shift += new Vector2(-1, 0);
                         hasMoved = true;
                     }
-                    if ( delta2.Y <= -20 )
+                    if (delta2.Y <= -20)
                     {
                         shift += new Vector2(0, -1);
                         hasMoved = true;
                     }
-                    else if (delta2.Y >= 20 )
+                    else if (delta2.Y >= 20)
                     {
                         shift += new Vector2(0, 1);
                         hasMoved = true;
@@ -672,6 +672,12 @@ namespace MoodSwingGame
                     BuyDialog = null;
                 }
             }
+            return false;
+        }
+
+        public override bool HandleMouseInput(MouseState oldMouseState)
+        {
+            return this.HandleMouseInput(oldMouseState, true);
         }
     }
 }

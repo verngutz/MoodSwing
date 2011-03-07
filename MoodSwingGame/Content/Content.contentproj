@@ -630,6 +630,11 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
+    <Compile Include="BuyDialog.spritefont">
+      <Name>BuyDialog</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
     <None Include="janssen_smallermap.txt">
       <Name>janssen_smallermap</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
