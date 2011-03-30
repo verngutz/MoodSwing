@@ -1,16 +1,12 @@
--------------
-Bug Checklist
--------------
+----
+Bugs
+----
 
--------------------
-Things Still Needed
--------------------
+Hurrah! No bugs at the moment.
 
-Create necessary documentation (Game Tutorial, and Game Video).
-
-----------
-Next Round
-----------
+------------
+Things To Do
+------------
 
 Implement dialog box for "return to main menu" and "exit" confirmation.
 Add sound effects.

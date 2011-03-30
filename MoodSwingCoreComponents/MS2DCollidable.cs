@@ -68,8 +68,8 @@ namespace MoodSwingCoreComponents
                     return Vector2.Distance(Position + Size / 2, other.Position + other.Size / 2) <= Size.X / 2 + other.Size.X / 2;
                 else
                 {
-                    RenderTarget2D renderTarget = new RenderTarget2D(Game.GraphicsDevice, other.BoundingRectangle.Width, other.BoundingRectangle.Height, 1, SurfaceFormat.Color);
-                    Game.GraphicsDevice.SetRenderTarget(0, renderTarget);
+                    RenderTarget2D renderTarget = new RenderTarget2D(Game.GraphicsDevice, other.BoundingRectangle.Width, other.BoundingRectangle.Height, true, SurfaceFormat.Color, DepthFormat.None);
+                    Game.GraphicsDevice.SetRenderTarget(renderTarget);
                     Game.GraphicsDevice.Clear(ClearOptions.Target, Color.Red, 0, 0);
                     spriteBatch.Begin();
                     spriteBatch.Draw(CollisionTexture,
@@ -81,10 +81,10 @@ namespace MoodSwingCoreComponents
                             other.BoundingRectangle.Height),
                         Color.White);
                     spriteBatch.End();
-                    Game.GraphicsDevice.SetRenderTarget(0, null);
+                    Game.GraphicsDevice.SetRenderTarget(null);
                     int numPixels = other.BoundingRectangle.Width * other.BoundingRectangle.Height;
                     Color[] collisionColorInformation = new Color[numPixels];
-                    renderTarget.GetTexture().GetData<Color>(0,
+                    renderTarget.GetData<Color>(0,
                         new Rectangle(0, 0, other.BoundingRectangle.Width, other.BoundingRectangle.Height),
                         collisionColorInformation, 0, numPixels);
 
@@ -114,18 +114,18 @@ namespace MoodSwingCoreComponents
                     case Shape.CIRCULAR:
                         return Vector2.DistanceSquared(Position + Size / 2, new Vector2(p.X, p.Y)) <= Size.X * Size.X;
                     case Shape.AMORPHOUS:
-                        RenderTarget2D renderTarget = new RenderTarget2D(Game.GraphicsDevice, 1, 1, 1, SurfaceFormat.Color);
-                        Game.GraphicsDevice.SetRenderTarget(0, renderTarget);
-                        Game.GraphicsDevice.Clear(ClearOptions.Target, Color.TransparentWhite, 0, 0);
+                        RenderTarget2D renderTarget = new RenderTarget2D(Game.GraphicsDevice, 1, 1, true, SurfaceFormat.Color, DepthFormat.None);
+                        Game.GraphicsDevice.SetRenderTarget(renderTarget);
+                        Game.GraphicsDevice.Clear(ClearOptions.Target, Color.Transparent, 0, 0);
                         spriteBatch.Begin();
                         spriteBatch.Draw(CollisionTexture,
                             new Rectangle(0, 0, 1, 1),
                             new Rectangle(p.X - BoundingRectangle.X, p.Y - BoundingRectangle.Y, 1, 1),
                             Color.White);
                         spriteBatch.End();
-                        Game.GraphicsDevice.SetRenderTarget(0, null);
+                        Game.GraphicsDevice.SetRenderTarget(null);
                         Color[] collisionColorInformation = new Color[1];
-                        renderTarget.GetTexture().GetData<Color>(0, new Rectangle(0, 0, 1, 1), collisionColorInformation, 0, 1);
+                        renderTarget.GetData<Color>(0, new Rectangle(0, 0, 1, 1), collisionColorInformation, 0, 1);
                         if (collisionColorInformation[0].A != 0)                           
                             return true;
 
