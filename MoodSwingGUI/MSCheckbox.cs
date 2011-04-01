@@ -50,6 +50,51 @@ namespace MoodSwingGUI
         /// </summary>
         public MSButton Current { get { return current; } }
 
+        public override Rectangle BoundingRectangle
+        {
+            get
+            {
+                return current.BoundingRectangle;
+            }
+            set
+            {
+                if(ticked != null)
+                    ticked.BoundingRectangle = value;
+                if(unticked != null)
+                    unticked.BoundingRectangle = value;
+            }
+        }
+
+        public override Vector2 Position
+        {
+            get
+            {
+                return current.Position;
+            }
+            set
+            {
+                if (ticked != null)
+                    ticked.Position = value;
+                if (unticked != null)
+                    unticked.Position = value;
+            }
+        }
+
+        public override Vector2 Size
+        {
+            get
+            {
+                return current.Size;
+            }
+            set
+            {
+                if (ticked != null)
+                    ticked.Size = value;
+                if (unticked != null)
+                    unticked.Size = value;
+            }
+        }
+
         /// <summary>
         /// Creates an MSCheckbox using two MSButtons
         /// </summary>

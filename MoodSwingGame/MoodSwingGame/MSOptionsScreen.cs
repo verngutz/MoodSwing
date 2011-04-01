@@ -23,7 +23,7 @@ namespace MoodSwingGame
         public MSScreen ReturnScreen { set; get; }
 
         private MSOptionsScreen(MoodSwing game)
-            : base(game.Content.Load<Texture2D>("Options"), 150, 150, 150, 150, game.SpriteBatch, game) 
+            : base(game.Content.Load<Texture2D>("CityView"), 150, 150, 150, 150, game.SpriteBatch, game) 
         {
             AddComponent(new MSButton(
                     null,
@@ -38,12 +38,38 @@ namespace MoodSwingGame
                     SpriteBatch,
                     Game)
                     , Alignment.BOTTOM_CENTER);
+
+            AddComponent(new MSCheckbox(
+                new MSButton(
+                    null,
+                    new ToggleFullScreen(true),
+                    new Rectangle(0, 0, 50, 50),
+                    game.Content.Load<Texture2D>("unchecked"),
+                    game.Content.Load<Texture2D>("uncheckedclicked"),
+                    game.Content.Load<Texture2D>("uncheckedhovered"),
+                    null,
+                    Shape.RECTANGULAR,
+                    SpriteBatch,
+                    Game),
+                new MSButton(
+                    null,
+                    new ToggleFullScreen(false),
+                    new Rectangle(0, 0, 50, 50),
+                    game.Content.Load<Texture2D>("checked"),
+                    game.Content.Load<Texture2D>("checkedclicked"),
+                    game.Content.Load<Texture2D>("checkedhovered"),
+                    null,
+                    Shape.RECTANGULAR,
+                    SpriteBatch,
+                    Game),
+                false), Alignment.TOP_LEFT);
+
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            HandleMouseInput((Game as MoodSwing).OldMouseState);
+            HandleMouseInput((Game as MoodSwing).OldMouseState, false);
             HandleKeyboardInput((Game as MoodSwing).OldKeyboardState);
         }
     }

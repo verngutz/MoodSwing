@@ -24,6 +24,16 @@ namespace MoodSwingGame
     {
         private GraphicsDeviceManager graphics;
 
+        public bool FullScreen 
+        { 
+            get { return graphics.IsFullScreen; } 
+            set 
+            { 
+                graphics.IsFullScreen = value;
+                graphics.ApplyChanges();
+            } 
+        }
+
         private static MoodSwing MSInstance;
         public static MoodSwing GetInstance() 
         {

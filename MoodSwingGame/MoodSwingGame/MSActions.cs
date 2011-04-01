@@ -52,14 +52,10 @@ namespace MoodSwingGame
     {
         public void PerformAction(Game game)
         {
-            /**
             MoodSwing moodSwing = (MoodSwing)game;
             MSOptionsScreen.getInstance().ReturnScreen = moodSwing.CurrentScreen;
             moodSwing.CurrentScreen.ResetHovers();
             moodSwing.CurrentScreen = MSOptionsScreen.getInstance();
-             */
-            MSNotifier.GetInstance().ClearNotifications();
-            MSNotifier.GetInstance().InvokeNotification("This feature is not yet available in this version of the game.");
         }
     }
 
@@ -82,6 +78,23 @@ namespace MoodSwingGame
             moodSwing.CurrentScreen = new MSDistrictScreen(@"Content\Pandalevel2.txt", moodSwing);
             MSNotifier.GetInstance().ClearNotifications();
             MSNotifier.GetInstance().FreezeNotifications = false;
+        }
+    }
+
+    public class ToggleFullScreen : MSAction
+    {
+        private bool fullscreen;
+
+        public ToggleFullScreen(bool fullscreen)
+        {
+            this.fullscreen = fullscreen;
+        }
+
+        public void PerformAction(Game game)
+        {
+            (game as MoodSwing).FullScreen = fullscreen;
+            System.Console.WriteLine(fullscreen);
+            System.Console.WriteLine("toggled");
         }
     }
     

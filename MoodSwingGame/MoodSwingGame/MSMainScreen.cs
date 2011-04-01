@@ -25,7 +25,7 @@ namespace MoodSwingGame
         {
             MSAnimatingButton startGameButton = new MSAnimatingButton(
                     null,
-                    new OpenDistrictScreen(),
+                    new OpenCityScreen(),
                     new Rectangle(330, 250, 559, 60),
                     game.Content.Load<Texture2D>("startgame"),
                     game.Content.Load<Texture2D>("startgameclicked"),
