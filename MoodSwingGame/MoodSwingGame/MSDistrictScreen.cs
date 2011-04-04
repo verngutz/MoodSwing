@@ -355,7 +355,7 @@ namespace MoodSwingGame
                 unit.Draw(gameTime);
             }
 
-            SpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
+            SpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, (Game as MoodSwing).DisplayScale);
             foreach (MSUnit unit in unitHandler.Units)
             {
                 if(unit is MSMobber) 
@@ -421,8 +421,7 @@ namespace MoodSwingGame
             }
             SpriteBatch.End();
 
-            SpriteBatch.Begin();
-
+            SpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, (Game as MoodSwing).DisplayScale);
 
             foreach (MS3DTile tile in map.MapArray)
             {

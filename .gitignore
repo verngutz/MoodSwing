@@ -6,5 +6,4 @@ obj/
 MoodSwing/MoodSwing_TemporaryKey*
 *.db
 docs/
-*.contentproj
-*Program.cs
+*.contentproj.user

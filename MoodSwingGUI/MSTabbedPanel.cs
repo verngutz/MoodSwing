@@ -17,7 +17,21 @@ namespace MoodSwingGUI
 {
     public class MSTabbedPanel : MSGUITypable
     {
+        public MSTabbedPanel(SpriteBatch spritebatch, Game game)
+            : base(new Rectangle(), null, Shape.RECTANGULAR, spritebatch, game)
+        {
+        }
         private MSRadioButtonGroup activatorGroup;
         private Dictionary<MSCheckbox, MSPanel> activatorPanelPairs;
+
+        public override void Hover() { }
+        public override void LeftClick() { }
+        public override void MiddleClick() { }
+        public override void RightClick() { }
+        public override void UnHover() { }
+        public override void UnLeftClick() { }
+        public override void UnMiddleClick() { }
+        public override void UnRightClick() { }
+        public override void HandleKeyboardInput(KeyboardState oldKeyboardState) { }
     }
 }

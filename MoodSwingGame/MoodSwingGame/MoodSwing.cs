@@ -56,6 +56,11 @@ namespace MoodSwingGame
         private Queue<Song> bgm;
         public Queue<Song> BGM { get { return bgm; } set { bgm = value; } }
 
+        private const int nativeScreenWidth = 1024;
+        private const int nativeScreenHeight = 768;
+        private Matrix displayScale;
+        public Matrix DisplayScale { get { return displayScale; } }
+
         public GameTime prevGameTime;
         private MoodSwing()
         {
@@ -101,6 +106,10 @@ namespace MoodSwingGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            float horizontalScale = GraphicsDevice.PresentationParameters.BackBufferWidth / nativeScreenWidth;
+            float verticalScale = GraphicsDevice.PresentationParameters.BackBufferHeight / nativeScreenHeight;
+            float scale = Math.Min(horizontalScale, verticalScale);
+            displayScale = Matrix.CreateScale(new Vector3(scale, scale, 1));
         }
 
         /// <summary>
@@ -150,7 +159,7 @@ namespace MoodSwingGame
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, displayScale);
             CurrentScreen.Draw(gameTime);
 
             //int frameRate = (int)(1 / (float)gameTime.ElapsedGameTime.TotalSeconds);
