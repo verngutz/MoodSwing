@@ -108,6 +108,7 @@
     <Compile Include="MSResizingLabel.cs" />
     <Compile Include="MSScreen.cs" />
     <Compile Include="MSSlider.cs" />
+    <Compile Include="MSTabbedPanel.cs" />
     <Compile Include="MSTextArea.cs" />
     <Compile Include="MSTextField.cs" />
     <Compile Include="MSToolTip.cs" />
