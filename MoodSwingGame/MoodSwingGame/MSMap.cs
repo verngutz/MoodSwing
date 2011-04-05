@@ -111,7 +111,7 @@ namespace MoodSwingGame
             {
                 if (true/*!(t is MSRoad)*/)
                 {
-                    float? dist = Intersects(t.BoundingBox, new Vector2(Mouse.GetState().X, Mouse.GetState().Y),
+                    float? dist = Intersects(t.BoundingBox, new Vector2(MSMouse.GetState().X, MSMouse.GetState().Y),
                         MSCamera.GetInstance().GetView(),
                         MSCamera.GetInstance().ProjectionMatrix,
                         MoodSwing.GetInstance().GraphicsDevice.Viewport);

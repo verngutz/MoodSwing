@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 using MoodSwingGUI;
+using MoodSwingCoreComponents;
 
 namespace MoodSwingGame
 {
@@ -51,7 +52,7 @@ namespace MoodSwingGame
 
         public override bool HandleMouseInput(MouseState oldMouseState)
         {
-            MouseState currentMouseState = Mouse.GetState();
+            MouseState currentMouseState = MSMouse.GetState();
             if (currentMouseState.LeftButton == ButtonState.Pressed
                 && oldMouseState.LeftButton == ButtonState.Released)
             {

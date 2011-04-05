@@ -61,11 +61,11 @@ namespace MoodSwingGUI
         /// <param name="spriteBatch">the SpriteBatch that will draw this MSScreen</param>
         /// <param name="game">the Game where this MSScreen will be used</param>
         public MSScreen(Texture2D background, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Color highlight, SpriteBatch spriteBatch, Game game)
-            : base(background, new Rectangle(0, 0, game.GraphicsDevice.Viewport.Width, game.GraphicsDevice.Viewport.Height), topPadding, bottomPadding, leftPadding, rightPadding, null, Shape.RECTANGULAR, spriteBatch, game) { }
+            : base(background, new Rectangle(0, 0, MSResolution.VirtualWidth, MSResolution.VirtualHeight), topPadding, bottomPadding, leftPadding, rightPadding, null, Shape.RECTANGULAR, spriteBatch, game) { }
 
         public virtual bool HandleMouseInput(MouseState oldMouseState, bool careIfMouseHasMoved)
         {
-            MouseState currentMouseState = Mouse.GetState();
+            MouseState currentMouseState = MSMouse.GetState();
             if (currentMouseState != oldMouseState || !careIfMouseHasMoved)
             {
                 bool hasHovered = false;

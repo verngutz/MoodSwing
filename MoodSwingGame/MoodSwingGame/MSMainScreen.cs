@@ -76,7 +76,7 @@ namespace MoodSwingGame
             AddComponent(optionsButton);
 
             AddComponent(exitButton);
-            AddComponent(new MSPanel(Game.Content.Load<Texture2D>("gamescreen"), new Rectangle(0, 0, Game.GraphicsDevice.Viewport.Width, Game.GraphicsDevice.Viewport.Height), null, Shape.AMORPHOUS, SpriteBatch, Game));
+            AddComponent(new MSPanel(Game.Content.Load<Texture2D>("gamescreen"), new Rectangle(0, 0, MSResolution.VirtualWidth, MSResolution.VirtualHeight), null, Shape.AMORPHOUS, SpriteBatch, Game));
         }
 
         public override void Update(GameTime gameTime)

@@ -346,16 +346,13 @@ namespace MoodSwingGame
         {
             if (background != null)
                 SpriteBatch.Draw(background, BoundingRectangle, highlight);
+            SpriteBatch.End();
 
-            SpriteBatch.End(); 
             map.Draw(gameTime);
-
             foreach (MSUnit unit in unitHandler.Units)
-            {
                 unit.Draw(gameTime);
-            }
 
-            SpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, (Game as MoodSwing).DisplayScale);
+            SpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, MSResolution.GetTransformationMatrix());
             foreach (MSUnit unit in unitHandler.Units)
             {
                 if(unit is MSMobber) 
@@ -416,12 +413,12 @@ namespace MoodSwingGame
                     }
 
                     boundingRectangle = new Rectangle((int)position.X, (int)position.Y, boundingRectangle.Width, boundingRectangle.Height);
-                    (Game as MoodSwing).SpriteBatch.Draw(mobber.MoodFace.Image,boundingRectangle , null, Color.White, 0, Vector2.Zero, effect, position.Y / Game.GraphicsDevice.Viewport.Height);
+                    (Game as MoodSwing).SpriteBatch.Draw(mobber.MoodFace.Image,boundingRectangle , null, Color.White, 0, Vector2.Zero, effect, position.Y / MSResolution.VirtualHeight);
                 }
             }
             SpriteBatch.End();
 
-            SpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, (Game as MoodSwing).DisplayScale);
+            SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, MSResolution.GetTransformationMatrix());
 
             foreach (MS3DTile tile in map.MapArray)
             {
@@ -484,30 +481,30 @@ namespace MoodSwingGame
             {
                 string texturePath = "";
                 Point sourcePoint = new Point();
-                if (Mouse.GetState().X < Game.GraphicsDevice.Viewport.Width / 2)
+                if (MSMouse.GetState().X < MSResolution.VirtualWidth / 2)
                 {
-                    if (Mouse.GetState().Y < Game.GraphicsDevice.Viewport.Height / 2)
+                    if (MSMouse.GetState().Y < MSResolution.VirtualHeight / 2)
                     {
                         texturePath = "BuyDialog/pointerNW";
-                        sourcePoint = new Point(Mouse.GetState().X, Mouse.GetState().Y);
+                        sourcePoint = new Point(MSMouse.GetState().X, MSMouse.GetState().Y);
                     }
                     else
                     {
                         texturePath = "BuyDialog/pointerSW";
-                        sourcePoint = new Point(Mouse.GetState().X, Mouse.GetState().Y - 260);
+                        sourcePoint = new Point(MSMouse.GetState().X, MSMouse.GetState().Y - 260);
                     }
                 }
                 else
                 {
-                    if (Mouse.GetState().Y < Game.GraphicsDevice.Viewport.Height / 2)
+                    if (MSMouse.GetState().Y < MSResolution.VirtualHeight / 2)
                     {
                         texturePath = "BuyDialog/pointerNE";
-                        sourcePoint = new Point(Mouse.GetState().X - 260, Mouse.GetState().Y);
+                        sourcePoint = new Point(MSMouse.GetState().X - 260, MSMouse.GetState().Y);
                     }
                     else
                     {
                         texturePath = "BuyDialog/pointerSE";
-                        sourcePoint = new Point(Mouse.GetState().X - 260, Mouse.GetState().Y - 260);
+                        sourcePoint = new Point(MSMouse.GetState().X - 260, MSMouse.GetState().Y - 260);
                     }
                 }
 
@@ -532,7 +529,7 @@ namespace MoodSwingGame
         private Vector2 mouseMidHold;
         public override bool HandleMouseInput(MouseState oldMouseState, bool careIfMouseHasMoved)
         {
-            MouseState newMouseState = Mouse.GetState();
+            MouseState newMouseState = MSMouse.GetState();
 
             if (base.HandleMouseInput(oldMouseState, careIfMouseHasMoved))
             {

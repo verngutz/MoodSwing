@@ -31,7 +31,7 @@ namespace MoodSwingCoreComponents
         /// <returns>true if this Mouse is currently over this MS2DClickable, false otherwise</returns>
         public bool CollidesWithMouse()
         {
-            return base.EnclosesPoint(new Point(Mouse.GetState().X, Mouse.GetState().Y));
+            return base.EnclosesPoint(new Point(MSMouse.GetState().X, MSMouse.GetState().Y));
         }
     }
 }

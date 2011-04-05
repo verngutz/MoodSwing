@@ -99,7 +99,9 @@
     <Compile Include="MS3DComponent.cs" />
     <Compile Include="MSAction.cs" />
     <Compile Include="MSCamera.cs" />
+    <Compile Include="MSMouse.cs" />
     <Compile Include="MSRandom.cs" />
+    <Compile Include="MSResolution.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

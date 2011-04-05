@@ -92,9 +92,7 @@ namespace MoodSwingGame
 
         public void PerformAction(Game game)
         {
-            (game as MoodSwing).FullScreen = fullscreen;
-            System.Console.WriteLine(fullscreen);
-            System.Console.WriteLine("toggled");
+            MSResolution.SetResolution(MSResolution.Width, MSResolution.Height, fullscreen);
         }
     }
     

@@ -24,16 +24,6 @@ namespace MoodSwingGame
     {
         private GraphicsDeviceManager graphics;
 
-        public bool FullScreen 
-        { 
-            get { return graphics.IsFullScreen; } 
-            set 
-            { 
-                graphics.IsFullScreen = value;
-                graphics.ApplyChanges();
-            } 
-        }
-
         private static MoodSwing MSInstance;
         public static MoodSwing GetInstance() 
         {
@@ -56,18 +46,13 @@ namespace MoodSwingGame
         private Queue<Song> bgm;
         public Queue<Song> BGM { get { return bgm; } set { bgm = value; } }
 
-        private const int nativeScreenWidth = 1024;
-        private const int nativeScreenHeight = 768;
-        private Matrix displayScale;
-        public Matrix DisplayScale { get { return displayScale; } }
-
         public GameTime prevGameTime;
         private MoodSwing()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1024;
-            graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = false;
+            MSResolution.Init(ref graphics);
+            MSResolution.SetVirtualResolution(1024, 768);
+            MSResolution.SetResolution(1280, 800, false);
             
             //graphics.PreferMultiSampling = true;
 
@@ -94,7 +79,7 @@ namespace MoodSwingGame
 
             base.Initialize();
             oldKeyboardState = Keyboard.GetState();
-            oldMouseState = Mouse.GetState();
+            oldMouseState = MSMouse.GetState();
             CurrentScreen = MSIntroScreen.getInstance();
         }
 
@@ -106,10 +91,6 @@ namespace MoodSwingGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            float horizontalScale = GraphicsDevice.PresentationParameters.BackBufferWidth / nativeScreenWidth;
-            float verticalScale = GraphicsDevice.PresentationParameters.BackBufferHeight / nativeScreenHeight;
-            float scale = Math.Min(horizontalScale, verticalScale);
-            displayScale = Matrix.CreateScale(new Vector3(scale, scale, 1));
         }
 
         /// <summary>
@@ -134,7 +115,7 @@ namespace MoodSwingGame
                 CurrentScreen.Update(gameTime);
 
                 KeyboardState newKeyBoardState = Keyboard.GetState();
-                MouseState newMouseState = Mouse.GetState();
+                MouseState newMouseState = MSMouse.GetState();
 
                 oldMouseState = newMouseState;
                 oldKeyboardState = newKeyBoardState;
@@ -158,8 +139,9 @@ namespace MoodSwingGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            MSResolution.BeginDraw();
             GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, displayScale);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, MSResolution.GetTransformationMatrix());
             CurrentScreen.Draw(gameTime);
 
             //int frameRate = (int)(1 / (float)gameTime.ElapsedGameTime.TotalSeconds);

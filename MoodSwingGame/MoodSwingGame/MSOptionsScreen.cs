@@ -62,7 +62,7 @@ namespace MoodSwingGame
                     Shape.RECTANGULAR,
                     SpriteBatch,
                     Game),
-                false), Alignment.TOP_LEFT);
+                true), Alignment.TOP_LEFT);
 
         }
 
