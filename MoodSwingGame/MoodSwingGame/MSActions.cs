@@ -92,7 +92,24 @@ namespace MoodSwingGame
 
         public void PerformAction(Game game)
         {
-            MSResolution.SetResolution(MSResolution.Width, MSResolution.Height, fullscreen);
+            MSResolution.IsFullScreen = fullscreen;
+        }
+    }
+
+    public class ChangeResolution : MSAction
+    {
+        private int width;
+        private int height;
+
+        public ChangeResolution(int width, int height)
+        {
+            this.width = width;
+            this.height = height;
+        }
+
+        public void PerformAction(Game game)
+        {
+            MSResolution.SetResolution(width, height);
         }
     }
     

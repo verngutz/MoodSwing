@@ -364,7 +364,7 @@ namespace MoodSwingGame
                     SpriteEffects effect = SpriteEffects.None;
 
                     if (position.X + 50 < 0 ||
-                        position.X + 50 + boundingRectangle.Width > MoodSwing.GetInstance().GraphicsDevice.Viewport.Width)
+                        position.X + 50 + boundingRectangle.Width > MSResolution.VirtualWidth)
                     {
                         Vector3 left = MSCamera.GetInstance().Frustum.GetCorners()[4];
                         Vector3 right = MSCamera.GetInstance().Frustum.GetCorners()[5];
@@ -376,7 +376,7 @@ namespace MoodSwingGame
                             effect = SpriteEffects.FlipHorizontally;
                         }
                         else {
-                            position.X = MoodSwing.GetInstance().GraphicsDevice.Viewport.Width - boundingRectangle.Width;
+                            position.X = MSResolution.VirtualWidth - boundingRectangle.Width;
                         }
                     }
 
@@ -392,7 +392,7 @@ namespace MoodSwingGame
                     maxY += 20;
 
                     if (position.Y  < maxY ||
-                        position.Y + 50 + boundingRectangle.Height > MoodSwing.GetInstance().GraphicsDevice.Viewport.Height)
+                        position.Y + 50 + boundingRectangle.Height > MSResolution.VirtualHeight)
                     {
                         
                         Vector3 top = MSCamera.GetInstance().Frustum.GetCorners()[4];
@@ -408,12 +408,12 @@ namespace MoodSwingGame
                         }
                         else 
                         {
-                            position.Y = MoodSwing.GetInstance().GraphicsDevice.Viewport.Height - boundingRectangle.Height;
+                            position.Y = MSResolution.VirtualHeight - boundingRectangle.Height;
                         }
                     }
 
                     boundingRectangle = new Rectangle((int)position.X, (int)position.Y, boundingRectangle.Width, boundingRectangle.Height);
-                    (Game as MoodSwing).SpriteBatch.Draw(mobber.MoodFace.Image,boundingRectangle , null, Color.White, 0, Vector2.Zero, effect, position.Y / MSResolution.VirtualHeight);
+                    (Game as MoodSwing).SpriteBatch.Draw(mobber.MoodFace.Image, boundingRectangle, null, Color.White, 0, Vector2.Zero, effect, position.Y / MSResolution.VirtualHeight);
                 }
             }
             SpriteBatch.End();

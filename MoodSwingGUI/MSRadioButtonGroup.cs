@@ -17,8 +17,8 @@ namespace MoodSwingGUI
 {
     public class MSRadioButtonGroup : MSGUIClickable
     {
-        private List<MSCheckbox> radioButtons;
-        private MSCheckbox currentTicked;
+        private List<MSRadioButton> radioButtons;
+        public MSRadioButton CurrentTicked { get; set; }
 
         private MSPanel container;
 
@@ -26,25 +26,23 @@ namespace MoodSwingGUI
             : base(container.BoundingRectangle, container.Shape, null, container.SpriteBatch, container.Game) 
         {
             this.container = container;
-            radioButtons = new List<MSCheckbox>();
+            radioButtons = new List<MSRadioButton>();
         }
 
-        public void AddRadioButton(MSCheckbox button)
+        public void AddRadioButton(MSRadioButton button)
         {
             AddRadioButton(button, Alignment.MANUAL);
         }
 
-        public void AddRadioButton(MSCheckbox button, Alignment alignment)
+        public void AddRadioButton(MSRadioButton button, Alignment alignment)
         {
             radioButtons.Add(button);
             container.AddComponent(button, alignment);
             if (button.IsTicked)
             {
-                if (currentTicked != null)
-                {
-                    currentTicked.IsTicked = !currentTicked.IsTicked;
-                }
-                currentTicked = button;
+                if (CurrentTicked != null)
+                    CurrentTicked.IsTicked = false;
+                CurrentTicked = button;
             }
         }
 
@@ -58,44 +56,13 @@ namespace MoodSwingGUI
             }
         }
 
-        public override void LeftClick()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void UnLeftClick()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void MiddleClick()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void UnMiddleClick()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void RightClick()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void UnRightClick()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Hover()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void UnHover()
-        {
-            throw new NotImplementedException();
-        }
+        public override void LeftClick() { }
+        public override void UnLeftClick() { }
+        public override void MiddleClick() { }
+        public override void UnMiddleClick() { }
+        public override void RightClick() { }
+        public override void UnRightClick() { }
+        public override void Hover() { }
+        public override void UnHover() { }
     }
 }

@@ -25,8 +25,17 @@ namespace MoodSwingCoreComponents
         public static int VirtualWidth { get { return virtualWidth; } }
         public static int VirtualHeight { get { return virtualHeight; } }
         public static Viewport InnerViewPort { get { return innerViewport; } }
+        public static bool IsFullScreen 
+        {
+            set
+            {
+                isFullScreen = value;
+                ApplyResolutionSettings();
+            }
+            get { return isFullScreen; } 
+        }
 
-        static public void Init(ref GraphicsDeviceManager device)
+        public static void Init(ref GraphicsDeviceManager device)
         {
             width = device.PreferredBackBufferWidth;
             height = device.PreferredBackBufferHeight;
@@ -36,24 +45,29 @@ namespace MoodSwingCoreComponents
         }
 
 
-        static public Matrix GetTransformationMatrix()
+        public static Matrix GetTransformationMatrix()
         {
             if (dirtyMatrix) RecreateScaleMatrix();
 
             return scaleMatrix;
         }
 
-        static public void SetResolution(int Width, int Height, bool FullScreen)
+        public static void SetResolution(int new_width, int new_height)
         {
-            width = Width;
-            height = Height;
-
-            isFullScreen = FullScreen;
-
+            width = new_width;
+            height = new_height;
             ApplyResolutionSettings();
         }
 
-        static public void SetVirtualResolution(int Width, int Height)
+        public static void SetResolution(int new_width, int new_height, bool fullScreen)
+        {
+            width = new_width;
+            height = new_height;
+            isFullScreen = fullScreen;
+            ApplyResolutionSettings();
+        }
+
+        public static void SetVirtualResolution(int Width, int Height)
         {
             virtualWidth = Width;
             virtualHeight = Height;
@@ -106,7 +120,7 @@ namespace MoodSwingCoreComponents
         /// Sets the device to use the draw pump
         /// Sets correct aspect ratio
         /// </summary>
-        static public void BeginDraw()
+        public static void BeginDraw()
         {
             // Start by reseting viewport to (0,0,1,1)
             FullViewport();
@@ -130,7 +144,7 @@ namespace MoodSwingCoreComponents
         }
 
 
-        static public void FullViewport()
+        public static void FullViewport()
         {
             Viewport vp = new Viewport();
             vp.X = vp.Y = 0;
@@ -143,12 +157,12 @@ namespace MoodSwingCoreComponents
         /// Get virtual Mode Aspect Ratio
         /// </summary>
         /// <returns>aspect ratio</returns>
-        static public float GetVirtualAspectRatio()
+        public static float GetVirtualAspectRatio()
         {
             return (float)virtualWidth / (float)virtualHeight;
         }
 
-        static public void ResetViewport()
+        public static void ResetViewport()
         {
             float targetAspectRatio = GetVirtualAspectRatio();
             // figure out the largest area that fits in this resolution at the desired aspect ratio

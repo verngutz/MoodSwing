@@ -44,7 +44,7 @@ namespace MoodSwingGUI
         private MSButton unticked;
         private MSButton ticked;
 
-        private MSButton current;
+        protected MSButton current;
         /// <summary>
         /// Gets the MSButton representing the current state of this MSCheckbox
         /// </summary>
@@ -112,7 +112,7 @@ namespace MoodSwingGUI
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
-            spriteBatch.Draw(current.CollisionTexture, current.BoundingRectangle, current.Highlight);
+            current.Draw(gameTime);
         }
 
         public override void LeftClick()

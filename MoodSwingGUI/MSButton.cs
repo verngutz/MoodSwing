@@ -47,7 +47,7 @@ namespace MoodSwingGUI
             {
                 base.BoundingRectangle = value;
                 if (label != null)
-                    label.Position += Position;
+                    label.Position += new Vector2(value.X, value.Y);
             }
         }
 
@@ -90,7 +90,7 @@ namespace MoodSwingGUI
             if (label != null)
             {
                 this.label = label;
-                label.Position += Position;
+                this.label.Position += Position;
             }
             this.action = action;
             this.shape = shape;
@@ -101,7 +101,8 @@ namespace MoodSwingGUI
         {
             base.Draw(gameTime);
             spriteBatch.Draw(collisionTexture, BoundingRectangle, highlight);
-            if( label != null ) label.Draw(gameTime);
+            if (label != null)
+                label.Draw(gameTime);
         }
 
         public override void HandleKeyboardInput(KeyboardState oldKeyboardState)
@@ -127,6 +128,12 @@ namespace MoodSwingGUI
         {
             collisionTexture = clickedTexture;
             CurrentState = MSGUIClickableState.LEFTCLICKED;
+        }
+
+        public void UnLeftClickNoAction()
+        {
+            collisionTexture = hoveredTexture;
+            CurrentState = MSGUIClickableState.UNLEFTCLICKED;
         }
 
         public override void UnLeftClick()
