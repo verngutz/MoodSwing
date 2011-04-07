@@ -111,8 +111,7 @@ namespace MoodSwingGame
                         Shape.RECTANGULAR,
                         SpriteBatch,
                         Game),
-                    false,
-                    resolution), Alignment.TOP_CENTER);
+                    false), Alignment.TOP_CENTER);
 
             resolution.AddRadioButton(
                 new MSRadioButton( 
@@ -148,8 +147,7 @@ namespace MoodSwingGame
                         Shape.RECTANGULAR,
                         SpriteBatch,
                         Game),
-                    true,
-                    resolution), Alignment.MIDDLE_CENTER);
+                    true), Alignment.MIDDLE_CENTER);
 
             resolution.AddRadioButton(
                 new MSRadioButton(
@@ -185,8 +183,7 @@ namespace MoodSwingGame
                         Shape.RECTANGULAR,
                         SpriteBatch,
                         Game),
-                    false,
-                    resolution), Alignment.BOTTOM_CENTER);
+                    false), Alignment.BOTTOM_CENTER);
 
             AddComponent(resolutionPanel, Alignment.TOP_RIGHT);
 

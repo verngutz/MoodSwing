@@ -15,23 +15,68 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGUI
 {
-    public class MSTabbedPanel : MSGUITypable
+    public class MSTabbedPanel : MSGUIUnclickable
     {
-        public MSTabbedPanel(SpriteBatch spritebatch, Game game)
-            : base(new Rectangle(), null, Shape.RECTANGULAR, spritebatch, game)
-        {
-        }
-        private MSRadioButtonGroup activatorGroup;
-        private Dictionary<MSCheckbox, MSPanel> activatorPanelPairs;
+        private MSRadioButtonGroup tabActivatorGroup;
+        public MSRadioButtonGroup TabActivatorGroup { get { return tabActivatorGroup; } }
+        
+        private List<MSTab> tabs;
 
-        public override void Hover() { }
-        public override void LeftClick() { }
-        public override void MiddleClick() { }
-        public override void RightClick() { }
-        public override void UnHover() { }
-        public override void UnLeftClick() { }
-        public override void UnMiddleClick() { }
-        public override void UnRightClick() { }
-        public override void HandleKeyboardInput(KeyboardState oldKeyboardState) { }
+        public MSTab ActiveTab { get; set; }
+
+        private MSPanel container;
+
+        public MSTabbedPanel(MSPanel container)
+            : base(container.BoundingRectangle, container.SpriteBatch, container.Game)
+        {
+            this.container = container;
+            tabs = new List<MSTab>();
+            tabActivatorGroup = new MSRadioButtonGroup(container);
+        }
+
+        public void AddTab(MSTab tab)
+        {
+            tabActivatorGroup.AddRadioButton(tab);
+            tabs.Add(tab);
+            tab.PanelGroup = this;
+            if (tab.IsTicked)
+            {
+                if (ActiveTab != null)
+                {
+                    ActiveTab.TabPanel.Visible = false;
+                }
+                ActiveTab = tab;
+                tab.TabPanel.Visible = true;
+            }
+        }
+    }
+
+    public class MSTab : MSRadioButton
+    {
+        public MSTabbedPanel PanelGroup;
+        private MSPanel tabPanel;
+        public MSPanel TabPanel { get { return tabPanel; } }
+
+        public MSTab(MSButton unticked, MSButton ticked, bool isTicked, MSPanel tabPanel)
+            : base(unticked, ticked, isTicked)
+        {
+            this.tabPanel = tabPanel;
+        }
+
+        public override void UnLeftClick()
+        {
+            if (IsTicked)
+                current.UnLeftClickNoAction();
+            else
+            {
+                base.UnLeftClick();
+                if (PanelGroup.ActiveTab != null)
+                {
+                    PanelGroup.ActiveTab.TabPanel.Visible = false;
+                }
+                PanelGroup.ActiveTab = this;
+                TabPanel.Visible = true;
+            }
+        }
     }
 }

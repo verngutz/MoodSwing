@@ -15,7 +15,7 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGUI
 {
-    public class MSRadioButtonGroup : MSGUIClickable
+    public class MSRadioButtonGroup : MSGUIUnclickable
     {
         private List<MSRadioButton> radioButtons;
         public MSRadioButton CurrentTicked { get; set; }
@@ -23,7 +23,7 @@ namespace MoodSwingGUI
         private MSPanel container;
 
         public MSRadioButtonGroup(MSPanel container)
-            : base(container.BoundingRectangle, container.Shape, null, container.SpriteBatch, container.Game) 
+            : base(container.BoundingRectangle, container.SpriteBatch, container.Game) 
         {
             this.container = container;
             radioButtons = new List<MSRadioButton>();
@@ -37,6 +37,7 @@ namespace MoodSwingGUI
         public void AddRadioButton(MSRadioButton button, Alignment alignment)
         {
             radioButtons.Add(button);
+            button.Group = this;
             container.AddComponent(button, alignment);
             if (button.IsTicked)
             {
@@ -45,24 +46,29 @@ namespace MoodSwingGUI
                 CurrentTicked = button;
             }
         }
+    }
 
-        public override void Draw(GameTime gameTime)
+    public class MSRadioButton : MSCheckbox
+    {
+        public MSRadioButtonGroup Group { get; set; }
+
+        public MSRadioButton(MSButton unticked, MSButton ticked, bool isTicked)
+            : base(unticked, ticked, isTicked) { }
+
+        public override void UnLeftClick()
         {
-            base.Draw(gameTime);
-            container.Draw(gameTime);
-            foreach (MSCheckbox button in radioButtons)
+            if (IsTicked)
+                current.UnLeftClickNoAction();
+            else
             {
-                button.Draw(gameTime);
+                base.UnLeftClick();
+                if (Group.CurrentTicked != null)
+                {
+                    Group.CurrentTicked.IsTicked = false;
+                    Group.CurrentTicked.UnHover();
+                }
+                Group.CurrentTicked = this;
             }
         }
-
-        public override void LeftClick() { }
-        public override void UnLeftClick() { }
-        public override void MiddleClick() { }
-        public override void UnMiddleClick() { }
-        public override void RightClick() { }
-        public override void UnRightClick() { }
-        public override void Hover() { }
-        public override void UnHover() { }
     }
 }
