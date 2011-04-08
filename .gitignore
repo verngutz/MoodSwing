@@ -6,4 +6,4 @@ obj/
 MoodSwing/MoodSwing_TemporaryKey*
 *.db
 docs/
-*.contentproj.user
+*.contentproj.*
