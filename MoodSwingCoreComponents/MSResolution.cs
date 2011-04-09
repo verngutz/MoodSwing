@@ -37,8 +37,6 @@ namespace MoodSwingCoreComponents
 
         public static void Init(ref GraphicsDeviceManager device)
         {
-            width = device.PreferredBackBufferWidth;
-            height = device.PreferredBackBufferHeight;
             MSResolution.device = device;
             dirtyMatrix = true;
             ApplyResolutionSettings();
@@ -75,7 +73,7 @@ namespace MoodSwingCoreComponents
             dirtyMatrix = true;
         }
 
-        static private void ApplyResolutionSettings()
+        private static void ApplyResolutionSettings()
         {
             // If we aren't using a full screen mode, the height and width of the window can
             // be set to anything equal to or smaller than the actual screen size.
@@ -134,7 +132,7 @@ namespace MoodSwingCoreComponents
             device.GraphicsDevice.Clear(Color.CornflowerBlue);
         }
 
-        static private void RecreateScaleMatrix()
+        private static void RecreateScaleMatrix()
         {
             dirtyMatrix = false;
             scaleMatrix = Matrix.CreateScale(

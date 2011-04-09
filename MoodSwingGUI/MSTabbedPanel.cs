@@ -48,12 +48,16 @@ namespace MoodSwingGUI
                 ActiveTab = tab;
                 tab.TabPanel.Visible = true;
             }
+            else
+            {
+                tab.TabPanel.Visible = false;
+            }
         }
     }
 
     public class MSTab : MSRadioButton
     {
-        public MSTabbedPanel PanelGroup;
+        public MSTabbedPanel PanelGroup { get; set; }
         private MSPanel tabPanel;
         public MSPanel TabPanel { get { return tabPanel; } }
 
@@ -70,10 +74,7 @@ namespace MoodSwingGUI
             else
             {
                 base.UnLeftClick();
-                if (PanelGroup.ActiveTab != null)
-                {
-                    PanelGroup.ActiveTab.TabPanel.Visible = false;
-                }
+                PanelGroup.ActiveTab.TabPanel.Visible = false;
                 PanelGroup.ActiveTab = this;
                 TabPanel.Visible = true;
             }

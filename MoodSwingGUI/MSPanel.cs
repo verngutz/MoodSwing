@@ -47,6 +47,19 @@ namespace MoodSwingGUI
         private Vector2 boundedSize;
         protected Color highlight;
 
+        new public bool Visible
+        {
+            set 
+            { 
+                base.Visible = value;
+                foreach (MSGUIUnclickable component in UnclickableComponents)
+                    component.Visible = value;
+                foreach (MSGUIClickable component in ClickableComponents)
+                    component.Visible = value;
+            }
+            get { return base.Visible; }
+        }
+
         public MSPanel(Texture2D background, Rectangle boundingRectangle, MSToolTip toolTip, Shape shape, SpriteBatch spriteBatch, Game game)
             : this(background, boundingRectangle, 0, 0, 0, 0, Color.White, toolTip, shape, spriteBatch, game) { }
 

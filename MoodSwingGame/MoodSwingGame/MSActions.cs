@@ -17,6 +17,8 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGame
 {
+    public class DoNothing : MSAction { public void PerformAction(Game game) { } }
+
     public class Exit : MSAction
     {
         public void PerformAction(Game game)
