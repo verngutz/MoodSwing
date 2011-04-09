@@ -58,7 +58,7 @@ namespace MoodSwingGame
             {
                 foreach (ModelMeshPart part in mesh.MeshParts)
                 {
-                    part.Effect = Effect;
+                    /*part.Effect = Effect;
                     Effect.Parameters["World"].SetValue(world);
                     Effect.Parameters["View"].SetValue(MSCamera.GetInstance().GetView());
                     Effect.Parameters["Projection"].SetValue(MSCamera.GetInstance().ProjectionMatrix);
@@ -67,7 +67,16 @@ namespace MoodSwingGame
                     //Effect.Parameters["ViewVector"].SetValue(MSCamera.GetInstance().NormalizedViewVector);
                     Effect.Parameters["DiffuseLightDirection"].SetValue(map.LightSource - Position);
                     Effect.Parameters["Saturation"].SetValue(MSMoodManager.GetInstance().Mood);
-                    Effect.Parameters["ModelTexture"].SetValue(Texture);
+                    Effect.Parameters["ModelTexture"].SetValue(Texture);*/
+
+                    foreach (BasicEffect effect in mesh.Effects)
+                    {
+                        effect.EnableDefaultLighting();
+                        effect.World = this.WorldMatrix;
+                        effect.View = MSCamera.GetInstance().GetView();
+                        effect.Projection = MSCamera.GetInstance().ProjectionMatrix;
+
+                    }
                 }
                 mesh.Draw();
             }
