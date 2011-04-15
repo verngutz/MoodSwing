@@ -16,24 +16,23 @@ using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
-    public class MSBuyableBuilding : MSBuilding
+    public enum MSChangeableBuildingState
     {
+        BUYABLE,
+        WAITING,
+        TRANSFORMING,
+        DONE
+    }
 
-        public enum BuyableBuildingState
-        {
-            BUYABLE,
-            WAITING,
-            TRANSFORMING,
-            DONE
-        }
-
-        public BuyableBuildingState State { get; set; }
+    public abstract class MSChangeableBuilding : MSBuilding
+    {
+        public MSChangeableBuildingState State { get; set; }
         private double startTime;
         private double timeCount;
         public void StartBuilding( GameTime gameTime)
         {
             startTime = gameTime.TotalGameTime.TotalSeconds;
-            State = BuyableBuildingState.TRANSFORMING;
+            State = MSChangeableBuildingState.TRANSFORMING;
         }
 
         private int expectedWorkers;
@@ -41,7 +40,7 @@ namespace MoodSwingGame
         {
             expectedWorkers = number;
             futureSelf = tile;
-            State = BuyableBuildingState.WAITING;
+            State = MSChangeableBuildingState.WAITING;
         }
         public void AddWorkers()
         {
@@ -54,8 +53,8 @@ namespace MoodSwingGame
         private MS3DTile futureSelf;
         public MS3DTile FutureSelf { get { return futureSelf; } }
 
-        public MSBuyableBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column)
-            : base(model, texture, effect, position, rotation, row, column, MSMap.tallheight) 
+        public MSChangeableBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column, int height)
+            : base(model, texture, effect, position, rotation, row, column, height) 
         {
             buildTime = 5;
             timeCount = 0;
@@ -67,16 +66,16 @@ namespace MoodSwingGame
                 MoodSwing.GetInstance(), 
                 borderTexture, loadingTexture, null, MSProgressBar.Orientation.HORIZONTAL);
 
-            State = BuyableBuildingState.BUYABLE;
+            State = MSChangeableBuildingState.BUYABLE;
         }
 
         public override void Update(GameTime gameTime)
         {
             timeCount = 0;
-            if (State == BuyableBuildingState.TRANSFORMING)
+            if (State == MSChangeableBuildingState.TRANSFORMING)
             {
                 timeCount = gameTime.TotalGameTime.TotalSeconds - startTime;
-                if (timeCount >= buildTime) State = BuyableBuildingState.DONE;
+                if (timeCount >= buildTime) State = MSChangeableBuildingState.DONE;
             }
             base.Update(gameTime);
         }
@@ -88,7 +87,7 @@ namespace MoodSwingGame
 
         public void DrawLoadingBar(GameTime gameTime)
         {
-            if (State == BuyableBuildingState.TRANSFORMING || State == BuyableBuildingState.WAITING)
+            if (State == MSChangeableBuildingState.TRANSFORMING || State == MSChangeableBuildingState.WAITING)
             {
                 Vector3 v = MoodSwing.GetInstance().GraphicsDevice.Viewport.Project(Position + new Vector3(0, 0, 20), // <- offset for progress bar
                     MSCamera.GetInstance().ProjectionMatrix, MSCamera.GetInstance().GetView(),

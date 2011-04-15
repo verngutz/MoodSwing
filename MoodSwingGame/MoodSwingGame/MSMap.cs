@@ -31,7 +31,7 @@ namespace MoodSwingGame
 
         public Vector3 LightSource { set; get; }
 
-        private List<MSUnbuyableBuilding> citizenSources;
+        private List<MSUnchangeableBuilding> citizenSources;
 
         private int rows;
         private int columns;
@@ -48,7 +48,7 @@ namespace MoodSwingGame
             columns = Int32.Parse(line[1]);
             initialVolunteerCenters = 0;
             mapArray = new MS3DTile[rows, columns];
-            citizenSources = new List<MSUnbuyableBuilding>();
+            citizenSources = new List<MSUnchangeableBuilding>();
             for (int j = 0; j < columns; j++)
             {
                 line = sr.ReadLine().Split(' ');
@@ -56,8 +56,8 @@ namespace MoodSwingGame
                 {
                     MS3DTile toAdd = MSTileFactory.CreateMSTile(Int32.Parse(line[i]), new Vector3(j * tileDimension, i * tileDimension, 0), i, j);
                     mapArray[i, j] = toAdd;
-                    if (toAdd is MSUnbuyableBuilding)
-                        citizenSources.Add(toAdd as MSUnbuyableBuilding);
+                    if (toAdd is MSUnchangeableBuilding)
+                        citizenSources.Add(toAdd as MSUnchangeableBuilding);
                     if (toAdd is MSVolunteerCenter)
                         initialVolunteerCenters++;
                 }
@@ -65,9 +65,9 @@ namespace MoodSwingGame
             LightSource = new Vector3(tileDimension * rows << 1, tileDimension * columns << 1, 10000);
         }
 
-        public MSUnbuyableBuilding GetRandomCitizenSource()
+        public MSUnchangeableBuilding GetRandomCitizenSource()
         {
-            return citizenSources.ElementAt<MSUnbuyableBuilding>(MSRandom.random.Next(citizenSources.Count));
+            return citizenSources.ElementAt<MSUnchangeableBuilding>(MSRandom.random.Next(citizenSources.Count));
         }
 
         /// <summary>
@@ -331,19 +331,19 @@ namespace MoodSwingGame
             foreach (MS3DTile tile in mapArray)
             {
                 tile.Update(gameTime);
-                if (tile is MSBuyableBuilding && (tile as MSBuyableBuilding).State == MSBuyableBuilding.BuyableBuildingState.DONE)
+                if (tile is MSChangeableBuilding && (tile as MSChangeableBuilding).State == MSChangeableBuildingState.DONE)
                 {
-                    if ((tile as MSBuyableBuilding).FutureSelf is MSVolunteerCenter)
+                    if ((tile as MSChangeableBuilding).FutureSelf is MSVolunteerCenter)
                         MSUnitHandler.GetInstance().IsLeaderBusy = false;
                     toTransform.Add(tile.TileCoordinate);
                 }
             }
             foreach (Vector2 coord in toTransform)
             {
-                if ((mapArray[(int)coord.X, (int)coord.Y] as MSBuyableBuilding).FutureSelf is MSVolunteerCenter)
+                if ((mapArray[(int)coord.X, (int)coord.Y] as MSChangeableBuilding).FutureSelf is MSVolunteerCenter)
                     MSResourceManager.GetInstance().VolunteerCapacity += MSResourceManager.VOLUNTEER_CENTER_GAIN;
                 mapArray[(int)coord.X, (int)coord.Y] =
-                    (mapArray[(int)coord.X, (int)coord.Y] as MSBuyableBuilding).FutureSelf;
+                    (mapArray[(int)coord.X, (int)coord.Y] as MSChangeableBuilding).FutureSelf;
 
             }
         }

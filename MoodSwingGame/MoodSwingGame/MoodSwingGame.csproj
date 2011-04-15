@@ -123,11 +123,12 @@
     <Compile Include="MoodSwing.cs" />
     <Compile Include="MS2DParametricEquations.cs" />
     <Compile Include="MS3DTile.cs" />
+    <Compile Include="MSAbandonedBuilding.cs" />
     <Compile Include="MSActions.cs" />
     <Compile Include="MSBuilding.cs" />
     <Compile Include="MSBuildingStats.cs" />
-    <Compile Include="MSBuyableBuilding.cs" />
-    <Compile Include="MSBuyDialog.cs" />
+    <Compile Include="MSChangeableBuilding.cs" />
+    <Compile Include="MSCircularPicker.cs" />
     <Compile Include="MSCitizen.cs" />
     <Compile Include="MSCityScreen.cs" />
     <Compile Include="MSDistrictHall.cs" />
@@ -147,7 +148,7 @@
     <Compile Include="MSTower.cs" />
     <Compile Include="MSTowerFactory.cs" />
     <Compile Include="MSTypes.cs" />
-    <Compile Include="MSUnbuyableBuilding.cs" />
+    <Compile Include="MSUnchangeableBuilding.cs" />
     <Compile Include="MSUnit.cs" />
     <Compile Include="MSUnitHandler.cs" />
     <Compile Include="MSVolunteer.cs" />

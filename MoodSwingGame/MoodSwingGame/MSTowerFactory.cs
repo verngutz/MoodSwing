@@ -73,7 +73,13 @@ namespace MoodSwingGame
                 texture = moodSwing.Content.Load<Texture2D>("MTextures/BuildingTropa");
                 effect = moodSwing.Content.Load<Effect>("Mood");
             }
-            return new MSTower(model,texture, effect, position, rotation, (int)tileCoords.X, (int)tileCoords.Y, stats);
+            else if (stats is MSGeneralHelpCenterStats)
+            {
+                model = moodSwing.Content.Load<Model>("MModels/BuildingBig");
+                texture = moodSwing.Content.Load<Texture2D>("MTextures/BuildingBigDefault");
+                effect = moodSwing.Content.Load<Effect>("Mood");
+            }
+            return new MSTower(model, texture, effect, position, rotation, (int)tileCoords.X, (int)tileCoords.Y, MSMap.tallheight, stats);
                     
         }
     }

@@ -179,10 +179,10 @@ namespace MoodSwingGame
 
     public class BuyTower : MSAction
     {
-        private MSBuyableBuilding toBuy;
+        private MSChangeableBuilding toBuy;
         private MSTowerStats toBuildStats;
 
-        public BuyTower(MSBuyableBuilding toBuy, MSTowerStats toBuildStats)
+        public BuyTower(MSChangeableBuilding toBuy, MSTowerStats toBuildStats)
         {
             this.toBuy = toBuy;
             this.toBuildStats = toBuildStats;
@@ -220,8 +220,8 @@ namespace MoodSwingGame
 
     public class BuyVolunteerCenter : MSAction
     {
-        private MSBuyableBuilding toBuy;
-        public BuyVolunteerCenter(MSBuyableBuilding toBuy)
+        private MSChangeableBuilding toBuy;
+        public BuyVolunteerCenter(MSChangeableBuilding toBuy)
         {
             this.toBuy = toBuy;
         }
@@ -262,9 +262,9 @@ namespace MoodSwingGame
 
     public class BuyFundraiser : MSAction
     {
-        private MSBuyableBuilding toBuy;
+        private MSChangeableBuilding toBuy;
 
-        public BuyFundraiser(MSBuyableBuilding toBuy)
+        public BuyFundraiser(MSChangeableBuilding toBuy)
         {
             this.toBuy = toBuy;
         }

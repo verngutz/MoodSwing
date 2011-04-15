@@ -15,15 +15,21 @@ using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
-    public class MSTower : MSBuilding
+    public class MSTower : MSChangeableBuilding
     {
-        private MSTowerStats stats;
+        //Incorporate Texture, Model, Effect, and height into TowerStats later
+        public MSTowerStats Stats
+        {
+            set;
+            get;
+        }
+
         private int capacity;
 
-        public MSTower( Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column, MSTowerStats stats)
-            : base(model, texture, effect, position, rotation, row, column, MSMap.tallheight)
+        public MSTower( Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column, int height, MSTowerStats stats)
+            : base(model, texture, effect, position, rotation, row, column, height)
         {
-            this.stats = stats;
+            this.Stats = stats;
             capacity = stats.GetVolunteerCost();
         }
 
@@ -52,10 +58,10 @@ namespace MoodSwingGame
                         int distance = Math.Abs(Row - (int)tileCoords.X) + Math.Abs(Column - (int)tileCoords.Y);
                         MS3DTile tile = (unit as MSMobber).Map.MapArray[(int)tileCoords.X, (int)tileCoords.Y];
                         if (tile is MSRoad &&
-                            distance <= stats.GetRange())
+                            distance <= Stats.GetRange())
                         {
                             MSMilleniumDevelopmentGoal goal = (unit as MSMobber).Concern;
-                            if (stats.GetEffectiveness(goal) == true)
+                            if (Stats.GetEffectiveness(goal) == true)
                             {
                                 capacity--;
 

@@ -34,9 +34,9 @@ namespace MoodSwingGame
 
         protected override float Speed { get { return 0.65f; } }
 
-        private MSBuyableBuilding toBuild;
+        private MSChangeableBuilding toBuild;
 
-        public MSWorker(Vector3 position, Node path, MSBuyableBuilding to_build, MSMap map)
+        public MSWorker(Vector3 position, Node path, MSChangeableBuilding to_build, MSMap map)
             : base(position, path, map, false)
         {
             toBuild = to_build;

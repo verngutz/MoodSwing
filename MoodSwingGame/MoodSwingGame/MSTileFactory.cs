@@ -49,12 +49,12 @@ namespace MoodSwingGame
                     switch ((tileKey / 10) - ((tileKey / 100) * 10))
                     {
                         case 0:
-                            return new MSUnbuyableBuilding(c.Load<Model>("MModels/BuildingSmall"),
+                            return new MSUnchangeableBuilding(c.Load<Model>("MModels/BuildingSmall"),
                                 c.Load<Texture2D>("MTextures/BuildingSmall"),
                                 c.Load<Effect>("Mood"),
                                 position + shortBuildingOffset, rotation, row, column);
                         case 1:
-                            return new MSBuyableBuilding(c.Load<Model>("MModels/BuildingBig"),
+                            return new MSAbandonedBuilding(c.Load<Model>("MModels/BuildingBig"),
                                 c.Load<Texture2D>("MTextures/BuildingBig"),
                                 c.Load<Effect>("Mood"),
                                 position + tallBuildingOffset, rotation, row, column);

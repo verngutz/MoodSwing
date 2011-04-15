@@ -108,10 +108,10 @@ namespace MoodSwingGame
                 checkOne = true;
                 MSUnit person;
 
-                MSUnbuyableBuilding source = map.GetRandomCitizenSource();
+                MSUnchangeableBuilding source = map.GetRandomCitizenSource();
                 Vector2 start = new Vector2(source.Row, source.Column);
 
-                MSUnbuyableBuilding sink;
+                MSUnchangeableBuilding sink;
                 do
                 {
                     sink = map.GetRandomCitizenSource();
@@ -180,7 +180,7 @@ namespace MoodSwingGame
             MSUnitHandler.GetInstance().AddUnit(volunteer);
         }
 
-        public void SendWorkers( MSMap map, MSBuyableBuilding bldg, int qty)
+        public void SendWorkers( MSMap map, MSChangeableBuilding bldg, int qty)
         {
             MSVolunteerCenter center = map.GetNearestVolunteerCenter(bldg);
             Node path = map.GetPath(center.TileCoordinate, bldg.TileCoordinate);

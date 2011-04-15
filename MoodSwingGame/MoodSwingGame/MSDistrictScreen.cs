@@ -24,7 +24,7 @@ namespace MoodSwingGame
         //private List<MSCitizen> citizensList;
         private MSUnitHandler unitHandler;
         private MSMoodManager moodManager;
-        public MSBuyDialog BuyDialog { set; get; }
+        public MSCircularPicker BuyDialog { set; get; }
 
         private MSResourceManager resourceManager;
         public MSResourceManager ResourceManager { get { return resourceManager; } }
@@ -422,8 +422,8 @@ namespace MoodSwingGame
 
             foreach (MS3DTile tile in map.MapArray)
             {
-                if (tile is MSBuyableBuilding)
-                    (tile as MSBuyableBuilding).DrawLoadingBar(gameTime);
+                if (tile is MSChangeableBuilding)
+                    (tile as MSChangeableBuilding).DrawLoadingBar(gameTime);
             }
 
             foreach (MSGUIObject component in components)
@@ -476,8 +476,7 @@ namespace MoodSwingGame
         public void CheckCollision()
         {
             MS3DTile tile = map.CheckCollision();
-            if (tile is MSBuyableBuilding && 
-                (tile as MSBuyableBuilding).State == MSBuyableBuilding.BuyableBuildingState.BUYABLE)
+            if (tile is MSChangeableBuilding && (tile as MSChangeableBuilding).State == MSChangeableBuildingState.BUYABLE)
             {
                 string texturePath = "";
                 Point sourcePoint = new Point();
@@ -508,19 +507,32 @@ namespace MoodSwingGame
                     }
                 }
 
-                BuyDialog = new MSBuyDialog
-                (
-                    Game.Content.Load<Texture2D>(texturePath), 
-                    new Rectangle(sourcePoint.X, sourcePoint.Y, 260, 260), 
-                    78, 
-                    78, 
-                    62, 
-                    62, 
-                    tile as MSBuyableBuilding, 
-                    Shape.RECTANGULAR, 
-                    spriteBatch, 
-                    Game
-                );
+                if (tile is MSAbandonedBuilding)
+                {
+                    BuyDialog = new MSAbandonedBuildingPicker
+                    (
+                        Game.Content.Load<Texture2D>(texturePath),
+                        new Rectangle(sourcePoint.X, sourcePoint.Y, 260, 260),
+                        tile as MSAbandonedBuilding,
+                        spriteBatch,
+                        Game
+                    );
+                }
+
+                else if (tile is MSTower)
+                {
+                    if ((tile as MSTower).Stats is MSGeneralHelpCenterStats)
+                    {
+                        BuyDialog = new MSGeneralHelpCenterPicker
+                        (
+                            Game.Content.Load<Texture2D>(texturePath),
+                            new Rectangle(sourcePoint.X, sourcePoint.Y, 260, 260),
+                            tile as MSTower,
+                            spriteBatch,
+                            Game
+                        );
+                    }
+                }
 
                 AddComponent(BuyDialog);
             }

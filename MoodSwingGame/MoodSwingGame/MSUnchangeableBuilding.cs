@@ -14,9 +14,9 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace MoodSwingGame
 {
-    public class MSUnbuyableBuilding : MSBuilding
+    public class MSUnchangeableBuilding : MSBuilding
     {
-        public MSUnbuyableBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column)
+        public MSUnchangeableBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column)
             : base(model, texture, effect, position, rotation, row, column, MSMap.shortheight) { }
     }
 }
