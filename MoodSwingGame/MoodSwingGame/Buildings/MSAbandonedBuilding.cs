@@ -11,14 +11,15 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+
 using MoodSwingCoreComponents;
 using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
-    public class MSVolunteerCenter : MSBuilding
+    public class MSAbandonedBuilding : MSChangeableBuilding
     {
-        public MSVolunteerCenter(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column)
+        public MSAbandonedBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column)
             : base(model, texture, effect, position, rotation, row, column, MSMap.tallheight) { }
     }
 }

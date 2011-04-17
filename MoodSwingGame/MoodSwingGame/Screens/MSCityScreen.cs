@@ -28,7 +28,7 @@ namespace MoodSwingGame
 
 
         private MSCityScreen(MoodSwing game)
-            : base(game.Content.Load<Texture2D>("CityView"), 150, 150, 150, 150, game.SpriteBatch, game) 
+            : base(game.Content.Load<Texture2D>("CityView"), 150, 150, 150, 150, game.SpriteBatch, game)
         {
             AddComponent(new MSButton(
                     null,
@@ -36,7 +36,7 @@ namespace MoodSwingGame
                     new Rectangle(0, 0, 574, 60),
                     game.Content.Load<Texture2D>("exit"),
                     game.Content.Load<Texture2D>("exitClicked"),
-                    game.Content.Load<Texture2D>("exitClicked"),   
+                    game.Content.Load<Texture2D>("exitClicked"),
                     Color.White,
                     null,
                     Shape.RECTANGULAR,
@@ -50,7 +50,7 @@ namespace MoodSwingGame
                     new Rectangle(0, 0, 559, 60),
                     game.Content.Load<Texture2D>("startgame"),
                     game.Content.Load<Texture2D>("startgameclicked"),
-                    game.Content.Load<Texture2D>("startgame"),                    
+                    game.Content.Load<Texture2D>("startgame"),
                     Color.White,
                     null,
                     Shape.RECTANGULAR,

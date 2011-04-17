@@ -59,13 +59,13 @@ namespace MoodSwingGame
                     null,
                     new Exit(),
                     new Rectangle(300, 450, 574, 60),
-                    game.Content.Load<Texture2D>("exit"), 
-                    game.Content.Load<Texture2D>("exitclicked"), 
-                    game.Content.Load<Texture2D>("exitclicked"), 
-                    Color.White, 
+                    game.Content.Load<Texture2D>("exit"),
+                    game.Content.Load<Texture2D>("exitclicked"),
+                    game.Content.Load<Texture2D>("exitclicked"),
+                    Color.White,
                     null,
                     Shape.AMORPHOUS,
-                    SpriteBatch, 
+                    SpriteBatch,
                     Game);
 
             exitButton.HoverPosition = new ShiftRight75();

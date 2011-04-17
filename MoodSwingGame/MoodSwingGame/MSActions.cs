@@ -35,8 +35,8 @@ namespace MoodSwingGame
             moodSwing.CurrentScreen = MSMainScreen.getInstance();
             MSMoodManager.Reset();
 
-            MSNotifier.GetInstance().ClearNotifications();
-            MSNotifier.GetInstance().FreezeNotifications = false;
+            MoodSwing.GetInstance().Notifier.ClearNotifications();
+            MoodSwing.GetInstance().Notifier.FreezeNotifications = false;
         }
     }
 
@@ -78,8 +78,8 @@ namespace MoodSwingGame
             MoodSwing moodSwing = (MoodSwing)game;
             moodSwing.CurrentScreen.ResetHovers();
             moodSwing.CurrentScreen = new MSDistrictScreen(@"Content\Pandalevel2.txt", moodSwing);
-            MSNotifier.GetInstance().ClearNotifications();
-            MSNotifier.GetInstance().FreezeNotifications = false;
+            MoodSwing.GetInstance().Notifier.ClearNotifications();
+            MoodSwing.GetInstance().Notifier.FreezeNotifications = false;
         }
     }
 
@@ -125,9 +125,9 @@ namespace MoodSwingGame
             if(screen.BuyDialog != null)
                 screen.RemoveComponent(screen.BuyDialog);
             screen.HandleMouseInput((game as MoodSwing).OldMouseState, false);
-            MSNotifier.GetInstance().ClearNotifications();
-            MSNotifier.GetInstance().InvokeNotification("Try Again\nThe city went into a wild uproar before you could achieve the Millenium Development Goals.");
-            MSNotifier.GetInstance().FreezeNotifications = true;
+            MoodSwing.GetInstance().Notifier.ClearNotifications();
+            MoodSwing.GetInstance().Notifier.InvokeNotification("Try Again\nThe city went into a wild uproar before you could achieve the Millenium Development Goals.");
+            MoodSwing.GetInstance().Notifier.FreezeNotifications = true;
         }
     }
 
@@ -141,9 +141,9 @@ namespace MoodSwingGame
             if (screen.BuyDialog != null)
                 screen.RemoveComponent(screen.BuyDialog);
             screen.HandleMouseInput((game as MoodSwing).OldMouseState, false);
-            MSNotifier.GetInstance().ClearNotifications();
-            MSNotifier.GetInstance().InvokeNotification("You win!\nYou have successfully achieved the eight Millenium Development Goals.");
-            MSNotifier.GetInstance().FreezeNotifications = true;
+            MoodSwing.GetInstance().Notifier.ClearNotifications();
+            MoodSwing.GetInstance().Notifier.InvokeNotification("You win!\nYou have successfully achieved the eight Millenium Development Goals.");
+            MoodSwing.GetInstance().Notifier.FreezeNotifications = true;
         }
     }
 
@@ -208,12 +208,12 @@ namespace MoodSwingGame
                 }
                 else
                 {
-                    MSNotifier.GetInstance().InvokeNotification("You need more volunteers.");
+                    MoodSwing.GetInstance().Notifier.InvokeNotification("You need more volunteers.");
                 }
             }
             else
             {
-                MSNotifier.GetInstance().InvokeNotification("You need more funds.");
+                MoodSwing.GetInstance().Notifier.InvokeNotification("You need more funds.");
             }
         }
     }
@@ -251,11 +251,11 @@ namespace MoodSwingGame
             }
             else if (MSUnitHandler.GetInstance().IsLeaderBusy)
             {
-                MSNotifier.GetInstance().InvokeNotification("You may only build one Volunteer Center at a time.");
+                MoodSwing.GetInstance().Notifier.InvokeNotification("You may only build one Volunteer Center at a time.");
             }
             else
             {
-                MSNotifier.GetInstance().InvokeNotification("You need more funds.");
+                MoodSwing.GetInstance().Notifier.InvokeNotification("You need more funds.");
             }
         }
     }
@@ -296,12 +296,12 @@ namespace MoodSwingGame
                 }
                 else
                 {
-                    MSNotifier.GetInstance().InvokeNotification("You need more volunteers.");
+                    MoodSwing.GetInstance().Notifier.InvokeNotification("You need more volunteers.");
                 }
             }
             else
             {
-                MSNotifier.GetInstance().InvokeNotification("You need more funds.");
+                MoodSwing.GetInstance().Notifier.InvokeNotification("You need more funds.");
             }
         }
     }

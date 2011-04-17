@@ -29,7 +29,8 @@ namespace MoodSwingGame
         private Video introVideo;
         private VideoPlayer videoPlayer;
 
-        private MSIntroScreen() : base(null, MoodSwing.GetInstance().SpriteBatch, MoodSwing.GetInstance()) 
+        private MSIntroScreen()
+            : base(null, MoodSwing.GetInstance().SpriteBatch, MoodSwing.GetInstance())
         {
             videoPlayer = new VideoPlayer();
             this.LoadContent();

@@ -102,6 +102,7 @@
     <Compile Include="MSGUIUnclickable.cs" />
     <Compile Include="MSImageHolder.cs" />
     <Compile Include="MSMiscellaneous.cs" />
+    <Compile Include="MSNotifier.cs" />
     <Compile Include="MSPanel.cs" />
     <Compile Include="MSProgressBar.cs" />
     <Compile Include="MSRadioButtonGroup.cs" />

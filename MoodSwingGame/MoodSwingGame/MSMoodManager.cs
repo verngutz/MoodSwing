@@ -31,6 +31,7 @@ namespace MoodSwingGame
 
         private float mood;
         public float Mood { get { return mood; } }
+
         private bool isAlive;
         public bool IsAlive { get { return isAlive; } }
 
@@ -90,22 +91,20 @@ namespace MoodSwingGame
         private MSMDGProgressBar globalPartnershipProgressBar;
         public MSMDGProgressBar GlobalPartnershipProgressBar { get { return globalPartnershipProgressBar; } }
 
-        private static MSMoodManager moodManager = null;
-
+        public static MSMoodManager instance;
         public static MSMoodManager GetInstance()
         {
-            if (moodManager == null)
-                Reset();
-            return moodManager;
+            if (instance == null)
+                instance = new MSMoodManager();
+            return instance;
         }
 
         public static void Reset()
         {
-            moodManager = new MSMoodManager();
+            instance = new MSMoodManager();
         }
 
-        private MSMoodManager()
-            : base(MoodSwing.GetInstance())
+        private MSMoodManager() : base(MoodSwing.GetInstance())
         {
             mood = INITIAL_MOOD;
             isAlive = true;
@@ -236,7 +235,7 @@ namespace MoodSwingGame
                     Song nextSong = bgm.Dequeue();
                     MediaPlayer.Play(nextSong);
                     bgm.Enqueue(nextSong);
-                    MSNotifier.GetInstance().InvokeNotification("Warning: The district is in a bad mood.");
+                    MoodSwing.GetInstance().Notifier.InvokeNotification("Warning: The district is in a bad mood.");
                     lowMoodWarningTimer = LOW_MOOD_WARNING_DELAY;
                 }
                 else

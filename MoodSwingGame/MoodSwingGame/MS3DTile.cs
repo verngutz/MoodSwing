@@ -34,8 +34,6 @@ namespace MoodSwingGame
 
         public Vector2 TileCoordinate { get { return new Vector2(row, column); } }
 
-        protected MSMoodManager moodManager;
-
         public Model TileModel { get { return model; } }
 
         public MS3DTile(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column, int height)

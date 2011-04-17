@@ -106,6 +106,8 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -120,39 +122,52 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildingStats\MSFundraiserStats.cs" />
+    <Compile Include="BuildingStats\TowerStats\MSChildHealthCenterStats.cs" />
+    <Compile Include="BuildingStats\TowerStats\MSEcoParkStats.cs" />
+    <Compile Include="BuildingStats\TowerStats\MSFoodCenterStats.cs" />
+    <Compile Include="BuildingStats\TowerStats\MSGeneralHelpCenterStats.cs" />
+    <Compile Include="BuildingStats\TowerStats\MSGlobalCenterStats.cs" />
+    <Compile Include="BuildingStats\TowerStats\MSHivAidsHealthCenterStats.cs" />
+    <Compile Include="BuildingStats\TowerStats\MSMaternalHealthCenterStats.cs" />
+    <Compile Include="BuildingStats\TowerStats\MSTowerStats.cs" />
+    <Compile Include="BuildingStats\MSVolunteerCenterStats.cs" />
+    <Compile Include="BuildingStats\TowerStats\MSTutorialCenterStats.cs" />
+    <Compile Include="BuildingStats\TowerStats\MSWomensOrgStats.cs" />
     <Compile Include="MoodSwing.cs" />
     <Compile Include="MS2DParametricEquations.cs" />
     <Compile Include="MS3DTile.cs" />
-    <Compile Include="MSAbandonedBuilding.cs" />
+    <Compile Include="Buildings\MSAbandonedBuilding.cs" />
+    <Compile Include="Pickers\MSGeneralHelpCenterPicker.cs" />
+    <Compile Include="Pickers\MSAbandonedBuildingPicker.cs" />
     <Compile Include="MSActions.cs" />
-    <Compile Include="MSBuilding.cs" />
-    <Compile Include="MSBuildingStats.cs" />
-    <Compile Include="MSChangeableBuilding.cs" />
-    <Compile Include="MSCircularPicker.cs" />
+    <Compile Include="Buildings\MSBuilding.cs" />
+    <Compile Include="BuildingStats\MSBuildingStats.cs" />
+    <Compile Include="Buildings\MSChangeableBuilding.cs" />
+    <Compile Include="Pickers\MSCircularPicker.cs" />
     <Compile Include="MSCitizen.cs" />
-    <Compile Include="MSCityScreen.cs" />
-    <Compile Include="MSDistrictHall.cs" />
-    <Compile Include="MSDistrictScreen.cs" />
-    <Compile Include="MSFundraiser.cs" />
-    <Compile Include="MSIntroScreen.cs" />
-    <Compile Include="MSMainScreen.cs" />
+    <Compile Include="Screens\MSCityScreen.cs" />
+    <Compile Include="Buildings\MSDistrictHall.cs" />
+    <Compile Include="Screens\MSDistrictScreen.cs" />
+    <Compile Include="Buildings\MSFundraiser.cs" />
+    <Compile Include="Screens\MSIntroScreen.cs" />
+    <Compile Include="Screens\MSMainScreen.cs" />
     <Compile Include="MSMap.cs" />
     <Compile Include="MSMDGProgressBar.cs" />
     <Compile Include="MSMobber.cs" />
     <Compile Include="MSMoodManager.cs" />
-    <Compile Include="MSNotifier.cs" />
-    <Compile Include="MSOptionsScreen.cs" />
+    <Compile Include="Screens\MSOptionsScreen.cs" />
     <Compile Include="MSResourceManager.cs" />
     <Compile Include="MSRoad.cs" />
     <Compile Include="MSTileFactory.cs" />
-    <Compile Include="MSTower.cs" />
-    <Compile Include="MSTowerFactory.cs" />
-    <Compile Include="MSTypes.cs" />
-    <Compile Include="MSUnchangeableBuilding.cs" />
+    <Compile Include="Buildings\MSTower.cs" />
+    <Compile Include="Buildings\MSTowerFactory.cs" />
+    <Compile Include="MSMilleniumDevelopmentGoal.cs" />
+    <Compile Include="Buildings\MSUnchangeableBuilding.cs" />
     <Compile Include="MSUnit.cs" />
     <Compile Include="MSUnitHandler.cs" />
     <Compile Include="MSVolunteer.cs" />
-    <Compile Include="MSVolunteerCenter.cs" />
+    <Compile Include="Buildings\MSVolunteerCenter.cs" />
     <Compile Include="MSVolunteeringCitizen.cs" />
     <Compile Include="MSWorker.cs" />
     <Compile Include="Program.cs" />
@@ -206,6 +221,7 @@
   <ItemGroup>
     <None Include="MoodSwingGame_TemporaryKey.pfx" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

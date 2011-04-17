@@ -14,19 +14,12 @@ using Microsoft.Xna.Framework.Storage;
 using MoodSwingCoreComponents;
 using MoodSwingGUI;
 
-namespace MoodSwingGame
+namespace MoodSwingGUI
 {
     public class MSNotifier : MSPanel
     {
-        private static MSNotifier instance;
-        public static MSNotifier GetInstance()
-        {
-            if (instance == null)
-                instance = new MSNotifier();
-            return instance;
-        }
-
         public bool FreezeNotifications { set; get; }
+        public int HoldTime { get; set; }
 
         private Queue<string> notifications;
         private SpriteFont notificationFont;
@@ -34,11 +27,11 @@ namespace MoodSwingGame
         private int fadeAlpha;
         private int fadeIncrement;
         private int holdTimer;
-        private const int HOLD_TIME = 50;
 
-        private MSNotifier() 
-            : base(MoodSwing.GetInstance().Content.Load<Texture2D>("BlackOut"), new Rectangle(0, 400, 1024, 100), null, Shape.RECTANGULAR, MoodSwing.GetInstance().SpriteBatch, MoodSwing.GetInstance()) 
+        public MSNotifier(Texture2D background, Rectangle boundingRectangle, Shape shape, SpriteBatch spriteBatch, Game game)
+            : base(background, boundingRectangle, null, shape, spriteBatch, game) 
         {
+            HoldTime = 50;
             notificationFont = Game.Content.Load<SpriteFont>("ToolTipFont");
             notifications = new Queue<string>();
             fadeAlpha = 1;
@@ -68,7 +61,7 @@ namespace MoodSwingGame
                 {
                     fadeAlpha = 255;
                     fadeIncrement = 0;
-                    if (holdTimer++ > HOLD_TIME)
+                    if (holdTimer++ > HoldTime)
                     {
                         if (!FreezeNotifications)
                         {

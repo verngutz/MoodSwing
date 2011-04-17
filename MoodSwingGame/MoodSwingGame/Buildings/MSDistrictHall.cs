@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework.Storage;
 
 using MoodSwingCoreComponents;
 using MoodSwingGUI;
+
 namespace MoodSwingGame
 {
     public class MSDistrictHall : MSBuilding

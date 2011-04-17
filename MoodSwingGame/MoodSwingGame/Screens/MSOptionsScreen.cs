@@ -23,7 +23,7 @@ namespace MoodSwingGame
         public MSScreen ReturnScreen { set; get; }
 
         private MSOptionsScreen(MoodSwing game)
-            : base(game.Content.Load<Texture2D>("CityView"), 150, 150, 150, 150, game.SpriteBatch, game) 
+            : base(game.Content.Load<Texture2D>("CityView"), 150, 150, 150, 150, game.SpriteBatch, game)
         {
             MSTabbedPanel tabbedOptions = new MSTabbedPanel(this);
             MSPanel graphicsTab = new MSPanel(Game.Content.Load<Texture2D>("BlackOut"), new Rectangle(50, 50, 924, 668), 50, 50, 50, 50, null, Shape.RECTANGULAR, SpriteBatch, Game);
@@ -66,8 +66,8 @@ namespace MoodSwingGame
             graphicsTab.AddComponent(new MSCheckbox(
                 new MSButton(
                     new MSResizingLabel(
-                        "Full Screen", 
-                        new Rectangle(50, 0, 100, 25), 
+                        "Full Screen",
+                        new Rectangle(50, 0, 100, 25),
                         Game.Content.Load<SpriteFont>("Temp"),
                         Color.White,
                         SpriteBatch,
@@ -120,7 +120,7 @@ namespace MoodSwingGame
                         null,
                         Shape.RECTANGULAR,
                         SpriteBatch,
-                        Game), 
+                        Game),
                     new MSButton(
                         new MSResizingLabel(
                         "800 by 600",
@@ -141,7 +141,7 @@ namespace MoodSwingGame
                     false), Alignment.TOP_CENTER);
 
             resolution.AddRadioButton(
-                new MSRadioButton( 
+                new MSRadioButton(
                     new MSButton(
                         new MSResizingLabel(
                         "1024 by 768",
