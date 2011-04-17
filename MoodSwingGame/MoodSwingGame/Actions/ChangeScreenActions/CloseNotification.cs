@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -11,11 +12,20 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
+using MoodSwingGUI;
+using MoodSwingCoreComponents;
+
 namespace MoodSwingGame
 {
-    public class MSRoad : MS3DTile
+    public class CloseNotification : MSAction
     {
-        public MSRoad(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column)
-            : base(model, texture, effect, position, rotation, row, column, MSMap.floorheight) { }
+        public void PerformAction(Game game)
+        {
+            MoodSwing moodSwing = game as MoodSwing;
+            moodSwing.Notifier.FreezeNotifications = false;
+            moodSwing.Notifier.HasFocus = false;
+            moodSwing.Notifier.ClearComponents();
+            moodSwing.CurrentScreen.HasFocus = true;
+        }
     }
 }

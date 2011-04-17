@@ -22,11 +22,6 @@ namespace MoodSwingGame
             get { return Game.Content.Load<Model>("person"); }
         }
 
-        protected override Effect Effect
-        {
-            get { return Game.Content.Load<Effect>("Mood"); }
-        }
-
         protected override Texture2D Texture
         {
             get { return Game.Content.Load<Texture2D>("MTextures/tao"); }

@@ -111,13 +111,13 @@ namespace MoodSwingGUI
         {
             base.Draw(gameTime);
             SpriteBatch.DrawString(spriteFont, text, Position, color, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
-            if (Editable && HasFocus && cursorBlinkCounter++ % CURSOR_BLINK_PERIOD < CURSOR_BLINK_PERIOD / 2)
+            if (Editable && HasKeyboardFocus && cursorBlinkCounter++ % CURSOR_BLINK_PERIOD < CURSOR_BLINK_PERIOD / 2)
                 spriteBatch.DrawString(spriteFont, CURSOR, cursorPosition, color, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
         }
 
         public override void HandleKeyboardInput(KeyboardState oldKeyboardState)
         {
-            if (Editable && HasFocus)
+            if (Editable && HasKeyboardFocus)
             {
                 foreach (String s in MSGUIKeyboardParser.ParseTextInput(oldKeyboardState))
                 {
@@ -214,7 +214,7 @@ namespace MoodSwingGUI
 
         public override void UnLeftClick()
         {
-            HasFocus = true;
+            HasKeyboardFocus = true;
         }
 
         public override void LeftClick() { }

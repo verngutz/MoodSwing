@@ -95,6 +95,7 @@
     <Compile Include="MSAnimatingButton.cs" />
     <Compile Include="MSButton.cs" />
     <Compile Include="MSCheckbox.cs" />
+    <Compile Include="MSFacadePanel.cs" />
     <Compile Include="MSGUIClickable.cs" />
     <Compile Include="MSGUIKeyboardParser.cs" />
     <Compile Include="MSGUIObject.cs" />

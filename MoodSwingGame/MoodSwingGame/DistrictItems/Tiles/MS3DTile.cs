@@ -16,12 +16,13 @@ using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
-    public abstract class MS3DTile : MS3DComponent
+    public abstract class MS3DTile : MS3DSingleModelComponent
     {
         private Model model;
         private Texture2D texture;
-        public Effect Effect { set; get; }
-        public Vector3 LightSource { set; get; }
+
+        protected override Model Model { get { return model; } }
+        protected override Texture2D Texture { get { return texture; } }
 
         private float rotation;
         public float Rotation { get { return rotation; } }
@@ -34,16 +35,15 @@ namespace MoodSwingGame
 
         public Vector2 TileCoordinate { get { return new Vector2(row, column); } }
 
-        public Model TileModel { get { return model; } }
-
         public MS3DTile(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column, int height)
-            : base(position, MoodSwing.GetInstance())
+            : base(position)
         {
             this.model = model;
             this.texture = texture;
             this.Effect = effect;
+
             int tileDimension = MSMap.tileDimension;
-            foreach(ModelMesh mesh in model.Meshes)
+            foreach(ModelMesh mesh in Model.Meshes)
             {
                 boundingSphere = BoundingSphere.CreateMerged(boundingSphere, mesh.BoundingSphere);
             }
@@ -58,32 +58,6 @@ namespace MoodSwingGame
             this.rotation = rotation;
             this.row = row;
             this.column = column;
-            
         }
-
-        public override void Draw(GameTime gameTime)
-        {
-            foreach (ModelMesh mesh in model.Meshes)
-            {
-                foreach (ModelMeshPart part in mesh.MeshParts)
-                {
-                    part.Effect = Effect;
-                    Effect.Parameters["World"].SetValue(world);
-                    Effect.Parameters["View"].SetValue(MSCamera.GetInstance().GetView());
-                    Effect.Parameters["Projection"].SetValue(MSCamera.GetInstance().ProjectionMatrix);
-                    Matrix worldInverseTransposeMatrix = Matrix.Transpose(Matrix.Invert(mesh.ParentBone.Transform * world));
-                    Effect.Parameters["WorldInverseTranspose"].SetValue(worldInverseTransposeMatrix);
-                    //Effect.Parameters["ViewVector"].SetValue(MSCamera.GetInstance().NormalizedViewVector);
-                    Effect.Parameters["DiffuseLightDirection"].SetValue(LightSource - Position);
-                    Effect.Parameters["Saturation"].SetValue(MSMoodManager.GetInstance().Mood);
-                    Effect.Parameters["ModelTexture"].SetValue(texture);
-                }
-                mesh.Draw();
-            }
-            base.Draw(gameTime);
-        }
-
-        
-
     }
 }

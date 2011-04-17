@@ -103,7 +103,7 @@ namespace MoodSwingGame
         /// Picking Algo. Looks for the closest object that intersects the mouse ray
         /// </summary>
         /// <returns>The tile which the mouse intersects. Null if it doesnt intersect anything</returns>
-        public MS3DTile CheckCollision()
+        public MS3DTile PickFrom3DWorld()
         {
             float? minDistance = null;
             MS3DTile tile = null;

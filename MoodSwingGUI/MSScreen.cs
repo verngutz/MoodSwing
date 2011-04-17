@@ -12,11 +12,8 @@ namespace MoodSwingGUI
     /// <summary>
     /// MSScreen is an MSPanel that covers the entire computer screen.
     /// </summary>
-    public abstract class MSScreen : MSPanel
+    public abstract class MSScreen : MSFacadePanel
     {
-        protected MSGUIClickable currentHovered;
-        protected MSGUITypable currentFocused;
-
         /// <summary>
         /// Creates an MSScreen with the given parameters
         /// </summary>
@@ -62,118 +59,5 @@ namespace MoodSwingGUI
         /// <param name="game">the Game where this MSScreen will be used</param>
         public MSScreen(Texture2D background, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Color highlight, SpriteBatch spriteBatch, Game game)
             : base(background, new Rectangle(0, 0, MSResolution.VirtualWidth, MSResolution.VirtualHeight), topPadding, bottomPadding, leftPadding, rightPadding, null, Shape.RECTANGULAR, spriteBatch, game) { }
-
-        public virtual bool HandleMouseInput(MouseState oldMouseState, bool careIfMouseHasMoved)
-        {
-            MouseState currentMouseState = MSMouse.GetState();
-            if (currentMouseState != oldMouseState || !careIfMouseHasMoved)
-            {
-                bool hasHovered = false;
-                foreach (MSGUIClickable component in ClickableComponents.Reverse<MSGUIClickable>())
-                {
-                    if (component.Visible)
-                    {
-                        if (component.CollidesWithMouse())
-                        {
-                            if (currentHovered != component)
-                            {
-                                if (currentHovered != null) currentHovered.UnHover();
-                                currentHovered = component;
-                                currentHovered.Hover();
-                            }
-                            hasHovered = true;
-                            break;
-                        }
-                    }
-                }
-                if (!hasHovered)
-                {
-                    if (currentHovered != null)
-                    {
-                        currentHovered.UnHover();
-                        currentHovered = null;
-                    }
-                }
-                if (currentHovered != null)
-                {
-                    if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
-                    {
-                        currentHovered.LeftClick();
-                    }
-                    else if (currentMouseState.LeftButton == ButtonState.Released && oldMouseState.LeftButton == ButtonState.Pressed)
-                    {
-                        if (currentHovered is MSGUITypable)
-                        {
-                            if (currentFocused != null) currentFocused.HasFocus = false;
-                            currentFocused = (MSGUITypable)currentHovered;
-                            currentFocused.HasFocus = true;
-                        }
-                        currentHovered.UnLeftClick();
-                        currentHovered = null;
-                        return true;
-                    }
-
-                    if (currentMouseState.RightButton == ButtonState.Pressed && oldMouseState.RightButton == ButtonState.Released)
-                    {
-                        currentHovered.RightClick();
-                    }
-                    else if (currentMouseState.RightButton == ButtonState.Released && oldMouseState.RightButton == ButtonState.Pressed)
-                    {
-                        currentHovered.UnRightClick();
-                        return true;
-                    }
-
-                    if (currentMouseState.MiddleButton == ButtonState.Pressed && oldMouseState.MiddleButton == ButtonState.Released)
-                    {
-                        currentHovered.MiddleClick();
-                    }
-                    else if (currentMouseState.MiddleButton == ButtonState.Released && oldMouseState.MiddleButton == ButtonState.Pressed)
-                    {
-                        currentHovered.UnMiddleClick();
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        public virtual bool HandleMouseInput(MouseState oldMouseState)
-        {
-            return this.HandleMouseInput(oldMouseState, true);
-        }
-
-        public override void HandleKeyboardInput(KeyboardState oldKeyboardState)
-        {
-            if(currentFocused != null)
-                currentFocused.HandleKeyboardInput(oldKeyboardState);
-        }
-
-        public override void Draw(GameTime gameTime)
-        {
-            base.Draw(gameTime);
-            if (currentHovered != null && currentHovered.ToolTip != null)
-                currentHovered.ToolTip.Draw(gameTime);
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-            if (currentFocused != null && currentFocused.TabIsFired)
-            {
-                currentFocused.HasFocus = false;
-                currentFocused.TabIsFired = false;
-                currentFocused = currentFocused.OnTab;
-                currentFocused.HasFocus = true;
-            }
-        }
-
-        public void ResetHovers()
-        {
-            if (currentHovered != null)
-            {
-                currentHovered.UnHover();
-                currentHovered = null;
-            }
-        }
     }
 }

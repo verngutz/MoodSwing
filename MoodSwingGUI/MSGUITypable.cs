@@ -25,7 +25,7 @@ namespace MoodSwingGUI
         /// Gets or Sets whether this MSGUITypable currently has keyboard focus
         /// </summary>
         /// <value>true if it does, false otherwise</value>
-        public bool HasFocus { get; set; }
+        public bool HasKeyboardFocus { get; set; }
 
 
         protected MSGUITypable onTab;
@@ -43,7 +43,7 @@ namespace MoodSwingGUI
         public bool TabIsFired { set; get; }
 
         public MSGUITypable(Rectangle boundingRectangle, MSToolTip toolTip, Shape shape, SpriteBatch spriteBatch, Game game)
-            : base(boundingRectangle, shape, toolTip, spriteBatch, game) { HasFocus = false; }
+            : base(boundingRectangle, shape, toolTip, spriteBatch, game) { HasKeyboardFocus = false; }
 
         /// <summary>
         /// Handles how this MSGUITypable should respond to keyboard input

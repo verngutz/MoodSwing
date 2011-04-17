@@ -16,7 +16,7 @@ using MoodSwingGUI;
 
 namespace MoodSwingGUI
 {
-    public class MSNotifier : MSPanel
+    public class MSNotifier : MSFacadePanel
     {
         public bool FreezeNotifications { set; get; }
         public int HoldTime { get; set; }
@@ -50,7 +50,6 @@ namespace MoodSwingGUI
             notifications.Enqueue(notification);
         }
 
-
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
@@ -67,6 +66,32 @@ namespace MoodSwingGUI
                         {
                             holdTimer = 0;
                             fadeIncrement = -5;
+                        }
+                    }
+
+                    foreach (MSGUIObject component in components)
+                    {
+                        if (component is MSGUIClickable)
+                        {
+                            (component as MSGUIClickable).Visible = true;
+                        }
+                        else if (component is MSGUIUnclickable)
+                        {
+                            (component as MSGUIUnclickable).Visible = true;
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (MSGUIObject component in components)
+                    {
+                        if (component is MSGUIClickable)
+                        {
+                            (component as MSGUIClickable).Visible = false;
+                        }
+                        else if (component is MSGUIUnclickable)
+                        {
+                            (component as MSGUIUnclickable).Visible = false;
                         }
                     }
                 }
@@ -94,11 +119,27 @@ namespace MoodSwingGUI
                     fadeEffect
                 );
 
-                if (fadeAlpha >= 255)
+                foreach (MSGUIObject component in components)
                 {
-                    base.Draw(gameTime);
+                    if (component is MSGUIClickable)
+                    {
+                        if ((component as MSGUIClickable).Visible)
+                            (component as MSGUIClickable).Draw(gameTime);
+                    }
+                    else if (component is MSGUIUnclickable)
+                    {
+                        if ((component as MSGUIUnclickable).Visible)
+                            (component as MSGUIUnclickable).Draw(gameTime);
+                    }
                 }
             }
+        }
+
+        public void ClearComponents()
+        {
+            components.Clear();
+            UnclickableComponents.Clear();
+            ClickableComponents.Clear();
         }
     }
 }

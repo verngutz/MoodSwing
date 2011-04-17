@@ -120,6 +120,7 @@ namespace MoodSwingGame
             if (IsActive)
             {
                 CurrentScreen.Update(gameTime);
+                MoodSwing.GetInstance().Notifier.HandleMouseInput(oldMouseState);
 
                 KeyboardState newKeyBoardState = Keyboard.GetState();
                 MouseState newMouseState = MSMouse.GetState();
@@ -128,7 +129,7 @@ namespace MoodSwingGame
                 oldKeyboardState = newKeyBoardState;
                 prevGameTime = gameTime;
                 base.Update(gameTime);
-
+                
                 MoodSwing.GetInstance().Notifier.Update(gameTime);
 
                 if (MediaPlayer.State == MediaState.Stopped && !(CurrentScreen is MSIntroScreen))

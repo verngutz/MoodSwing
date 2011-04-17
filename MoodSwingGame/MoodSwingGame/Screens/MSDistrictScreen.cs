@@ -250,7 +250,7 @@ namespace MoodSwingGame
 
             mainMenuButton = new MSButton(
                 null,
-                new OpenMainScreen(),
+                new OpenExitConfirmation(OpenExitConfirmation.ExitType.ToMainMenu),
                 new Rectangle(403, 92, 226, 57),
                 game.Content.Load<Texture2D>("GamePanel/MainMenu"),
                 game.Content.Load<Texture2D>("GamePanel/mainmenuclicked"),
@@ -274,7 +274,7 @@ namespace MoodSwingGame
 
             exitButton = new MSButton(
                 null,
-                new Exit(),
+                new OpenExitConfirmation(OpenExitConfirmation.ExitType.ToWindows),
                 new Rectangle(460, 210, 277, 57),
                 game.Content.Load<Texture2D>("GamePanel/quit"),
                 game.Content.Load<Texture2D>("GamePanel/quitclicked"),
@@ -304,7 +304,7 @@ namespace MoodSwingGame
                    Shape.CIRCULAR,
                    SpriteBatch,
                    Game);
-            openInGameMenu.UnclickPosition = new MoodButtonOpenMovement();
+            openInGameMenu.UnclickPosition = new SwingButtonOpenMovement();
             openInGameMenu.UnclickTimerLimit = 12;
 
             closeInGameMenu = new MSAnimatingButton(
@@ -320,7 +320,7 @@ namespace MoodSwingGame
                    SpriteBatch,
                    Game);
 
-            closeInGameMenu.UnclickPosition = new MoodButtonCloseMovement();
+            closeInGameMenu.UnclickPosition = new SwingButtonCloseMovement();
             closeInGameMenu.UnclickTimerLimit = 12;
             closeInGameMenu.Visible = false;
 
@@ -482,9 +482,9 @@ namespace MoodSwingGame
             }
         }
 
-        public void CheckCollision()
+        public void PickFrom3DWorld()
         {
-            MS3DTile tile = map.CheckCollision();
+            MS3DTile tile = map.PickFrom3DWorld();
             if (tile is MSChangeableBuilding && (tile as MSChangeableBuilding).State == MSChangeableBuildingState.BUYABLE)
             {
                 string texturePath = "";
@@ -564,7 +564,7 @@ namespace MoodSwingGame
             }
 
             //Picking
-            else if (newMouseState.LeftButton == ButtonState.Released
+            else if (!Paused && newMouseState.LeftButton == ButtonState.Released
                     && oldMouseState.LeftButton == ButtonState.Pressed)
             {
                 if (BuyDialog != null)
@@ -573,7 +573,7 @@ namespace MoodSwingGame
                     BuyDialog.UnhighlightSelected();
                 }
                 BuyDialog = null;
-                CheckCollision();
+                PickFrom3DWorld();
             }
 
             //Camera Rotation

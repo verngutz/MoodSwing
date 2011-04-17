@@ -18,12 +18,7 @@ namespace MoodSwingGame
 {
     public class MSTower : MSChangeableBuilding
     {
-        //Incorporate Texture, Model, Effect, and height into TowerStats later
-        public MSTowerStats Stats
-        {
-            set;
-            get;
-        }
+        public MSTowerStats Stats { set; get; }
 
         private int capacity;
 

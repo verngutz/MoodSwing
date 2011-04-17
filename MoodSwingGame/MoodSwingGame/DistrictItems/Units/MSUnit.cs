@@ -16,12 +16,9 @@ using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
-    public abstract class MSUnit : MS3DComponent
+    public abstract class MSUnit : MS3DSingleModelComponent
     {
         public static Vector3 UNITZ_POSITION = new Vector3(0, 0, MSMap.floorheight / 2 - 4);
-        protected abstract Model Model { get; }
-        protected abstract Effect Effect { get; }
-        protected abstract Texture2D Texture { get; }
 
         public bool IsStopped { get; set; }
         protected bool isMobbable;
@@ -44,43 +41,11 @@ namespace MoodSwingGame
         public Vector2 TileCoordinate { get { return new Vector2((int)(Math.Round(position.Y / MSMap.tileDimension)), (int)(Math.Round((position.X / MSMap.tileDimension)))); } }
 
         public MSUnit(Vector3 position, Node path, MSMap map, bool mobbable) 
-            : base(position, MoodSwing.GetInstance()) 
+            : base(position) 
         {
             this.path = path;
             this.map = map;
             this.isMobbable = mobbable;
-
-        }
-
-        public override void Draw(GameTime gameTime)
-        {
-            foreach (ModelMesh mesh in Model.Meshes)
-            {
-                foreach (ModelMeshPart part in mesh.MeshParts)
-                {
-                    /*part.Effect = Effect;
-                    Effect.Parameters["World"].SetValue(world);
-                    Effect.Parameters["View"].SetValue(MSCamera.GetInstance().GetView());
-                    Effect.Parameters["Projection"].SetValue(MSCamera.GetInstance().ProjectionMatrix);
-                    Matrix worldInverseTransposeMatrix = Matrix.Transpose(Matrix.Invert(mesh.ParentBone.Transform * world));
-                    Effect.Parameters["WorldInverseTranspose"].SetValue(worldInverseTransposeMatrix);
-                    //Effect.Parameters["ViewVector"].SetValue(MSCamera.GetInstance().NormalizedViewVector);
-                    Effect.Parameters["DiffuseLightDirection"].SetValue(map.LightSource - Position);
-                    Effect.Parameters["Saturation"].SetValue(MSMoodManager.GetInstance().Mood);
-                    Effect.Parameters["ModelTexture"].SetValue(Texture);*/
-
-                    foreach (BasicEffect effect in mesh.Effects)
-                    {
-                        effect.EnableDefaultLighting();
-                        effect.World = this.WorldMatrix;
-                        effect.View = MSCamera.GetInstance().GetView();
-                        effect.Projection = MSCamera.GetInstance().ProjectionMatrix;
-
-                    }
-                }
-                mesh.Draw();
-            }
-            base.Draw(gameTime);
         }
 
         public virtual void Walk(MS3DTile[,] mapArray)
@@ -136,5 +101,30 @@ namespace MoodSwingGame
             this.path = path;
             this.destination = Vector2.Zero;
         }
+
+        /**
+         * Temporary Solution for the error:
+         * "The current vertex declaration does not include all the elements required by the current vertex shader. 
+         * TextureCoordinate0 is missing."
+         */
+
+        public override void Draw(GameTime gameTime)
+        {
+            foreach (ModelMesh mesh in Model.Meshes)
+            {
+                foreach (BasicEffect e in mesh.Effects)
+                {
+                    e.World = world;
+                    e.View = MSCamera.GetInstance().GetView();
+                    e.Projection = MSCamera.GetInstance().ProjectionMatrix;
+                    e.EnableDefaultLighting();
+                }
+                mesh.Draw();
+            }
+        }
+
+        /**
+         * End Temporary Solution
+         */
     }
 }

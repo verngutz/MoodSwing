@@ -57,7 +57,7 @@ namespace MoodSwingGame
 
             MSAnimatingButton exitButton = new MSAnimatingButton(
                     null,
-                    new Exit(),
+                    new OpenExitConfirmation(OpenExitConfirmation.ExitType.ToWindows),
                     new Rectangle(300, 450, 574, 60),
                     game.Content.Load<Texture2D>("exit"),
                     game.Content.Load<Texture2D>("exitclicked"),
