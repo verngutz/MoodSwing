@@ -54,6 +54,9 @@ namespace MoodSwingGame
         private MSPanel blackOutPanel;
         public MSPanel BlackOutPanel { get { return blackOutPanel; } }
 
+        private MSNotifier storyBox;
+        public MSNotifier StoryBox { get { return storyBox; } }
+
         public MSDistrictScreen(String filename, MoodSwing game)
             : base(game.Content.Load<Texture2D>("districtmap"), 0, 0, 0, 0, game.SpriteBatch, game)
         {
@@ -66,6 +69,8 @@ namespace MoodSwingGame
             moodManager = MSMoodManager.GetInstance();
             resourceManager = MSResourceManager.GetInstance();
             MSResourceManager.instantiate(1000, map.InitialVolunteerCenters);
+
+            storyBox = new MSNotifier(Game.Content.Load<Texture2D>("BlackOut"), new Rectangle(0, 400, 1024, 100), Shape.RECTANGULAR, SpriteBatch, Game);
 
             foreach (MS3DTile tile in map.MapArray)
             {

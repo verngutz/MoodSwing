@@ -84,7 +84,8 @@ namespace MoodSwingGUI
         {
             if (notifications.Count > 0)
             {
-                SpriteBatch.Draw(background, BoundingRectangle, fadeEffect);
+                if(background != null)
+                    SpriteBatch.Draw(background, BoundingRectangle, fadeEffect);
                 SpriteBatch.DrawString
                 (
                     notificationFont,
@@ -92,6 +93,11 @@ namespace MoodSwingGUI
                     Position + (Size - notificationFont.MeasureString(notifications.Peek())) / 2,
                     fadeEffect
                 );
+
+                if (fadeAlpha >= 255)
+                {
+                    base.Draw(gameTime);
+                }
             }
         }
     }
