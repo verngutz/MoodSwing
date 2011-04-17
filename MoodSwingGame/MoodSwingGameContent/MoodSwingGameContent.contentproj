@@ -823,6 +823,12 @@
       <Processor>ModelProcessor</Processor>
       <ProcessorParameters_Scale>0.35</ProcessorParameters_Scale>
     </Compile>
+    <Compile Include="personBump.fbx">
+      <Name>personBump</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>0.35</ProcessorParameters_Scale>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
