@@ -69,18 +69,22 @@ namespace MoodSwingGame
         private bool oneOnly = false;
         private bool checkOne = false;
 
-        private double prevCheckpoint;
+        private int prevCheckpoint;
         private bool IsRelativelyPeaceful;
 
-        public MSUnit TryForBaby( MSMap map, GameTime gameTime )
+        public MSUnit TryForBaby( MSMap map, int gameTime )
         {
 
-            int timeDiff = (int)(gameTime.TotalGameTime.TotalSeconds - prevCheckpoint);
+            int timeDiff = gameTime - prevCheckpoint;
+
+            System.Console.WriteLine(gameTime);
+            System.Console.WriteLine("TIME Diff: " + timeDiff);
+
             if ( (timeDiff == 30 &&  !IsRelativelyPeaceful) ||
                  (timeDiff == 20 && IsRelativelyPeaceful) )
             {
                 IsRelativelyPeaceful = !IsRelativelyPeaceful;
-                prevCheckpoint = gameTime.TotalGameTime.TotalSeconds;
+                prevCheckpoint = gameTime;
                 if (IsRelativelyPeaceful &&
                     MOB_WAVE_PROBABILITY + (MOB_WAVE_PROBABILITY+"").Length <= MAX_MOB_PROBABILITY)
                 {

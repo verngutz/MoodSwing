@@ -101,10 +101,6 @@ namespace MoodSwingGame
                         destination = new Vector2(targetVector3.X + MSRandom.random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4,
                                                       targetVector3.Y + MSRandom.random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4);
 
-                        Vector2 direction = destination - new Vector2(position.X, position.Y);
-                        float angle = (float)Math.Atan2(direction.Y, direction.X);
-                        Rotation = angle;
-
                     }
                     else destinationReached = true;
                 }
@@ -114,6 +110,10 @@ namespace MoodSwingGame
                     unit = Vector2.Normalize(unit);
                     this.position += new Vector3(unit.X * Speed, unit.Y * Speed, 0);
                 }
+
+                Vector2 direction = destination - new Vector2(position.X, position.Y);
+                float angle = (float)Math.Atan2(direction.Y, direction.X);
+                Rotation = angle;
 
                 adjustWorldMatrix();
                 

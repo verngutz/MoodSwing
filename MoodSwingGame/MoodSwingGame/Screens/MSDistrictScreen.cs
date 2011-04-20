@@ -63,6 +63,8 @@ namespace MoodSwingGame
         public MSDistrictScreen(String filename, MoodSwing game)
             : base(game.Content.Load<Texture2D>("districtmap"), 0, 0, 0, 0, game.SpriteBatch, game)
         {
+            gameTime = 0;
+            lastTotalRunTime = 0;
             map = new MSMap(filename);
             MSCamera.initialize((game as MoodSwing).GraphicsDevice.Viewport,
                 MSDistrictHall.getInstance().Position, MSDistrictHall.getInstance().Rotation);
@@ -465,11 +467,11 @@ namespace MoodSwingGame
 
             if (!Paused)
             {
-                this.gameTime = gameTime.TotalGameTime.TotalSeconds - lastTotalRunTime;
+                this.gameTime += gameTime.TotalGameTime.TotalSeconds - lastTotalRunTime;
                 HandleKeyboardInput(MoodSwing.GetInstance().OldKeyboardState);
                 map.Update(gameTime);
                 resourceManager.Update(gameTime);
-                MSUnit person = unitHandler.TryForBaby(map, gameTime);
+                MSUnit person = unitHandler.TryForBaby(map, (int)this.gameTime);
 
                 moodManager.Update(gameTime);
                 unitHandler.Update(map);
