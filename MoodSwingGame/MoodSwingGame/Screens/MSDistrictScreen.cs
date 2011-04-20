@@ -57,6 +57,9 @@ namespace MoodSwingGame
         private MSNotifier storyBox;
         public MSNotifier StoryBox { get { return storyBox; } }
 
+        private double gameTime;
+        private double lastTotalRunTime;
+
         public MSDistrictScreen(String filename, MoodSwing game)
             : base(game.Content.Load<Texture2D>("districtmap"), 0, 0, 0, 0, game.SpriteBatch, game)
         {
@@ -456,11 +459,13 @@ namespace MoodSwingGame
 
         public override void Update(GameTime gameTime)
         {
+            
             base.Update(gameTime);
             HandleMouseInput((Game as MoodSwing).OldMouseState);
 
             if (!Paused)
             {
+                this.gameTime = gameTime.TotalGameTime.TotalSeconds - lastTotalRunTime;
                 HandleKeyboardInput(MoodSwing.GetInstance().OldKeyboardState);
                 map.Update(gameTime);
                 resourceManager.Update(gameTime);
@@ -482,6 +487,8 @@ namespace MoodSwingGame
                 totalVolunteers.Text = resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity;
                 funds.Text = resourceManager.Funds + "";
             }
+
+            lastTotalRunTime = gameTime.TotalGameTime.TotalSeconds;
         }
 
         public void PickFrom3DWorld()
