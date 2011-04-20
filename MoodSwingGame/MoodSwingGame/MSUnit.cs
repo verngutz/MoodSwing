@@ -23,6 +23,8 @@ namespace MoodSwingGame
         protected abstract Effect Effect { get; }
         protected abstract Texture2D Texture { get; }
 
+
+        public float Rotation { get; set; }
         public bool IsStopped { get; set; }
         protected bool isMobbable;
         public bool IsMobbable { get { return isMobbable; } }
@@ -43,12 +45,18 @@ namespace MoodSwingGame
 
         public Vector2 TileCoordinate { get { return new Vector2((int)(Math.Round(position.Y / MSMap.tileDimension)), (int)(Math.Round((position.X / MSMap.tileDimension)))); } }
 
-        public MSUnit(Vector3 position, Node path, MSMap map, bool mobbable) 
-            : base(position, MoodSwing.GetInstance()) 
+        public MSUnit(Vector3 position, Node path, MSMap map, bool mobbable)
+            : base(position, MoodSwing.GetInstance())
         {
             this.path = path;
             this.map = map;
             this.isMobbable = mobbable;
+
+            
+            Vector2 coord = Vector2.Zero;
+            if (path.next != null)
+            { }
+            this.world = WorldMatrix * Matrix.CreateRotationZ(MathHelper.ToRadians(180));
 
         }
 
@@ -72,7 +80,7 @@ namespace MoodSwingGame
                     foreach (BasicEffect effect in mesh.Effects)
                     {
                         effect.EnableDefaultLighting();
-                        effect.World = this.WorldMatrix;
+                        effect.World = Matrix.CreateRotationZ(Rotation) * this.WorldMatrix;
                         effect.View = MSCamera.GetInstance().GetView();
                         effect.Projection = MSCamera.GetInstance().ProjectionMatrix;
 
@@ -102,6 +110,7 @@ namespace MoodSwingGame
 
                 }
 
+                //destination reached
                 if (Vector2.Distance(pos, destination) < 1)
                 {
                     this.position = new Vector3(destination.X, destination.Y, position.Z);
@@ -111,6 +120,11 @@ namespace MoodSwingGame
                         Vector3 targetVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
                         destination = new Vector2(targetVector3.X + MSRandom.random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4,
                                                       targetVector3.Y + MSRandom.random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4);
+
+                        Vector2 direction = destination - new Vector2(position.X, position.Y);
+                        float angle = (float)Math.Atan2(direction.Y, direction.X);
+                        Rotation = angle;
+
                     }
                     else destinationReached = true;
                 }
@@ -122,6 +136,7 @@ namespace MoodSwingGame
                 }
 
                 adjustWorldMatrix();
+                
             }
         }
 

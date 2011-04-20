@@ -20,7 +20,7 @@ namespace MoodSwingGame
     {
         protected override Model Model
         {
-            get { return Game.Content.Load<Model>("person"); }
+            get { return Game.Content.Load<Model>("personBump"); }
         }
 
         protected override Effect Effect
