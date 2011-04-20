@@ -18,7 +18,7 @@ namespace MoodSwingGame
 {
     public enum MSChangeableBuildingState
     {
-        BUYABLE,
+        IDLE,
         WAITING,
         TRANSFORMING,
         DONE
@@ -66,7 +66,7 @@ namespace MoodSwingGame
                 MoodSwing.GetInstance(), 
                 borderTexture, loadingTexture, null, MSProgressBar.Orientation.HORIZONTAL);
 
-            State = MSChangeableBuildingState.BUYABLE;
+            State = MSChangeableBuildingState.IDLE;
         }
 
         public override void Update(GameTime gameTime)

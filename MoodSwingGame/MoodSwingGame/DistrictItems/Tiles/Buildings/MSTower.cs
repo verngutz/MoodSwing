@@ -31,7 +31,7 @@ namespace MoodSwingGame
 
         public void sentinel(MSMap map, MSUnitHandler unitHandler)
         {
-            if (capacity > 0)
+            if (capacity > 0 && this.State == MSChangeableBuildingState.IDLE)
             {
                 for (int i = 0; i < unitHandler.Units.Count; i++)
                 {

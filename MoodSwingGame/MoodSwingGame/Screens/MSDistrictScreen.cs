@@ -496,7 +496,7 @@ namespace MoodSwingGame
         public void PickFrom3DWorld()
         {
             MS3DTile tile = map.PickFrom3DWorld();
-            if (tile is MSChangeableBuilding && (tile as MSChangeableBuilding).State == MSChangeableBuildingState.BUYABLE)
+            if (tile is MSChangeableBuilding && (tile as MSChangeableBuilding).State == MSChangeableBuildingState.IDLE)
             {
                 string texturePath = "";
                 Point sourcePoint = new Point();

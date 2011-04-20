@@ -41,11 +41,11 @@ namespace MoodSwingCoreComponents
         private Vector3 startingLookAt;
 
         private Vector3 pitchAxis;
-        private float minAngle;
-        private float currAngle;
-        private float maxAngle;
+        private float minPitchAngle;
+        private float maxPitchAngle;
+
         private float currYawRotation;
-        
+        private float currPitchAngle;
         private const int SHIFT_SPEED = 3;
 
         private const int ZOOM_MIN_DIST = 200;
@@ -74,9 +74,9 @@ namespace MoodSwingCoreComponents
             camera.shiftVector = initialLookAt;
             camera.startingLookAt = initialLookAt;
             camera.AdjustPitchAxis();
-            camera.currAngle = (float)Math.PI / 2 - (float)Math.Acos((float)(Vector3.Dot(camera.viewVector, camera.upCamera) / (float)(Vector3.Distance(camera.cameraPosition, camera.cameraTarget))));
-            camera.minAngle = (float)Math.PI / 9;
-            camera.maxAngle = (float)Math.PI / 2;
+            camera.currPitchAngle = (float)Math.PI / 2 - (float)Math.Acos((float)(Vector3.Dot(camera.viewVector, camera.upCamera) / (float)(Vector3.Distance(camera.cameraPosition, camera.cameraTarget))));
+            camera.minPitchAngle = (float)Math.PI / 9;
+            camera.maxPitchAngle = (float)Math.PI / 2;
             camera.projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), viewport.AspectRatio, 5, 5000);
             camera.frustum = new BoundingFrustum(camera.GetView() * camera.ProjectionMatrix);
 
@@ -108,12 +108,12 @@ namespace MoodSwingCoreComponents
             Vector3 transformedReference;
             
             float pitchRotationAngle = angle * rotation.Y;
-            if (currAngle + pitchRotationAngle > maxAngle)
-                pitchRotationAngle = maxAngle - currAngle;
-            else if (currAngle + pitchRotationAngle < minAngle)
-                pitchRotationAngle = minAngle - currAngle;
+            if (currPitchAngle + pitchRotationAngle > maxPitchAngle)
+                pitchRotationAngle = maxPitchAngle - currPitchAngle;
+            else if (currPitchAngle + pitchRotationAngle < minPitchAngle)
+                pitchRotationAngle = minPitchAngle - currPitchAngle;
             Matrix pitchRotationMatrix = Matrix.CreateFromAxisAngle(pitchAxis, pitchRotationAngle);
-            currAngle += pitchRotationAngle;
+            currPitchAngle += pitchRotationAngle;
             transformedReference = Vector3.Transform(cameraPosition, pitchRotationMatrix);
             Vector3 transformedUpCamera = Vector3.Transform(upCamera, pitchRotationMatrix);
             upCamera = transformedUpCamera;
