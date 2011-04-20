@@ -37,7 +37,6 @@ namespace MoodSwingCoreComponents
         {
             this.position = position;
             world = Matrix.CreateTranslation(position);
-            
         }
     }
 }

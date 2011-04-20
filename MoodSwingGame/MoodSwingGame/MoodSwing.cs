@@ -47,15 +47,20 @@ namespace MoodSwingGame
         public Queue<Song> BGM { get { return bgm; } set { bgm = value; } }
 
         public GameTime prevGameTime;
+
+        private MSNotifier notifier;
+        public MSNotifier Notifier { get { return notifier; } }
+
         private MoodSwing()
         {
             graphics = new GraphicsDeviceManager(this);
+
             MSResolution.Init(ref graphics);
             MSResolution.SetVirtualResolution(1024, 768);
             MSResolution.SetResolution(1024, 768, false);
-            
-            //graphics.PreferMultiSampling = true;
 
+            //graphics.PreferMultiSampling = true;
+            
             Content.RootDirectory = "Content";
 
             IsMouseVisible = true;
@@ -78,6 +83,7 @@ namespace MoodSwingGame
             // TODO: Add your initialization logic here
 
             base.Initialize();
+
             oldKeyboardState = Keyboard.GetState();
             oldMouseState = MSMouse.GetState();
             CurrentScreen = MSIntroScreen.getInstance();
@@ -91,6 +97,7 @@ namespace MoodSwingGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            notifier = new MSNotifier(Content.Load<Texture2D>("BlackOut"), new Rectangle(0, 400, 1024, 100), Shape.RECTANGULAR, SpriteBatch, this);
         }
 
         /// <summary>
@@ -113,6 +120,7 @@ namespace MoodSwingGame
             if (IsActive)
             {
                 CurrentScreen.Update(gameTime);
+                MoodSwing.GetInstance().Notifier.HandleMouseInput(oldMouseState);
 
                 KeyboardState newKeyBoardState = Keyboard.GetState();
                 MouseState newMouseState = MSMouse.GetState();
@@ -121,8 +129,8 @@ namespace MoodSwingGame
                 oldKeyboardState = newKeyBoardState;
                 prevGameTime = gameTime;
                 base.Update(gameTime);
-
-                MSNotifier.GetInstance().Update(gameTime);
+                
+                MoodSwing.GetInstance().Notifier.Update(gameTime);
 
                 if (MediaPlayer.State == MediaState.Stopped && !(CurrentScreen is MSIntroScreen))
                 {
@@ -146,7 +154,7 @@ namespace MoodSwingGame
 
             //int frameRate = (int)(1 / (float)gameTime.ElapsedGameTime.TotalSeconds);
             //spriteBatch.DrawString(Content.Load<SpriteFont>("ToolTipFont"), "Frame Rate: " + frameRate + "fps", new Vector2(5, 735), Color.White);
-            MSNotifier.GetInstance().Draw(gameTime);
+            MoodSwing.GetInstance().Notifier.Draw(gameTime);
             spriteBatch.End();
             base.Draw(gameTime);
         }

@@ -107,7 +107,7 @@ namespace MoodSwingGUI
 
         public override void HandleKeyboardInput(KeyboardState oldKeyboardState)
         {
-            if (HasFocus)
+            if (HasKeyboardFocus)
             {
                 KeyboardState currentState = Keyboard.GetState();
                 if (currentState.IsKeyDown(Keys.Enter) && oldKeyboardState.IsKeyUp(Keys.Enter))

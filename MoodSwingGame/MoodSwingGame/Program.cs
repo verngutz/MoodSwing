@@ -9,7 +9,6 @@ namespace MoodSwingGame
         /// </summary>
         static void Main(string[] args)
         {
-
             MoodSwing.GetInstance().Run();
         }
     }

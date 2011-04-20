@@ -95,6 +95,7 @@
     <Compile Include="MSAnimatingButton.cs" />
     <Compile Include="MSButton.cs" />
     <Compile Include="MSCheckbox.cs" />
+    <Compile Include="MSFacadePanel.cs" />
     <Compile Include="MSGUIClickable.cs" />
     <Compile Include="MSGUIKeyboardParser.cs" />
     <Compile Include="MSGUIObject.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="MSGUIUnclickable.cs" />
     <Compile Include="MSImageHolder.cs" />
     <Compile Include="MSMiscellaneous.cs" />
+    <Compile Include="MSNotifier.cs" />
     <Compile Include="MSPanel.cs" />
     <Compile Include="MSProgressBar.cs" />
     <Compile Include="MSRadioButtonGroup.cs" />

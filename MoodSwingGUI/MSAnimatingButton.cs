@@ -17,20 +17,20 @@ namespace MoodSwingGUI
 {
     public class MSAnimatingButton : MSButton
     {
-        public MS2DParametricEquation UnhoverPosition { set; get; }
-        public MS2DParametricEquation UnhoverSize { set; get; }
+        public MS2DParametricCurve UnhoverPosition { set; get; }
+        public MS2DParametricCurve UnhoverSize { set; get; }
         private int unhoverTimer;
 
-        public MS2DParametricEquation HoverPosition { set; get; }
-        public MS2DParametricEquation HoverSize { set; get; }
+        public MS2DParametricCurve HoverPosition { set; get; }
+        public MS2DParametricCurve HoverSize { set; get; }
         private int hoverTimer;
 
-        public MS2DParametricEquation ClickPosition { set; get; }
-        public MS2DParametricEquation ClickSize { set; get; }
+        public MS2DParametricCurve ClickPosition { set; get; }
+        public MS2DParametricCurve ClickSize { set; get; }
         private int clickTimer;
 
-        public MS2DParametricEquation UnclickPosition { set; get; }
-        public MS2DParametricEquation UnclickSize { set; get; }
+        public MS2DParametricCurve UnclickPosition { set; get; }
+        public MS2DParametricCurve UnclickSize { set; get; }
         private bool unclickTriggered;
         private int unclickTimer;
         public int UnclickTimerLimit { set; get; }
