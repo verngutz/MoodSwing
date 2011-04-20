@@ -461,9 +461,10 @@ namespace MoodSwingGame
 
         public override void Update(GameTime gameTime)
         {
-            
             base.Update(gameTime);
             HandleMouseInput((Game as MoodSwing).OldMouseState);
+
+            MSStory.Update(this.gameTime, Game);
 
             if (!Paused)
             {

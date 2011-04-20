@@ -193,7 +193,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ParametricCurves\ShiftLeft75.cs" />
-    <Compile Include="Story\Story.cs" />
+    <Compile Include="Story\MSStoryEvent.cs" />
+    <Compile Include="Story\MSStory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

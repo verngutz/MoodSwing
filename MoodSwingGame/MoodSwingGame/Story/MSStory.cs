@@ -33,7 +33,7 @@ namespace MoodSwingGame
             timeActiveEvents.Remove(e);
         }
 
-        private static void Update(int time, Game game)
+        public static void Update(double gameTime, Game game)
         {
             foreach(MSStoryEvent e in timeActiveEvents)
             {
@@ -44,7 +44,7 @@ namespace MoodSwingGame
             }
 
             /**
-             * if (time == 0)
+             * if (gameTime == 0)
              * {
              *      AddStoryEvent(blah); etc. etc.
              * }
