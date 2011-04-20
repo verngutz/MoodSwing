@@ -38,11 +38,14 @@ namespace MoodSwingCoreComponents
         public Vector3 NormalizedViewVector { get { return normalizedViewVector; } }
 
         private Vector3 shiftVector;
+        private Vector3 startingLookAt;
 
         private Vector3 pitchAxis;
-        private float minAngle;
-        private float currAngle;
-        private float maxAngle;
+        private float minPitchAngle;
+        private float maxPitchAngle;
+
+        private float currYawRotation;
+        private float currPitchAngle;
         private const int SHIFT_SPEED = 3;
 
         private const int ZOOM_MIN_DIST = 200;
@@ -69,10 +72,11 @@ namespace MoodSwingCoreComponents
             camera.viewVector = camera.cameraPosition - camera.cameraTarget;
             camera.normalizedViewVector = Vector3.Normalize(camera.viewVector);
             camera.shiftVector = initialLookAt;
+            camera.startingLookAt = initialLookAt;
             camera.AdjustPitchAxis();
-            camera.currAngle = (float)Math.PI / 2 - (float)Math.Acos((float)(Vector3.Dot(camera.viewVector, camera.upCamera) / (float)(Vector3.Distance(camera.cameraPosition, camera.cameraTarget))));
-            camera.minAngle = (float)Math.PI / 9;
-            camera.maxAngle = (float)Math.PI / 2;
+            camera.currPitchAngle = (float)Math.PI / 2 - (float)Math.Acos((float)(Vector3.Dot(camera.viewVector, camera.upCamera) / (float)(Vector3.Distance(camera.cameraPosition, camera.cameraTarget))));
+            camera.minPitchAngle = (float)Math.PI / 9;
+            camera.maxPitchAngle = (float)Math.PI / 2;
             camera.projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), viewport.AspectRatio, 5, 5000);
             camera.frustum = new BoundingFrustum(camera.GetView() * camera.ProjectionMatrix);
 
@@ -80,6 +84,7 @@ namespace MoodSwingCoreComponents
             Vector3 transformedReference = Vector3.Transform(camera.cameraPosition, yawRotationMatrix);
             camera.upCamera = Vector3.Transform(camera.upCamera, yawRotationMatrix);
             camera.cameraPosition = transformedReference;
+            camera.currYawRotation = rotation / 0.005f;
         }
 
         public void AdjustPitchAxis()
@@ -103,12 +108,12 @@ namespace MoodSwingCoreComponents
             Vector3 transformedReference;
             
             float pitchRotationAngle = angle * rotation.Y;
-            if (currAngle + pitchRotationAngle > maxAngle)
-                pitchRotationAngle = maxAngle - currAngle;
-            else if (currAngle + pitchRotationAngle < minAngle)
-                pitchRotationAngle = minAngle - currAngle;
+            if (currPitchAngle + pitchRotationAngle > maxPitchAngle)
+                pitchRotationAngle = maxPitchAngle - currPitchAngle;
+            else if (currPitchAngle + pitchRotationAngle < minPitchAngle)
+                pitchRotationAngle = minPitchAngle - currPitchAngle;
             Matrix pitchRotationMatrix = Matrix.CreateFromAxisAngle(pitchAxis, pitchRotationAngle);
-            currAngle += pitchRotationAngle;
+            currPitchAngle += pitchRotationAngle;
             transformedReference = Vector3.Transform(cameraPosition, pitchRotationMatrix);
             Vector3 transformedUpCamera = Vector3.Transform(upCamera, pitchRotationMatrix);
             upCamera = transformedUpCamera;
@@ -117,6 +122,7 @@ namespace MoodSwingCoreComponents
             transformedReference = Vector3.Transform(transformedReference, yawRotationMatrix);
             upCamera = Vector3.Transform(upCamera, yawRotationMatrix);
             cameraPosition = transformedReference;
+            currYawRotation += rotation.X;
 
             viewVector = cameraPosition - cameraTarget;
             normalizedViewVector = Vector3.Normalize(viewVector);
@@ -145,8 +151,9 @@ namespace MoodSwingCoreComponents
         /// Shifts the camera position closer to the camera target.
         /// </summary>
         /// <param name="direction"> 1 to zoom closer. -1 to zoom further.</param>
-        public void Zoom(int direction)
+        public bool Zoom(int direction)
         {
+            bool toReturn = false;
             Vector3 newCameraPosition = cameraPosition - (normalizedViewVector * direction * ZOOM_SPEED);
             if (Vector3.Distance(newCameraPosition, cameraTarget) >= ZOOM_MIN_DIST &&
                 Vector3.Distance(newCameraPosition, cameraTarget) <= ZOOM_MAX_DIST)
@@ -154,8 +161,20 @@ namespace MoodSwingCoreComponents
                 cameraPosition = newCameraPosition;
                 viewVector = cameraPosition - cameraTarget;
                 normalizedViewVector = Vector3.Normalize(viewVector);
+                toReturn = true;
             }
             frustum = new BoundingFrustum(camera.GetView() * camera.ProjectionMatrix);
+
+            return toReturn;
+        }
+
+
+        public void BirdsEyeView()
+        {
+            shiftVector = startingLookAt;
+            Rotate( new Vector2(-currYawRotation, (float)(Math.PI/.005)));
+            while (Zoom(-1)) { }
+            currYawRotation = 0;
         }
     }
 }

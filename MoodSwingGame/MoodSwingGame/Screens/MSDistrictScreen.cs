@@ -57,9 +57,14 @@ namespace MoodSwingGame
         private MSNotifier storyBox;
         public MSNotifier StoryBox { get { return storyBox; } }
 
+        private double gameTime;
+        private double lastTotalRunTime;
+
         public MSDistrictScreen(String filename, MoodSwing game)
             : base(game.Content.Load<Texture2D>("districtmap"), 0, 0, 0, 0, game.SpriteBatch, game)
         {
+            gameTime = 0;
+            lastTotalRunTime = 0;
             map = new MSMap(filename);
             MSCamera.initialize((game as MoodSwing).GraphicsDevice.Viewport,
                 MSDistrictHall.getInstance().Position, MSDistrictHall.getInstance().Rotation);
@@ -365,6 +370,7 @@ namespace MoodSwingGame
                 if (unit is MSMobber)
                 {
                     MSMobber mobber = unit as MSMobber;
+
                     //This is where the position for the MoodFace gets updated when it goes out of bounds
                     Rectangle boundingRectangle = mobber.MoodFace.BoundingRectangle;
                     Vector2 position = mobber.MoodFace.Position;
@@ -455,14 +461,17 @@ namespace MoodSwingGame
 
         public override void Update(GameTime gameTime)
         {
+            
             base.Update(gameTime);
             HandleMouseInput((Game as MoodSwing).OldMouseState);
 
             if (!Paused)
             {
+                this.gameTime += gameTime.TotalGameTime.TotalSeconds - lastTotalRunTime;
+                HandleKeyboardInput(MoodSwing.GetInstance().OldKeyboardState);
                 map.Update(gameTime);
                 resourceManager.Update(gameTime);
-                MSUnit person = unitHandler.TryForBaby(map, gameTime);
+                MSUnit person = unitHandler.TryForBaby(map, (int)this.gameTime);
 
                 moodManager.Update(gameTime);
                 unitHandler.Update(map);
@@ -480,12 +489,14 @@ namespace MoodSwingGame
                 totalVolunteers.Text = resourceManager.TotalVolunteers + "/" + resourceManager.VolunteerCapacity;
                 funds.Text = resourceManager.Funds + "";
             }
+
+            lastTotalRunTime = gameTime.TotalGameTime.TotalSeconds;
         }
 
         public void PickFrom3DWorld()
         {
             MS3DTile tile = map.PickFrom3DWorld();
-            if (tile is MSChangeableBuilding && (tile as MSChangeableBuilding).State == MSChangeableBuildingState.BUYABLE)
+            if (tile is MSChangeableBuilding && (tile as MSChangeableBuilding).State == MSChangeableBuildingState.IDLE)
             {
                 string texturePath = "";
                 Point sourcePoint = new Point();
@@ -692,6 +703,15 @@ namespace MoodSwingGame
         public override bool HandleMouseInput(MouseState oldMouseState)
         {
             return this.HandleMouseInput(oldMouseState, true);
+        }
+
+        public override void HandleKeyboardInput(KeyboardState oldKeyboardState)
+        {
+            if (oldKeyboardState.IsKeyDown(Keys.T) && Keyboard.GetState().IsKeyUp(Keys.T))
+            {
+                MSCamera.GetInstance().BirdsEyeView();
+            }
+            base.HandleKeyboardInput(oldKeyboardState);
         }
     }
 }

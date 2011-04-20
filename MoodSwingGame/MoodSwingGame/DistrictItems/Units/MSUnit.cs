@@ -20,6 +20,8 @@ namespace MoodSwingGame
     {
         public static Vector3 UNITZ_POSITION = new Vector3(0, 0, MSMap.floorheight / 2 - 4);
 
+
+        public float Rotation { get; set; }
         public bool IsStopped { get; set; }
         protected bool isMobbable;
         public bool IsMobbable { get { return isMobbable; } }
@@ -40,12 +42,33 @@ namespace MoodSwingGame
 
         public Vector2 TileCoordinate { get { return new Vector2((int)(Math.Round(position.Y / MSMap.tileDimension)), (int)(Math.Round((position.X / MSMap.tileDimension)))); } }
 
-        public MSUnit(Vector3 position, Node path, MSMap map, bool mobbable) 
-            : base(position) 
+        public MSUnit(Vector3 position, Node path, MSMap map, bool mobbable)
+            : base(position)
         {
             this.path = path;
             this.map = map;
             this.isMobbable = mobbable;
+            Vector2 coord = Vector2.Zero;
+
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            foreach (ModelMesh mesh in Model.Meshes)
+            {
+                foreach (ModelMeshPart part in mesh.MeshParts)
+                {
+                    foreach (BasicEffect effect in mesh.Effects)
+                    {
+                        effect.EnableDefaultLighting();
+                        effect.World = Matrix.CreateRotationZ(Rotation) * this.WorldMatrix;
+                        effect.View = MSCamera.GetInstance().GetView();
+                        effect.Projection = MSCamera.GetInstance().ProjectionMatrix;
+
+                    }
+                }
+                mesh.Draw();
+            }
         }
 
         public virtual void Walk(MS3DTile[,] mapArray)
@@ -67,6 +90,7 @@ namespace MoodSwingGame
 
                 }
 
+                //destination reached
                 if (Vector2.Distance(pos, destination) < 1)
                 {
                     this.position = new Vector3(destination.X, destination.Y, position.Z);
@@ -76,6 +100,7 @@ namespace MoodSwingGame
                         Vector3 targetVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
                         destination = new Vector2(targetVector3.X + MSRandom.random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4,
                                                       targetVector3.Y + MSRandom.random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4);
+
                     }
                     else destinationReached = true;
                 }
@@ -86,7 +111,12 @@ namespace MoodSwingGame
                     this.position += new Vector3(unit.X * Speed, unit.Y * Speed, 0);
                 }
 
+                Vector2 direction = destination - new Vector2(position.X, position.Y);
+                float angle = (float)Math.Atan2(direction.Y, direction.X);
+                Rotation = angle;
+
                 adjustWorldMatrix();
+                
             }
         }
 
@@ -107,21 +137,6 @@ namespace MoodSwingGame
          * "The current vertex declaration does not include all the elements required by the current vertex shader. 
          * TextureCoordinate0 is missing."
          */
-
-        public override void Draw(GameTime gameTime)
-        {
-            foreach (ModelMesh mesh in Model.Meshes)
-            {
-                foreach (BasicEffect e in mesh.Effects)
-                {
-                    e.World = world;
-                    e.View = MSCamera.GetInstance().GetView();
-                    e.Projection = MSCamera.GetInstance().ProjectionMatrix;
-                    e.EnableDefaultLighting();
-                }
-                mesh.Draw();
-            }
-        }
 
         /**
          * End Temporary Solution
