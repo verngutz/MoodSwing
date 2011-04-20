@@ -365,6 +365,7 @@ namespace MoodSwingGame
                 if (unit is MSMobber)
                 {
                     MSMobber mobber = unit as MSMobber;
+
                     //This is where the position for the MoodFace gets updated when it goes out of bounds
                     Rectangle boundingRectangle = mobber.MoodFace.BoundingRectangle;
                     Vector2 position = mobber.MoodFace.Position;
@@ -460,6 +461,7 @@ namespace MoodSwingGame
 
             if (!Paused)
             {
+                HandleKeyboardInput(MoodSwing.GetInstance().OldKeyboardState);
                 map.Update(gameTime);
                 resourceManager.Update(gameTime);
                 MSUnit person = unitHandler.TryForBaby(map, gameTime);
@@ -692,6 +694,15 @@ namespace MoodSwingGame
         public override bool HandleMouseInput(MouseState oldMouseState)
         {
             return this.HandleMouseInput(oldMouseState, true);
+        }
+
+        public override void HandleKeyboardInput(KeyboardState oldKeyboardState)
+        {
+            if (oldKeyboardState.IsKeyDown(Keys.T) && Keyboard.GetState().IsKeyUp(Keys.T))
+            {
+                MSCamera.GetInstance().BirdsEyeView();
+            }
+            base.HandleKeyboardInput(oldKeyboardState);
         }
     }
 }
