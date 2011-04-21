@@ -53,6 +53,7 @@ namespace MoodSwingGame
                 Path = pathToOffice;
                 target.IsStopped = false;
                 target.Follow(this);
+                (target as MSMobber).SetSpeed(this.Speed);
             }
             else if (DestinationReached && !isGoingToMobber)
             {

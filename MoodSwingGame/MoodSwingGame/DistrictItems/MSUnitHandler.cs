@@ -76,9 +76,9 @@ namespace MoodSwingGame
         {
 
             int timeDiff = gameTime - prevCheckpoint;
-
-            if ( (timeDiff == 30 &&  !IsRelativelyPeaceful) ||
-                 (timeDiff == 20 && IsRelativelyPeaceful) )
+            System.Console.WriteLine(timeDiff);
+            if ( (timeDiff >= 30 &&  !IsRelativelyPeaceful) ||
+                 (timeDiff >= 20 && IsRelativelyPeaceful) )
             {
                 IsRelativelyPeaceful = !IsRelativelyPeaceful;
                 prevCheckpoint = gameTime;
@@ -90,8 +90,6 @@ namespace MoodSwingGame
                 }
                 MOB_MDG_OPTIONS++;
 
-                System.Console.WriteLine(MOB_WAVE_PROBABILITY);
-                System.Console.WriteLine(IsRelativelyPeaceful);
             }
 
             int mob_probability = MOB_WAVE_PROBABILITY ;

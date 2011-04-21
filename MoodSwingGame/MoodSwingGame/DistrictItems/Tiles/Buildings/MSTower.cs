@@ -63,7 +63,7 @@ namespace MoodSwingGame
                             distance++;
                             path = path.next;
                         }
-                        System.Console.WriteLine(distance);
+
                         if (tile is MSRoad &&
                             distance <= Stats.GetRange())
                         {
