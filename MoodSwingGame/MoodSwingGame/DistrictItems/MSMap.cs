@@ -215,9 +215,8 @@ namespace MoodSwingGame
                     int y = (int)visiting.Position.Y;
 
                     //Check tile above.
-                    if (y + 1 < columns && mapArray[x, y + 1] is MSRoad && 
-                        (!(mapArray[x,y] is MSBuilding) || mapArray[x,y].Rotation == MathHelper.ToRadians(0)) ||
-                        (!getRoadFirst && new Vector2(x, y + 1) == end) && mapArray[x, y + 1].Rotation == MathHelper.ToRadians(180))
+                    if (y + 1 < columns && (mapArray[x, y + 1] is MSRoad ||
+                        (!getRoadFirst && new Vector2(x, y + 1) == end)) )
                     {
                         if (hasVis[x, y + 1] == false)
                         {
@@ -238,9 +237,8 @@ namespace MoodSwingGame
                     }
 
                     //check tile below
-                    if (y - 1 >= 0 && mapArray[x, y - 1] is MSRoad &&
-                        (!(mapArray[x, y] is MSBuilding) || mapArray[x, y].Rotation == MathHelper.ToRadians(180)) ||
-                        (!getRoadFirst && new Vector2(x, y - 1) == end && mapArray[x, y - 1].Rotation == MathHelper.ToRadians(0)))
+                    if (y - 1 >= 0 && (mapArray[x, y - 1] is MSRoad ||
+                        (!getRoadFirst && new Vector2(x, y - 1) == end)))
                     {
                         if (hasVis[x, y - 1] == false)
                         {
@@ -261,9 +259,8 @@ namespace MoodSwingGame
                     }
 
                     //check tile on the right
-                    if (x + 1 < rows && mapArray[x + 1, y] is MSRoad &&
-                        (!(mapArray[x, y] is MSBuilding) || mapArray[x, y].Rotation == MathHelper.ToRadians(90)) ||
-                        (!getRoadFirst && new Vector2(x + 1, y) == end && mapArray[x + 1, y].Rotation == MathHelper.ToRadians(270)))
+                    if (x + 1 < rows &&( mapArray[x + 1, y] is MSRoad ||
+                        (!getRoadFirst && new Vector2(x + 1, y) == end)))
                     {
                         if (hasVis[x + 1, y] == false)
                         {
@@ -284,9 +281,8 @@ namespace MoodSwingGame
                     }
 
                     //check tile on the left
-                    if (x - 1 >= 0 && mapArray[x - 1, y] is MSRoad &&
-                        (!(mapArray[x, y] is MSBuilding) || mapArray[x, y].Rotation == MathHelper.ToRadians(270)) ||
-                        (!getRoadFirst && new Vector2(x - 1, y) == end && mapArray[x - 1, y].Rotation == MathHelper.ToRadians(90)))
+                    if (x - 1 >= 0 && (mapArray[x - 1, y] is MSRoad ||
+                        (!getRoadFirst && new Vector2(x - 1, y) == end)))
                     {
                         if (hasVis[x - 1, y] == false)
                         {

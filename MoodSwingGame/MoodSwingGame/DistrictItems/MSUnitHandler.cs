@@ -77,9 +77,6 @@ namespace MoodSwingGame
 
             int timeDiff = gameTime - prevCheckpoint;
 
-            System.Console.WriteLine(gameTime);
-            System.Console.WriteLine("TIME Diff: " + timeDiff);
-
             if ( (timeDiff == 30 &&  !IsRelativelyPeaceful) ||
                  (timeDiff == 20 && IsRelativelyPeaceful) )
             {
