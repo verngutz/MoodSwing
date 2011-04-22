@@ -31,8 +31,8 @@ namespace MoodSwingGame
         public static MSUnitHandler Restart()
         {
             unitHandler = new MSUnitHandler();
-            unitHandler.MOB_WAVE_PROBABILITY = 7;
-            unitHandler.MOB_STABLE_PROBABILITY = 0;
+            unitHandler.MOB_WAVE_PROBABILITY = 17;
+            unitHandler.MOB_STABLE_PROBABILITY = 20;
             unitHandler.MOB_MDG_OPTIONS = 1;
             return unitHandler;
         }
@@ -41,8 +41,8 @@ namespace MoodSwingGame
         private const int MAX_PROBABILITY = 10000;
         private const int MAX_MOB_PROBABILITY = 100;
         //probability constant that handles mob generation
-        private int MOB_WAVE_PROBABILITY = 7;
-        private int MOB_STABLE_PROBABILITY = 0;
+        private int MOB_WAVE_PROBABILITY = 17;
+        private int MOB_STABLE_PROBABILITY = 20;
         private const int MOB_RECRUIT_RATE = 3000;
         private const int MOB_RECRUIT_DISTANCE = 15;
         //probability of kind of mdg in mob

@@ -18,6 +18,21 @@ namespace MoodSwingGame
 {
     public class MSMobber : MSUnit
     {
+        private List<MSMobber> mobList;
+        public List<MSMobber> GetMobList() { return mobList; }
+        public void AddMember(MSMobber m) { mobList.Add(m); }
+
+        public override void Follow(MSUnit unit)
+        {
+            base.Follow(unit);
+            MSMobber mobber = unit as MSMobber;
+            mobber.AddMember(this);
+            foreach (MSMobber m in mobber.GetMobList())
+            {
+                mobList.Add(m);
+            }
+        }
+
         protected override Model Model
         {
             get { return Game.Content.Load<Model>("personBump"); }
@@ -47,6 +62,7 @@ namespace MoodSwingGame
         public MSMobber(Vector3 position, Node path, MSMap map, MSMilleniumDevelopmentGoal concern)
             : base(position, path, map, false)
         {
+            mobList = new List<MSMobber>();
             this.concern = concern;
             string moodFaceAssetName = "";
             switch (concern)
@@ -82,15 +98,33 @@ namespace MoodSwingGame
         }
 
 
-        private float minDistance = 15;
-        private float maxDistance = 25;
+        private float minFollowDistance = 25;
+        private float maxFollowDistance = 45;
         public override void Walk(MS3DTile[,] mapArray, List<MSUnit> units )
         {
             if (!IsStopped)
             {
                 Vector2 pos = new Vector2(Position.X, Position.Y);
+                Vector2 toFollowVector = Vector2.Zero;
 
-                if (destination == Vector2.Zero)
+                //looks for a Mobber to follow
+                foreach( MSMobber mobber in this.mobList ) 
+                {
+                    Vector2 mobPos = new Vector2(mobber.Position.X, mobber.Position.Y);
+                    float dist = Vector2.Distance(mobPos, pos);
+                    if (dist < maxFollowDistance && dist > minFollowDistance )
+                    {
+                        float deltaAngle = Math.Abs(mobber.Rotation - this.Rotation);
+                        if (deltaAngle <= MathHelper.ToRadians(10) &&
+                            MSRandom.random.Next(4) == 1 )
+                        {
+                            toFollowVector = mobPos;
+                        }
+                    }
+                    
+                }
+
+                if (destination == Vector2.Zero && toFollowVector == Vector2.Zero )
                 {
                     Vector3 targetVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
                     if (path.next != null || path.parent != null)
@@ -101,24 +135,49 @@ namespace MoodSwingGame
                     else
                         destination = new Vector2(targetVector3.X, targetVector3.Y);
 
+                    targetRotation = (float)Math.Atan2(destination.Y - position.Y, destination.X - position.X);
+
+                }
+                //change target to position of mobber to follow
+                else if( toFollowVector != Vector2.Zero )
+                {
+                    destination = toFollowVector;
+                    targetRotation = (float)Math.Atan2(destination.Y - position.Y, destination.X - position.X);
+
                 }
 
                 //destination reached
                 if (Vector2.Distance(pos, destination) < 1)
                 {
                     this.position = new Vector3(destination.X, destination.Y, position.Z);
-                    if (path.next != null)
-                    {
-                        path = path.next;
-                        Vector3 targetVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
-                        destination = new Vector2(targetVector3.X + MSRandom.random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4,
-                                                      targetVector3.Y + MSRandom.random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4);
+                    Vector3 origDestVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
+                    Vector2 origDestination = new Vector2(origDestVector3.X, origDestVector3.Y);
+                    float toCheckAngle = (float)Math.Atan2(origDestination.X - position.X, origDestination.Y - position.Y);
+                    float deltaToCheckAngle = Math.Abs(toCheckAngle - this.Rotation);
 
-                        Vector2 direction = destination - new Vector2(position.X, position.Y);
-                        float angle = (float)Math.Atan2(direction.Y, direction.X);
-                        targetRotation = angle;
+                    //check if original destination is on-route
+                    if ( deltaToCheckAngle <= MathHelper.ToRadians(10) )
+                    {
+                        destination = origDestination;
+                        targetRotation = toCheckAngle;
                     }
-                    else destinationReached = true;
+                    //if it entails going back, check next path instead.
+                    else
+                    {
+                        if (path.next != null)
+                        {
+                            path = path.next;
+                            Vector3 targetVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
+                            destination = new Vector2(targetVector3.X + MSRandom.random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4,
+                                                          targetVector3.Y + MSRandom.random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4);
+
+                            Vector2 direction = destination - new Vector2(position.X, position.Y);
+                            float angle = (float)Math.Atan2(direction.Y, direction.X);
+                            targetRotation = angle;
+                        }
+                        else destinationReached = true;
+                    }
+                    
                 }
                 else
                 {
@@ -128,6 +187,7 @@ namespace MoodSwingGame
                 }
 
 
+                //smooth rotation
                 if (Math.Abs(targetRotation - Rotation) > 0.01)
                 {
                     float delta = targetRotation - Rotation;
