@@ -76,7 +76,7 @@ namespace MoodSwingGame
             }
         }
 
-        public virtual void Walk(MS3DTile[,] mapArray)
+        public virtual void Walk(MS3DTile[,] mapArray, List<MSUnit> units )
         {
             if (!IsStopped)
             {
@@ -123,7 +123,14 @@ namespace MoodSwingGame
                 if (Math.Abs(targetRotation - Rotation) > 0.01)
                 {
                     float delta = targetRotation - Rotation;
-                    if (delta > Math.PI) delta = delta - 2 * (float)Math.PI ;
+                    while (delta < -MathHelper.Pi)
+                    {
+                        delta += MathHelper.TwoPi;
+                    }
+                    while (delta > MathHelper.Pi)
+                    {
+                        delta -= MathHelper.TwoPi;
+                    }
                     Rotation += delta * rotationSpeed;
                 }
 

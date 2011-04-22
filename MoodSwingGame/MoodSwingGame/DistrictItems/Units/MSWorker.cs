@@ -39,9 +39,9 @@ namespace MoodSwingGame
             toBuild = to_build;
         }
 
-        public override void Walk(MS3DTile[,] mapArray)
+        public override void Walk(MS3DTile[,] mapArray, List<MSUnit> units)
         {
-            base.Walk(mapArray);
+            base.Walk(mapArray, units);
 
             if (DestinationReached)
             {

@@ -43,9 +43,9 @@ namespace MoodSwingGame
             this.pathToOffice = path_to_office;
         }
 
-        public override void Walk(MS3DTile[,] map_array)
+        public override void Walk(MS3DTile[,] map_array, List<MSUnit> units )
         {
- 	        base.Walk(map_array);
+ 	        base.Walk(map_array, units);
 
             if (DestinationReached && isGoingToMobber)
             {

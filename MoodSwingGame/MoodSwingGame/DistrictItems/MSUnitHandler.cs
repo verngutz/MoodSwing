@@ -204,7 +204,7 @@ namespace MoodSwingGame
             foreach (MSUnit unit in units)
             {
                 if (!unit.DestinationReached)
-                    unit.Walk(map.MapArray);
+                    unit.Walk(map.MapArray, units);
 
                 else
                     toRemove.Add(unit);

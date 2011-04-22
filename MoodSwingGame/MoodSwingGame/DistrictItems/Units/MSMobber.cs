@@ -81,7 +81,10 @@ namespace MoodSwingGame
             moodFace = new MSImageHolder(new Rectangle((int)screenProjection.X - 50, (int)screenProjection.Y - 50, 50, 50), Game.Content.Load<Texture2D>(moodFaceAssetName), MoodSwing.GetInstance().SpriteBatch, Game);
         }
 
-        public override void Walk(MS3DTile[,] mapArray)
+
+        private float minDistance = 15;
+        private float maxDistance = 25;
+        public override void Walk(MS3DTile[,] mapArray, List<MSUnit> units )
         {
             if (!IsStopped)
             {
@@ -128,7 +131,14 @@ namespace MoodSwingGame
                 if (Math.Abs(targetRotation - Rotation) > 0.01)
                 {
                     float delta = targetRotation - Rotation;
-                    if (delta > Math.PI) delta = delta - 2 * (float)Math.PI;
+                    while (delta < -MathHelper.Pi)
+                    {
+                        delta += MathHelper.TwoPi;
+                    }
+                    while (delta > MathHelper.Pi)
+                    {
+                        delta -= MathHelper.TwoPi;
+                    }
                     Rotation += delta * rotationSpeed;
                 }
 
