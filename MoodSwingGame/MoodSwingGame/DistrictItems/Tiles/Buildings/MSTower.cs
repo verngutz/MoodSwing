@@ -50,9 +50,20 @@ namespace MoodSwingGame
                             unit.Position.Y
                         );
 
-                        Vector2 tileCoords = unit.TileCoordinate;
-                        int distance = Math.Abs(Row - (int)tileCoords.X) + Math.Abs(Column - (int)tileCoords.Y);
-                        MS3DTile tile = (unit as MSMobber).Map.MapArray[(int)tileCoords.X, (int)tileCoords.Y];
+                        Vector2 targetTileCoords = unit.TileCoordinate;
+                        //int distance = Math.Abs(Row - (int)targetTileCoords.X) + Math.Abs(Column - (int)targetTileCoords.Y);
+                        MS3DTile tile = (unit as MSMobber).Map.MapArray[(int)targetTileCoords.X, (int)targetTileCoords.Y];
+
+                        Node path = 
+                            (MoodSwing.GetInstance().CurrentScreen as MSDistrictScreen).Map.GetPath(TileCoordinate, targetTileCoords);
+
+                        int distance = 0;
+                        while (path.next != null)
+                        {
+                            distance++;
+                            path = path.next;
+                        }
+
                         if (tile is MSRoad &&
                             distance <= Stats.GetRange())
                         {
