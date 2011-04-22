@@ -88,7 +88,6 @@ namespace MoodSwingGame
                     MOB_WAVE_PROBABILITY += (MOB_WAVE_PROBABILITY + "").Length;
                 }
                 MOB_MDG_OPTIONS++;
-
             }
 
             int mob_probability = MOB_WAVE_PROBABILITY ;

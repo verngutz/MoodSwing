@@ -49,7 +49,7 @@ namespace MoodSwingGame
 
                     MSUnitHandler.GetInstance().SendWorkers(screen.Map, toBuy,
                         MSFundraiserStats.GetInstance().GetVolunteerCost());
-                    screen.RemoveComponent(screen.BuyDialog);
+                    screen.RemoveComponent(screen.CircularPicker);
                 }
                 else
                 {

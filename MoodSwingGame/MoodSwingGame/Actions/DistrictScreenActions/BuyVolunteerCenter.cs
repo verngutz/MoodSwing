@@ -47,7 +47,7 @@ namespace MoodSwingGame
 
                 MSUnitHandler.GetInstance().SendWorkers(screen.Map, toBuy, 1);
                 MSUnitHandler.GetInstance().IsLeaderBusy = true;
-                screen.RemoveComponent(screen.BuyDialog);
+                screen.RemoveComponent(screen.CircularPicker);
             }
             else if (MSUnitHandler.GetInstance().IsLeaderBusy)
             {

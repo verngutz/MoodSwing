@@ -19,13 +19,23 @@ namespace MoodSwingGame
 {
     public class MSDistrictScreen : MSScreen
     {
+        public enum DistrictName
+        {
+            FEAR,
+            SADNESS,
+            ANGER
+        }
+
+        private DistrictName name;
+        public DistrictName Name { get { return name; } }
+
         private MSMap map;
         public MSMap Map { get { return map; } }
 
         //private List<MSCitizen> citizensList;
         private MSUnitHandler unitHandler;
         private MSMoodManager moodManager;
-        public MSCircularPicker BuyDialog { set; get; }
+        public MSCircularPicker CircularPicker { set; get; }
 
         private MSResourceManager resourceManager;
         public MSResourceManager ResourceManager { get { return resourceManager; } }
@@ -60,12 +70,28 @@ namespace MoodSwingGame
         private double gameTime;
         private double lastTotalRunTime;
 
-        public MSDistrictScreen(String filename, MoodSwing game)
+        public MSDistrictScreen(DistrictName district, MoodSwing game)
             : base(game.Content.Load<Texture2D>("districtmap"), 0, 0, 0, 0, game.SpriteBatch, game)
         {
             gameTime = 0;
             lastTotalRunTime = 0;
+
+            this.name = district;
+            String filename = "";
+            if (district == DistrictName.FEAR)
+            {
+                filename = @"Content\Pandalevel2.txt";
+            }
+            else if (district == DistrictName.SADNESS)
+            {
+                filename = @"Content\Pandalevel2.txt";
+            }
+            else if (district == DistrictName.ANGER)
+            {
+                filename = @"Content\Pandalevel2.txt";
+            }
             map = new MSMap(filename);
+
             MSCamera.initialize((game as MoodSwing).GraphicsDevice.Viewport,
                 MSDistrictHall.getInstance().Position, MSDistrictHall.getInstance().Rotation);
             //citizensList = new List<MSCitizen>();
@@ -352,6 +378,7 @@ namespace MoodSwingGame
             AddComponent(translucentOverlay);
 
             Paused = false;
+            MSStory.Init();
         }
 
         public override void Draw(GameTime gameTime)
@@ -530,7 +557,7 @@ namespace MoodSwingGame
 
                 if (tile is MSAbandonedBuilding)
                 {
-                    BuyDialog = new MSAbandonedBuildingPicker
+                    CircularPicker = new MSAbandonedBuildingPicker
                     (
                         Game.Content.Load<Texture2D>(texturePath),
                         new Rectangle(sourcePoint.X, sourcePoint.Y, 260, 260),
@@ -542,9 +569,120 @@ namespace MoodSwingGame
 
                 else if (tile is MSTower)
                 {
-                    if ((tile as MSTower).Stats is MSGeneralHelpCenterStats)
+                    MSTowerStats stats = (tile as MSTower).Stats;
+                    if (stats is MSChildrensHospitalStats)
                     {
-                        BuyDialog = new MSGeneralHelpCenterPicker
+                        CircularPicker = new MSChildrensHospitalPicker
+                        (
+                            Game.Content.Load<Texture2D>(texturePath),
+                            new Rectangle(sourcePoint.X, sourcePoint.Y, 260, 260),
+                            tile as MSTower,
+                            spriteBatch,
+                            Game
+                        );
+                    }
+                    else if (stats is MSEnvironmentalCenterStats)
+                    {
+                        CircularPicker = new MSEnvironmentalCenterPicker
+                        (
+                            Game.Content.Load<Texture2D>(texturePath),
+                            new Rectangle(sourcePoint.X, sourcePoint.Y, 260, 260),
+                            tile as MSTower,
+                            spriteBatch,
+                            Game
+                        );
+                    }
+                    else if (stats is MSEpidemicsClinicStats)
+                    {
+                        CircularPicker = new MSEpidemicsClinicPicker
+                        (
+                            Game.Content.Load<Texture2D>(texturePath),
+                            new Rectangle(sourcePoint.X, sourcePoint.Y, 260, 260),
+                            tile as MSTower,
+                            spriteBatch,
+                            Game
+                        );
+                    }
+                    else if (stats is MSGeneralClinicStats)
+                    {
+                        CircularPicker = new MSGeneralClinicPicker
+                        (
+                            Game.Content.Load<Texture2D>(texturePath),
+                            new Rectangle(sourcePoint.X, sourcePoint.Y, 260, 260),
+                            tile as MSTower,
+                            spriteBatch,
+                            Game
+                        );
+                    }
+                    else if (stats is MSGeneralRefugeStats)
+                    {
+                        CircularPicker = new MSGeneralRefugePicker
+                        (
+                            Game.Content.Load<Texture2D>(texturePath),
+                            new Rectangle(sourcePoint.X, sourcePoint.Y, 260, 260),
+                            tile as MSTower,
+                            spriteBatch,
+                            Game
+                        );
+                    }
+                    else if (stats is MSInternationalCenterStats)
+                    {
+                        CircularPicker = new MSInternationalCenterPicker
+                        (
+                            Game.Content.Load<Texture2D>(texturePath),
+                            new Rectangle(sourcePoint.X, sourcePoint.Y, 260, 260),
+                            tile as MSTower,
+                            spriteBatch,
+                            Game
+                        );
+                    }
+                    else if (stats is MSPovertyRefugeStats)
+                    {
+                        CircularPicker = new MSPovertyRefugePicker
+                        (
+                            Game.Content.Load<Texture2D>(texturePath),
+                            new Rectangle(sourcePoint.X, sourcePoint.Y, 260, 260),
+                            tile as MSTower,
+                            spriteBatch,
+                            Game
+                        );
+                    }
+                    else if (stats is MSPublicAssistanceCenterStats)
+                    {
+                        CircularPicker = new MSPublicAssistanceCenterPicker
+                        (
+                            Game.Content.Load<Texture2D>(texturePath),
+                            new Rectangle(sourcePoint.X, sourcePoint.Y, 260, 260),
+                            tile as MSTower,
+                            spriteBatch,
+                            Game
+                        );
+                    }
+                    else if (stats is MSTutorialCenterStats)
+                    {
+                        CircularPicker = new MSTutorialCenterPicker
+                        (
+                            Game.Content.Load<Texture2D>(texturePath),
+                            new Rectangle(sourcePoint.X, sourcePoint.Y, 260, 260),
+                            tile as MSTower,
+                            spriteBatch,
+                            Game
+                        );
+                    }
+                    else if (stats is MSWomenCenterStats)
+                    {
+                        CircularPicker = new MSWomenCenterPicker
+                        (
+                            Game.Content.Load<Texture2D>(texturePath),
+                            new Rectangle(sourcePoint.X, sourcePoint.Y, 260, 260),
+                            tile as MSTower,
+                            spriteBatch,
+                            Game
+                        );
+                    }
+                    else if (stats is MSWomensHealthCenterStats)
+                    {
+                        CircularPicker = new MSWomensHealthCenterPicker
                         (
                             Game.Content.Load<Texture2D>(texturePath),
                             new Rectangle(sourcePoint.X, sourcePoint.Y, 260, 260),
@@ -555,7 +693,7 @@ namespace MoodSwingGame
                     }
                 }
 
-                AddComponent(BuyDialog);
+                AddComponent(CircularPicker);
             }
         }
 
@@ -566,12 +704,12 @@ namespace MoodSwingGame
 
             if (base.HandleMouseInput(oldMouseState, careIfMouseHasMoved))
             {
-                if (BuyDialog != null)
+                if (CircularPicker != null)
                 {
-                    RemoveComponent(BuyDialog);
-                    BuyDialog.UnhighlightSelected();
+                    RemoveComponent(CircularPicker);
+                    CircularPicker.UnhighlightSelected();
                 }
-                BuyDialog = null;
+                CircularPicker = null;
                 return false;
             }
 
@@ -579,12 +717,12 @@ namespace MoodSwingGame
             else if (!Paused && newMouseState.LeftButton == ButtonState.Released
                     && oldMouseState.LeftButton == ButtonState.Pressed)
             {
-                if (BuyDialog != null)
+                if (CircularPicker != null)
                 {
-                    RemoveComponent(BuyDialog);
-                    BuyDialog.UnhighlightSelected();
+                    RemoveComponent(CircularPicker);
+                    CircularPicker.UnhighlightSelected();
                 }
-                BuyDialog = null;
+                CircularPicker = null;
                 PickFrom3DWorld();
             }
 
@@ -610,12 +748,12 @@ namespace MoodSwingGame
                 movement *= 100;
                 movement /= distance;
                 camera.Rotate(movement);
-                if (BuyDialog != null)
+                if (CircularPicker != null)
                 {
-                    RemoveComponent(BuyDialog);
-                    BuyDialog.UnhighlightSelected();
+                    RemoveComponent(CircularPicker);
+                    CircularPicker.UnhighlightSelected();
                 }
-                BuyDialog = null;
+                CircularPicker = null;
             }
             else if (!Paused)
             {
@@ -690,12 +828,12 @@ namespace MoodSwingGame
 
                 if (hasMoved)
                 {
-                    if (BuyDialog != null)
+                    if (CircularPicker != null)
                     {
-                        RemoveComponent(BuyDialog);
-                        BuyDialog.UnhighlightSelected();
+                        RemoveComponent(CircularPicker);
+                        CircularPicker.UnhighlightSelected();
                     }
-                    BuyDialog = null;
+                    CircularPicker = null;
                 }
             }
             return false;
