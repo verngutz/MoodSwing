@@ -5,22 +5,22 @@ using System.Text;
 
 namespace MoodSwingGame
 {
-    public class MSTutorialCenterStats : MSTowerStats
+    public class MSImmunizationOutreachStats : MSTowerStats
     {
-        private static MSTutorialCenterStats instance;
-        public static MSTutorialCenterStats GetInstance()
+        private static MSImmunizationOutreachStats instance;
+        public static MSImmunizationOutreachStats GetInstance()
         {
             if (instance == null)
-                instance = new MSTutorialCenterStats();
+                instance = new MSImmunizationOutreachStats();
             return instance;
         }
 
-        private MSTutorialCenterStats()
+        private MSImmunizationOutreachStats()
         {
             povertyEffectiveness = false;
-            educationEffectiveness = true;
+            educationEffectiveness = false;
             genderEqualityEffectiveness = false;
-            childHealthEffectiveness = false;
+            childHealthEffectiveness = true;
             maternalHealthEffectiveness = false;
             hivAidsEffectiveness = false;
             environmentEffectiveness = false;

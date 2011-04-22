@@ -19,9 +19,18 @@ namespace MoodSwingGame
 {
     public static class MSStory
     {
-        //public static bool eventVariable1; etc. etc.
+        public static bool StoryEnabled { set; get; }
 
-        private static List<MSStoryEvent> timeActiveEvents = new List<MSStoryEvent>();
+        private static List<MSStoryEvent> timeActiveEvents;
+        private static List<MSStoryEvent> eventsToRemove;
+
+        public static void Init()
+        {
+            timeActiveEvents = new List<MSStoryEvent>();
+            eventsToRemove = new List<MSStoryEvent>();
+            AddStoryEvent(new Welcome());
+            StoryEnabled = false;
+        }
 
         public static void AddStoryEvent(MSStoryEvent e)
         {
@@ -30,25 +39,28 @@ namespace MoodSwingGame
 
         public static void RemoveStoryEvent(MSStoryEvent e)
         {
-            timeActiveEvents.Remove(e);
+            eventsToRemove.Add(e);
         }
 
         public static void Update(double gameTime, Game game)
         {
-            foreach(MSStoryEvent e in timeActiveEvents)
+            if (StoryEnabled)
             {
-                if (e.Enabled())
+                foreach (MSStoryEvent e in timeActiveEvents)
                 {
-                    e.PerformAction(game);
+                    if (e.Enabled())
+                    {
+                        e.PerformAction(game);
+                    }
                 }
-            }
 
-            /**
-             * if (gameTime == 0)
-             * {
-             *      AddStoryEvent(blah); etc. etc.
-             * }
-             */
+                foreach (MSStoryEvent e in eventsToRemove)
+                {
+                    timeActiveEvents.Remove(e);
+                }
+
+                eventsToRemove.Clear();
+            }
         }
     }
 }

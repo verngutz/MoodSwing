@@ -44,7 +44,7 @@ namespace MoodSwingGame
                     toBuy.StartBuildProcess(toBuildStats.GetVolunteerCost(), futureSelf);
 
                     MSUnitHandler.GetInstance().SendWorkers(screen.Map, toBuy, toBuildStats.GetVolunteerCost());
-                    screen.RemoveComponent(screen.BuyDialog);
+                    screen.RemoveComponent(screen.CircularPicker);
                 }
                 else
                 {

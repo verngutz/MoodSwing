@@ -37,22 +37,6 @@ namespace MoodSwingGame
                 Alignment.TOP_CENTER
             );
 
-            MSImageHolder bucksIcon = new MSImageHolder
-            (
-                new Rectangle(0, 0, 40, 24),
-                Game.Content.Load<Texture2D>("BuyDialog/bucks"),
-                SpriteBatch,
-                Game
-            );
-
-            MSImageHolder gingerBreadManIcon = new MSImageHolder
-            (
-                new Rectangle(0, 0, 20, 26),
-                Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
-                SpriteBatch,
-                Game
-            );
-
             #region Volunteer Center Tool Tip
             MSToolTip volunteerCenterToolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
 
@@ -218,7 +202,7 @@ namespace MoodSwingGame
                 new MSUnresizingLabel
                 (
                     new Point(0, 0),
-                    MSChildHealthCenterStats.GetInstance().GetFundsCost().ToString(),
+                    MSPublicAssistanceCenterStats.GetInstance().GetFundsCost().ToString(),
                     Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
@@ -235,7 +219,7 @@ namespace MoodSwingGame
                 new MSUnresizingLabel
                 (
                     new Point(0, 0),
-                    MSChildHealthCenterStats.GetInstance().GetVolunteerCost().ToString(),
+                    MSPublicAssistanceCenterStats.GetInstance().GetVolunteerCost().ToString(),
                     Game.Content.Load<SpriteFont>("BuyDialog"),
                     Color.Black,
                     null,
@@ -247,7 +231,7 @@ namespace MoodSwingGame
             #endregion
 
             AddComponent(new MSButton(null,
-                new BuyTower(toBuy, MSGeneralHelpCenterStats.GetInstance()),
+                new BuyTower(toBuy, MSPublicAssistanceCenterStats.GetInstance()),
                 new Rectangle(boundingRectangle.X, boundingRectangle.Y + 38, 73, 93),
                 Game.Content.Load<Texture2D>("BuyDialog/1"),
                 Game.Content.Load<Texture2D>("BuyDialog/1clicked"),

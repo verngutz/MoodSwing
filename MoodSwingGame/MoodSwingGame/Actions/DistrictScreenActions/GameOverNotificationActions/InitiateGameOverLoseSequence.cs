@@ -24,8 +24,8 @@ namespace MoodSwingGame
             MSDistrictScreen screen = ((game as MoodSwing).CurrentScreen as MSDistrictScreen);
             screen.Paused = true;
             screen.BlackOutPanel.Visible = true;
-            if (screen.BuyDialog != null)
-                screen.RemoveComponent(screen.BuyDialog);
+            if (screen.CircularPicker != null)
+                screen.RemoveComponent(screen.CircularPicker);
             screen.HandleMouseInput((game as MoodSwing).OldMouseState, false);
             MoodSwing.GetInstance().Notifier.ClearNotifications();
             MoodSwing.GetInstance().Notifier.InvokeNotification("Try Again\nThe city went into a wild uproar before you could achieve the Millenium Development Goals.");

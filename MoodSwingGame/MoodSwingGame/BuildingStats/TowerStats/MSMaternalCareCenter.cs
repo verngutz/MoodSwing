@@ -5,24 +5,24 @@ using System.Text;
 
 namespace MoodSwingGame
 {
-    public class MSHivAidsHealthCenterStats : MSTowerStats
+    public class MSMaternalCareCenterStats : MSTowerStats
     {
-        private static MSHivAidsHealthCenterStats instance;
-        public static MSHivAidsHealthCenterStats GetInstance()
+        private static MSMaternalCareCenterStats instance;
+        public static MSMaternalCareCenterStats GetInstance()
         {
             if (instance == null)
-                instance = new MSHivAidsHealthCenterStats();
+                instance = new MSMaternalCareCenterStats();
             return instance;
         }
 
-        private MSHivAidsHealthCenterStats()
+        private MSMaternalCareCenterStats()
         {
             povertyEffectiveness = false;
             educationEffectiveness = false;
             genderEqualityEffectiveness = false;
             childHealthEffectiveness = false;
-            maternalHealthEffectiveness = false;
-            hivAidsEffectiveness = true;
+            maternalHealthEffectiveness = true;
+            hivAidsEffectiveness = false;
             environmentEffectiveness = false;
             globalEffectiveness = false;
         }

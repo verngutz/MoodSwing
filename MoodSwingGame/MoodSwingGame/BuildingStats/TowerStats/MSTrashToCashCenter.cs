@@ -5,25 +5,25 @@ using System.Text;
 
 namespace MoodSwingGame
 {
-    public class MSTutorialCenterStats : MSTowerStats
+    public class MSTrashToCashCenterStats : MSTowerStats
     {
-        private static MSTutorialCenterStats instance;
-        public static MSTutorialCenterStats GetInstance()
+        private static MSTrashToCashCenterStats instance;
+        public static MSTrashToCashCenterStats GetInstance()
         {
             if (instance == null)
-                instance = new MSTutorialCenterStats();
+                instance = new MSTrashToCashCenterStats();
             return instance;
         }
 
-        private MSTutorialCenterStats()
+        private MSTrashToCashCenterStats()
         {
             povertyEffectiveness = false;
-            educationEffectiveness = true;
+            educationEffectiveness = false;
             genderEqualityEffectiveness = false;
             childHealthEffectiveness = false;
             maternalHealthEffectiveness = false;
             hivAidsEffectiveness = false;
-            environmentEffectiveness = false;
+            environmentEffectiveness = true;
             globalEffectiveness = false;
         }
     }

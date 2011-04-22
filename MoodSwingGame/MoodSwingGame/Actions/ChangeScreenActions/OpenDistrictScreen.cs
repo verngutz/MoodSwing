@@ -23,7 +23,7 @@ namespace MoodSwingGame
         {
             MoodSwing moodSwing = (MoodSwing)game;
             moodSwing.CurrentScreen.ResetHovers();
-            moodSwing.CurrentScreen = new MSDistrictScreen(@"Content\Pandalevel2.txt", moodSwing);
+            moodSwing.CurrentScreen = new MSDistrictScreen(MSDistrictScreen.DistrictName.FEAR, moodSwing);
             MoodSwing.GetInstance().Notifier.ClearNotifications();
             MoodSwing.GetInstance().Notifier.FreezeNotifications = false;
         }

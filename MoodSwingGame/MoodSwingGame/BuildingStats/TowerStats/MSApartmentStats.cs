@@ -5,20 +5,20 @@ using System.Text;
 
 namespace MoodSwingGame
 {
-    public class MSTutorialCenterStats : MSTowerStats
+    public class MSApartmentStats : MSTowerStats
     {
-        private static MSTutorialCenterStats instance;
-        public static MSTutorialCenterStats GetInstance()
+        private static MSApartmentStats instance;
+        public static MSApartmentStats GetInstance()
         {
             if (instance == null)
-                instance = new MSTutorialCenterStats();
+                instance = new MSApartmentStats();
             return instance;
         }
 
-        private MSTutorialCenterStats()
+        private MSApartmentStats()
         {
-            povertyEffectiveness = false;
-            educationEffectiveness = true;
+            povertyEffectiveness = true;
+            educationEffectiveness = false;
             genderEqualityEffectiveness = false;
             childHealthEffectiveness = false;
             maternalHealthEffectiveness = false;

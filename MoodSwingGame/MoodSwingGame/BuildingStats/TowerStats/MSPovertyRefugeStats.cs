@@ -5,17 +5,17 @@ using System.Text;
 
 namespace MoodSwingGame
 {
-    public class MSFoodCenterStats : MSTowerStats
+    public class MSPovertyRefugeStats : MSTowerStats
     {
-        private static MSFoodCenterStats instance;
-        public static MSFoodCenterStats GetInstance()
+        private static MSPovertyRefugeStats instance;
+        public static MSPovertyRefugeStats GetInstance()
         {
             if (instance == null)
-                instance = new MSFoodCenterStats();
+                instance = new MSPovertyRefugeStats();
             return instance;
         }
 
-        private MSFoodCenterStats()
+        private MSPovertyRefugeStats()
         {
             povertyEffectiveness = true;
             educationEffectiveness = false;
