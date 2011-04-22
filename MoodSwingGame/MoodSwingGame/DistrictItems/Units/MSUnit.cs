@@ -29,19 +29,22 @@ namespace MoodSwingGame
         protected MSMap map;
         public MSMap Map { get { return map; } }
 
-        private Node path;
+        protected Node path;
         public Node Path { get { return path; } set { path = value; destination = Vector2.Zero; destinationReached = false; } }
 
-        private Vector2 destination;
+        protected Vector2 destination;
         public Vector2 Destination { get { return destination; } }
 
-        private bool destinationReached;
+        protected bool destinationReached;
         public virtual bool DestinationReached { get { return destinationReached; } }
 
         protected abstract float Speed { get; }
 
         public Vector2 TileCoordinate { get { return new Vector2((int)(Math.Round(position.Y / MSMap.tileDimension)), (int)(Math.Round((position.X / MSMap.tileDimension)))); } }
 
+
+        protected float targetRotation;
+        protected float rotationSpeed;
         public MSUnit(Vector3 position, Node path, MSMap map, bool mobbable)
             : base(position)
         {
@@ -49,6 +52,8 @@ namespace MoodSwingGame
             this.map = map;
             this.isMobbable = mobbable;
             Vector2 coord = Vector2.Zero;
+            targetRotation = 0f;
+            rotationSpeed = 0.1f;
 
         }
 
@@ -101,6 +106,9 @@ namespace MoodSwingGame
                         destination = new Vector2(targetVector3.X + MSRandom.random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4,
                                                       targetVector3.Y + MSRandom.random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4);
 
+                        Vector2 direction = destination - new Vector2(position.X, position.Y);
+                        float angle = (float)Math.Atan2(direction.Y, direction.X);
+                        targetRotation = angle;
                     }
                     else destinationReached = true;
                 }
@@ -111,12 +119,16 @@ namespace MoodSwingGame
                     this.position += new Vector3(unit.X * Speed, unit.Y * Speed, 0);
                 }
 
-                Vector2 direction = destination - new Vector2(position.X, position.Y);
-                float angle = (float)Math.Atan2(direction.Y, direction.X);
-                Rotation = angle;
+
+                if (Math.Abs(targetRotation - Rotation) > 0.01)
+                {
+                    float delta = targetRotation - Rotation;
+                    if (delta > Math.PI) delta = delta - 2 * (float)Math.PI ;
+                    Rotation += delta * rotationSpeed;
+                }
 
                 adjustWorldMatrix();
-                
+
             }
         }
 

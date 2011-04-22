@@ -44,7 +44,7 @@ namespace MoodSwingGame
         private int MOB_WAVE_PROBABILITY = 7;
         private int MOB_STABLE_PROBABILITY = 0;
         private const int MOB_RECRUIT_RATE = 3000;
-        private const int MOB_RECRUIT_DISTANCE = 5;
+        private const int MOB_RECRUIT_DISTANCE = 15;
         //probability of kind of mdg in mob
         private int MOB_MDG_OPTIONS = 1;
         private const int MOB_MDG_DELAY = 4;
@@ -76,7 +76,6 @@ namespace MoodSwingGame
         {
 
             int timeDiff = gameTime - prevCheckpoint;
-            System.Console.WriteLine(timeDiff);
             if ( (timeDiff >= 30 &&  !IsRelativelyPeaceful) ||
                  (timeDiff >= 20 && IsRelativelyPeaceful) )
             {
