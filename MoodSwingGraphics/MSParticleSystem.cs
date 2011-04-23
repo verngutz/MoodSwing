@@ -37,7 +37,6 @@ namespace MoodSwingGraphics
         // animation entirely in the vertex shader: no per-particle CPU work required!
         Effect particleEffect;
 
-
         // Shortcuts for accessing frequently changed effect parameters.
         EffectParameter effectViewParameter;
         EffectParameter effectProjectionParameter;
@@ -238,6 +237,8 @@ namespace MoodSwingGraphics
             
             particleEffect = effect.Clone();
 
+            Effect moodEffect = content.Load<Effect>("Mood");
+
             EffectParameterCollection parameters = particleEffect.Parameters;
 
             // Look up shortcuts for parameters that change every frame.
@@ -402,6 +403,7 @@ namespace MoodSwingGraphics
                 device.Indices = indexBuffer;
 
                 // Activate the particle effect.
+
                 foreach (EffectPass pass in particleEffect.CurrentTechnique.Passes)
                 {
                     pass.Apply();

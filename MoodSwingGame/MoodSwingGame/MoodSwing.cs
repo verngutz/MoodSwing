@@ -79,6 +79,7 @@ namespace MoodSwingGame
             Components.Add(bloom);
 
             smokeParticles = new MSSmokePlumeParticleSystem(this);
+            smokeParticles.DrawOrder = -1;
             Components.Add(smokeParticles);
         }
 
@@ -135,7 +136,9 @@ namespace MoodSwingGame
 
                 oldKeyboardState = newKeyBoardState;
                 prevGameTime = gameTime;
-                base.Update(gameTime);
+
+                if(!(CurrentScreen is MSDistrictScreen) || !(CurrentScreen as MSDistrictScreen).Paused)
+                    base.Update(gameTime);
                 
                 MoodSwing.GetInstance().Notifier.Update(gameTime);
 

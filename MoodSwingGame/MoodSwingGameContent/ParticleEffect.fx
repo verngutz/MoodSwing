@@ -193,10 +193,6 @@ technique Particles
 {
     pass P0
     {
-		CullMode = CCW;
-        ZEnable = TRUE;
-        ZWriteEnable = TRUE;
-
         VertexShader = compile vs_2_0 ParticleVertexShader();
         PixelShader = compile ps_2_0 ParticlePixelShader();
     }
