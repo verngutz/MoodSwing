@@ -71,6 +71,7 @@ namespace MoodSwingGame
         private double gameTime;
         private double lastTotalRunTime;
 
+
         public MSDistrictScreen(DistrictName district, MoodSwing game)
             : base(game.Content.Load<Texture2D>("districtmap"), 0, 0, 0, 0, game.SpriteBatch, game)
         {
@@ -380,6 +381,7 @@ namespace MoodSwingGame
 
             Paused = false;
             MSStory.Init();
+
         }
 
         public override void Draw(GameTime gameTime)
@@ -397,73 +399,14 @@ namespace MoodSwingGame
             if(bloom.Visible)
                 bloom.Draw(gameTime);
 
+            (Game as MoodSwing).SmokeParticles.SetCamera(MSCamera.GetInstance().GetView(), MSCamera.GetInstance().ProjectionMatrix);
+            (Game as MoodSwing).SmokeParticles.Draw(gameTime);
+
             SpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, MSResolution.GetTransformationMatrix());
             foreach (MSUnit unit in unitHandler.Units)
-            {
                 if (unit is MSMobber)
-                {
-                    MSMobber mobber = unit as MSMobber;
+                    DrawMoodFace(unit as MSMobber); 
 
-                    //This is where the position for the MoodFace gets updated when it goes out of bounds
-                    Rectangle boundingRectangle = mobber.MoodFace.BoundingRectangle;
-                    Vector2 position = mobber.MoodFace.Position;
-                    SpriteEffects effect = SpriteEffects.None;
-
-                    if (position.X + 50 < 0 ||
-                        position.X + 50 + boundingRectangle.Width > MSResolution.VirtualWidth)
-                    {
-                        Vector3 left = MSCamera.GetInstance().Frustum.GetCorners()[4];
-                        Vector3 right = MSCamera.GetInstance().Frustum.GetCorners()[5];
-
-                        double distLeft = Vector3.Distance(left, unit.Position);
-                        double distRight = Vector3.Distance(right, unit.Position);
-                        if (distLeft < distRight)
-                        {
-                            position.X = 0;
-                            effect = SpriteEffects.FlipHorizontally;
-                        }
-                        else
-                        {
-                            position.X = MSResolution.VirtualWidth - boundingRectangle.Width;
-                        }
-                    }
-
-
-                    int maxY = 0;
-                    if (position.X >= 0 && position.X <= 465)
-                        maxY = (91 - 53) / 465 * (int)(position.X) + 53;
-                    else if (position.X > 465 && position.X < 540)
-                        maxY = 91;
-                    else if (position.X >= 540 && position.X <= 1024)
-                        maxY = (91 - 53) / (540 - 1024) * (int)(position.X - 1024) + 53;
-
-                    maxY += 20;
-
-                    if (position.Y < maxY ||
-                        position.Y + 50 + boundingRectangle.Height > MSResolution.VirtualHeight)
-                    {
-
-                        Vector3 top = MSCamera.GetInstance().Frustum.GetCorners()[4];
-                        Vector3 bottom = MSCamera.GetInstance().Frustum.GetCorners()[7];
-
-                        double distTop = Vector3.Distance(top, unit.Position);
-                        double distBottom = Vector3.Distance(bottom, unit.Position);
-
-                        if (distTop < distBottom)
-                        {
-                            effect = SpriteEffects.FlipVertically;
-                            position.Y = maxY;
-                        }
-                        else
-                        {
-                            position.Y = MSResolution.VirtualHeight - boundingRectangle.Height;
-                        }
-                    }
-
-                    boundingRectangle = new Rectangle((int)position.X, (int)position.Y, boundingRectangle.Width, boundingRectangle.Height);
-                    (Game as MoodSwing).SpriteBatch.Draw(mobber.MoodFace.Image, boundingRectangle, null, Color.White, 0, Vector2.Zero, effect, position.Y / MSResolution.VirtualHeight);
-                }
-            }
             SpriteBatch.End();
 
             SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, MSResolution.GetTransformationMatrix());
@@ -490,6 +433,68 @@ namespace MoodSwingGame
 
             if (currentHovered != null && currentHovered.ToolTip != null)
                 currentHovered.ToolTip.Draw(gameTime);
+        }
+
+        private void DrawMoodFace(MSMobber mobber)
+        {
+            //This is where the position for the MoodFace gets updated when it goes out of bounds
+            Rectangle boundingRectangle = mobber.MoodFace.BoundingRectangle;
+            Vector2 position = mobber.MoodFace.Position;
+            SpriteEffects effect = SpriteEffects.None;
+
+            if (position.X + 50 < 0 ||
+                position.X + 50 + boundingRectangle.Width > MSResolution.VirtualWidth)
+            {
+                Vector3 left = MSCamera.GetInstance().Frustum.GetCorners()[4];
+                Vector3 right = MSCamera.GetInstance().Frustum.GetCorners()[5];
+
+                double distLeft = Vector3.Distance(left, mobber.Position);
+                double distRight = Vector3.Distance(right, mobber.Position);
+                if (distLeft < distRight)
+                {
+                    position.X = 0;
+                    effect = SpriteEffects.FlipHorizontally;
+                }
+                else
+                {
+                    position.X = MSResolution.VirtualWidth - boundingRectangle.Width;
+                }
+            }
+
+
+            int maxY = 0;
+            if (position.X >= 0 && position.X <= 465)
+                maxY = (91 - 53) / 465 * (int)(position.X) + 53;
+            else if (position.X > 465 && position.X < 540)
+                maxY = 91;
+            else if (position.X >= 540 && position.X <= 1024)
+                maxY = (91 - 53) / (540 - 1024) * (int)(position.X - 1024) + 53;
+
+            maxY += 20;
+
+            if (position.Y < maxY ||
+                position.Y + 50 + boundingRectangle.Height > MSResolution.VirtualHeight)
+            {
+
+                Vector3 top = MSCamera.GetInstance().Frustum.GetCorners()[4];
+                Vector3 bottom = MSCamera.GetInstance().Frustum.GetCorners()[7];
+
+                double distTop = Vector3.Distance(top, mobber.Position);
+                double distBottom = Vector3.Distance(bottom, mobber.Position);
+
+                if (distTop < distBottom)
+                {
+                    effect = SpriteEffects.FlipVertically;
+                    position.Y = maxY;
+                }
+                else
+                {
+                    position.Y = MSResolution.VirtualHeight - boundingRectangle.Height;
+                }
+            }
+
+            boundingRectangle = new Rectangle((int)position.X, (int)position.Y, boundingRectangle.Width, boundingRectangle.Height);
+            SpriteBatch.Draw(mobber.MoodFace.Image, boundingRectangle, null, Color.White, 0, Vector2.Zero, effect, position.Y / MSResolution.VirtualHeight);
         }
 
         public override void Update(GameTime gameTime)

@@ -55,6 +55,9 @@ namespace MoodSwingGame
         private MSBloomComponent bloom;
         public MSBloomComponent Bloom { get { return bloom; } }
 
+        private MSSmokePlumeParticleSystem smokeParticles;
+        public MSSmokePlumeParticleSystem SmokeParticles { get { return smokeParticles; } }
+
         private MoodSwing()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -77,6 +80,9 @@ namespace MoodSwingGame
 
             bloom = new MSBloomComponent(this);
             Components.Add(bloom);
+
+            smokeParticles = new MSSmokePlumeParticleSystem(this);
+            Components.Add(smokeParticles);
         }
 
         /// <summary>
