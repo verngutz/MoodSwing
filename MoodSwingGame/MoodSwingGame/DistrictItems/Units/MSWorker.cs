@@ -29,7 +29,11 @@ namespace MoodSwingGame
             get { return Game.Content.Load<Texture2D>("MTextures/tao"); }
         }
 
-        protected override float Speed { get { return 0.65f; } }
+        public override float Speed 
+        { 
+            get { return 0.65f; }
+            set { throw new NotImplementedException(); }
+        }
 
         private MSChangeableBuilding toBuild;
 

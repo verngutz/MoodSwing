@@ -139,6 +139,7 @@
     <Compile Include="Actions\DistrictScreenActions\GameOverNotificationActions\InitiateGameOverLoseSequence.cs" />
     <Compile Include="Actions\DistrictScreenActions\GameOverNotificationActions\InitiateGameOverWinSequence.cs" />
     <Compile Include="Actions\OptionsScreenActions\ChangeResolution.cs" />
+    <Compile Include="Actions\OptionsScreenActions\ToggleBloom.cs" />
     <Compile Include="Actions\OptionsScreenActions\ToggleFullScreen.cs" />
     <Compile Include="BuildingStats\MSFundraiserStats.cs" />
     <Compile Include="BuildingStats\TowerStats\MSAntiretroviralCenterStats.cs" />
@@ -236,13 +237,18 @@
       <Project>{7D56E792-6966-4AAC-812B-2064A5C7810C}</Project>
       <Name>MoodSwingCoreComponents</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\MoodSwingGraphics\MoodSwingGraphics.csproj">
+      <Project>{72325D0E-CC91-490A-BA87-AB44E6738B1F}</Project>
+      <Name>MoodSwingGraphics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\MoodSwingGUI\MoodSwingGUI.csproj">
       <Project>{1675A2EB-DFAC-4CC5-93FD-512CC1450A3C}</Project>
       <Name>MoodSwingGUI</Name>
     </ProjectReference>
     <ProjectReference Include="..\MoodSwingGameContent\MoodSwingGameContent.contentproj">
-      <Name>MoodSwingGameContent</Name>
+      <Name>MoodSwingGameContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+      <Project>{BED0554A-8D39-43A8-92AC-2D4309F32110}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -28,7 +28,12 @@ namespace MoodSwingGame
             get { return Game.Content.Load<Texture2D>("MTextures/tao"); }
         }
 
-        protected override float Speed { get { return 0.35f; } }
+        private float speed = 0.35f;
+        public override float Speed 
+        { 
+            get { return speed; }
+            set { speed = value; }
+        }
 
         public MSCitizen(Vector3 position, Node path, MSMap map, bool is_mobbable) 
             : base(position, path, map, is_mobbable) { }

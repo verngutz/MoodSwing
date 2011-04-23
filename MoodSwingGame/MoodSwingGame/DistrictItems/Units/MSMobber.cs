@@ -29,15 +29,12 @@ namespace MoodSwingGame
         }
 
         private float speed = 0.3f;
-        protected override float Speed
+        public override float Speed
         {
             get { return speed; }
+            set { speed = value; }
         }
 
-        public void SetSpeed(float speed)
-        {
-            this.speed = speed;
-        }
         private MSMilleniumDevelopmentGoal concern;
         public MSMilleniumDevelopmentGoal Concern { get { return concern; } }
 
