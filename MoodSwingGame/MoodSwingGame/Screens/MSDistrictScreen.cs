@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework.Storage;
 
 using MoodSwingCoreComponents;
 using MoodSwingGUI;
+using MoodSwingGraphics;
 
 namespace MoodSwingGame
 {
@@ -383,6 +384,9 @@ namespace MoodSwingGame
 
         public override void Draw(GameTime gameTime)
         {
+            MSBloomComponent bloom = (Game as MoodSwing).Bloom;
+            if(bloom.Visible)
+                bloom.BeginDraw();
             if (background != null)
                 SpriteBatch.Draw(background, BoundingRectangle, highlight);
             SpriteBatch.End();
@@ -390,6 +394,8 @@ namespace MoodSwingGame
             map.Draw(gameTime);
             foreach (MSUnit unit in unitHandler.Units)
                 unit.Draw(gameTime);
+            if(bloom.Visible)
+                bloom.Draw(gameTime);
 
             SpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, MSResolution.GetTransformationMatrix());
             foreach (MSUnit unit in unitHandler.Units)

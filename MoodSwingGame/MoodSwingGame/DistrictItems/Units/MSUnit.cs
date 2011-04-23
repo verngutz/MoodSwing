@@ -38,7 +38,7 @@ namespace MoodSwingGame
         protected bool destinationReached;
         public virtual bool DestinationReached { get { return destinationReached; } }
 
-        protected abstract float Speed { get; }
+        public abstract float Speed { get; set; }
 
         public Vector2 TileCoordinate { get { return new Vector2((int)(Math.Round(position.Y / MSMap.tileDimension)), (int)(Math.Round((position.X / MSMap.tileDimension)))); } }
 

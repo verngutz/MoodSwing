@@ -98,7 +98,44 @@ namespace MoodSwingGame
                     Shape.RECTANGULAR,
                     SpriteBatch,
                     Game),
-                false), Alignment.TOP_LEFT);
+                 MSResolution.IsFullScreen), Alignment.TOP_LEFT);
+
+            graphicsTab.AddComponent(new MSCheckbox(
+                new MSButton(
+                    new MSResizingLabel(
+                        "Bloom",
+                        new Rectangle(50, 0, 100, 25),
+                        Game.Content.Load<SpriteFont>("Temp"),
+                        Color.White,
+                        SpriteBatch,
+                        Game),
+                    new ToggleBloom(true),
+                    new Rectangle(0, 0, 50, 50),
+                    game.Content.Load<Texture2D>("unchecked"),
+                    game.Content.Load<Texture2D>("uncheckedclicked"),
+                    game.Content.Load<Texture2D>("uncheckedhovered"),
+                    null,
+                    Shape.RECTANGULAR,
+                    SpriteBatch,
+                    Game),
+                new MSButton(
+                    new MSResizingLabel(
+                        "Bloom",
+                        new Rectangle(50, 0, 100, 25),
+                        Game.Content.Load<SpriteFont>("Temp"),
+                        Color.White,
+                        SpriteBatch,
+                        Game),
+                    new ToggleBloom(false),
+                    new Rectangle(0, 0, 50, 50),
+                    game.Content.Load<Texture2D>("checked"),
+                    game.Content.Load<Texture2D>("checkedclicked"),
+                    game.Content.Load<Texture2D>("checkedhovered"),
+                    null,
+                    Shape.RECTANGULAR,
+                    SpriteBatch,
+                    Game),
+                game.Bloom.Visible), Alignment.MIDDLE_LEFT);
 
             MSPanel resolutionPanel = new MSPanel(null, new Rectangle(500, 60, 150, 200), null, Shape.RECTANGULAR, SpriteBatch, Game);
             MSRadioButtonGroup resolution = new MSRadioButtonGroup(resolutionPanel);

@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework.Storage;
 
 using MoodSwingGUI;
 using MoodSwingCoreComponents;
+using MoodSwingGraphics;
 
 namespace MoodSwingGame
 {
@@ -51,6 +52,9 @@ namespace MoodSwingGame
         private MSNotifier notifier;
         public MSNotifier Notifier { get { return notifier; } }
 
+        private MSBloomComponent bloom;
+        public MSBloomComponent Bloom { get { return bloom; } }
+
         private MoodSwing()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -70,6 +74,9 @@ namespace MoodSwingGame
             bgm.Enqueue(Content.Load<Song>("MoodSwing"));
             bgm.Enqueue(Content.Load<Song>("7thFloor"));
             bgm.Enqueue(Content.Load<Song>("Bliss"));
+
+            bloom = new MSBloomComponent(this);
+            Components.Add(bloom);
         }
 
         /// <summary>
@@ -156,7 +163,7 @@ namespace MoodSwingGame
             //spriteBatch.DrawString(Content.Load<SpriteFont>("ToolTipFont"), "Frame Rate: " + frameRate + "fps", new Vector2(5, 735), Color.White);
             MoodSwing.GetInstance().Notifier.Draw(gameTime);
             spriteBatch.End();
-            base.Draw(gameTime);
+            //base.Draw(gameTime);
         }
     }
 }

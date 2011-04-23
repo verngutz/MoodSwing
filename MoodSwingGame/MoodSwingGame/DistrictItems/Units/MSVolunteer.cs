@@ -27,7 +27,11 @@ namespace MoodSwingGame
             get { return Game.Content.Load<Texture2D>("MTextures/tao"); }
         }
 
-        protected override float Speed { get { return 0.65f; } }
+        public override float Speed 
+        { 
+            get { return 0.65f; }
+            set { throw new NotImplementedException(); } 
+        }
 
         private MSUnit target;
         private MSTower office;
@@ -53,7 +57,7 @@ namespace MoodSwingGame
                 Path = pathToOffice;
                 target.IsStopped = false;
                 target.Follow(this);
-                (target as MSMobber).SetSpeed(this.Speed);
+                target.Speed = this.Speed;
             }
             else if (DestinationReached && !isGoingToMobber)
             {
