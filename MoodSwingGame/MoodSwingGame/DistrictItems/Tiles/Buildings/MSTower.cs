@@ -77,7 +77,8 @@ namespace MoodSwingGame
                                     unit.Position,
                                     unit.Path,
                                     unit.Map,
-                                    false
+                                    false,
+                                    0
                                 );
 
                                 unit = unitHandler.Units[i];

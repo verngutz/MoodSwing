@@ -59,8 +59,8 @@ namespace MoodSwingGame
         private MSImageHolder moodFace;
         public MSImageHolder MoodFace { get { return moodFace; } }
 
-        public MSMobber(Vector3 position, Node path, MSMap map, MSMilleniumDevelopmentGoal concern)
-            : base(position, path, map, false)
+        public MSMobber(Vector3 position, Node path, MSMap map, MSMilleniumDevelopmentGoal concern, float initRotation)
+            : base(position, path, map, false, initRotation)
         {
             mobList = new List<MSMobber>();
             this.concern = concern;
@@ -156,7 +156,7 @@ namespace MoodSwingGame
                     float deltaToCheckAngle = Math.Abs(toCheckAngle - this.Rotation);
 
                     //check if original destination is on-route
-                    if ( deltaToCheckAngle <= MathHelper.ToRadians(10) )
+                    if ( deltaToCheckAngle <= MathHelper.ToRadians(10)  && destination != origDestination )
                     {
                         destination = origDestination;
                         targetRotation = toCheckAngle;

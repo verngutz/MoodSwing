@@ -30,7 +30,7 @@ namespace MoodSwingGame
 
         protected override float Speed { get { return 0.35f; } }
 
-        public MSCitizen(Vector3 position, Node path, MSMap map, bool is_mobbable) 
-            : base(position, path, map, is_mobbable) { }
+        public MSCitizen(Vector3 position, Node path, MSMap map, bool is_mobbable, float initRotation)
+            : base(position, path, map, is_mobbable, initRotation) { }
     }
 }

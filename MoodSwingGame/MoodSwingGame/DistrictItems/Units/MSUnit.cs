@@ -45,7 +45,7 @@ namespace MoodSwingGame
 
         protected float targetRotation;
         protected float rotationSpeed;
-        public MSUnit(Vector3 position, Node path, MSMap map, bool mobbable)
+        public MSUnit(Vector3 position, Node path, MSMap map, bool mobbable, float initRotation)
             : base(position)
         {
             this.path = path;
@@ -54,6 +54,7 @@ namespace MoodSwingGame
             Vector2 coord = Vector2.Zero;
             targetRotation = 0f;
             rotationSpeed = 0.1f;
+            Rotation = initRotation;
             
         }
 

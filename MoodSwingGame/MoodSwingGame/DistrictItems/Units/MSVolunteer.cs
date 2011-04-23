@@ -34,8 +34,8 @@ namespace MoodSwingGame
         private bool isGoingToMobber;
         private Node pathToOffice;
 
-        public MSVolunteer(Vector3 position, Node path_to_mobber, Node path_to_office, MSUnit target, MSTower office, MSMap map)
-            : base(position, path_to_mobber, map, false)
+        public MSVolunteer(Vector3 position, Node path_to_mobber, Node path_to_office, MSUnit target, MSTower office, MSMap map, float initRotation)
+            : base(position, path_to_mobber, map, false, initRotation)
         {
             this.target = target;
             this.office = office;
