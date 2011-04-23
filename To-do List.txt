@@ -2,21 +2,79 @@
 Bugs
 ----
 
-Hurrah! No bugs at the moment.
-
-------------
-Things To Do
-------------
-
-Implement dialog box for "return to main menu" and "exit" confirmation.
-Add sound effects.
-Fix the HLSL code for lighting.
-I suggest a possibility of queueing another volunteer centre, but John Doe should only be at one place at a time.
-Add new 3d models.
-Level editor does not ensure that there should be a road adjacent to a building.
-Level editor does not ensure that there is a district hall.
-Level editor does not ensure that there is at least one volunteer centre.
-Level editor cannot load maps from a txt file.
-Restart Button after losing.
-BuyDialog is too big compared to buildings.
+Some mobbers suddenly stop at the middle of their paths.
 BuyDialog is not very responsive.
+
+---------------------------------
+Things To Do Arranged by Priority
+---------------------------------
+
+Add descriptive text to towers.
+
+Add booleans to disable MDG progress bars and branches of the tower heirarchy.
+
+Fix Fonts.
+
+Add new 3d models.
+
+Add story and tutorial.
+
+Add new 2d graphics.
+
+Add support for more districts, add more districts, and finalize districts design.
+
+Fix pedestrian simulation:
+	Flocking
+	Evading
+
+Fix smoke particle system.
+
+Game balancing.
+
+Finish necessary documentation.
+
+----------------------- Can Be Done After Round 2 --------------------------
+
+Add sound effects.
+
+I suggest a possibility of queueing another volunteer centre, but John Doe should only be at one place at a time.
+
+Improve Lighting and Graphics, Part 1:
+	Add specular lighting.
+	Add shadows.
+
+Restart Button after losing.
+
+BuyDialog is too big compared to buildings.
+
+Add animations.
+
+Finish options screen.
+
+Improve Lighting and Graphics, Part 2:
+	Add glow and environment maps.
+	Add reflection maps.
+	Implement Skybox.
+	Implement forest billboarding, city billboarding, or island + water.
+
+Fix Level Editor:
+	Level editor does not ensure that there should be a road adjacent to a building.
+	Level editor does not ensure that there is a district hall.
+	Level editor does not ensure that there is at least one volunteer centre.
+	Level editor cannot load maps from a txt file.
+
+Implement Mood Motifs (Dynamic Background Music).
+
+Add voices.
+
+Code Clean-up.
+
+Sandbox Mode.
+
+Multiplayer Game.
+
+In-game level editor.
+
+Optimize Code.
+
+XBox version.
