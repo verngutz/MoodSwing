@@ -54,7 +54,7 @@ namespace MoodSwingGame
             Vector2 coord = Vector2.Zero;
             targetRotation = 0f;
             rotationSpeed = 0.1f;
-
+            
         }
 
         public override void Draw(GameTime gameTime)
@@ -76,7 +76,7 @@ namespace MoodSwingGame
             }
         }
 
-        public virtual void Walk(MS3DTile[,] mapArray)
+        public virtual void Walk(MS3DTile[,] mapArray, List<MSUnit> units )
         {
             if (!IsStopped)
             {
@@ -93,6 +93,7 @@ namespace MoodSwingGame
                     else
                         destination = new Vector2(targetVector3.X, targetVector3.Y);
 
+                    targetRotation = (float)Math.Atan2(destination.Y, destination.X);
                 }
 
                 //destination reached
@@ -123,7 +124,14 @@ namespace MoodSwingGame
                 if (Math.Abs(targetRotation - Rotation) > 0.01)
                 {
                     float delta = targetRotation - Rotation;
-                    if (delta > Math.PI) delta = delta - 2 * (float)Math.PI ;
+                    while (delta < -MathHelper.Pi)
+                    {
+                        delta += MathHelper.TwoPi;
+                    }
+                    while (delta > MathHelper.Pi)
+                    {
+                        delta -= MathHelper.TwoPi;
+                    }
                     Rotation += delta * rotationSpeed;
                 }
 
@@ -132,7 +140,7 @@ namespace MoodSwingGame
             }
         }
 
-        public void Follow(MSUnit unit)
+        public virtual void Follow(MSUnit unit)
         {
             path = unit.Path;
             destination = unit.Destination;
