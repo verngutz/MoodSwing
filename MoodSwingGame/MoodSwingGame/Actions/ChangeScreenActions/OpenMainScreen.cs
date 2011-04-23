@@ -17,15 +17,20 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGame
 {
-    public class OpenMainScreen : MSAction
+    public class OpenMainScreen : ChangeScreen
     {
-        public void PerformAction(Game game)
+        private static OpenMainScreen instance;
+        public static OpenMainScreen GetInstance()
         {
-            MoodSwing moodSwing = (MoodSwing)game;
-            moodSwing.CurrentScreen.ResetHovers();
-            moodSwing.CurrentScreen = MSMainScreen.getInstance();
-            MSMoodManager.Reset();
+            if (instance == null)
+                instance = new OpenMainScreen();
+            return instance;
+        }
+        private OpenMainScreen() { }
 
+        public override void PerformAction(Game game)
+        {
+            base.ChangeToScreen(MSMainScreen.getInstance(), game);
             MoodSwing.GetInstance().Notifier.ClearNotifications();
             MoodSwing.GetInstance().Notifier.FreezeNotifications = false;
         }

@@ -25,7 +25,7 @@ namespace MoodSwingGame
             moodSwing.Notifier.FreezeNotifications = false;
             moodSwing.Notifier.HasFocus = false;
             moodSwing.Notifier.ClearComponents();
-            moodSwing.CurrentScreen.HasFocus = true;
+            moodSwing.Notifier.ReturnFocusTo(moodSwing.CurrentScreen);
         }
     }
 }

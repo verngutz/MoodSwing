@@ -18,8 +18,26 @@ namespace MoodSwingGUI
 {
     public class MSNotifier : MSFacadePanel
     {
-        public bool FreezeNotifications { set; get; }
         public int HoldTime { get; set; }
+
+        private bool freezeNotifications;
+        public bool FreezeNotifications
+        {
+            get { return freezeNotifications; }
+            set 
+            {
+                if (value == false)
+                {
+                    holdTimer = 0;
+                    if (fadeAlpha >= 255)
+                    {
+                        fadeIncrement = -5;
+                        fadeAlpha += fadeIncrement;
+                    }
+                }
+                freezeNotifications = value; 
+            }
+        }
 
         private Queue<string> notifications;
         private SpriteFont notificationFont;
@@ -27,6 +45,9 @@ namespace MoodSwingGUI
         private int fadeAlpha;
         private int fadeIncrement;
         private int holdTimer;
+
+        private bool dirtyParent;
+        private MSScreen parent;
 
         public MSNotifier(Texture2D background, Rectangle boundingRectangle, Shape shape, SpriteBatch spriteBatch, Game game)
             : base(background, boundingRectangle, null, shape, spriteBatch, game) 
@@ -38,21 +59,35 @@ namespace MoodSwingGUI
             fadeEffect = new Color(255, 255, 255, fadeAlpha);
             fadeIncrement = 5;
             holdTimer = 0;
+            dirtyParent = true;
+            FreezeNotifications = false;
         }
 
         public void ClearNotifications()
         {
             notifications = new Queue<string>();
+            if (!dirtyParent)
+            {
+                parent.HasFocus = true;
+                dirtyParent = true;
+            }
         }
 
-        public void InvokeNotification(string notification)
+        public void InvokeNotification(string message)
         {
-            notifications.Enqueue(notification);
+            notifications.Enqueue(message);
+        }
+
+        public void ReturnFocusTo(MSScreen parent)
+        {
+            this.parent = parent;
+            dirtyParent = false;
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
             if (fadeAlpha > 0 && notifications.Count > 0)
             {
                 fadeAlpha += fadeIncrement;
@@ -101,6 +136,11 @@ namespace MoodSwingGUI
                 notifications.Dequeue();
                 fadeIncrement = 5;
                 fadeAlpha = 1;
+                if (!dirtyParent)
+                {
+                    parent.HasFocus = true;
+                    dirtyParent = true;
+                }
             }
             fadeEffect.A = (byte)fadeAlpha;
         }

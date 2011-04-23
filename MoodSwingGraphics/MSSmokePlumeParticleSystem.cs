@@ -30,26 +30,23 @@ namespace MoodSwingGraphics
         {
             settings.TextureName = "smoke";
 
-            settings.MaxParticles = 600;
+            settings.MaxParticles = 10000;
 
             settings.Duration = TimeSpan.FromSeconds(2);
 
-            settings.MinHorizontalVelocity = -14;
-            settings.MaxHorizontalVelocity = 14;
+            settings.MinHorizontalVelocity = -2;
+            settings.MaxHorizontalVelocity = 2;
 
-            settings.MinVerticalVelocity = -14;
-            settings.MaxVerticalVelocity = 14;
+            settings.MinVerticalVelocity = -2;
+            settings.MaxVerticalVelocity = 2;
 
             // Create a wind effect by tilting the gravity vector sideways.
             settings.Gravity = new Vector3(0, 0, 0);
 
-            settings.EndVelocity = 0.75f;
+            settings.EndVelocity = 0;
 
-            settings.MinRotateSpeed = -1;
-            settings.MaxRotateSpeed = 1;
-
-            settings.MinStartSize = 50;
-            settings.MaxStartSize = 100;
+            settings.MinStartSize = 5;
+            settings.MaxStartSize = 10;
 
             settings.MinEndSize = 10;
             settings.MaxEndSize = 20;

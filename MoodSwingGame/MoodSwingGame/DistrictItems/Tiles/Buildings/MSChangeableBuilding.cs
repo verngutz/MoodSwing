@@ -75,7 +75,11 @@ namespace MoodSwingGame
             if (State == MSChangeableBuildingState.TRANSFORMING)
             {
                 timeCount = gameTime.TotalGameTime.TotalSeconds - startTime;
-                (Game as MoodSwing).SmokeParticles.AddParticle(position, Vector3.Zero);
+                (Game as MoodSwing).SmokeParticles.AddParticle(
+                    new Vector3(MathHelper.Lerp(BoundingBox.Min.X, BoundingBox.Max.X, (float)MSRandom.random.NextDouble()),
+                                MathHelper.Lerp(BoundingBox.Min.Y, BoundingBox.Max.Y, (float)MSRandom.random.NextDouble()),
+                                MathHelper.Lerp(BoundingBox.Min.Z, BoundingBox.Max.Z, (float)MSRandom.random.NextDouble())),
+                    Vector3.Zero);
                 if (timeCount >= buildTime) State = MSChangeableBuildingState.DONE;
             }
             base.Update(gameTime);

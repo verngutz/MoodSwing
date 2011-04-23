@@ -83,7 +83,7 @@ technique Mood
 {
     pass Pass1
     {
-		CullMode = NONE;
+		CullMode = CCW;
         ZEnable = TRUE;
         ZWriteEnable = TRUE;
         AlphaBlendEnable = FALSE;

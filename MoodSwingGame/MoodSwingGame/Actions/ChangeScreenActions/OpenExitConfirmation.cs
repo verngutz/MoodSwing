@@ -29,12 +29,16 @@ namespace MoodSwingGame
 
         public void PerformAction(Game game)
         {
+
             MoodSwing moodSwing = game as MoodSwing;
 
             MSScreen screen = moodSwing.CurrentScreen;
             screen.HasFocus = false;
             screen.ResetHovers();
             moodSwing.Notifier.HasFocus = true;
+            moodSwing.Notifier.FreezeNotifications = false;
+            moodSwing.Notifier.ClearComponents();
+            //moodSwing.Notifier.ClearNotifications();
 
             moodSwing.Notifier.AddComponent(
                 new MSButton(
@@ -71,7 +75,7 @@ namespace MoodSwingGame
                 moodSwing.Notifier.AddComponent(
                     new MSButton(
                         null,
-                        new OpenMainScreen(),
+                        OpenMainScreen.GetInstance(),
                         new Rectangle(0, 0, 50, 50),
                         moodSwing.Content.Load<Texture2D>("Okay"),
                         moodSwing.Content.Load<Texture2D>("OkayClicked"),

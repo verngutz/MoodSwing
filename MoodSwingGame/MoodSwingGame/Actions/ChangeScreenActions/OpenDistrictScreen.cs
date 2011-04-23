@@ -17,13 +17,17 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGame
 {
-    public class OpenDistrictScreen : MSAction
+    public class OpenDistrictScreen : ChangeScreen
     {
-        public void PerformAction(Game game)
+        private MSDistrictScreen.DistrictName name;
+        public OpenDistrictScreen(MSDistrictScreen.DistrictName name)
         {
-            MoodSwing moodSwing = (MoodSwing)game;
-            moodSwing.CurrentScreen.ResetHovers();
-            moodSwing.CurrentScreen = new MSDistrictScreen(MSDistrictScreen.DistrictName.FEAR, moodSwing);
+            this.name = name;
+        }
+
+        public override void PerformAction(Game game)
+        {
+            base.ChangeToScreen(new MSDistrictScreen(name, game as MoodSwing), game);
             MoodSwing.GetInstance().Notifier.ClearNotifications();
             MoodSwing.GetInstance().Notifier.FreezeNotifications = false;
         }

@@ -122,6 +122,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\ChangeScreenActions\ChangeScreen.cs" />
     <Compile Include="Actions\ChangeScreenActions\CloseNotification.cs" />
     <Compile Include="Actions\ChangeScreenActions\OpenExitConfirmation.cs" />
     <Compile Include="Actions\DistrictScreenActions\BuyFundraiser.cs" />
@@ -136,8 +137,7 @@
     <Compile Include="Actions\ChangeScreenActions\OpenMainScreen.cs" />
     <Compile Include="Actions\ChangeScreenActions\OpenOptionsScreen.cs" />
     <Compile Include="Actions\ChangeScreenActions\ReturnFromOptionsScreen.cs" />
-    <Compile Include="Actions\DistrictScreenActions\GameOverNotificationActions\InitiateGameOverLoseSequence.cs" />
-    <Compile Include="Actions\DistrictScreenActions\GameOverNotificationActions\InitiateGameOverWinSequence.cs" />
+    <Compile Include="Actions\DistrictScreenActions\InitiateGameOverSequence.cs" />
     <Compile Include="Actions\OptionsScreenActions\ChangeResolution.cs" />
     <Compile Include="Actions\OptionsScreenActions\ToggleBloom.cs" />
     <Compile Include="Actions\OptionsScreenActions\ToggleFullScreen.cs" />

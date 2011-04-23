@@ -17,14 +17,21 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGame
 {
-    public class OpenOptionsScreen : MSAction
+    public class OpenOptionsScreen : ChangeScreen
     {
-        public void PerformAction(Game game)
+        private static OpenOptionsScreen instance;
+        public static OpenOptionsScreen GetInstance()
         {
-            MoodSwing moodSwing = (MoodSwing)game;
-            MSOptionsScreen.getInstance().ReturnScreen = moodSwing.CurrentScreen;
-            moodSwing.CurrentScreen.ResetHovers();
-            moodSwing.CurrentScreen = MSOptionsScreen.getInstance();
+            if (instance == null)
+                instance = new OpenOptionsScreen();
+            return instance;
+        }
+        private OpenOptionsScreen() { }
+
+        public override void PerformAction(Game game)
+        {
+            MSOptionsScreen.GetInstance().ReturnScreen = MoodSwing.GetInstance().CurrentScreen;
+            base.ChangeToScreen(MSOptionsScreen.GetInstance(), game);
         }
     }
 }

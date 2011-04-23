@@ -17,8 +17,14 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGame
 {
-    public class InitiateGameOverLoseSequence : MSAction
+    public class InitiateGameOverSequence : MSAction
     {
+        private bool win;
+
+        public InitiateGameOverSequence(bool win)
+        {
+            this.win = win;
+        }
         public void PerformAction(Game game)
         {
             MSDistrictScreen screen = ((game as MoodSwing).CurrentScreen as MSDistrictScreen);
@@ -26,9 +32,15 @@ namespace MoodSwingGame
             screen.BlackOutPanel.Visible = true;
             if (screen.CircularPicker != null)
                 screen.RemoveComponent(screen.CircularPicker);
-            screen.HandleMouseInput((game as MoodSwing).OldMouseState, false);
+            screen.HandleMouseInput(false);
+            MoodSwing.GetInstance().Notifier.ClearComponents();
             MoodSwing.GetInstance().Notifier.ClearNotifications();
-            MoodSwing.GetInstance().Notifier.InvokeNotification("Try Again\nThe city went into a wild uproar before you could achieve the Millenium Development Goals.");
+
+            if(win)
+                MoodSwing.GetInstance().Notifier.InvokeNotification("You win!\nYou have successfully achieved the Millenium Development Goals for this district.");
+            else
+                MoodSwing.GetInstance().Notifier.InvokeNotification("Try Again\nThe district went into a wild uproar before you could achieve the Millenium Development Goals.");
+
             MoodSwing.GetInstance().Notifier.FreezeNotifications = true;
         }
     }

@@ -34,6 +34,7 @@ namespace MoodSwingGame
         {
             videoPlayer = new VideoPlayer();
             this.LoadContent();
+            HasFocus = true;
         }
 
         protected override void LoadContent()
@@ -46,21 +47,8 @@ namespace MoodSwingGame
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            HandleMouseInput((Game as MoodSwing).OldMouseState);
-            if (videoPlayer.State == MediaState.Paused || videoPlayer.State == MediaState.Stopped)
-                (new OpenMainScreen()).PerformAction(Game);
-        }
-
-        public override bool HandleMouseInput(MouseState oldMouseState)
-        {
-            MouseState currentMouseState = MSMouse.GetState();
-            if (currentMouseState.LeftButton == ButtonState.Pressed
-                && oldMouseState.LeftButton == ButtonState.Released)
-            {
-                videoPlayer.Stop();
-                return true;
-            }
-            return false;
+            if (videoPlayer.State == MediaState.Stopped)
+                OpenMainScreen.GetInstance().PerformAction(Game);
         }
 
         public override void HandleKeyboardInput(KeyboardState oldKeyboardState)

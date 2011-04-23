@@ -17,13 +17,20 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGame
 {
-    public class OpenCityScreen : MSAction
+    public class OpenCityScreen : ChangeScreen
     {
-        public void PerformAction(Game game)
+        private static OpenCityScreen instance;
+        public static OpenCityScreen GetInstance()
         {
-            MoodSwing moodSwing = (MoodSwing)game;
-            moodSwing.CurrentScreen.ResetHovers();
-            moodSwing.CurrentScreen = MSCityScreen.getInstance();
+            if (instance == null)
+                instance = new OpenCityScreen();
+            return instance;
+        }
+        private OpenCityScreen() { }
+
+        public override void PerformAction(Game game)
+        {
+            base.ChangeToScreen(MSCityScreen.getInstance(), game);
         }
     }
 }
