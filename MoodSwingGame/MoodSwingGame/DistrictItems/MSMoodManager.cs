@@ -27,7 +27,7 @@ namespace MoodSwingGame
         private const int LOW_MOOD_WARNING_DELAY = 100;
 
         private int lowMoodWarningTimer;
-        private bool immortal; //just for testing.
+        private static bool immortal = false; //just for testing.
 
         private float mood;
         public float Mood { get { return mood; } }
@@ -101,34 +101,41 @@ namespace MoodSwingGame
 
         public static void Reset()
         {
-            instance = new MSMoodManager();
+            instance.mood = INITIAL_MOOD;
+            instance.isAlive = true;
+
+            instance.povertyScore = 0;
+            instance.educationScore = 0;
+            instance.genderEqualityScore = 0;
+            instance.childHealthScore = 0;
+            instance.maternalHealthScore = 0;
+            instance.hivAidsScore = 0;
+            instance.environmentScore = 0;
+            instance.globalPartnershipScore = 0;
+
+            instance.povertyBonusEnabled = true;
+            instance.educationBonusEnabled = true;
+            instance.genderEqualityBonusEnabled = true;
+            instance.childHleathBonusEnabled = true;
+            instance.maternalHealthBonusEnabled = true;
+            instance.hivAidsBonusEnabled = true;
+            instance.environmentBonusEnabled = true;
+            instance.globalPartnershipBonusEnabled = true;
+
+            instance.lowMoodWarningTimer = 0;
+
+            instance.PovertyProgressBar.Progress = 0;
+            instance.EducationProgressBar.Progress = 0;
+            instance.GenderEqualityProgressBar.Progress = 0;
+            instance.ChildHealthProgressBar.Progress = 0;
+            instance.MaternalHealthProgressBar.Progress = 0;
+            instance.HivAidsProgressBar.Progress = 0;
+            instance.EnvironmentProgressBar.Progress = 0;
+            instance.GlobalPartnershipProgressBar.Progress = 0;
         }
 
         private MSMoodManager() : base(MoodSwing.GetInstance())
         {
-            mood = INITIAL_MOOD;
-            isAlive = true;
-
-            povertyScore = 0;
-            educationScore = 0;
-            genderEqualityScore = 0;
-            childHealthScore = 0;
-            maternalHealthScore = 0;
-            hivAidsScore = 0;
-            environmentScore = 0;
-            globalPartnershipScore = 0;
-
-            povertyBonusEnabled = true;
-            educationBonusEnabled = true;
-            genderEqualityBonusEnabled = true;
-            childHleathBonusEnabled = true;
-            maternalHealthBonusEnabled = true;
-            hivAidsBonusEnabled = true;
-            environmentBonusEnabled = true;
-            globalPartnershipBonusEnabled = true;
-            
-            immortal = false;
-
             povertyProgressBar = new MSMDGProgressBar
             (
                 new Rectangle(587, 41, 48, 35),
@@ -216,9 +223,6 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("GamePanel/80"),
                 MSProgressBar.Orientation.VERTICAL
             );
-
-            lowMoodWarningTimer = 0;
-
         }
 
         public override void Update(GameTime gameTime)
@@ -284,7 +288,7 @@ namespace MoodSwingGame
 
         private void AddScore(ref float score_variable, ref bool score_enabled, ref MSMDGProgressBar bar)
         {
-            if (score_enabled)
+            if (score_enabled && bar.Visible)
             {
                 score_variable += PERSON_HELPED_SCORE_INCREASE;
                 if (score_variable > 1)

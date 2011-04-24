@@ -65,9 +65,6 @@ namespace MoodSwingGame
         private MSPanel blackOutPanel;
         public MSPanel BlackOutPanel { get { return blackOutPanel; } }
 
-        private MSNotifier storyBox;
-        public MSNotifier StoryBox { get { return storyBox; } }
-
         private double gameTime;
         private double lastTotalRunTime;
 
@@ -97,12 +94,10 @@ namespace MoodSwingGame
                 MSDistrictHall.getInstance().Position, MSDistrictHall.getInstance().Rotation);
             //citizensList = new List<MSCitizen>();
             unitHandler = MSUnitHandler.Restart();
-            MSMoodManager.Reset();
             moodManager = MSMoodManager.GetInstance();
+            MSMoodManager.Reset();
             resourceManager = MSResourceManager.GetInstance();
             MSResourceManager.instantiate(1000, map.InitialVolunteerCenters);
-
-            storyBox = new MSNotifier(Game.Content.Load<Texture2D>("BlackOut"), new Rectangle(0, 400, 1024, 100), Shape.RECTANGULAR, SpriteBatch, Game);
 
             foreach (MS3DTile tile in map.MapArray)
             {

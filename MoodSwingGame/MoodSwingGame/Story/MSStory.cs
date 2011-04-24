@@ -21,15 +21,61 @@ namespace MoodSwingGame
     {
         public static bool StoryEnabled { set; get; }
 
+        private static bool firstMDGBranchEnabled;
+        public static bool FirstMDGBranchEnabled
+        {
+            get { return firstMDGBranchEnabled; }
+            set 
+            { 
+                firstMDGBranchEnabled = value;
+                MSMoodManager.GetInstance().PovertyProgressBar.Visible = value;
+                MSMoodManager.GetInstance().EducationProgressBar.Visible = value;
+                MSMoodManager.GetInstance().GenderEqualityProgressBar.Visible = value;
+            }
+        }
+
+        private static bool secondMDGBranchEnabled;
+        public static bool SecondMDGBranchEnabled
+        {
+            get { return secondMDGBranchEnabled; }
+            set 
+            { 
+                secondMDGBranchEnabled = value;
+                MSMoodManager.GetInstance().ChildHealthProgressBar.Visible = value;
+                MSMoodManager.GetInstance().EducationProgressBar.Visible = value;
+                MSMoodManager.GetInstance().HivAidsProgressBar.Visible = value;
+            }
+        }
+
+        private static bool thirdMDGBranchEnabled;
+        public static bool ThirdMDGBranchEnabled
+        {
+            get { return thirdMDGBranchEnabled; }
+            set 
+            {
+                thirdMDGBranchEnabled = value;
+                MSMoodManager.GetInstance().EnvironmentProgressBar.Visible = value;
+                MSMoodManager.GetInstance().GlobalPartnershipProgressBar.Visible = value;
+            }
+        }
+
         private static List<MSStoryEvent> timeActiveEvents;
         private static List<MSStoryEvent> eventsToRemove;
 
         public static void Init()
         {
-            timeActiveEvents = new List<MSStoryEvent>();
-            eventsToRemove = new List<MSStoryEvent>();
-            AddStoryEvent(new Welcome());
-            StoryEnabled = false;
+            StoryEnabled = true;
+
+            if (StoryEnabled)
+            {
+                timeActiveEvents = new List<MSStoryEvent>();
+                eventsToRemove = new List<MSStoryEvent>();
+                AddStoryEvent(new Welcome());
+
+                FirstMDGBranchEnabled = false;
+                SecondMDGBranchEnabled = false;
+                ThirdMDGBranchEnabled = false;
+            }
         }
 
         public static void AddStoryEvent(MSStoryEvent e)

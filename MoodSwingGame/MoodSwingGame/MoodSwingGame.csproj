@@ -226,6 +226,7 @@
     <Compile Include="ParametricCurves\ShiftLeft75.cs" />
     <Compile Include="Story\MSStoryEvent.cs" />
     <Compile Include="Story\MSStory.cs" />
+    <Compile Include="Story\StoryEvents\MovementTutorial.cs" />
     <Compile Include="Story\StoryEvents\Welcome.cs" />
   </ItemGroup>
   <ItemGroup>

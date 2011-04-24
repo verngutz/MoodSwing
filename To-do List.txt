@@ -12,7 +12,10 @@ Things To Do Arranged by Priority
 
 Add descriptive text to towers.
 
-Add booleans to disable MDG progress bars and branches of the tower heirarchy.
+Add booleans to disable MDG branches:
+	MDG Progress Bars (graphics)
+	branches of the tower heirarchy
+	mobs
 
 Fix Fonts.
 
@@ -36,7 +39,9 @@ Game balancing.
 
 Finish necessary documentation.
 
------------------------ Can Be Done After Round 2 --------------------------
+----------------------- After Round 2 --------------------------
+
+Code Clean-up Part 1
 
 Add sound effects.
 
@@ -70,7 +75,7 @@ Implement Mood Motifs (Dynamic Background Music).
 
 Add voices.
 
-Code Clean-up.
+Code Clean-up Part 2.
 
 Sandbox Mode.
 
@@ -81,3 +86,5 @@ In-game level editor.
 Optimize Code.
 
 XBox version.
+
+Code Clean-up Part 3.
