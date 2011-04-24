@@ -56,8 +56,8 @@ namespace MoodSwingGame
         private MSImageHolder moodFace;
         public MSImageHolder MoodFace { get { return moodFace; } }
 
-        public MSMobber(Vector3 position, Node path, MSMap map, MSMilleniumDevelopmentGoal concern)
-            : base(position, path, map, false)
+        public MSMobber(Vector3 position, Node path, MSMap map, MSMilleniumDevelopmentGoal concern, float initRotation)
+            : base(position, path, map, false, initRotation)
         {
             mobList = new List<MSMobber>();
             this.concern = concern;
@@ -147,14 +147,13 @@ namespace MoodSwingGame
                 if (Vector2.Distance(pos, destination) < 1)
                 {
                     this.position = new Vector3(destination.X, destination.Y, position.Z);
-                    Vector3 origDestVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
-                    Vector2 origDestination = new Vector2(origDestVector3.X, origDestVector3.Y);
-                    float toCheckAngle = (float)Math.Atan2(origDestination.X - position.X, origDestination.Y - position.Y);
-                    float deltaToCheckAngle = Math.Abs(toCheckAngle - this.Rotation);
 
                     //check if original destination is on-route
-                    if ( deltaToCheckAngle <= MathHelper.ToRadians(10) )
+                    if (this.TileCoordinate != path.Position )
                     {
+                        Vector3 origDestVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
+                        Vector2 origDestination = new Vector2(origDestVector3.X, origDestVector3.Y);
+                        float toCheckAngle = (float)Math.Atan2(origDestination.X - position.X, origDestination.Y - position.Y);
                         destination = origDestination;
                         targetRotation = toCheckAngle;
                     }

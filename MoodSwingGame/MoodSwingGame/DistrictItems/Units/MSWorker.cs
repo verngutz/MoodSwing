@@ -37,8 +37,8 @@ namespace MoodSwingGame
 
         private MSChangeableBuilding toBuild;
 
-        public MSWorker(Vector3 position, Node path, MSChangeableBuilding to_build, MSMap map)
-            : base(position, path, map, false)
+        public MSWorker(Vector3 position, Node path, MSChangeableBuilding to_build, MSMap map, float initRotation)
+            : base(position, path, map, false, initRotation)
         {
             toBuild = to_build;
         }

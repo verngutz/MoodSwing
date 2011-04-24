@@ -37,7 +37,7 @@ namespace MoodSwingGame
             return unitHandler;
         }
         //probability constant that handles unit generation
-        private const int INITIAL_BIRTH_RATE = 100;
+        private const int INITIAL_BIRTH_RATE = 300;
         private const int MAX_PROBABILITY = 10000;
         private const int MAX_MOB_PROBABILITY = 100;
         //probability constant that handles mob generation
@@ -140,12 +140,12 @@ namespace MoodSwingGame
 
                     person = new MSMobber(
                         map.MapArray[(int)start.X, (int)start.Y].Position + MSUnit.UNITZ_POSITION,
-                        map.GetPath(start, MSDistrictHall.getInstance().TileCoordinate), map, mobmdg);
+                        map.GetPath(start, MSDistrictHall.getInstance().TileCoordinate), map, mobmdg, 0);
                 }
                 else
                     person = new MSCitizen(
                         map.MapArray[(int)start.X, (int)start.Y].Position + MSUnit.UNITZ_POSITION,
-                        path, map, true);
+                        path, map, true, 0);
 
                 units.Add(person);
                 return person;
@@ -171,7 +171,8 @@ namespace MoodSwingGame
                 path2,
                 unit,
                 bldg,
-                map
+                map,
+                0
             );
 
             MSUnitHandler.GetInstance().AddUnit(volunteer);
@@ -184,7 +185,7 @@ namespace MoodSwingGame
 
             for (int i = 0; i < qty; i++)
             {
-                MSWorker worker = new MSWorker(center.Position + MSUnit.UNITZ_POSITION, path, bldg, map);
+                MSWorker worker = new MSWorker(center.Position + MSUnit.UNITZ_POSITION, path, bldg, map, 0);
                 units.Add(worker);
             }
         }
@@ -193,7 +194,7 @@ namespace MoodSwingGame
             MS3DTile bldg = map.GetRandomCitizenSource();
             MS3DTile center = map.GetNearestVolunteerCenter(bldg);
             Node path = map.GetPath(bldg.TileCoordinate, center.TileCoordinate);
-            MSVolunteeringCitizen v = new MSVolunteeringCitizen(bldg.Position + MSUnit.UNITZ_POSITION, path, map);
+            MSVolunteeringCitizen v = new MSVolunteeringCitizen(bldg.Position + MSUnit.UNITZ_POSITION, path, map, 0);
             units.Add(v);
         }
 
@@ -228,7 +229,7 @@ namespace MoodSwingGame
                         {
                             if (Vector3.Distance(units[i].Position, p.Position) <= MOB_RECRUIT_DISTANCE)
                             {
-                                units[i] = new MSMobber(units[i].Position, p.Path, map, (p as MSMobber).Concern);
+                                units[i] = new MSMobber(units[i].Position, p.Path, map, (p as MSMobber).Concern, p.Rotation);
                                 units[i].Follow(p);
                                 break;
 

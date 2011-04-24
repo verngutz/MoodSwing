@@ -35,7 +35,7 @@ namespace MoodSwingGame
             set { speed = value; }
         }
 
-        public MSCitizen(Vector3 position, Node path, MSMap map, bool is_mobbable) 
-            : base(position, path, map, is_mobbable) { }
+        public MSCitizen(Vector3 position, Node path, MSMap map, bool is_mobbable, float initRotation)
+            : base(position, path, map, is_mobbable, initRotation) { }
     }
 }
