@@ -19,14 +19,14 @@ namespace MoodSwingGame
 {
     public class MSUnitHandler
     {
-        public bool CitizensEnabled { set; get; }
+        public static bool CitizensEnabled { set; get; }
 
-        private bool[] mobEnabled;
-        public bool GetMobEnabled(MSMilleniumDevelopmentGoal mdg)
+        private static bool[] mobEnabled = new bool[] {true, true, true, true, true, true, true, true};
+        public static bool GetMobEnabled(MSMilleniumDevelopmentGoal mdg)
         {
             return mobEnabled[(int)mdg];
         }
-        public void SetMobEnabled(MSMilleniumDevelopmentGoal mdg, bool enabled)
+        public static void SetMobEnabled(MSMilleniumDevelopmentGoal mdg, bool enabled)
         {
             mobEnabled[(int)mdg] = enabled;
         }
@@ -70,7 +70,6 @@ namespace MoodSwingGame
         private MSUnitHandler() 
         {
             units = new List<MSUnit>();
-            mobEnabled = new bool[] {true, true, true, true, true, true, true, true};
             IsLeaderBusy = false;
             prevCheckpoint = 0 ;
             IsRelativelyPeaceful = true;

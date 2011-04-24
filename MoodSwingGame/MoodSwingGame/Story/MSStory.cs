@@ -31,6 +31,9 @@ namespace MoodSwingGame
                 MSMoodManager.GetInstance().PovertyProgressBar.Visible = value;
                 MSMoodManager.GetInstance().EducationProgressBar.Visible = value;
                 MSMoodManager.GetInstance().GenderEqualityProgressBar.Visible = value;
+                MSUnitHandler.SetMobEnabled(MSMilleniumDevelopmentGoal.POVERTY, value);
+                MSUnitHandler.SetMobEnabled(MSMilleniumDevelopmentGoal.EDUCATION, value);
+                MSUnitHandler.SetMobEnabled(MSMilleniumDevelopmentGoal.GENDER_EQUALITY, value);
             }
         }
 
@@ -42,8 +45,11 @@ namespace MoodSwingGame
             { 
                 secondMDGBranchEnabled = value;
                 MSMoodManager.GetInstance().ChildHealthProgressBar.Visible = value;
-                MSMoodManager.GetInstance().EducationProgressBar.Visible = value;
+                MSMoodManager.GetInstance().MaternalHealthProgressBar.Visible = value;
                 MSMoodManager.GetInstance().HivAidsProgressBar.Visible = value;
+                MSUnitHandler.SetMobEnabled(MSMilleniumDevelopmentGoal.CHILD_HEALTH, value);
+                MSUnitHandler.SetMobEnabled(MSMilleniumDevelopmentGoal.MATERNAL_HEALTH, value);
+                MSUnitHandler.SetMobEnabled(MSMilleniumDevelopmentGoal.HIV_AIDS, value);
             }
         }
 
@@ -56,6 +62,8 @@ namespace MoodSwingGame
                 thirdMDGBranchEnabled = value;
                 MSMoodManager.GetInstance().EnvironmentProgressBar.Visible = value;
                 MSMoodManager.GetInstance().GlobalPartnershipProgressBar.Visible = value;
+                MSUnitHandler.SetMobEnabled(MSMilleniumDevelopmentGoal.ENVIRONMENT, value);
+                MSUnitHandler.SetMobEnabled(MSMilleniumDevelopmentGoal.GLOBAL_PARTNERSHIP, value);
             }
         }
 
