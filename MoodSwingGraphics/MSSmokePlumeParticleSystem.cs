@@ -31,26 +31,20 @@ namespace MoodSwingGraphics
         {
             settings.TextureName = "smoke2";
 
-            settings.MaxParticles = 6000;
+            settings.MaxParticles = 1000;
 
-            settings.Duration = TimeSpan.FromSeconds(2);
-
-            settings.MinHorizontalVelocity = -5;
-            settings.MaxHorizontalVelocity = 5;
-
-            settings.MinVerticalVelocity = -5;
-            settings.MaxVerticalVelocity = 5;
+            settings.Duration = TimeSpan.FromSeconds(10);
 
             // Create a wind effect by tilting the gravity vector sideways.
-            settings.Gravity = new Vector3(0, 0, 0);
+            settings.Gravity = new Vector3(0, 0, -2);
 
             settings.EndVelocity = 0;
 
             settings.MinStartSize = 20;
-            settings.MaxStartSize = 40;
+            settings.MaxStartSize = 50;
 
             settings.MinEndSize = 20;
-            settings.MaxEndSize = 40;
+            settings.MaxEndSize = 50;
         }
     }
 }

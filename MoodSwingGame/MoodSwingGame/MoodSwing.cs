@@ -97,6 +97,19 @@ namespace MoodSwingGame
 
             oldKeyboardState = Keyboard.GetState();
             CurrentScreen = MSIntroScreen.getInstance();
+
+            #if DEBUG
+            #region bloom tweaking controls
+            System.Console.WriteLine("Q plus");
+            System.Console.WriteLine("A minus");
+            System.Console.WriteLine("H thresh");
+            System.Console.WriteLine("B blur");
+            System.Console.WriteLine("L bloom intensity");
+            System.Console.WriteLine("S base intensity");
+            System.Console.WriteLine("N bloom sat");
+            System.Console.WriteLine("M base sat");
+            #endregion
+            #endif
         }
 
         /// <summary>
@@ -134,6 +147,85 @@ namespace MoodSwingGame
 
                 KeyboardState newKeyBoardState = Keyboard.GetState();
 
+                #if DEBUG
+                #region bloom tweaking
+                if (oldKeyboardState.IsKeyDown(Keys.Q) && newKeyBoardState.IsKeyUp(Keys.Q))
+                {
+                    if (oldKeyboardState.IsKeyDown(Keys.H))
+                    {
+                        bloom.Settings.BloomThreshold += 0.1f;
+                        System.Console.WriteLine("Bloom Thresh: " + bloom.Settings.BloomThreshold);
+                    }
+                    else if (oldKeyboardState.IsKeyDown(Keys.B))
+                    {
+                        bloom.Settings.BlurAmount += 0.1f;
+
+                        System.Console.WriteLine("Blur: " + bloom.Settings.BlurAmount);
+                    }
+
+                    else if (oldKeyboardState.IsKeyDown(Keys.L))
+                    {
+                        bloom.Settings.BloomIntensity += 0.1f;
+                        System.Console.WriteLine("Bloom Intensity: " + bloom.Settings.BloomIntensity);
+                    }
+                    else if (oldKeyboardState.IsKeyDown(Keys.S))
+                    {
+                        bloom.Settings.BaseIntensity += 0.1f;
+
+                        System.Console.WriteLine("Base Intensity: " + bloom.Settings.BaseIntensity);
+                    }
+
+                    else if (oldKeyboardState.IsKeyDown(Keys.N))
+                    {
+                        bloom.Settings.BloomSaturation += 0.1f;
+                        System.Console.WriteLine("Bloom Sat: " + bloom.Settings.BloomSaturation);
+                    }
+                    else if (oldKeyboardState.IsKeyDown(Keys.M))
+                    {
+                        bloom.Settings.BaseSaturation += 0.1f;
+
+                        System.Console.WriteLine("Base Sat: " + bloom.Settings.BaseSaturation);
+                    }
+                }
+                else if (oldKeyboardState.IsKeyDown(Keys.A) && newKeyBoardState.IsKeyUp(Keys.A))
+                {
+                    if (oldKeyboardState.IsKeyDown(Keys.H))
+                    {
+                        bloom.Settings.BloomThreshold -= 0.1f;
+                        System.Console.WriteLine("Bloom Thresh: " + bloom.Settings.BloomThreshold);
+                    }
+                    else if (oldKeyboardState.IsKeyDown(Keys.B))
+                    {
+                        bloom.Settings.BlurAmount -= 0.1f;
+                        System.Console.WriteLine("Blur: " + bloom.Settings.BlurAmount);
+                    }
+                    else if (oldKeyboardState.IsKeyDown(Keys.L))
+                    {
+                        bloom.Settings.BloomIntensity -= 0.1f;
+
+                        System.Console.WriteLine("Bloom Intensity: " + bloom.Settings.BloomIntensity);
+                    }
+
+                    else if (oldKeyboardState.IsKeyDown(Keys.S))
+                    {
+                        bloom.Settings.BaseIntensity -= 0.1f;
+                        System.Console.WriteLine("Base Intensity: " + bloom.Settings.BaseIntensity);
+                    }
+                    else if (oldKeyboardState.IsKeyDown(Keys.N))
+                    {
+                        bloom.Settings.BloomSaturation -= 0.1f;
+                        
+                        System.Console.WriteLine("Bloom Sat: " + bloom.Settings.BloomSaturation);
+                    }
+                    else if (oldKeyboardState.IsKeyDown(Keys.M))
+                    {
+                        bloom.Settings.BaseSaturation -= 0.1f;
+                        System.Console.WriteLine("Base Sat: " + bloom.Settings.BaseSaturation);
+                    }
+                }
+                #endregion
+                #endif
+
                 oldKeyboardState = newKeyBoardState;
                 prevGameTime = gameTime;
 
@@ -166,7 +258,6 @@ namespace MoodSwingGame
             //spriteBatch.DrawString(Content.Load<SpriteFont>("ToolTipFont"), "Frame Rate: " + frameRate + "fps", new Vector2(5, 735), Color.White);
             MoodSwing.GetInstance().Notifier.Draw(gameTime);
             spriteBatch.End();
-            //base.Draw(gameTime);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace MoodSwingGame
         private const float PERSON_HELPED_MOOD_BONUS = 0.01f;
         private const float PERSON_HELPED_SCORE_INCREASE = 0.04f;
         private const float MDG_COMPLETE_MOOD_BONUS = 0.05f;
-        private const float LOW_MOOD_LEVEL = 0.2f;
+        private const float LOW_MOOD_LEVEL = 0.35f;
         private const int LOW_MOOD_WARNING_DELAY = 100;
 
         private int lowMoodWarningTimer;
@@ -126,7 +126,7 @@ namespace MoodSwingGame
             hivAidsBonusEnabled = true;
             environmentBonusEnabled = true;
             globalPartnershipBonusEnabled = true;
-
+            
             immortal = false;
 
             povertyProgressBar = new MSMDGProgressBar

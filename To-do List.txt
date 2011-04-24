@@ -4,6 +4,7 @@ Bugs
 
 Some mobbers suddenly stop at the middle of their paths.
 BuyDialog is not very responsive.
+Changing the resolution in-game messes up the graphics.
 
 ---------------------------------
 Things To Do Arranged by Priority
@@ -26,6 +27,8 @@ Add support for more districts, add more districts, and finalize districts desig
 Fix pedestrian simulation:
 	Flocking
 	Evading
+
+Fix mob frequency behavior simulation.
 
 Fix smoke particle system.
 
