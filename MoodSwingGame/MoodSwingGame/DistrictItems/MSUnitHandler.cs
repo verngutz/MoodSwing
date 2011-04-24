@@ -19,6 +19,18 @@ namespace MoodSwingGame
 {
     public class MSUnitHandler
     {
+        public bool CitizensEnabled { set; get; }
+
+        private bool[] mobEnabled;
+        public bool GetMobEnabled(MSMilleniumDevelopmentGoal mdg)
+        {
+            return mobEnabled[(int)mdg];
+        }
+        public void SetMobEnabled(MSMilleniumDevelopmentGoal mdg, bool enabled)
+        {
+            mobEnabled[(int)mdg] = enabled;
+        }
+
         private static MSUnitHandler unitHandler = null;
 
         public static MSUnitHandler GetInstance()
@@ -58,6 +70,7 @@ namespace MoodSwingGame
         private MSUnitHandler() 
         {
             units = new List<MSUnit>();
+            mobEnabled = new bool[] {true, true, true, true, true, true, true, true};
             IsLeaderBusy = false;
             prevCheckpoint = 0 ;
             IsRelativelyPeaceful = true;
@@ -74,83 +87,70 @@ namespace MoodSwingGame
 
         public MSUnit TryForBaby( MSMap map, int gameTime )
         {
-
-            int timeDiff = gameTime - prevCheckpoint;
-            if ( (timeDiff >= 30 &&  !IsRelativelyPeaceful) ||
-                 (timeDiff >= 20 && IsRelativelyPeaceful) )
+            if (CitizensEnabled)
             {
-                IsRelativelyPeaceful = !IsRelativelyPeaceful;
-                prevCheckpoint = gameTime;
-                if (IsRelativelyPeaceful &&
-                    MOB_WAVE_PROBABILITY + (MOB_WAVE_PROBABILITY+"").Length <= MAX_MOB_PROBABILITY)
+                int timeDiff = gameTime - prevCheckpoint;
+                if ((timeDiff >= 30 && !IsRelativelyPeaceful) ||
+                     (timeDiff >= 20 && IsRelativelyPeaceful))
                 {
-                    if (birthRate < MAX_PROBABILITY)  birthRate += 0.05f;
-                    MOB_WAVE_PROBABILITY += (MOB_WAVE_PROBABILITY + "").Length;
+                    IsRelativelyPeaceful = !IsRelativelyPeaceful;
+                    prevCheckpoint = gameTime;
+                    if (IsRelativelyPeaceful &&
+                        MOB_WAVE_PROBABILITY + (MOB_WAVE_PROBABILITY + "").Length <= MAX_MOB_PROBABILITY)
+                    {
+                        if (birthRate < MAX_PROBABILITY) birthRate += 0.05f;
+                        MOB_WAVE_PROBABILITY += (MOB_WAVE_PROBABILITY + "").Length;
+                    }
+                    MOB_MDG_OPTIONS++;
                 }
-                MOB_MDG_OPTIONS++;
-            }
 
-            int mob_probability = MOB_WAVE_PROBABILITY ;
-            if (IsRelativelyPeaceful) mob_probability = MOB_STABLE_PROBABILITY;
+                int mob_probability = MOB_WAVE_PROBABILITY;
+                if (IsRelativelyPeaceful) mob_probability = MOB_STABLE_PROBABILITY;
 
-            int rnd = MSRandom.random.Next(MAX_PROBABILITY);
+                int rnd = MSRandom.random.Next(MAX_PROBABILITY);
 
-            if (oneOnly && checkOne)
-                return null;
-            if (rnd < birthRate)
-            {
-                if (birthRate < MAX_PROBABILITY)
-                    birthRate += 0.01f;
-
-                checkOne = true;
-                MSUnit person;
-
-                MSUnchangeableBuilding source = map.GetRandomCitizenSource();
-                Vector2 start = new Vector2(source.Row, source.Column);
-
-                MSUnchangeableBuilding sink;
-                do
+                if (oneOnly && checkOne)
+                    return null;
+                if (rnd < birthRate)
                 {
-                    sink = map.GetRandomCitizenSource();
-                } while (source == sink);
-                Vector2 end = new Vector2(sink.Row, sink.Column);
-                
-                Node path = map.GetPath(start, end);
+                    if (birthRate < MAX_PROBABILITY)
+                        birthRate += 0.01f;
 
-                if (rnd < mob_probability)
-                {
-                    int typeRnd = ((MSRandom.random.Next(MOB_MDG_OPTIONS))/MOB_MDG_DELAY)%8;
-                    MSMilleniumDevelopmentGoal mobmdg;
-                    if (typeRnd == 0)
-                        mobmdg = MSMilleniumDevelopmentGoal.POVERTY;
-                    else if (typeRnd == 1)
-                        mobmdg = MSMilleniumDevelopmentGoal.EDUCATION;
-                    else if (typeRnd == 2)
-                        mobmdg = MSMilleniumDevelopmentGoal.GENDER_EQUALITY;
-                    else if (typeRnd == 3)
-                        mobmdg = MSMilleniumDevelopmentGoal.CHILD_HEALTH;
-                    else if (typeRnd == 4)
-                        mobmdg = MSMilleniumDevelopmentGoal.MATERNAL_HEALTH;
-                    else if (typeRnd == 5)
-                        mobmdg = MSMilleniumDevelopmentGoal.HIV_AIDS;
-                    else if (typeRnd == 6)
-                        mobmdg = MSMilleniumDevelopmentGoal.ENVIRONMENT;
+                    checkOne = true;
+                    MSUnit person;
+
+                    MSUnchangeableBuilding source = map.GetRandomCitizenSource();
+                    Vector2 start = new Vector2(source.Row, source.Column);
+
+                    MSUnchangeableBuilding sink;
+                    do
+                    {
+                        sink = map.GetRandomCitizenSource();
+                    } while (source == sink);
+                    Vector2 end = new Vector2(sink.Row, sink.Column);
+
+                    Node path = map.GetPath(start, end);
+
+                    if (rnd < mob_probability)
+                    {
+                        int typeRnd = ((MSRandom.random.Next(MOB_MDG_OPTIONS)) / MOB_MDG_DELAY) % 8;
+                        MSMilleniumDevelopmentGoal mobmdg = (MSMilleniumDevelopmentGoal) typeRnd;
+                        if (GetMobEnabled(mobmdg))
+                            person = new MSMobber(
+                            map.MapArray[(int)start.X, (int)start.Y].Position + MSUnit.UNITZ_POSITION,
+                            map.GetPath(start, MSDistrictHall.getInstance().TileCoordinate), map, mobmdg, 0);
+                        else
+                            return null;
+                    }
                     else
-                        mobmdg = MSMilleniumDevelopmentGoal.GLOBAL_PARTNERSHIP;
+                        person = new MSCitizen(
+                            map.MapArray[(int)start.X, (int)start.Y].Position + MSUnit.UNITZ_POSITION,
+                            path, map, true, 0);
 
-                    person = new MSMobber(
-                        map.MapArray[(int)start.X, (int)start.Y].Position + MSUnit.UNITZ_POSITION,
-                        map.GetPath(start, MSDistrictHall.getInstance().TileCoordinate), map, mobmdg, 0);
+                    units.Add(person);
+                    return person;
                 }
-                else
-                    person = new MSCitizen(
-                        map.MapArray[(int)start.X, (int)start.Y].Position + MSUnit.UNITZ_POSITION,
-                        path, map, true, 0);
-
-                units.Add(person);
-                return person;
             }
-
             return null;
         }
 
