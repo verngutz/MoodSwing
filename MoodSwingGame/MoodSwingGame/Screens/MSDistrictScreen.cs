@@ -294,7 +294,7 @@ namespace MoodSwingGame
 
             optionsButton = new MSButton(
                 null,
-                new OpenOptionsScreen(),
+                OpenOptionsScreen.GetInstance(),
                 new Rectangle(431, 151, 237, 57),
                 game.Content.Load<Texture2D>("GamePanel/Options"),
                 game.Content.Load<Texture2D>("GamePanel/optionsclicked"),
@@ -380,6 +380,7 @@ namespace MoodSwingGame
 
             Paused = false;
             MSStory.Init();
+
         }
 
         public override void Draw(GameTime gameTime)
@@ -397,73 +398,14 @@ namespace MoodSwingGame
             if(bloom.Visible)
                 bloom.Draw(gameTime);
 
+            (Game as MoodSwing).SmokeParticles.SetCamera(MSCamera.GetInstance().GetView(), MSCamera.GetInstance().ProjectionMatrix);
+            (Game as MoodSwing).SmokeParticles.Draw(gameTime);
+
             SpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, MSResolution.GetTransformationMatrix());
             foreach (MSUnit unit in unitHandler.Units)
-            {
                 if (unit is MSMobber)
-                {
-                    MSMobber mobber = unit as MSMobber;
+                    DrawMoodFace(unit as MSMobber); 
 
-                    //This is where the position for the MoodFace gets updated when it goes out of bounds
-                    Rectangle boundingRectangle = mobber.MoodFace.BoundingRectangle;
-                    Vector2 position = mobber.MoodFace.Position;
-                    SpriteEffects effect = SpriteEffects.None;
-
-                    if (position.X + 50 < 0 ||
-                        position.X + 50 + boundingRectangle.Width > MSResolution.VirtualWidth)
-                    {
-                        Vector3 left = MSCamera.GetInstance().Frustum.GetCorners()[4];
-                        Vector3 right = MSCamera.GetInstance().Frustum.GetCorners()[5];
-
-                        double distLeft = Vector3.Distance(left, unit.Position);
-                        double distRight = Vector3.Distance(right, unit.Position);
-                        if (distLeft < distRight)
-                        {
-                            position.X = 0;
-                            effect = SpriteEffects.FlipHorizontally;
-                        }
-                        else
-                        {
-                            position.X = MSResolution.VirtualWidth - boundingRectangle.Width;
-                        }
-                    }
-
-
-                    int maxY = 0;
-                    if (position.X >= 0 && position.X <= 465)
-                        maxY = (91 - 53) / 465 * (int)(position.X) + 53;
-                    else if (position.X > 465 && position.X < 540)
-                        maxY = 91;
-                    else if (position.X >= 540 && position.X <= 1024)
-                        maxY = (91 - 53) / (540 - 1024) * (int)(position.X - 1024) + 53;
-
-                    maxY += 20;
-
-                    if (position.Y < maxY ||
-                        position.Y + 50 + boundingRectangle.Height > MSResolution.VirtualHeight)
-                    {
-
-                        Vector3 top = MSCamera.GetInstance().Frustum.GetCorners()[4];
-                        Vector3 bottom = MSCamera.GetInstance().Frustum.GetCorners()[7];
-
-                        double distTop = Vector3.Distance(top, unit.Position);
-                        double distBottom = Vector3.Distance(bottom, unit.Position);
-
-                        if (distTop < distBottom)
-                        {
-                            effect = SpriteEffects.FlipVertically;
-                            position.Y = maxY;
-                        }
-                        else
-                        {
-                            position.Y = MSResolution.VirtualHeight - boundingRectangle.Height;
-                        }
-                    }
-
-                    boundingRectangle = new Rectangle((int)position.X, (int)position.Y, boundingRectangle.Width, boundingRectangle.Height);
-                    (Game as MoodSwing).SpriteBatch.Draw(mobber.MoodFace.Image, boundingRectangle, null, Color.White, 0, Vector2.Zero, effect, position.Y / MSResolution.VirtualHeight);
-                }
-            }
             SpriteBatch.End();
 
             SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, MSResolution.GetTransformationMatrix());
@@ -492,10 +434,72 @@ namespace MoodSwingGame
                 currentHovered.ToolTip.Draw(gameTime);
         }
 
+        private void DrawMoodFace(MSMobber mobber)
+        {
+            //This is where the position for the MoodFace gets updated when it goes out of bounds
+            Rectangle boundingRectangle = mobber.MoodFace.BoundingRectangle;
+            Vector2 position = mobber.MoodFace.Position;
+            SpriteEffects effect = SpriteEffects.None;
+
+            if (position.X + 50 < 0 ||
+                position.X + 50 + boundingRectangle.Width > MSResolution.VirtualWidth)
+            {
+                Vector3 left = MSCamera.GetInstance().Frustum.GetCorners()[4];
+                Vector3 right = MSCamera.GetInstance().Frustum.GetCorners()[5];
+
+                double distLeft = Vector3.Distance(left, mobber.Position);
+                double distRight = Vector3.Distance(right, mobber.Position);
+                if (distLeft < distRight)
+                {
+                    position.X = 0;
+                    effect = SpriteEffects.FlipHorizontally;
+                }
+                else
+                {
+                    position.X = MSResolution.VirtualWidth - boundingRectangle.Width;
+                }
+            }
+
+
+            int maxY = 0;
+            if (position.X >= 0 && position.X <= 465)
+                maxY = (91 - 53) / 465 * (int)(position.X) + 53;
+            else if (position.X > 465 && position.X < 540)
+                maxY = 91;
+            else if (position.X >= 540 && position.X <= 1024)
+                maxY = (91 - 53) / (540 - 1024) * (int)(position.X - 1024) + 53;
+
+            maxY += 20;
+
+            if (position.Y < maxY ||
+                position.Y + 50 + boundingRectangle.Height > MSResolution.VirtualHeight)
+            {
+
+                Vector3 top = MSCamera.GetInstance().Frustum.GetCorners()[4];
+                Vector3 bottom = MSCamera.GetInstance().Frustum.GetCorners()[7];
+
+                double distTop = Vector3.Distance(top, mobber.Position);
+                double distBottom = Vector3.Distance(bottom, mobber.Position);
+
+                if (distTop < distBottom)
+                {
+                    effect = SpriteEffects.FlipVertically;
+                    position.Y = maxY;
+                }
+                else
+                {
+                    position.Y = MSResolution.VirtualHeight - boundingRectangle.Height;
+                }
+            }
+
+            boundingRectangle = new Rectangle((int)position.X, (int)position.Y, boundingRectangle.Width, boundingRectangle.Height);
+            SpriteBatch.Draw(mobber.MoodFace.Image, boundingRectangle, null, Color.White, 0, Vector2.Zero, effect, position.Y / MSResolution.VirtualHeight);
+        }
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            HandleMouseInput((Game as MoodSwing).OldMouseState);
+            HandleMouseInput();
 
             MSStory.Update(this.gameTime, Game);
 
@@ -698,156 +702,150 @@ namespace MoodSwingGame
                         );
                     }
                 }
-
                 AddComponent(CircularPicker);
             }
         }
 
         private Vector2 mouseMidHold;
-        public override bool HandleMouseInput(MouseState oldMouseState, bool careIfMouseHasMoved)
+        public override bool HandleMouseInput(bool careIfMouseHasMoved)
         {
-            MouseState newMouseState = MSMouse.GetState();
-
-            if (base.HandleMouseInput(oldMouseState, careIfMouseHasMoved))
+            MouseState oldMouseState = this.oldMouseState;
+            if (base.HandleMouseInput(careIfMouseHasMoved))
             {
-                if (CircularPicker != null)
-                {
-                    RemoveComponent(CircularPicker);
-                    CircularPicker.UnhighlightSelected();
-                }
-                CircularPicker = null;
-                return false;
+                ClearCircularPicker();
+                return true;
             }
-
-            //Picking
-            else if (!Paused && newMouseState.LeftButton == ButtonState.Released
-                    && oldMouseState.LeftButton == ButtonState.Pressed)
+            else
             {
-                if (CircularPicker != null)
+                MouseState newMouseState = this.oldMouseState;
+                //Picking
+                if (!Paused && newMouseState.LeftButton == ButtonState.Released
+                        && oldMouseState.LeftButton == ButtonState.Pressed)
                 {
-                    RemoveComponent(CircularPicker);
-                    CircularPicker.UnhighlightSelected();
-                }
-                CircularPicker = null;
-                PickFrom3DWorld();
-            }
-
-            //Camera Rotation
-            else if (newMouseState.MiddleButton == ButtonState.Pressed && !Paused)
-            {
-                MSCamera camera = MSCamera.GetInstance();
-                if (oldMouseState.MiddleButton == ButtonState.Released)
-                {
-                    mouseMidHold = new Vector2(newMouseState.X, newMouseState.Y);
-                    camera.AdjustPitchAxis();
-                }
-                Vector2 movement = new Vector2(newMouseState.X, newMouseState.Y) - new Vector2(oldMouseState.X, oldMouseState.Y);
-                movement.X *= -1;
-                if (mouseMidHold.Y < MoodSwing.GetInstance().GraphicsDevice.DisplayMode.Height / 2)
-                    movement *= -1;
-
-                Vector2 midVector = new Vector2((MoodSwing.GetInstance().GraphicsDevice.DisplayMode.Width / 2),
-                    (MoodSwing.GetInstance().GraphicsDevice.DisplayMode.Height / 2));
-
-                float distance = Vector2.Distance(midVector, mouseMidHold);
-
-                movement *= 100;
-                movement /= distance;
-                camera.Rotate(movement);
-                if (CircularPicker != null)
-                {
-                    RemoveComponent(CircularPicker);
-                    CircularPicker.UnhighlightSelected();
-                }
-                CircularPicker = null;
-            }
-            else if (!Paused)
-            {
-                bool hasMoved = false;
-                Vector2 shift = Vector2.Zero;
-
-                //Camera movement using mouse
-                if (newMouseState.X >= 0 && newMouseState.X <= 5)
-                {
-                    shift += new Vector2(1, 0);
-                    hasMoved = true;
-                }
-                else if (newMouseState.X <= MoodSwing.GetInstance().GraphicsDevice.Viewport.Width &&
-                    newMouseState.X >= MoodSwing.GetInstance().GraphicsDevice.Viewport.Width - 5)
-                {
-                    shift += new Vector2(-1, 0);
-                    hasMoved = true;
+                    ClearCircularPicker();
+                    PickFrom3DWorld();
+                    return true;
                 }
 
-                if (newMouseState.Y >= 0 && newMouseState.Y <= 5)
+                //Camera Rotation
+                else if (newMouseState.MiddleButton == ButtonState.Pressed && !Paused)
                 {
-                    shift += new Vector2(0, -1);
-                    hasMoved = true;
-                }
-                else if (newMouseState.Y <= MoodSwing.GetInstance().GraphicsDevice.Viewport.Height &&
-                    newMouseState.Y >= MoodSwing.GetInstance().GraphicsDevice.Viewport.Height - 5)
-                {
-                    shift += new Vector2(0, 1);
-                    hasMoved = true;
+                    MSCamera camera = MSCamera.GetInstance();
+                    if (oldMouseState.MiddleButton == ButtonState.Released)
+                    {
+                        mouseMidHold = new Vector2(newMouseState.X, newMouseState.Y);
+                        camera.AdjustPitchAxis();
+                    }
+                    Vector2 movement = new Vector2(newMouseState.X, newMouseState.Y) - new Vector2(oldMouseState.X, oldMouseState.Y);
+                    movement.X *= -1;
+                    if (mouseMidHold.Y < MoodSwing.GetInstance().GraphicsDevice.DisplayMode.Height / 2)
+                        movement *= -1;
+
+                    Vector2 midVector = new Vector2((MoodSwing.GetInstance().GraphicsDevice.DisplayMode.Width / 2),
+                        (MoodSwing.GetInstance().GraphicsDevice.DisplayMode.Height / 2));
+
+                    float distance = Vector2.Distance(midVector, mouseMidHold);
+
+                    movement *= 100;
+                    movement /= distance;
+                    camera.Rotate(movement);
+                    ClearCircularPicker();
+                    return true;
                 }
 
-                //camera movement using right mouse button.
-                if (newMouseState.RightButton == ButtonState.Pressed &&
-                    oldMouseState.RightButton == ButtonState.Released)
+                else if (!Paused)
                 {
-                    mouseMidHold = new Vector2(newMouseState.X, newMouseState.Y);
-                }
-                else if (newMouseState.RightButton == ButtonState.Pressed &&
-                    newMouseState.RightButton == ButtonState.Pressed)
-                {
-                    Vector2 delta2 = new Vector2(newMouseState.X - mouseMidHold.X, newMouseState.Y - mouseMidHold.Y);
+                    bool hasMoved = false;
+                    Vector2 shift = Vector2.Zero;
 
-                    if (delta2.X <= -20)
+                    //Camera movement using mouse
+                    if (newMouseState.X >= 0 && newMouseState.X <= 5)
                     {
                         shift += new Vector2(1, 0);
                         hasMoved = true;
                     }
-                    else if (delta2.X >= 20)
+                    else if (newMouseState.X <= MoodSwing.GetInstance().GraphicsDevice.Viewport.Width &&
+                        newMouseState.X >= MoodSwing.GetInstance().GraphicsDevice.Viewport.Width - 5)
                     {
                         shift += new Vector2(-1, 0);
                         hasMoved = true;
                     }
-                    if (delta2.Y <= -20)
+
+                    if (newMouseState.Y >= 0 && newMouseState.Y <= 5)
                     {
                         shift += new Vector2(0, -1);
                         hasMoved = true;
                     }
-                    else if (delta2.Y >= 20)
+                    else if (newMouseState.Y <= MoodSwing.GetInstance().GraphicsDevice.Viewport.Height &&
+                        newMouseState.Y >= MoodSwing.GetInstance().GraphicsDevice.Viewport.Height - 5)
                     {
                         shift += new Vector2(0, 1);
                         hasMoved = true;
                     }
-                }
 
-                MSCamera.GetInstance().Shift(shift, map.Dimension);
-                int delta = (newMouseState.ScrollWheelValue - oldMouseState.ScrollWheelValue);
-                if (delta != 0)
-                {
-                    MSCamera.GetInstance().Zoom(delta / Math.Abs(delta));
-                    hasMoved = true;
-                }
-
-                if (hasMoved)
-                {
-                    if (CircularPicker != null)
+                    //camera movement using right mouse button.
+                    if (newMouseState.RightButton == ButtonState.Pressed &&
+                        oldMouseState.RightButton == ButtonState.Released)
                     {
-                        RemoveComponent(CircularPicker);
-                        CircularPicker.UnhighlightSelected();
+                        mouseMidHold = new Vector2(newMouseState.X, newMouseState.Y);
                     }
-                    CircularPicker = null;
+                    else if (newMouseState.RightButton == ButtonState.Pressed &&
+                        newMouseState.RightButton == ButtonState.Pressed)
+                    {
+                        Vector2 delta2 = new Vector2(newMouseState.X - mouseMidHold.X, newMouseState.Y - mouseMidHold.Y);
+
+                        if (delta2.X <= -20)
+                        {
+                            shift += new Vector2(1, 0);
+                            hasMoved = true;
+                        }
+                        else if (delta2.X >= 20)
+                        {
+                            shift += new Vector2(-1, 0);
+                            hasMoved = true;
+                        }
+                        if (delta2.Y <= -20)
+                        {
+                            shift += new Vector2(0, -1);
+                            hasMoved = true;
+                        }
+                        else if (delta2.Y >= 20)
+                        {
+                            shift += new Vector2(0, 1);
+                            hasMoved = true;
+                        }
+                    }
+
+                    MSCamera.GetInstance().Shift(shift, map.Dimension);
+                    int delta = (newMouseState.ScrollWheelValue - oldMouseState.ScrollWheelValue);
+                    if (delta != 0)
+                    {
+                        MSCamera.GetInstance().Zoom(delta / Math.Abs(delta));
+                        hasMoved = true;
+                    }
+
+                    if (hasMoved)
+                        ClearCircularPicker();
+
+                    return hasMoved;
                 }
             }
             return false;
         }
 
-        public override bool HandleMouseInput(MouseState oldMouseState)
+        public override bool HandleMouseInput()
         {
-            return this.HandleMouseInput(oldMouseState, true);
+            return this.HandleMouseInput(true);
+        }
+
+        private void ClearCircularPicker()
+        {
+            if (CircularPicker != null)
+            {
+                RemoveComponent(CircularPicker);
+                CircularPicker.UnhighlightSelected();
+            }
+            CircularPicker = null;
         }
 
         public override void HandleKeyboardInput(KeyboardState oldKeyboardState)

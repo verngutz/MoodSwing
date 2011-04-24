@@ -25,7 +25,7 @@ namespace MoodSwingGame
         {
             MSAnimatingButton startGameButton = new MSAnimatingButton(
                     null,
-                    new OpenCityScreen(),
+                    OpenCityScreen.GetInstance(),
                     new Rectangle(330, 250, 559, 60),
                     game.Content.Load<Texture2D>("startgame"),
                     game.Content.Load<Texture2D>("startgameclicked"),
@@ -41,7 +41,7 @@ namespace MoodSwingGame
 
             MSAnimatingButton optionsButton = new MSAnimatingButton(
                     null,
-                    new OpenOptionsScreen(),
+                    OpenOptionsScreen.GetInstance(),
                     new Rectangle(350, 350, 472, 60),
                     game.Content.Load<Texture2D>("options"),
                     game.Content.Load<Texture2D>("optionsclicked"),
@@ -81,7 +81,7 @@ namespace MoodSwingGame
 
         public override void Update(GameTime gameTime)
         {
-            HandleMouseInput((Game as MoodSwing).OldMouseState);
+            HandleMouseInput();
             HandleKeyboardInput((Game as MoodSwing).OldKeyboardState);
             base.Update(gameTime);
         }

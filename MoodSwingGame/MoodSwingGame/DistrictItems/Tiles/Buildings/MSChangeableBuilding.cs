@@ -11,8 +11,10 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+
 using MoodSwingCoreComponents;
 using MoodSwingGUI;
+using MoodSwingGraphics;
 
 namespace MoodSwingGame
 {
@@ -75,6 +77,16 @@ namespace MoodSwingGame
             if (State == MSChangeableBuildingState.TRANSFORMING)
             {
                 timeCount = gameTime.TotalGameTime.TotalSeconds - startTime;
+
+                for (int i = 0; i < MSSmokePlumeParticleSystem.THICKNESS; i++)
+                {
+                    (Game as MoodSwing).SmokeParticles.AddParticle(
+                        new Vector3(MathHelper.Lerp(BoundingBox.Min.X - 2, BoundingBox.Max.X + 2, (float)MSRandom.random.NextDouble()),
+                                    MathHelper.Lerp(BoundingBox.Min.Y - 2, BoundingBox.Max.Y + 2, (float)MSRandom.random.NextDouble()),
+                                    MathHelper.Lerp(BoundingBox.Min.Z - 2, BoundingBox.Max.Z + 50, (float)MSRandom.random.NextDouble())),
+                        new Vector3(0, 0, 5));
+                }
+
                 if (timeCount >= buildTime) State = MSChangeableBuildingState.DONE;
             }
             base.Update(gameTime);

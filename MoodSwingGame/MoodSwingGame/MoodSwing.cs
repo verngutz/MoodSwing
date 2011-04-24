@@ -41,9 +41,6 @@ namespace MoodSwingGame
         private KeyboardState oldKeyboardState;
         public KeyboardState OldKeyboardState { get { return oldKeyboardState; } }
 
-        private MouseState oldMouseState;
-        public MouseState OldMouseState { get { return oldMouseState; } }
-
         private Queue<Song> bgm;
         public Queue<Song> BGM { get { return bgm; } set { bgm = value; } }
 
@@ -54,6 +51,9 @@ namespace MoodSwingGame
 
         private MSBloomComponent bloom;
         public MSBloomComponent Bloom { get { return bloom; } }
+
+        private MSSmokePlumeParticleSystem smokeParticles;
+        public MSSmokePlumeParticleSystem SmokeParticles { get { return smokeParticles; } }
 
         private MoodSwing()
         {
@@ -77,6 +77,10 @@ namespace MoodSwingGame
 
             bloom = new MSBloomComponent(this);
             Components.Add(bloom);
+
+            smokeParticles = new MSSmokePlumeParticleSystem(this);
+            smokeParticles.DrawOrder = -1;
+            Components.Add(smokeParticles);
         }
 
         /// <summary>
@@ -92,7 +96,6 @@ namespace MoodSwingGame
             base.Initialize();
 
             oldKeyboardState = Keyboard.GetState();
-            oldMouseState = MSMouse.GetState();
             CurrentScreen = MSIntroScreen.getInstance();
         }
 
@@ -127,15 +130,15 @@ namespace MoodSwingGame
             if (IsActive)
             {
                 CurrentScreen.Update(gameTime);
-                MoodSwing.GetInstance().Notifier.HandleMouseInput(oldMouseState);
+                MoodSwing.GetInstance().Notifier.HandleMouseInput();
 
                 KeyboardState newKeyBoardState = Keyboard.GetState();
-                MouseState newMouseState = MSMouse.GetState();
 
-                oldMouseState = newMouseState;
                 oldKeyboardState = newKeyBoardState;
                 prevGameTime = gameTime;
-                base.Update(gameTime);
+
+                if(!(CurrentScreen is MSDistrictScreen) || !(CurrentScreen as MSDistrictScreen).Paused)
+                    base.Update(gameTime);
                 
                 MoodSwing.GetInstance().Notifier.Update(gameTime);
 

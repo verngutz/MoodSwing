@@ -17,13 +17,20 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGame
 {
-    public class ReturnFromOptionsScreen : MSAction
+    public class ReturnFromOptionsScreen : ChangeScreen
     {
-        public void PerformAction(Game game)
+        private static ReturnFromOptionsScreen instance;
+        public static ReturnFromOptionsScreen GetInstance()
         {
-            MoodSwing moodSwing = (MoodSwing)game;
-            moodSwing.CurrentScreen.ResetHovers();
-            moodSwing.CurrentScreen = MSOptionsScreen.getInstance().ReturnScreen;
+            if (instance == null)
+                instance = new ReturnFromOptionsScreen();
+            return instance;
+        }
+        private ReturnFromOptionsScreen() { }
+
+        public override void PerformAction(Game game)
+        {
+            base.ChangeToScreen(MSOptionsScreen.GetInstance().ReturnScreen, game);
         }
     }
 }

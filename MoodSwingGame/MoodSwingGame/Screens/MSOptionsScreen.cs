@@ -13,7 +13,7 @@ namespace MoodSwingGame
     public class MSOptionsScreen : MSScreen
     {
         private static MSOptionsScreen optionsScreen;
-        public static MSOptionsScreen getInstance()
+        public static MSOptionsScreen GetInstance()
         {
             if (optionsScreen == null)
                 optionsScreen = new MSOptionsScreen(MoodSwing.GetInstance());
@@ -333,7 +333,7 @@ namespace MoodSwingGame
 
             AddComponent(new MSButton(
                     null,
-                    new ReturnFromOptionsScreen(),
+                    ReturnFromOptionsScreen.GetInstance(),
                     new Rectangle(0, 0, 574, 60),
                     game.Content.Load<Texture2D>("exit"),
                     game.Content.Load<Texture2D>("exitclicked"),
@@ -349,7 +349,7 @@ namespace MoodSwingGame
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            HandleMouseInput((Game as MoodSwing).OldMouseState, false);
+            HandleMouseInput(false);
             HandleKeyboardInput((Game as MoodSwing).OldKeyboardState);
         }
     }

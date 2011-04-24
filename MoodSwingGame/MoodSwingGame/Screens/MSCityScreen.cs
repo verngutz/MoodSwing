@@ -32,7 +32,7 @@ namespace MoodSwingGame
         {
             AddComponent(new MSButton(
                     null,
-                    new OpenMainScreen(),
+                    OpenMainScreen.GetInstance(),
                     new Rectangle(0, 0, 574, 60),
                     game.Content.Load<Texture2D>("exit"),
                     game.Content.Load<Texture2D>("exitClicked"),
@@ -46,7 +46,7 @@ namespace MoodSwingGame
 
             AddComponent(new MSButton(
                     null,
-                    new OpenDistrictScreen(),
+                    new OpenDistrictScreen(MSDistrictScreen.DistrictName.FEAR),
                     new Rectangle(0, 0, 559, 60),
                     game.Content.Load<Texture2D>("startgame"),
                     game.Content.Load<Texture2D>("startgameclicked"),
@@ -62,7 +62,7 @@ namespace MoodSwingGame
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            HandleMouseInput((Game as MoodSwing).OldMouseState);
+            HandleMouseInput();
             HandleKeyboardInput((Game as MoodSwing).OldKeyboardState);
         }
     }

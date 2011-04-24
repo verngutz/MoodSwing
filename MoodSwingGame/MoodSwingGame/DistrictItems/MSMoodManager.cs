@@ -268,7 +268,7 @@ namespace MoodSwingGame
                 if (!immortal)
                 {
                     isAlive = false;
-                    (new InitiateGameOverLoseSequence()).PerformAction(Game);
+                    (new InitiateGameOverSequence(false)).PerformAction(Game);
                 }
             }
         }
@@ -329,7 +329,7 @@ namespace MoodSwingGame
 
             if(povertyScore == 1 && educationScore == 1 && genderEqualityScore == 1 && childHealthScore == 1
                 && maternalHealthScore == 1 && hivAidsScore == 1 && environmentScore == 1 && globalPartnershipScore == 1)
-                (new InitiateGameOverWinSequence()).PerformAction(Game);
+                (new InitiateGameOverSequence(true)).PerformAction(Game);
         }
     }
 }

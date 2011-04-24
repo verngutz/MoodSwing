@@ -27,10 +27,16 @@ namespace MoodSwingGUI
             get { return hasMouseFocus && HasKeyboardFocus; }
             set
             {
+                if (value && !hasMouseFocus)
+                {    
+                    HandleMouseInput(false);
+                }
                 hasMouseFocus = value;
                 HasKeyboardFocus = value;
             }
         }
+
+        protected MouseState oldMouseState;
 
         public MSFacadePanel(Texture2D background, Rectangle boundingRectangle, MSToolTip toolTip, Shape shape, SpriteBatch spriteBatch, Game game)
             : this(background, boundingRectangle, 0, 0, 0, 0, Color.White, toolTip, shape, spriteBatch, game) { }
@@ -44,14 +50,15 @@ namespace MoodSwingGUI
         public MSFacadePanel(Texture2D background, Rectangle boundingRectangle, float topPadding, float bottomPadding, float leftPadding, float rightPadding, Color highlight, MSToolTip toolTip, Shape shape, SpriteBatch spriteBatch, Game game)
             : base(background, boundingRectangle, topPadding, bottomPadding, leftPadding, rightPadding, highlight, toolTip, shape, spriteBatch, game) 
         {
-            HasFocus = true;
+            HasFocus = false;
         }
 
-        public virtual bool HandleMouseInput(MouseState oldMouseState, bool careIfMouseHasMoved)
+        public virtual bool HandleMouseInput(bool careIfMouseHasMoved)
         {
+            bool hasEvent = false;
+            MouseState currentMouseState = MSMouse.GetState();
             if (hasMouseFocus)
             {
-                MouseState currentMouseState = MSMouse.GetState();
                 if (currentMouseState != oldMouseState || !careIfMouseHasMoved)
                 {
                     bool hasHovered = false;
@@ -96,7 +103,7 @@ namespace MoodSwingGUI
                             }
                             currentHovered.UnLeftClick();
                             currentHovered = null;
-                            return true;
+                            hasEvent = true;
                         }
 
                         if (currentMouseState.RightButton == ButtonState.Pressed && oldMouseState.RightButton == ButtonState.Released)
@@ -106,7 +113,7 @@ namespace MoodSwingGUI
                         else if (currentMouseState.RightButton == ButtonState.Released && oldMouseState.RightButton == ButtonState.Pressed)
                         {
                             currentHovered.UnRightClick();
-                            return true;
+                            hasEvent = true;
                         }
 
                         if (currentMouseState.MiddleButton == ButtonState.Pressed && oldMouseState.MiddleButton == ButtonState.Released)
@@ -116,17 +123,18 @@ namespace MoodSwingGUI
                         else if (currentMouseState.MiddleButton == ButtonState.Released && oldMouseState.MiddleButton == ButtonState.Pressed)
                         {
                             currentHovered.UnMiddleClick();
-                            return true;
+                            hasEvent = true;
                         }
                     }
                 }
             }
-            return false;
+            oldMouseState = currentMouseState;
+            return hasEvent;
         }
 
-        public virtual bool HandleMouseInput(MouseState oldMouseState)
+        public virtual bool HandleMouseInput()
         {
-            return this.HandleMouseInput(oldMouseState, true);
+            return this.HandleMouseInput(true);
         }
 
         public override void HandleKeyboardInput(KeyboardState oldKeyboardState)
