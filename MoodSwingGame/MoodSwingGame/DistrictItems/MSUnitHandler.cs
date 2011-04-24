@@ -37,7 +37,7 @@ namespace MoodSwingGame
             return unitHandler;
         }
         //probability constant that handles unit generation
-        private const int INITIAL_BIRTH_RATE = 100;
+        private const int INITIAL_BIRTH_RATE = 300;
         private const int MAX_PROBABILITY = 10000;
         private const int MAX_MOB_PROBABILITY = 100;
         //probability constant that handles mob generation
