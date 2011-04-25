@@ -36,13 +36,13 @@ namespace MoodSwingGame
 
             moodSwing.Notifier.AddComponent(
                 new MSButton(
-                    new MSResizingLabel(
+                    new MSFontScalingLabel(
                         "Where Am I", 
                         new Rectangle(0, 0, 100, 50), 
                         moodSwing.Content.Load<SpriteFont>("Temp"),
                         moodSwing.SpriteBatch,
                         moodSwing),
-                    new CloseNotification(),
+                    new MovementTutorial(),
                     new Rectangle(0, 0, 100, 50),
                     moodSwing.Content.Load<Texture2D>("Button"),
                     moodSwing.Content.Load<Texture2D>("ButtonClicked"),

@@ -15,31 +15,52 @@ using MoodSwingCoreComponents;
 
 namespace MoodSwingGUI
 {
-    public class MSUnresizingLabel : MSGUIUnclickable
+    public class MSWrappingLabel : MSLabel
     {
-        private String text;
-
         /// <summary>
         /// Gets or sets the text stored in this MSLabel
         /// </summary>
-        public String Text
+        public override String Text
         {
             set
             {
+                text = value;
+                if (rightBoundary == null)
+                {
+                    displayedText = value;
+                }
+                else
+                {
+                    displayedText = "";
+                    for (int i = 0; i < value.Length; i++)
+                    {
+                        if (boundedPosition.X + spriteFont.MeasureString(displayedText).X + spriteFont.MeasureString(value.ElementAt<Char>(i).ToString()).X > rightBoundary)
+                        {
+                            if (bottomBoundary != null && boundedPosition.Y + spriteFont.MeasureString(displayedText).Y + spriteFont.MeasureString(value.ElementAt<Char>(i).ToString()).Y > bottomBoundary)
+                            {
+                                break;
+                            }
+                            displayedText += "\n";
+                        }
+                        displayedText += value.ElementAt<Char>(i);
+                    }
+                }
                 BoundingRectangle = new Rectangle
                 (
-                    BoundingRectangle.X, 
-                    BoundingRectangle.Y, 
-                    (int)spriteFont.MeasureString(value).X + leftPadding + rightPadding, 
-                    (int)spriteFont.MeasureString(value).Y + topPadding + bottomPadding
+                    BoundingRectangle.X,
+                    BoundingRectangle.Y,
+                    (int)spriteFont.MeasureString(displayedText).X + leftPadding + rightPadding,
+                    (int)spriteFont.MeasureString(displayedText).Y + topPadding + bottomPadding
                 );
-                text = value;
             }
             get { return text; }
         }
 
-        private SpriteFont spriteFont;
-        private Color textColor;
+        private String displayedText;
+
+        private int? rightBoundary;
+        private int? bottomBoundary;
+
         private Texture2D background;
 
         private int topPadding;
@@ -70,8 +91,8 @@ namespace MoodSwingGUI
         /// <param name="color">the text color of this MSLabel</param>
         /// <param name="spriteBatch">the SpriteBatch that will draw this MSLabel</param>
         /// <param name="game">the Game where this MSLabel is used</param>
-        public MSUnresizingLabel(Point position, String text, SpriteFont sprite_font, Color text_color, Texture2D background, SpriteBatch spriteBatch, Game game)
-            : this(position, text, sprite_font, text_color, background, 0, 0, 0, 0, spriteBatch, game) { }
+        public MSWrappingLabel(Point position, String text, SpriteFont sprite_font, Color text_color, Texture2D background, int? rightBoundary, int? bottomBoundary, SpriteBatch spriteBatch, Game game)
+            : this(position, text, sprite_font, text_color, background, 0, 0, 0, 0, rightBoundary, bottomBoundary, spriteBatch, game) { }
 
         /// <summary>
         /// Constructs a new MSLabel.
@@ -82,8 +103,8 @@ namespace MoodSwingGUI
         /// <param name="color">the text color of this MSLabel</param>
         /// <param name="spriteBatch">the SpriteBatch that will draw this MSLabel</param>
         /// <param name="game">the Game where this MSLabel is used</param>
-        public MSUnresizingLabel(Point position, String text, SpriteFont sprite_font, Color text_color, Texture2D background, int topPadding, int bottomPadding, int leftPadding, int rightPadding, SpriteBatch spriteBatch, Game game)
-            : base(new Rectangle(position.X, position.Y, 0, 0), spriteBatch, game)
+        public MSWrappingLabel(Point position, String text, SpriteFont sprite_font, Color text_color, Texture2D background, int topPadding, int bottomPadding, int leftPadding, int rightPadding, int? rightBoundary, int? bottomBoundary, SpriteBatch spriteBatch, Game game)
+            : base(text, new Rectangle(position.X, position.Y, 0, 0), sprite_font, text_color, spriteBatch, game)
         {
             this.spriteFont = sprite_font;
             this.textColor = text_color;
@@ -93,6 +114,9 @@ namespace MoodSwingGUI
             this.bottomPadding = bottomPadding;
             this.leftPadding = leftPadding;
             this.rightPadding = rightPadding;
+
+            this.rightBoundary = rightBoundary;
+            this.bottomBoundary = bottomBoundary;
 
             boundedPosition = Position + new Vector2(leftPadding, topPadding);
             boundedSize = Size - new Vector2(leftPadding, topPadding) - new Vector2(rightPadding, bottomPadding);
@@ -104,7 +128,7 @@ namespace MoodSwingGUI
             base.Draw(gameTime);
             if (background != null)
                 SpriteBatch.Draw(background, BoundingRectangle, Color.White);
-            SpriteBatch.DrawString(spriteFont, Text, boundedPosition, textColor);
+            SpriteBatch.DrawString(spriteFont, displayedText, boundedPosition, textColor);
         }
     }
 }

@@ -65,9 +65,6 @@ namespace MoodSwingGame
         private MSPanel blackOutPanel;
         public MSPanel BlackOutPanel { get { return blackOutPanel; } }
 
-        private MSNotifier storyBox;
-        public MSNotifier StoryBox { get { return storyBox; } }
-
         private double gameTime;
         private double lastTotalRunTime;
 
@@ -97,12 +94,10 @@ namespace MoodSwingGame
                 MSDistrictHall.getInstance().Position, MSDistrictHall.getInstance().Rotation);
             //citizensList = new List<MSCitizen>();
             unitHandler = MSUnitHandler.Restart();
-            MSMoodManager.Reset();
             moodManager = MSMoodManager.GetInstance();
+            MSMoodManager.Reset();
             resourceManager = MSResourceManager.GetInstance();
             MSResourceManager.instantiate(1000, map.InitialVolunteerCenters);
-
-            storyBox = new MSNotifier(Game.Content.Load<Texture2D>("BlackOut"), new Rectangle(0, 400, 1024, 100), Shape.RECTANGULAR, SpriteBatch, Game);
 
             foreach (MS3DTile tile in map.MapArray)
             {
@@ -150,17 +145,14 @@ namespace MoodSwingGame
                 game
             );
             idleVolunteersPanel.AddComponent(idleVolunteers);
-            idleVolunteersToolTip.AddComponent(new MSUnresizingLabel
+            idleVolunteersToolTip.AddComponent(new MSWrappingLabel
             (
                 new Point(82, 39),
                 "Idle Volunteers",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
-                3,
-                3,
-                3,
-                3,
+                3, 3, 3, 3, null, null,
                 SpriteBatch,
                 Game
             ));
@@ -193,17 +185,14 @@ namespace MoodSwingGame
                 spriteBatch,
                 game);
             totalVolunteersPanel.AddComponent(totalVolunteers);
-            totalVolunteersToolTip.AddComponent(new MSUnresizingLabel
+            totalVolunteersToolTip.AddComponent(new MSWrappingLabel
             (
                 new Point(192, 48),
                 "Total Volunteers/Volunteers Manageable",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
-                3,
-                3,
-                3,
-                3,
+                3, 3, 3, 3, null, null, 
                 SpriteBatch,
                 Game
             ));
@@ -237,17 +226,14 @@ namespace MoodSwingGame
                 game
             );
             fundsPanel.AddComponent(funds);
-            fundsToolTip.AddComponent(new MSUnresizingLabel
+            fundsToolTip.AddComponent(new MSWrappingLabel
             (
                 new Point(332, 64),
                 "Funds",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
-                3,
-                3,
-                3,
-                3,
+                3, 3, 3, 3, null, null,
                 SpriteBatch,
                 Game
             ));
