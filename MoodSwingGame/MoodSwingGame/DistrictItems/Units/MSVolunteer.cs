@@ -29,40 +29,71 @@ namespace MoodSwingGame
 
         public override float Speed 
         { 
-            get { return 0.65f; }
+            get { return 0.85f; }
             set { throw new NotImplementedException(); } 
         }
 
         private MSUnit target;
         private MSTower office;
         private bool isGoingToMobber;
-        private Node pathToOffice;
-
-        public MSVolunteer(Vector3 position, Node path_to_mobber, Node path_to_office, MSUnit target, MSTower office, MSMap map, float initRotation)
+        
+        public MSVolunteer(Vector3 position, Node path_to_mobber, MSUnit target, MSTower office, MSMap map, float initRotation)
             : base(position, path_to_mobber, map, false, initRotation)
         {
             this.target = target;
             this.office = office;
             this.isGoingToMobber = true;
-            this.pathToOffice = path_to_office;
         }
 
+        private int minChaseDistance = 10;
         public override void Walk(MS3DTile[,] map_array, List<MSUnit> units )
         {
  	        base.Walk(map_array, units);
-
-            if (DestinationReached && isGoingToMobber)
+            if (isGoingToMobber && target.DestinationReached )
             {
+                this.path = map.GetPath(this.TileCoordinate, office.TileCoordinate);
+                this.destination = Vector2.Zero;
                 isGoingToMobber = false;
-                Path = pathToOffice;
-                target.IsStopped = false;
-                target.Follow(this);
-                target.Speed = this.Speed;
             }
-            else if (DestinationReached && !isGoingToMobber)
+            else
             {
-                office.VolunteerReturned();
+                if ( isGoingToMobber && this.TileCoordinate == target.TileCoordinate)
+                {
+                    destination = new Vector2(target.Position.X, target.Position.Y);
+                    targetRotation = (float)Math.Atan2(destination.Y - position.Y, destination.X - position.X);
+                }
+                if ( isGoingToMobber && Vector3.Distance(position, target.Position) <= minChaseDistance)
+                {
+                    isGoingToMobber = false;
+                    this.path = map.GetPath(this.TileCoordinate, office.TileCoordinate);
+                    this.destination = Vector2.Zero;
+                    for (int i = 0; i < MSUnitHandler.GetInstance().Units.Count; i++)
+                    {
+                        MSUnit unit =  MSUnitHandler.GetInstance().Units[i];
+                        if (unit == target)
+                        {
+                            MSUnitHandler.GetInstance().Units[i] = new MSCitizen
+                            (
+                                unit.Position,
+                                path,
+                                unit.Map,
+                                false,
+                                unit.Rotation
+                            );
+                            MSUnitHandler.GetInstance().Units[i].Speed = this.Speed;
+                            office.remove(unit);
+                            break;
+                        }
+                    }
+
+                }
+                else if (DestinationReached && !isGoingToMobber)
+                {
+                    office.VolunteerReturned();
+
+                }
             }
+
         }
     }
 }

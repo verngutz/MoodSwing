@@ -31,18 +31,18 @@ namespace MoodSwingGame
         public static MSUnitHandler Restart()
         {
             unitHandler = new MSUnitHandler();
-            unitHandler.MOB_WAVE_PROBABILITY = 17;
-            unitHandler.MOB_STABLE_PROBABILITY = 20;
+            unitHandler.MOB_WAVE_PROBABILITY = 7;
+            unitHandler.MOB_STABLE_PROBABILITY = 0;
             unitHandler.MOB_MDG_OPTIONS = 1;
             return unitHandler;
         }
         //probability constant that handles unit generation
-        private const int INITIAL_BIRTH_RATE = 300;
+        private const int INITIAL_BIRTH_RATE = 10;
         private const int MAX_PROBABILITY = 10000;
         private const int MAX_MOB_PROBABILITY = 100;
         //probability constant that handles mob generation
-        private int MOB_WAVE_PROBABILITY = 17;
-        private int MOB_STABLE_PROBABILITY = 20;
+        private int MOB_WAVE_PROBABILITY = 7;
+        private int MOB_STABLE_PROBABILITY = 0;
         private const int MOB_RECRUIT_RATE = 3000;
         private const int MOB_RECRUIT_DISTANCE = 15;
         //probability of kind of mdg in mob
@@ -159,18 +159,23 @@ namespace MoodSwingGame
             units.Add(unit);
         }
 
-        public void SendVolunteer(MSMap map, MSUnit unit, MSTower bldg )
+        public void SendVolunteer(MSMap map, MSUnit unit, MSTower office )
         {
-            Node path1 = map.GetPath(new Vector2(bldg.Row, bldg.Column), unit.TileCoordinate);
-            Node path2 = map.GetPath(unit.TileCoordinate, new Vector2(bldg.Row, bldg.Column)).next;
+            Node path1 = map.GetPath(new Vector2(office.Row, office.Column), unit.TileCoordinate);
+
+            Node pathEnd = path1;
+            while (pathEnd.next != null)
+            {
+                pathEnd = pathEnd.next;
+            }
+            pathEnd.next = unit.Path;
 
             MSVolunteer volunteer = new MSVolunteer
             (
-                bldg.Position + MSUnit.UNITZ_POSITION,
+                office.Position + MSUnit.UNITZ_POSITION,
                 path1,
-                path2,
                 unit,
-                bldg,
+                office,
                 map,
                 0
             );
@@ -202,8 +207,9 @@ namespace MoodSwingGame
         {
             List<MSUnit> toRemove = new List<MSUnit>();
 
-            foreach (MSUnit unit in units)
+            for (int i = 0; i < units.Count; i++ )
             {
+                MSUnit unit = units[i];
                 if (!unit.DestinationReached)
                     unit.Walk(map.MapArray, units);
 

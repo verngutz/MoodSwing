@@ -21,12 +21,18 @@ namespace MoodSwingGame
         public MSTowerStats Stats { set; get; }
 
         private int capacity;
+        private List<MSUnit> targetList;
+        public void remove(MSUnit unit)
+        {
+            targetList.Remove(unit);
+        }
 
         public MSTower( Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column, int height, MSTowerStats stats)
             : base(model, texture, effect, position, rotation, row, column, height)
         {
             this.Stats = stats;
             capacity = stats.GetVolunteerCost();
+            this.targetList = new List<MSUnit>();
         }
 
         public void sentinel(MSMap map, MSUnitHandler unitHandler)
@@ -36,20 +42,8 @@ namespace MoodSwingGame
                 for (int i = 0; i < unitHandler.Units.Count; i++)
                 {
                     MSUnit unit = unitHandler.Units[i];
-                    if (unit is MSMobber)
+                    if (unit is MSMobber && !targetList.Contains(unit) )
                     {
-                        Vector2 position1 = new Vector2
-                        (
-                            position.X + MSMap.tileDimension / 2,
-                            position.Y + MSMap.tileDimension / 2
-                        );
-
-                        Vector2 position2 = new Vector2
-                        (
-                            unit.Position.X,
-                            unit.Position.Y
-                        );
-
                         Vector2 targetTileCoords = unit.TileCoordinate;
                         //int distance = Math.Abs(Row - (int)targetTileCoords.X) + Math.Abs(Column - (int)targetTileCoords.Y);
                         MS3DTile tile = (unit as MSMobber).Map.MapArray[(int)targetTileCoords.X, (int)targetTileCoords.Y];
@@ -72,21 +66,22 @@ namespace MoodSwingGame
                             {
                                 capacity--;
 
-                                unitHandler.Units[i] = new MSCitizen
+                                /*unitHandler.Units[i] = new MSCitizen
                                 (
                                     unit.Position,
                                     unit.Path,
                                     unit.Map,
                                     false,
-                                    0
+                                    unit.Rotation
                                 );
 
-                                unit = unitHandler.Units[i];
-                                unit.IsStopped = true;
+                                unit = unitHandler.Units[i];*/
+                                //unit.IsStopped = true;
 
                                 MSUnitHandler.GetInstance().SendVolunteer(map, unit, this);
-                                MSMoodManager.GetInstance().TakeHealth();
-                                MSMoodManager.GetInstance().AddMDGScore(goal);
+                                targetList.Add(unit);
+                                //MSMoodManager.GetInstance().TakeHealth();
+                                //MSMoodManager.GetInstance().AddMDGScore(goal);
                                 
                             }
                         }

@@ -144,7 +144,8 @@ namespace MoodSwingGame
         public virtual void Follow(MSUnit unit)
         {
             path = unit.Path;
-            destination = unit.Destination;
+            destination = Vector2.Zero;
+            //targetRotation = (float)Math.Atan2(destination.Y - position.Y, destination.X - position.X);
         }
 
         public void ChangePath(Node path)
