@@ -102,19 +102,20 @@
     <Compile Include="MSGUITypable.cs" />
     <Compile Include="MSGUIUnclickable.cs" />
     <Compile Include="MSImageHolder.cs" />
+    <Compile Include="MSLabel.cs" />
     <Compile Include="MSMiscellaneous.cs" />
     <Compile Include="MSNotifier.cs" />
     <Compile Include="MSPanel.cs" />
     <Compile Include="MSProgressBar.cs" />
     <Compile Include="MSRadioButtonGroup.cs" />
-    <Compile Include="MSResizingLabel.cs" />
+    <Compile Include="MSFontScalingLabel.cs" />
     <Compile Include="MSScreen.cs" />
     <Compile Include="MSSlider.cs" />
     <Compile Include="MSTabbedPanel.cs" />
     <Compile Include="MSTextArea.cs" />
     <Compile Include="MSTextField.cs" />
     <Compile Include="MSToolTip.cs" />
-    <Compile Include="MSUnresizingLabel.cs" />
+    <Compile Include="MSWrappingLabel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -22,222 +22,28 @@ namespace MoodSwingGame
         public MSAbandonedBuildingPicker(Texture2D background, Rectangle boundingRectangle, MSChangeableBuilding toBuy, SpriteBatch spriteBatch, Game game)
             : base(background, boundingRectangle, 78, 78, 62, 62, toBuy, Shape.RECTANGULAR, spriteBatch, game)
         {
-            MSPanel middleOrb = new MSPanel(Game.Content.Load<Texture2D>("BuyDialog/middleOrb"), new Rectangle(0, 0, 184, 184), 30, 0, 0, 0, null, Shape.CIRCULAR, spriteBatch, game);
-            AddComponent(middleOrb, Alignment.MIDDLE_CENTER);
-            middleOrb.AddComponent
-            (
-                new MSResizingLabel
-                (
-                    "For Sale",
-                    new Rectangle(86, 82, 91, 27),
-                    Game.Content.Load<SpriteFont>("BuyDialog"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.TOP_CENTER
-            );
+            AddMiddleOrb("For Sale");
 
-            #region Volunteer Center Tool Tip
-            MSToolTip volunteerCenterToolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
-
-            MSToolTip volunteerCenterCostToolTip = new MSToolTip
-            (
-                null,
-                new Rectangle(0, 0, 75, 50),
-                -30,
-                0,
-                0,
-                0,
-                SpriteBatch,
-                Game
-            );
-
-            volunteerCenterToolTip.AddComponent(new MSUnresizingLabel
-            (
-                new Point(BoundingRectangle.X, BoundingRectangle.Y + BoundingRectangle.Height),
-                "Build a Volunteer Center",
-                Game.Content.Load<SpriteFont>("ToolTipFont"),
-                Color.White,
-                Game.Content.Load<Texture2D>("BlackOut"),
-                2, 2, 2, 2,
-                SpriteBatch,
-                Game
-            ));
-
-            volunteerCenterToolTip.AddComponent(volunteerCenterCostToolTip, Alignment.MIDDLE_CENTER);
-
-            volunteerCenterCostToolTip.AddComponent(bucksIcon, Alignment.MIDDLE_LEFT);
-
-            volunteerCenterCostToolTip.AddComponent
-            (
-                new MSUnresizingLabel
-                (
-                    new Point(0, 0),
-                    MSVolunteerCenterStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("BuyDialog"),
-                    Color.Black,
-                    null,
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.MIDDLE_RIGHT
-            );
-            #endregion
-
-            AddComponent(new MSButton(null,
-                new BuyVolunteerCenter(toBuy),
+            AddSelection("Build Volunteer Center", 
+                MSVolunteerCenterStats.GetInstance(), 
                 new Rectangle(boundingRectangle.X + 128, boundingRectangle.Y + 131, 77, 80),
                 Game.Content.Load<Texture2D>("BuyDialog/volunteer"),
                 Game.Content.Load<Texture2D>("BuyDialog/volunteerclicked"),
-                Game.Content.Load<Texture2D>("BuyDialog/volunteerhover"),
-                volunteerCenterToolTip,
-                Shape.AMORPHOUS, spriteBatch, game));
+                Game.Content.Load<Texture2D>("BuyDialog/volunteerhover"));
 
-            #region Fundraiser Tool Tip
-            MSToolTip fundraiserToolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
-
-            MSToolTip fundraiserCostToolTip = new MSToolTip
-            (
-                null,
-                new Rectangle(0, 0, 75, 50),
-                -30,
-                0,
-                0,
-                0,
-                SpriteBatch,
-                Game
-            );
-
-            fundraiserToolTip.AddComponent(new MSUnresizingLabel
-            (
-                new Point(BoundingRectangle.X, BoundingRectangle.Y + BoundingRectangle.Height),
-                "Build a Donations Center",
-                Game.Content.Load<SpriteFont>("ToolTipFont"),
-                Color.White,
-                Game.Content.Load<Texture2D>("BlackOut"),
-                2, 2, 2, 2,
-                SpriteBatch,
-                Game
-            ));
-
-            fundraiserToolTip.AddComponent(fundraiserCostToolTip, Alignment.MIDDLE_CENTER);
-
-            fundraiserCostToolTip.AddComponent(bucksIcon, Alignment.MIDDLE_LEFT);
-
-            fundraiserCostToolTip.AddComponent
-            (
-                new MSUnresizingLabel
-                (
-                    new Point(0, 0),
-                    MSFundraiserStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("BuyDialog"),
-                    Color.Black,
-                    null,
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.MIDDLE_RIGHT
-            );
-
-            fundraiserCostToolTip.AddComponent(gingerBreadManIcon, Alignment.BOTTOM_LEFT);
-
-            fundraiserCostToolTip.AddComponent
-            (
-                new MSUnresizingLabel
-                (
-                    new Point(0, 0),
-                    MSFundraiserStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("BuyDialog"),
-                    Color.Black,
-                    null,
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.BOTTOM_RIGHT
-            );
-            #endregion
-
-            AddComponent(new MSButton(null,
-                new BuyFundraiser(toBuy),
+            AddSelection("Buy a Business",
+                MSFundraiserStats.GetInstance(),
                 new Rectangle(boundingRectangle.X + 55, boundingRectangle.Y + 131, 77, 80),
                 Game.Content.Load<Texture2D>("BuyDialog/money"),
                 Game.Content.Load<Texture2D>("BuyDialog/moneyClicked"),
-                Game.Content.Load<Texture2D>("BuyDialog/moneyHover"),
-                fundraiserToolTip,
-                Shape.AMORPHOUS, spriteBatch, game));
+                Game.Content.Load<Texture2D>("BuyDialog/moneyHover"));
 
-            #region General Help Tool Tip
-            MSToolTip generalHelpToolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
-
-            MSToolTip generalHelpCostToolTip = new MSToolTip
-            (
-                null,
-                new Rectangle(0, 0, 75, 50),
-                -30,
-                0,
-                0,
-                0,
-                SpriteBatch,
-                Game
-            );
-
-            generalHelpToolTip.AddComponent(new MSUnresizingLabel
-            (
-                new Point(BoundingRectangle.X, BoundingRectangle.Y + BoundingRectangle.Height),
-                "Build a general help center",
-                Game.Content.Load<SpriteFont>("ToolTipFont"),
-                Color.White,
-                Game.Content.Load<Texture2D>("BlackOut"),
-                2, 2, 2, 2,
-                SpriteBatch,
-                Game
-            ));
-
-            generalHelpToolTip.AddComponent(generalHelpCostToolTip, Alignment.MIDDLE_CENTER);
-
-            generalHelpCostToolTip.AddComponent(bucksIcon, Alignment.MIDDLE_LEFT);
-
-            generalHelpCostToolTip.AddComponent
-            (
-                new MSUnresizingLabel
-                (
-                    new Point(0, 0),
-                    MSPublicAssistanceCenterStats.GetInstance().GetFundsCost().ToString(),
-                    Game.Content.Load<SpriteFont>("BuyDialog"),
-                    Color.Black,
-                    null,
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.MIDDLE_RIGHT
-            );
-
-            generalHelpCostToolTip.AddComponent(gingerBreadManIcon, Alignment.BOTTOM_LEFT);
-
-            generalHelpCostToolTip.AddComponent
-            (
-                new MSUnresizingLabel
-                (
-                    new Point(0, 0),
-                    MSPublicAssistanceCenterStats.GetInstance().GetVolunteerCost().ToString(),
-                    Game.Content.Load<SpriteFont>("BuyDialog"),
-                    Color.Black,
-                    null,
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.BOTTOM_RIGHT
-            );
-            #endregion
-
-            AddComponent(new MSButton(null,
-                new BuyTower(toBuy, MSPublicAssistanceCenterStats.GetInstance()),
+            AddSelection("Buy a Public Assistance Center",
+                MSPublicAssistanceCenterStats.GetInstance(),
                 new Rectangle(boundingRectangle.X, boundingRectangle.Y + 38, 73, 93),
                 Game.Content.Load<Texture2D>("BuyDialog/1"),
                 Game.Content.Load<Texture2D>("BuyDialog/1clicked"),
-                Game.Content.Load<Texture2D>("BuyDialog/1hovered"),
-                generalHelpToolTip,
-                Shape.AMORPHOUS, spriteBatch, game));
+                Game.Content.Load<Texture2D>("BuyDialog/1hovered"));
         }
     }
 }

@@ -67,7 +67,7 @@ namespace MoodSwingGame
         {
             if (selected is MSChangeableBuilding)
             {
-                MSToolTip toolTip = new MSToolTip(null, BoundingRectangle, SpriteBatch, Game);
+                MSToolTip toolTip = new MSToolTip(Game.Content.Load<Texture2D>("BlackOut"), new Rectangle(0, 568, 1024, 200), 10, 10, 10, 10, SpriteBatch, Game);
 
                 MSToolTip costToolTip = new MSToolTip
                 (
@@ -81,17 +81,17 @@ namespace MoodSwingGame
                     Game
                 );
 
-                toolTip.AddComponent(new MSUnresizingLabel
+                toolTip.AddComponent(new MSWrappingLabel
                 (
-                    new Point(BoundingRectangle.X, BoundingRectangle.Y + BoundingRectangle.Height),
+                    new Point(toolTip.BoundingRectangle.X, toolTip.BoundingRectangle.Y),
                     description,
                     Game.Content.Load<SpriteFont>("ToolTipFont"),
                     Color.White,
-                    Game.Content.Load<Texture2D>("BlackOut"),
-                    2, 2, 2, 2,
+                    null,
+                    2, 2, 2, 2, 1024, 768,
                     SpriteBatch,
                     Game
-                ));
+                ), Alignment.TOP_LEFT);
 
                 toolTip.AddComponent(costToolTip, Alignment.MIDDLE_CENTER);
 
@@ -99,12 +99,14 @@ namespace MoodSwingGame
 
                 costToolTip.AddComponent
                 (
-                    new MSUnresizingLabel
+                    new MSWrappingLabel
                     (
                         new Point(0, 0),
                         stats.GetFundsCost().ToString(),
                         Game.Content.Load<SpriteFont>("BuyDialog"),
-                        Color.Black,
+                        Color.White,
+                        null,
+                        null,
                         null,
                         SpriteBatch,
                         Game
@@ -116,12 +118,14 @@ namespace MoodSwingGame
 
                 costToolTip.AddComponent
                 (
-                    new MSUnresizingLabel
+                    new MSWrappingLabel
                     (
                         new Point(0, 0),
                         stats.GetVolunteerCost().ToString(),
                         Game.Content.Load<SpriteFont>("BuyDialog"),
-                        Color.Black,
+                        Color.White,
+                        null,
+                        null,
                         null,
                         SpriteBatch,
                         Game
@@ -162,7 +166,7 @@ namespace MoodSwingGame
             AddComponent(middleOrb, Alignment.MIDDLE_CENTER);
             middleOrb.AddComponent
             (
-                new MSResizingLabel
+                new MSFontScalingLabel
                 (
                     description,
                     new Rectangle(86, 82, 91, 27),

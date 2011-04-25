@@ -29,7 +29,7 @@ namespace MoodSwingGame
             MSPanel graphicsTab = new MSPanel(Game.Content.Load<Texture2D>("BlackOut"), new Rectangle(50, 50, 924, 668), 50, 50, 50, 50, null, Shape.RECTANGULAR, SpriteBatch, Game);
             tabbedOptions.AddTab(new MSTab(
                 new MSButton(
-                    new MSResizingLabel(
+                    new MSFontScalingLabel(
                         "Graphics",
                         new Rectangle(50, 0, 100, 25),
                         Game.Content.Load<SpriteFont>("Temp"),
@@ -45,7 +45,7 @@ namespace MoodSwingGame
                     SpriteBatch,
                     Game),
                 new MSButton(
-                    new MSResizingLabel(
+                    new MSFontScalingLabel(
                         "Graphics",
                         new Rectangle(50, 0, 100, 25),
                         Game.Content.Load<SpriteFont>("Temp"),
@@ -65,7 +65,7 @@ namespace MoodSwingGame
 
             graphicsTab.AddComponent(new MSCheckbox(
                 new MSButton(
-                    new MSResizingLabel(
+                    new MSFontScalingLabel(
                         "Full Screen",
                         new Rectangle(50, 0, 100, 25),
                         Game.Content.Load<SpriteFont>("Temp"),
@@ -82,7 +82,7 @@ namespace MoodSwingGame
                     SpriteBatch,
                     Game),
                 new MSButton(
-                    new MSResizingLabel(
+                    new MSFontScalingLabel(
                         "Full Screen",
                         new Rectangle(50, 0, 100, 25),
                         Game.Content.Load<SpriteFont>("Temp"),
@@ -102,7 +102,7 @@ namespace MoodSwingGame
 
             graphicsTab.AddComponent(new MSCheckbox(
                 new MSButton(
-                    new MSResizingLabel(
+                    new MSFontScalingLabel(
                         "Bloom",
                         new Rectangle(50, 0, 100, 25),
                         Game.Content.Load<SpriteFont>("Temp"),
@@ -119,7 +119,7 @@ namespace MoodSwingGame
                     SpriteBatch,
                     Game),
                 new MSButton(
-                    new MSResizingLabel(
+                    new MSFontScalingLabel(
                         "Bloom",
                         new Rectangle(50, 0, 100, 25),
                         Game.Content.Load<SpriteFont>("Temp"),
@@ -142,7 +142,7 @@ namespace MoodSwingGame
             resolution.AddRadioButton(
                 new MSRadioButton(
                     new MSButton(
-                        new MSResizingLabel(
+                        new MSFontScalingLabel(
                         "800 by 600",
                         new Rectangle(50, 0, 100, 25),
                         Game.Content.Load<SpriteFont>("Temp"),
@@ -159,7 +159,7 @@ namespace MoodSwingGame
                         SpriteBatch,
                         Game),
                     new MSButton(
-                        new MSResizingLabel(
+                        new MSFontScalingLabel(
                         "800 by 600",
                         new Rectangle(50, 0, 100, 25),
                         Game.Content.Load<SpriteFont>("Temp"),
@@ -180,7 +180,7 @@ namespace MoodSwingGame
             resolution.AddRadioButton(
                 new MSRadioButton(
                     new MSButton(
-                        new MSResizingLabel(
+                        new MSFontScalingLabel(
                         "1024 by 768",
                         new Rectangle(50, 0, 100, 25),
                         Game.Content.Load<SpriteFont>("Temp"),
@@ -197,7 +197,7 @@ namespace MoodSwingGame
                         SpriteBatch,
                         Game),
                     new MSButton(
-                        new MSResizingLabel(
+                        new MSFontScalingLabel(
                         "1024 by 768",
                         new Rectangle(50, 0, 100, 25),
                         Game.Content.Load<SpriteFont>("Temp"),
@@ -218,7 +218,7 @@ namespace MoodSwingGame
             resolution.AddRadioButton(
                 new MSRadioButton(
                     new MSButton(
-                        new MSResizingLabel(
+                        new MSFontScalingLabel(
                         "1280 by 800",
                         new Rectangle(50, 0, 100, 25),
                         Game.Content.Load<SpriteFont>("Temp"),
@@ -235,7 +235,7 @@ namespace MoodSwingGame
                         SpriteBatch,
                         Game),
                      new MSButton(
-                        new MSResizingLabel(
+                        new MSFontScalingLabel(
                         "1280 by 800",
                         new Rectangle(50, 0, 100, 25),
                         Game.Content.Load<SpriteFont>("Temp"),
@@ -258,7 +258,7 @@ namespace MoodSwingGame
             MSPanel audioTab = new MSPanel(Game.Content.Load<Texture2D>("BlackOut"), new Rectangle(50, 50, 924, 668), 50, 50, 50, 50, null, Shape.RECTANGULAR, SpriteBatch, Game);
             tabbedOptions.AddTab(new MSTab(
                 new MSButton(
-                    new MSResizingLabel(
+                    new MSFontScalingLabel(
                         "Audio",
                         new Rectangle(50, 0, 100, 25),
                         Game.Content.Load<SpriteFont>("Temp"),
@@ -274,7 +274,7 @@ namespace MoodSwingGame
                     SpriteBatch,
                     Game),
                 new MSButton(
-                    new MSResizingLabel(
+                    new MSFontScalingLabel(
                         "Audio",
                         new Rectangle(50, 0, 100, 25),
                         Game.Content.Load<SpriteFont>("Temp"),
@@ -296,7 +296,7 @@ namespace MoodSwingGame
             MSPanel gameplayTab = new MSPanel(Game.Content.Load<Texture2D>("BlackOut"), new Rectangle(50, 50, 924, 668), 50, 50, 50, 50, null, Shape.RECTANGULAR, SpriteBatch, Game);
             tabbedOptions.AddTab(new MSTab(
                 new MSButton(
-                    new MSResizingLabel(
+                    new MSFontScalingLabel(
                         "Gameplay",
                         new Rectangle(50, 0, 100, 25),
                         Game.Content.Load<SpriteFont>("Temp"),
@@ -312,7 +312,7 @@ namespace MoodSwingGame
                     SpriteBatch,
                     Game),
                 new MSButton(
-                    new MSResizingLabel(
+                    new MSFontScalingLabel(
                         "Gameplay",
                         new Rectangle(50, 0, 100, 25),
                         Game.Content.Load<SpriteFont>("Temp"),

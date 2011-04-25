@@ -18,14 +18,12 @@ namespace MoodSwingGUI
     /// <summary>
     /// MSLabel is an MSGUIUnclickable component that displays text with the use of a SpriteFont. The text is always scaled to fit the bounding Rectangle of this MSLabel.
     /// </summary>
-    public class MSResizingLabel : MSGUIUnclickable
+    public class MSFontScalingLabel : MSLabel
     {
-        private String text;
-
         /// <summary>
         /// Gets or sets the text stored in this MSLabel
         /// </summary>
-        public String Text
+        public override String Text
         {
             set
             {
@@ -35,8 +33,6 @@ namespace MoodSwingGUI
             get { return text; }
         }
 
-        private SpriteFont spriteFont;
-        private Color color;
         private Vector2 fontScale;
 
         /// <summary>
@@ -47,7 +43,7 @@ namespace MoodSwingGUI
         /// <param name="spriteFont">the SpriteFont used to draw the text</param>
         /// <param name="spriteBatch">the SpriteBatch that will draw this MSLabel</param>
         /// <param name="game">the Game where this MSLabel is used</param>
-        public MSResizingLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, SpriteBatch spriteBatch, Game game)
+        public MSFontScalingLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, SpriteBatch spriteBatch, Game game)
             : this(text, boundingRectangle, spriteFont, Color.Black, spriteBatch, game) { }
 
         /// <summary>
@@ -59,18 +55,18 @@ namespace MoodSwingGUI
         /// <param name="color">the text color of this MSLabel</param>
         /// <param name="spriteBatch">the SpriteBatch that will draw this MSLabel</param>
         /// <param name="game">the Game where this MSLabel is used</param>
-        public MSResizingLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, Color color, SpriteBatch spriteBatch, Game game)
-            : base(boundingRectangle, spriteBatch, game)
+        public MSFontScalingLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, Color text_color, SpriteBatch spriteBatch, Game game)
+            : base(text, boundingRectangle, spriteFont, text_color, spriteBatch, game)
         {
             this.spriteFont = spriteFont;
             Text = text;
-            this.color = color;
+            textColor = text_color;
         }
 
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
-            SpriteBatch.DrawString(spriteFont, Text, Position, color, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
+            SpriteBatch.DrawString(spriteFont, Text, Position, textColor, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
         }
     }
 }

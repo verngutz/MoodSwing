@@ -145,17 +145,14 @@ namespace MoodSwingGame
                 game
             );
             idleVolunteersPanel.AddComponent(idleVolunteers);
-            idleVolunteersToolTip.AddComponent(new MSUnresizingLabel
+            idleVolunteersToolTip.AddComponent(new MSWrappingLabel
             (
                 new Point(82, 39),
                 "Idle Volunteers",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
-                3,
-                3,
-                3,
-                3,
+                3, 3, 3, 3, null, null,
                 SpriteBatch,
                 Game
             ));
@@ -188,17 +185,14 @@ namespace MoodSwingGame
                 spriteBatch,
                 game);
             totalVolunteersPanel.AddComponent(totalVolunteers);
-            totalVolunteersToolTip.AddComponent(new MSUnresizingLabel
+            totalVolunteersToolTip.AddComponent(new MSWrappingLabel
             (
                 new Point(192, 48),
                 "Total Volunteers/Volunteers Manageable",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
-                3,
-                3,
-                3,
-                3,
+                3, 3, 3, 3, null, null, 
                 SpriteBatch,
                 Game
             ));
@@ -232,17 +226,14 @@ namespace MoodSwingGame
                 game
             );
             fundsPanel.AddComponent(funds);
-            fundsToolTip.AddComponent(new MSUnresizingLabel
+            fundsToolTip.AddComponent(new MSWrappingLabel
             (
                 new Point(332, 64),
                 "Funds",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
-                3,
-                3,
-                3,
-                3,
+                3, 3, 3, 3, null, null,
                 SpriteBatch,
                 Game
             ));

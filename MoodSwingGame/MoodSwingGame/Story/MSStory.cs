@@ -72,7 +72,7 @@ namespace MoodSwingGame
 
         public static void Init()
         {
-            StoryEnabled = true;
+            StoryEnabled = false;
 
             if (StoryEnabled)
             {

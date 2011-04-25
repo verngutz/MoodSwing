@@ -36,7 +36,7 @@ namespace MoodSwingGame
 
             moodSwing.Notifier.AddComponent(
                 new MSButton(
-                    new MSResizingLabel(
+                    new MSFontScalingLabel(
                         "Where Am I", 
                         new Rectangle(0, 0, 100, 50), 
                         moodSwing.Content.Load<SpriteFont>("Temp"),
