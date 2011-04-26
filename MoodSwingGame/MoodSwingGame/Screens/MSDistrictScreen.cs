@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -67,6 +68,8 @@ namespace MoodSwingGame
 
         private double gameTime;
         private double lastTotalRunTime;
+
+        private String districtName = "district";
 
         public MSDistrictScreen(DistrictName district, MoodSwing game)
             : base(game.Content.Load<Texture2D>("districtmap"), 0, 0, 0, 0, game.SpriteBatch, game)
@@ -366,7 +369,8 @@ namespace MoodSwingGame
 
             Paused = false;
             MSStory.Init();
-
+            try { load(); }
+            catch (FileNotFoundException) { }
         }
 
         public override void Draw(GameTime gameTime)
@@ -847,6 +851,35 @@ namespace MoodSwingGame
                 MSCamera.GetInstance().BirdsEyeView();
             }
             base.HandleKeyboardInput(oldKeyboardState);
+        }
+
+        public void save()
+        {
+            String save = "savefile\n";
+            save += map.toString();
+            FileStream file = new FileStream(districtName + "_save2.txt", FileMode.Create, FileAccess.Write);
+            StreamWriter sw = new StreamWriter(file);
+
+            sw.WriteLine(save);
+
+            sw.Close();
+            file.Close();  
+        }
+
+        public void load()
+        {
+            StreamReader sr = new StreamReader(districtName+"_save2.txt");
+            String s = sr.ReadLine();
+            System.Console.WriteLine(s);
+            if ( s!= null && s.Equals("savefile"))
+            {
+                map.load(sr);
+            }
+            else
+            {
+                System.Console.WriteLine("NONE");
+            }
+            sr.Close();
         }
     }
 }

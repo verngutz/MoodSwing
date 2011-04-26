@@ -19,7 +19,18 @@ namespace MoodSwingGame
 {
     public class MSAbandonedBuilding : MSChangeableBuilding
     {
-        public MSAbandonedBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column)
+        public MSAbandonedBuilding(String model, String texture, String effect, Vector3 position, float rotation, int row, int column)
             : base(model, texture, effect, position, rotation, row, column, MSMap.tallheight) { }
+
+        public override string toString()
+        {
+            return "MSAbandonedBuilding\n" + base.toString();
+        }
+
+        public override void load(System.IO.StreamReader sr)
+        {
+            System.Console.WriteLine("LOADING AB");
+            base.load(sr);
+        }
     }
 }

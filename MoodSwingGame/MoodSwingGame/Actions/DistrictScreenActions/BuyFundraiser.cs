@@ -36,9 +36,9 @@ namespace MoodSwingGame
                 {
                     screen.ResourceManager.Funds -= MSFundraiserStats.GetInstance().GetFundsCost();
                     screen.ResourceManager.IdleVolunteers -= MSFundraiserStats.GetInstance().GetVolunteerCost();
-                    MS3DTile futureSelf = new MSFundraiser(moodSwing.Content.Load<Model>("MModels/BuildingBig"),
-                        moodSwing.Content.Load<Texture2D>("MTextures/BuildingFunds"),
-                        moodSwing.Content.Load<Effect>("Mood"),
+                    MS3DTile futureSelf = new MSFundraiser("MModels/BuildingBig",
+                        "MTextures/BuildingFunds",
+                        "Mood",
                         toBuy.Position,
                         toBuy.Rotation,
                         toBuy.Row,

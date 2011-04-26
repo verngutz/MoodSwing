@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,7 @@ namespace MoodSwingGame
         private int fundraiseCounter;
         private MSResourceManager resourceManager;
 
-        public MSFundraiser(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column, MSResourceManager resource_manager)
+        public MSFundraiser(String model, String texture, String effect, Vector3 position, float rotation, int row, int column, MSResourceManager resource_manager)
             : base(model, texture, effect, position, rotation, row, column, MSMap.tallheight) 
         {
             fundraiseCounter = 0;
@@ -39,6 +40,20 @@ namespace MoodSwingGame
                 resourceManager.Funds++;
                 fundraiseCounter = 0;
             }
+        }
+
+        public override string toString()
+        {
+            String toReturn = "MSFundraiser\n";
+            toReturn += base.toString();
+            toReturn += fundraiseCounter + "\n";
+            
+            return toReturn;
+        }
+
+        public override void load(StreamReader sr)
+        {
+            fundraiseCounter = Int32.Parse(sr.ReadLine());
         }
     }
 }

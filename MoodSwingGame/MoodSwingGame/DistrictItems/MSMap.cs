@@ -37,8 +37,42 @@ namespace MoodSwingGame
         private int columns;
         private int initialVolunteerCenters;
         public int InitialVolunteerCenters { get { return (initialVolunteerCenters); } }
-
+        
         public Vector2 Dimension { get { return (new Vector2(rows, columns) * tileDimension * 2); } }
+
+        public String toString()
+        {
+            String toReturn = "";
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    toReturn += mapArray[i, j].toString();
+                }
+            }
+
+            toReturn += initialVolunteerCenters + "\n";
+            return toReturn;
+        }
+
+        public void load(StreamReader sr)
+        {
+            this.citizenSources = new List<MSUnchangeableBuilding>();
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    mapArray[i, j] = MSTileFactory.loadMSTile(sr);
+                    mapArray[i,j].LightSource = this.LightSource;
+                    
+                    if (mapArray[i,j] is MSUnchangeableBuilding)
+                    {
+                        citizenSources.Add(mapArray[i, j] as MSUnchangeableBuilding);
+                    }
+                }
+            }
+            initialVolunteerCenters = Int32.Parse(sr.ReadLine());
+        }
         public MSMap(String filename)
             : base(MoodSwing.GetInstance())
         {
@@ -65,6 +99,7 @@ namespace MoodSwingGame
             LightSource = new Vector3(tileDimension * rows << 1, tileDimension * columns << 1, 10000);
         }
 
+        
         public MSUnchangeableBuilding GetRandomCitizenSource()
         {
             return citizenSources.ElementAt<MSUnchangeableBuilding>(MSRandom.random.Next(citizenSources.Count));

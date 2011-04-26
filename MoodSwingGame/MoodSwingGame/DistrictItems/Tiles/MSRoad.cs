@@ -15,7 +15,11 @@ namespace MoodSwingGame
 {
     public class MSRoad : MS3DTile
     {
-        public MSRoad(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column)
+        public MSRoad(String model, String texture, String effect, Vector3 position, float rotation, int row, int column)
             : base(model, texture, effect, position, rotation, row, column, MSMap.floorheight) { }
+        public override string toString()
+        {
+            return "MSRoad\n" + base.toString();
+        }
     }
 }

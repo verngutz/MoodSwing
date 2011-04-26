@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -55,9 +56,10 @@ namespace MoodSwingGame
         private MS3DTile futureSelf;
         public MS3DTile FutureSelf { get { return futureSelf; } }
 
-        public MSChangeableBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column, int height)
+        public MSChangeableBuilding(String model, String texture, String effect, Vector3 position, float rotation, int row, int column, int height)
             : base(model, texture, effect, position, rotation, row, column, height) 
         {
+            futureSelf = null;
             buildTime = 5;
             timeCount = 0;
             Texture2D borderTexture = MoodSwing.GetInstance().Content.Load<Texture2D>("BorderTexture");
@@ -131,5 +133,60 @@ namespace MoodSwingGame
                 progressBar.Draw(gameTime);
             }
         }
+
+        public override void load(StreamReader sr)
+        {
+            string state = sr.ReadLine();
+            if (state.Equals("DONE")) this.State = MSChangeableBuildingState.DONE;
+            else if (state.Equals("IDLE")) this.State = MSChangeableBuildingState.IDLE;
+            else if (state.Equals("TRANSFORMING")) this.State = MSChangeableBuildingState.TRANSFORMING;
+            else if (state.Equals("WAITING")) this.State = MSChangeableBuildingState.WAITING;
+
+            startTime = Int32.Parse(sr.ReadLine());
+            timeCount = Int32.Parse(sr.ReadLine());
+            expectedWorkers = Int32.Parse(sr.ReadLine());
+            buildTime = Int32.Parse(sr.ReadLine());
+            
+            string checker = sr.ReadLine();
+            if (checker.Equals("go"))
+            {
+                futureSelf = MSTileFactory.loadMSTile(sr);
+            }
+        }
+
+        public override string toString()
+        {
+            String toReturn = "";
+            toReturn += base.toString();
+            switch (this.State)
+            {
+                case MSChangeableBuildingState.DONE:
+                    toReturn += "DONE";
+                    break;
+                case MSChangeableBuildingState.IDLE:
+                    toReturn += "IDLE";
+                    break;
+                case MSChangeableBuildingState.TRANSFORMING:
+                    toReturn += "TRANSFORMING";
+                    break;
+                case MSChangeableBuildingState.WAITING:
+                    toReturn += "WAITING";
+                    break;
+            }
+            toReturn += "\n";
+            toReturn += startTime + "\n";
+            toReturn += timeCount + "\n";
+            toReturn += expectedWorkers + "\n";
+            toReturn += buildTime + "\n";
+            if (futureSelf == null)
+                toReturn += "null\n";
+            else
+                toReturn += futureSelf.toString();
+
+            
+            return toReturn;
+        }
+
+       
     }
 }

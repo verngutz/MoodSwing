@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -35,12 +36,20 @@ namespace MoodSwingGame
 
         public Vector2 TileCoordinate { get { return new Vector2(row, column); } }
 
-        public MS3DTile(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column, int height)
+        String modelName;
+        String textureName;
+        String effectName;
+
+        public MS3DTile(String mName, String tName, String eName, Vector3 position, float rotation, int row, int column, int height)
             : base(position)
         {
-            this.model = model;
-            this.texture = texture;
-            this.Effect = effect;
+            this.model = MoodSwing.GetInstance().Content.Load<Model>(mName);
+            this.texture = MoodSwing.GetInstance().Content.Load<Texture2D>(tName); 
+            this.Effect = MoodSwing.GetInstance().Content.Load<Effect>(eName);
+
+            this.modelName = mName;
+            this.textureName = tName;
+            this.effectName = eName;
 
             int tileDimension = MSMap.tileDimension;
             foreach(ModelMesh mesh in Model.Meshes)
@@ -58,6 +67,35 @@ namespace MoodSwingGame
             this.rotation = rotation;
             this.row = row;
             this.column = column;
+
+            
+        }
+
+        public virtual void load(StreamReader sr)
+        {
+            modelName = sr.ReadLine();
+            textureName = sr.ReadLine();
+            effectName = sr.ReadLine();
+            string[] position = sr.ReadLine().Split(' ');
+            this.position.X = float.Parse(position[0]);
+            this.position.Y = float.Parse(position[1]);
+            this.position.Z = float.Parse(position[2]);
+            rotation = float.Parse(sr.ReadLine());
+            row = Int32.Parse(sr.ReadLine());
+            column = Int32.Parse(sr.ReadLine());
+        }
+
+        public override String toString() {
+            String toReturn = "";
+            toReturn += modelName + "\n";
+            toReturn += textureName + "\n";
+            toReturn += effectName + "\n";
+            toReturn += position.X + " " + position.Y + " " + position.Z + "\n";
+            toReturn += rotation + "\n";
+            toReturn += row + "\n";
+            toReturn += column + "\n";
+
+            return toReturn;
         }
     }
 }

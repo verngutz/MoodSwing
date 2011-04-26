@@ -60,6 +60,11 @@ namespace MoodSwingGame
 
         public override void Draw(GameTime gameTime)
         {
+            /**
+             * Temporary Solution for the error:
+             * "The current vertex declaration does not include all the elements required by the current vertex shader. 
+             * TextureCoordinate0 is missing."
+             */            
             foreach (ModelMesh mesh in Model.Meshes)
             {
                 foreach (ModelMeshPart part in mesh.MeshParts)
@@ -75,6 +80,10 @@ namespace MoodSwingGame
                 }
                 mesh.Draw();
             }
+
+            /**
+             * End Temporary Solution
+             */
         }
 
         public virtual void Walk(MS3DTile[,] mapArray, List<MSUnit> units )
@@ -144,7 +153,8 @@ namespace MoodSwingGame
         public virtual void Follow(MSUnit unit)
         {
             path = unit.Path;
-            destination = unit.Destination;
+            destination = Vector2.Zero;
+            //targetRotation = (float)Math.Atan2(destination.Y - position.Y, destination.X - position.X);
         }
 
         public void ChangePath(Node path)
@@ -153,14 +163,12 @@ namespace MoodSwingGame
             this.destination = Vector2.Zero;
         }
 
-        /**
-         * Temporary Solution for the error:
-         * "The current vertex declaration does not include all the elements required by the current vertex shader. 
-         * TextureCoordinate0 is missing."
-         */
+        public override String toString()
+        {
+            return "";
+        }
 
-        /**
-         * End Temporary Solution
-         */
+        
+
     }
 }
