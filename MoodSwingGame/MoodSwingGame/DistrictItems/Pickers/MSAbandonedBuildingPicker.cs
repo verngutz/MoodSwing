@@ -25,8 +25,9 @@ namespace MoodSwingGame
             if (MSStory.VolunteerCenterEnabled)
             {
                 AddSelection("Build Volunteer Center",
-                    "Call citizens to action! Build volunteer centers to train more volunteers and let them "
-                    + "acquire the necessary knowledge and technology to help improve this district.",
+                    "Call citizens to action! Build volunteer centers to be able to train more volunteers and let them "
+                    + "acquire the necessary knowledge and technology to help improve this district.\n\n"
+                    + "Effect: Increases your volunteer limit by " + MSResourceManager.VOLUNTEER_CENTER_GAIN + ".",
                     MSVolunteerCenterStats.GetInstance(),
                     new Rectangle(boundingRectangle.X + 128, boundingRectangle.Y + 131, 77, 80),
                     Game.Content.Load<Texture2D>("BuyDialog/volunteer"),
@@ -36,7 +37,8 @@ namespace MoodSwingGame
 
             AddSelection("Build a Business Center",
                 "Use your entrepreneurial skills to make money which you can later use for things like "
-                + "saving the world, for example.",
+                + "saving the world, for example.\n\n"
+                + "Effect: Generates funds over time.",
                 MSFundraiserStats.GetInstance(),
                 new Rectangle(boundingRectangle.X + 55, boundingRectangle.Y + 131, 77, 80),
                 Game.Content.Load<Texture2D>("BuyDialog/money"),
@@ -49,7 +51,8 @@ namespace MoodSwingGame
                     "Background Information: The eight Millenium Development Goals were formed by all "
                     + "of the world's countries and leading development institutions as a unified commitment "
                     + "to solve the world's toughest problems, which include, among others, widespread poverty, "
-                    + "disease, and destruction of nature.",
+                    + "disease, and destruction of nature.\n\n"
+                    + "Effect: Has a small power to stop mobs with any given MDG complaint.",
                     MSPublicAssistanceCenterStats.GetInstance(),
                     new Rectangle(boundingRectangle.X, boundingRectangle.Y + 38, 73, 93),
                     Game.Content.Load<Texture2D>("BuyDialog/1"),

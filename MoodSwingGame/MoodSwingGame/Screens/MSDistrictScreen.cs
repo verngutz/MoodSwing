@@ -369,8 +369,7 @@ namespace MoodSwingGame
 
             Paused = false;
             MSStory.Init();
-            try { load(); }
-            catch (FileNotFoundException) { }
+            load();
         }
 
         public override void Draw(GameTime gameTime)
@@ -868,18 +867,25 @@ namespace MoodSwingGame
 
         public void load()
         {
-            StreamReader sr = new StreamReader(districtName+"_save2.txt");
-            String s = sr.ReadLine();
-            System.Console.WriteLine(s);
-            if ( s!= null && s.Equals("savefile"))
+            try
             {
-                map.load(sr);
+                StreamReader sr = new StreamReader(districtName + "_save2.txt");
+                String s = sr.ReadLine();
+                System.Console.WriteLine(s);
+                if (s != null && s.Equals("savefile"))
+                {
+                    map.load(sr);
+                }
+                else
+                {
+                    System.Console.WriteLine("NONE");
+                }
+                sr.Close();
             }
-            else
+            catch (FileNotFoundException)
             {
-                System.Console.WriteLine("NONE");
+                return;
             }
-            sr.Close();
         }
     }
 }

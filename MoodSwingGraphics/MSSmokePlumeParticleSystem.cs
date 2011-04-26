@@ -46,8 +46,8 @@ namespace MoodSwingGraphics
             settings.MinEndSize = 12;
             settings.MaxEndSize = 16;
 
-            settings.MinColor = Color.Gray;
-            settings.MaxColor = Color.Black;
+            settings.MinColor = new Color(255, 255, 255, 60);
+            settings.MaxColor = new Color(255, 255, 255, 90);
 
             settings.BlendState = BlendState.Additive;
         }

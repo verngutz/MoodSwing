@@ -108,7 +108,7 @@ namespace MoodSwingGUI
             : base(text, new Rectangle(position.X, position.Y, 0, 0), sprite_font, text_color, spriteBatch, game)
         {
             this.spriteFont = sprite_font;
-            this.textColor = text_color;
+            this.TextColor = text_color;
             this.background = background;
 
             this.topPadding = topPadding;
@@ -129,7 +129,7 @@ namespace MoodSwingGUI
             base.Draw(gameTime);
             if (background != null)
                 SpriteBatch.Draw(background, BoundingRectangle, Color.White);
-            SpriteBatch.DrawString(spriteFont, displayedText, boundedPosition, textColor);
+            SpriteBatch.DrawString(spriteFont, displayedText, boundedPosition, TextColor);
         }
     }
 }

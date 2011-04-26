@@ -21,7 +21,7 @@ namespace MoodSwingGUI
         public abstract String Text { set; get; }
 
         protected SpriteFont spriteFont;
-        protected Color textColor;
+        public Color TextColor { set; get; }
 
         public MSLabel(String text, Rectangle boundingRectangle, SpriteFont spriteFont, Color textColor, SpriteBatch spriteBatch, Game game)
             : base(boundingRectangle, spriteBatch, game) { }

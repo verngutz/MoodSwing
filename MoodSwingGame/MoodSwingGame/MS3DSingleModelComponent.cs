@@ -31,21 +31,32 @@ namespace MoodSwingGame
         }
 
         public Vector3 LightSource { set; get; }
-        
+        private Matrix[] boneTranforms;
+        private bool boneTransformsUnset;
+
+
         public MS3DSingleModelComponent(Vector3 position)
             : base(position, MoodSwing.GetInstance()) 
         {
-            effect = Game.Content.Load<Effect>("Mood"); 
+            effect = Game.Content.Load<Effect>("Mood");
+            boneTransformsUnset = true;
         }
 
         public override void Draw(GameTime gameTime)
         {
+            if (boneTransformsUnset)
+            {
+                boneTranforms = new Matrix[Model.Bones.Count];
+                Model.Root.Transform *= Matrix.CreateFromYawPitchRoll(MathHelper.ToRadians(90), MathHelper.ToRadians(0), MathHelper.ToRadians(90));
+                boneTransformsUnset = false;
+            }
+            Model.CopyAbsoluteBoneTransformsTo(boneTranforms);
             foreach (ModelMesh mesh in Model.Meshes)
             {
                 foreach (ModelMeshPart part in mesh.MeshParts)
                 {
                     part.Effect = Effect;
-                    Effect.Parameters["World"].SetValue(world);
+                    Effect.Parameters["World"].SetValue(boneTranforms[mesh.ParentBone.Index] * world);
                     Effect.Parameters["View"].SetValue(MSCamera.GetInstance().GetView());
                     Effect.Parameters["Projection"].SetValue(MSCamera.GetInstance().ProjectionMatrix);
                     Matrix worldInverseTransposeMatrix = Matrix.Transpose(Matrix.Invert(mesh.ParentBone.Transform * world));
