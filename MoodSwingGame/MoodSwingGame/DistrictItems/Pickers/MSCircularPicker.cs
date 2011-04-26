@@ -63,9 +63,6 @@ namespace MoodSwingGame
                 MSWrappingLabel descriptionToolTip = new MSWrappingLabel(new Point(0, 0), description, Game.Content.Load<SpriteFont>("ToolTipFont"), Color.White, null, 2, 2, 2, 2, 1024, 768, SpriteBatch, Game);
                 toolTip.AddComponent(descriptionToolTip, Alignment.MIDDLE_LEFT);
 
-                MSWrappingLabel moneyCost = new MSWrappingLabel(new Point(0, 0), stats.GetFundsCost().ToString(), Game.Content.Load<SpriteFont>("BuyDialog"), Color.White, null, null, null, SpriteBatch, Game);
-                MSWrappingLabel volunteerCost = new MSWrappingLabel(new Point(0, 0), stats.GetVolunteerCost().ToString(), Game.Content.Load<SpriteFont>("BuyDialog"), Color.White, null, null, null, SpriteBatch, Game);
-
                 /**
                 MSToolTip orbCostToolTip = new MSToolTip(null, new Rectangle(BoundingRectangle.X + BoundingRectangle.Width / 2, BoundingRectangle.Y, 75, 50), -30, 0, 0, 0, SpriteBatch, Game);
                 orbCostToolTip.AddComponent(bucksIcon, Alignment.MIDDLE_LEFT);
@@ -77,10 +74,20 @@ namespace MoodSwingGame
 
                 MSToolTip costToolTip = new MSToolTip(null, new Rectangle(0, 0, 75, 50), 0, 0, 0, 0, SpriteBatch, Game);
                 toolTip.AddComponent(costToolTip, Alignment.TOP_RIGHT);
-                costToolTip.AddComponent(bucksIcon, Alignment.TOP_LEFT);
-                costToolTip.AddComponent(moneyCost, Alignment.TOP_RIGHT);
-                costToolTip.AddComponent(gingerBreadManIcon, Alignment.BOTTOM_LEFT);
-                costToolTip.AddComponent(volunteerCost, Alignment.BOTTOM_RIGHT);
+
+                if (stats.GetFundsCost() != 0)
+                {
+                    MSWrappingLabel moneyCost = new MSWrappingLabel(new Point(0, 0), stats.GetFundsCost().ToString(), Game.Content.Load<SpriteFont>("BuyDialog"), Color.White, null, null, null, SpriteBatch, Game);
+                    costToolTip.AddComponent(bucksIcon, Alignment.TOP_LEFT);
+                    costToolTip.AddComponent(moneyCost, Alignment.TOP_RIGHT);
+                }
+
+                if (stats.GetVolunteerCost() != 0)
+                {
+                    MSWrappingLabel volunteerCost = new MSWrappingLabel(new Point(0, 0), stats.GetVolunteerCost().ToString(), Game.Content.Load<SpriteFont>("BuyDialog"), Color.White, null, null, null, SpriteBatch, Game);
+                    costToolTip.AddComponent(gingerBreadManIcon, Alignment.BOTTOM_LEFT);
+                    costToolTip.AddComponent(volunteerCost, Alignment.BOTTOM_RIGHT);
+                }
 
                 MSAction toPerform;
 

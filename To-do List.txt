@@ -11,7 +11,6 @@ Things To Do Arranged by Priority
 ---------------------------------
 
 Add booleans to disable MDG branches:
-	MDG Progress Bars (graphics)
 	branches of the tower heirarchy
 	mobs
 

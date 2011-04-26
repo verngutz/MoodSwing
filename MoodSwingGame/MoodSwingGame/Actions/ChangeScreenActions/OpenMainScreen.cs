@@ -31,8 +31,6 @@ namespace MoodSwingGame
         public override void PerformAction(Game game)
         {
             base.ChangeToScreen(MSMainScreen.getInstance(), game);
-            MoodSwing.GetInstance().Notifier.ClearNotifications();
-            MoodSwing.GetInstance().Notifier.FreezeNotifications = false;
         }
     }
 }

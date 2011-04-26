@@ -63,6 +63,17 @@ namespace MoodSwingGUI
             FreezeNotifications = false;
         }
 
+        public void Reset()
+        {
+            notifications = new Queue<string>();
+            fadeAlpha = 1;
+            fadeEffect = new Color(255, 255, 255, fadeAlpha);
+            fadeIncrement = 5;
+            holdTimer = 0;
+            dirtyParent = true;
+            FreezeNotifications = false;
+        }
+
         public void ClearNotifications()
         {
             notifications = new Queue<string>();

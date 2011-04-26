@@ -29,14 +29,13 @@ namespace MoodSwingGame
 
         public void PerformAction(Game game)
         {
-
             MoodSwing moodSwing = game as MoodSwing;
 
             MSScreen screen = moodSwing.CurrentScreen;
             screen.HasFocus = false;
             screen.ResetHovers();
             moodSwing.Notifier.HasFocus = true;
-            moodSwing.Notifier.FreezeNotifications = false;
+            //moodSwing.Notifier.FreezeNotifications = false;
             moodSwing.Notifier.ClearComponents();
             //moodSwing.Notifier.ClearNotifications();
 

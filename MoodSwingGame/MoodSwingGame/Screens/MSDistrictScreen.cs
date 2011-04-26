@@ -416,6 +416,12 @@ namespace MoodSwingGame
                 }
             }
 
+            foreach (MSMDGProgressBar bar in moodManager.Bars)
+            {
+                if (!bar.Visible)
+                    bar.DrawPamatong();
+            }
+
             if (currentHovered != null && currentHovered.ToolTip != null)
                 currentHovered.ToolTip.Draw(gameTime);
         }
