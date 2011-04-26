@@ -32,17 +32,18 @@ namespace MoodSwingGUI
                 else
                 {
                     displayedText = "";
-                    for (int i = 0; i < value.Length; i++)
+                    string[] words = value.Split(' ');
+                    for (int i = 0; i < words.Length; i++)
                     {
-                        if (boundedPosition.X + spriteFont.MeasureString(displayedText).X + spriteFont.MeasureString(value.ElementAt<Char>(i).ToString()).X > rightBoundary)
+                        if (boundedPosition.X + spriteFont.MeasureString(displayedText + words[i]).X > rightBoundary)
                         {
-                            if (bottomBoundary != null && boundedPosition.Y + spriteFont.MeasureString(displayedText).Y + spriteFont.MeasureString(value.ElementAt<Char>(i).ToString()).Y > bottomBoundary)
+                            if (bottomBoundary != null && boundedPosition.Y + spriteFont.MeasureString(displayedText).Y + spriteFont.MeasureString(words[i]).Y > bottomBoundary)
                             {
                                 break;
                             }
                             displayedText += "\n";
                         }
-                        displayedText += value.ElementAt<Char>(i);
+                        displayedText += words[i] + ' ';
                     }
                 }
                 BoundingRectangle = new Rectangle

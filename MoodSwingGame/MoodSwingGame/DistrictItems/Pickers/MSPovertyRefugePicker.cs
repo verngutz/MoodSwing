@@ -22,35 +22,35 @@ namespace MoodSwingGame
         public MSPovertyRefugePicker(Texture2D background, Rectangle boundingRectangle, MSChangeableBuilding toBuy, SpriteBatch spriteBatch, Game game)
             : base(background, boundingRectangle, 78, 78, 62, 62, toBuy, Shape.RECTANGULAR, spriteBatch, game)
         {
+            String title = "";
             String description = "";
             MSTowerStats stat = null;
 
             MSDistrictScreen.DistrictName name = ((Game as MoodSwing).CurrentScreen as MSDistrictScreen).Name;
             if (name == MSDistrictScreen.DistrictName.FEAR)
             {
-                description = "Upgrade to a Techno-farmhouse";
+                title = "Upgrade to a Techno-farmhouse";
                 stat = MSTechnoFarmhouseStats.GetInstance();
             }
             else if (name == MSDistrictScreen.DistrictName.SADNESS)
             {
-                description = "Upgrade to a free apartments for the poor and homeless";
+                title = "Upgrade to a free apartments for the poor and homeless";
                 stat = MSApartmentStats.GetInstance();
             }
             else if (name == MSDistrictScreen.DistrictName.ANGER)
             {
-                description = "Upgrade to an employment and business opportunity center";
+                title = "Upgrade to an employment and business opportunity center";
                 stat = MSEmploymentCenterStats.GetInstance();
             }
 
             AddSelection(
+                title,
                 description,
                 stat,
                 new Rectangle(boundingRectangle.X + 38, boundingRectangle.Y, 93, 73),
                 Game.Content.Load<Texture2D>("BuyDialog/2"),
                 Game.Content.Load<Texture2D>("BuyDialog/2clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/2hovered"));
-
-            AddMiddleOrb("Refuge and Feeding Center");
         }
     }
 }

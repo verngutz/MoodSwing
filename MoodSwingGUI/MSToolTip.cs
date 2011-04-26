@@ -86,7 +86,6 @@ namespace MoodSwingGUI
                     break;
                 case Alignment.TOP_CENTER:
                     component.Position = boundedPosition + new Vector2((boundedSize.X - component.Size.X) / 2, 0);
-
                     break;
                 case Alignment.TOP_RIGHT:
                     component.Position = boundedPosition + new Vector2(boundedSize.X - component.Size.X, 0);
@@ -118,6 +117,7 @@ namespace MoodSwingGUI
             components.Remove(component);
         }
 
+        /**
         public void AddComponent(MSToolTip tool_tip)
         {
             AddComponent(tool_tip, Alignment.MANUAL);
@@ -138,5 +138,6 @@ namespace MoodSwingGUI
 
             RemoveComponent(tool_tip as MSGUIUnclickable);
         }
+         */
     }
 }

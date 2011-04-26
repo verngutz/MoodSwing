@@ -40,22 +40,10 @@ namespace MoodSwingGame
             this.selected = selected;
             selectedEffect = selected.Effect;
             selected.Effect = Game.Content.Load<Effect>("highlight");
-
-            bucksIcon = new MSImageHolder
-            (
-                new Rectangle(0, 0, 40, 24),
-                Game.Content.Load<Texture2D>("BuyDialog/bucks"),
-                SpriteBatch,
-                Game
-            );
-
-            gingerBreadManIcon = new MSImageHolder
-            (
-                new Rectangle(0, 0, 20, 26),
-                Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"),
-                SpriteBatch,
-                Game
-            );
+            bucksIcon = new MSImageHolder(new Rectangle(0, 0, 40, 24), Game.Content.Load<Texture2D>("BuyDialog/bucks"), SpriteBatch, Game);
+            gingerBreadManIcon = new MSImageHolder(new Rectangle(0, 0, 20, 26), Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"), SpriteBatch, Game);
+            MSPanel middleOrb = new MSPanel(Game.Content.Load<Texture2D>("BuyDialog/middleOrb"), new Rectangle(0, 0, 184, 184), 30, 0, 0, 0, null, Shape.CIRCULAR, spriteBatch, Game);
+            AddComponent(middleOrb, Alignment.MIDDLE_CENTER);
         }
 
         public void UnhighlightSelected()
@@ -63,119 +51,53 @@ namespace MoodSwingGame
             selected.Effect = selectedEffect;
         }
 
-        protected void AddSelection(string description, MSBuildingStats stats, Rectangle boundingRectangle, Texture2D unhoveredTexture, Texture2D clickedTexture, Texture2D hoveredTexture)
+        protected void AddSelection(string title, string description, MSBuildingStats stats, Rectangle boundingRectangle, Texture2D unhoveredTexture, Texture2D clickedTexture, Texture2D hoveredTexture)
         {
             if (selected is MSChangeableBuilding)
             {
                 MSToolTip toolTip = new MSToolTip(Game.Content.Load<Texture2D>("BlackOut"), new Rectangle(0, 568, 1024, 200), 10, 10, 10, 10, SpriteBatch, Game);
 
-                MSToolTip costToolTip = new MSToolTip
-                (
-                    null,
-                    new Rectangle(0, 0, 75, 50),
-                    -30,
-                    0,
-                    0,
-                    0,
-                    SpriteBatch,
-                    Game
-                );
+                MSWrappingLabel titleToolTip = new MSWrappingLabel(new Point(0, 0), title, Game.Content.Load<SpriteFont>("ToolTipFont"), Color.White, null, 2, 2, 2, 2, 1024, 768, SpriteBatch, Game);
+                toolTip.AddComponent(titleToolTip, Alignment.TOP_LEFT);
 
-                toolTip.AddComponent(new MSWrappingLabel
-                (
-                    new Point(toolTip.BoundingRectangle.X, toolTip.BoundingRectangle.Y),
-                    description,
-                    Game.Content.Load<SpriteFont>("ToolTipFont"),
-                    Color.White,
-                    null,
-                    2, 2, 2, 2, 1024, 768,
-                    SpriteBatch,
-                    Game
-                ), Alignment.TOP_LEFT);
+                MSWrappingLabel descriptionToolTip = new MSWrappingLabel(new Point(0, 0), description, Game.Content.Load<SpriteFont>("ToolTipFont"), Color.White, null, 2, 2, 2, 2, 1024, 768, SpriteBatch, Game);
+                toolTip.AddComponent(descriptionToolTip, Alignment.MIDDLE_LEFT);
 
-                toolTip.AddComponent(costToolTip, Alignment.MIDDLE_CENTER);
+                MSWrappingLabel moneyCost = new MSWrappingLabel(new Point(0, 0), stats.GetFundsCost().ToString(), Game.Content.Load<SpriteFont>("BuyDialog"), Color.White, null, null, null, SpriteBatch, Game);
+                MSWrappingLabel volunteerCost = new MSWrappingLabel(new Point(0, 0), stats.GetVolunteerCost().ToString(), Game.Content.Load<SpriteFont>("BuyDialog"), Color.White, null, null, null, SpriteBatch, Game);
 
-                costToolTip.AddComponent(bucksIcon, Alignment.MIDDLE_LEFT);
+                /**
+                MSToolTip orbCostToolTip = new MSToolTip(null, new Rectangle(BoundingRectangle.X + BoundingRectangle.Width / 2, BoundingRectangle.Y, 75, 50), -30, 0, 0, 0, SpriteBatch, Game);
+                orbCostToolTip.AddComponent(bucksIcon, Alignment.MIDDLE_LEFT);
+                orbCostToolTip.AddComponent(moneyCost, Alignment.MIDDLE_RIGHT);
+                orbCostToolTip.AddComponent(gingerBreadManIcon, Alignment.BOTTOM_LEFT);
+                orbCostToolTip.AddComponent(volunteerCost, Alignment.BOTTOM_RIGHT);
+                toolTip.AddComponent(orbCostToolTip);
+                 */
 
-                costToolTip.AddComponent
-                (
-                    new MSWrappingLabel
-                    (
-                        new Point(0, 0),
-                        stats.GetFundsCost().ToString(),
-                        Game.Content.Load<SpriteFont>("BuyDialog"),
-                        Color.White,
-                        null,
-                        null,
-                        null,
-                        SpriteBatch,
-                        Game
-                    ),
-                    Alignment.MIDDLE_RIGHT
-                );
-
+                MSToolTip costToolTip = new MSToolTip(null, new Rectangle(0, 0, 75, 50), 0, 0, 0, 0, SpriteBatch, Game);
+                toolTip.AddComponent(costToolTip, Alignment.TOP_RIGHT);
+                costToolTip.AddComponent(bucksIcon, Alignment.TOP_LEFT);
+                costToolTip.AddComponent(moneyCost, Alignment.TOP_RIGHT);
                 costToolTip.AddComponent(gingerBreadManIcon, Alignment.BOTTOM_LEFT);
-
-                costToolTip.AddComponent
-                (
-                    new MSWrappingLabel
-                    (
-                        new Point(0, 0),
-                        stats.GetVolunteerCost().ToString(),
-                        Game.Content.Load<SpriteFont>("BuyDialog"),
-                        Color.White,
-                        null,
-                        null,
-                        null,
-                        SpriteBatch,
-                        Game
-                    ),
-                    Alignment.BOTTOM_RIGHT
-                );
+                costToolTip.AddComponent(volunteerCost, Alignment.BOTTOM_RIGHT);
 
                 MSAction toPerform;
 
                 if (stats is MSTowerStats)
-                {
                     toPerform = new BuyTower(selected as MSChangeableBuilding, stats as MSTowerStats);
-                }
+
                 else if (stats is MSVolunteerCenterStats)
-                {
                     toPerform = new BuyVolunteerCenter(selected as MSChangeableBuilding);
-                }
+
                 else if (stats is MSFundraiserStats)
-                {
                     toPerform = new BuyFundraiser(selected as MSChangeableBuilding);
-                }
-                else
-                {
-                    throw new ArgumentException();
-                }
+
+                else throw new ArgumentException();
 
                 AddComponent(new MSButton(null, toPerform, boundingRectangle, unhoveredTexture, clickedTexture, hoveredTexture, toolTip, Shape.AMORPHOUS, spriteBatch, Game));
             }
-            else
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        protected void AddMiddleOrb(string description)
-        {
-            MSPanel middleOrb = new MSPanel(Game.Content.Load<Texture2D>("BuyDialog/middleOrb"), new Rectangle(0, 0, 184, 184), 30, 0, 0, 0, null, Shape.CIRCULAR, spriteBatch, Game);
-            AddComponent(middleOrb, Alignment.MIDDLE_CENTER);
-            middleOrb.AddComponent
-            (
-                new MSFontScalingLabel
-                (
-                    description,
-                    new Rectangle(86, 82, 91, 27),
-                    Game.Content.Load<SpriteFont>("BuyDialog"),
-                    SpriteBatch,
-                    Game
-                ),
-                Alignment.TOP_CENTER
-            );
+            else throw new NotImplementedException();
         }
     }
 }

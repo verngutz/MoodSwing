@@ -24,13 +24,12 @@ namespace MoodSwingGame
         {
             AddSelection(
                 "Establish the World Without Boundaries Foundation",
+                "",
                 MSWorldWithoutBoundariesStats.GetInstance(),
                 new Rectangle(boundingRectangle.X + 38, boundingRectangle.Y + 187, 93, 73),
                 Game.Content.Load<Texture2D>("BuyDialog/7"),
                 Game.Content.Load<Texture2D>("BuyDialog/7clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/7hovered"));
-
-            AddMiddleOrb("International Center");
         }
     }
 }
