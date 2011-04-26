@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -133,9 +134,30 @@ namespace MoodSwingGame
             }
         }
 
+        public override void load(StreamReader sr)
+        {
+            string state = sr.ReadLine();
+            if (state.Equals("DONE")) this.State = MSChangeableBuildingState.DONE;
+            else if (state.Equals("IDLE")) this.State = MSChangeableBuildingState.IDLE;
+            else if (state.Equals("TRANSFORMING")) this.State = MSChangeableBuildingState.TRANSFORMING;
+            else if (state.Equals("WAITING")) this.State = MSChangeableBuildingState.WAITING;
+
+            startTime = Int32.Parse(sr.ReadLine());
+            timeCount = Int32.Parse(sr.ReadLine());
+            expectedWorkers = Int32.Parse(sr.ReadLine());
+            buildTime = Int32.Parse(sr.ReadLine());
+            
+            string checker = sr.ReadLine();
+            if (checker.Equals("go"))
+            {
+                futureSelf = MSTileFactory.loadMSTile(sr);
+            }
+        }
+
         public override string toString()
         {
             String toReturn = "";
+            toReturn += base.toString();
             switch (this.State)
             {
                 case MSChangeableBuildingState.DONE:
@@ -161,8 +183,10 @@ namespace MoodSwingGame
             else
                 toReturn += futureSelf.toString();
 
-            toReturn += base.toString();
+            
             return toReturn;
         }
+
+       
     }
 }

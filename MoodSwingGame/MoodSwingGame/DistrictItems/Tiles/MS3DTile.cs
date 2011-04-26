@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -70,6 +71,19 @@ namespace MoodSwingGame
             
         }
 
+        public virtual void load(StreamReader sr)
+        {
+            modelName = sr.ReadLine();
+            textureName = sr.ReadLine();
+            effectName = sr.ReadLine();
+            string[] position = sr.ReadLine().Split(' ');
+            this.position.X = float.Parse(position[0]);
+            this.position.Y = float.Parse(position[1]);
+            this.position.Z = float.Parse(position[2]);
+            rotation = float.Parse(sr.ReadLine());
+            row = Int32.Parse(sr.ReadLine());
+            column = Int32.Parse(sr.ReadLine());
+        }
         public virtual String toString() {
             String toReturn = "";
             toReturn += modelName + "\n";

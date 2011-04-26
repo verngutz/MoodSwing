@@ -95,10 +95,135 @@ namespace MoodSwingGame
             capacity++;
         }
 
+        public override void load(System.IO.StreamReader sr)
+        {
+            
+            base.load(sr);
+            string stat = sr.ReadLine();
+            if (stat.Equals("MSAntiretroviralCenterStats"))
+            {
+                this.Stats = MSAntiretroviralCenterStats.GetInstance();
+            }
+            else if (stat.Equals("MSApartmentStats"))
+            {
+                this.Stats = MSApartmentStats.GetInstance();
+            }
+            else if (stat.Equals("MSBedNetsCenterStats"))
+            {
+                this.Stats = MSBedNetsCenterStats.GetInstance();
+            }
+            else if (stat.Equals("MSChildrensHospitalStats"))
+            {
+                this.Stats = MSChildrensHospitalStats.GetInstance();
+            }
+            else if (stat.Equals("MSChildrensLibraryStats"))
+            {
+                this.Stats = MSChildrensLibraryStats.GetInstance();
+            }
+            else if (stat.Equals("MSEFASchoolStats"))
+            {
+                this.Stats = MSEFASchoolStats.GetInstance();
+            }
+            else if (stat.Equals("MSEmploymentCenterStats"))
+            {
+                this.Stats = MSEmploymentCenterStats.GetInstance();
+            }
+            else if (stat.Equals("MSEnvironmentalCenterStats"))
+            {
+                this.Stats = MSEnvironmentalCenterStats.GetInstance();
+            }
+            else if (stat.Equals("MSEpidemicsClinicStats"))
+            {
+                this.Stats = MSEpidemicsClinicStats.GetInstance();
+            }
+            else if (stat.Equals("MSFistulaTreatmentCenterStats"))
+            {
+                this.Stats = MSFistulaTreatmentCenterStats.GetInstance();
+            }
+            else if (stat.Equals("MSGeneralClinicStats"))
+            {
+                this.Stats = MSGeneralClinicStats.GetInstance();
+            }
+            else if (stat.Equals("MSGeneralRefugeStats"))
+            {
+                this.Stats = MSGeneralRefugeStats.GetInstance();
+            }
+            else if (stat.Equals("MSImmunizationOutreachStats"))
+            {
+                this.Stats = MSImmunizationOutreachStats.GetInstance();
+            }
+            else if (stat.Equals("MSInternationalCenterStats"))
+            {
+                this.Stats = MSInternationalCenterStats.GetInstance();
+            }
+            else if (stat.Equals("MSMaternalCareCenterStats"))
+            {
+                this.Stats = MSMaternalCareCenterStats.GetInstance();
+            }
+            else if (stat.Equals("MSPovertyRefugeStats"))
+            {
+                this.Stats = MSPovertyRefugeStats.GetInstance();
+            }
+            else if (stat.Equals("MSPublicAssistanceCenterStats"))
+            {
+                this.Stats = MSPublicAssistanceCenterStats.GetInstance();
+            }
+            else if (stat.Equals("MSSuppliesDonationCenterStats"))
+            {
+                this.Stats = MSSuppliesDonationCenterStats.GetInstance();
+            }
+            else if (stat.Equals("MSTechnoFarmhouseStats"))
+            {
+                this.Stats = MSTechnoFarmhouseStats.GetInstance();
+            }
+            else if (stat.Equals("MSTrashToCashCenterStats"))
+            {
+                this.Stats = MSTrashToCashCenterStats.GetInstance();
+            }
+            else if (stat.Equals("MSTutorialCenterStats"))
+            {
+                this.Stats = MSTutorialCenterStats.GetInstance();
+            }
+            else if (stat.Equals("MSVaccinationCenterStats"))
+            {
+                this.Stats = MSVaccinationCenterStats.GetInstance();
+            }
+            else if (stat.Equals("MSWaterTreatmentPlantStats"))
+            {
+                this.Stats = MSWaterTreatmentPlantStats.GetInstance();
+            }
+            else if (stat.Equals("MSWhiteScreensCenterStats"))
+            {
+                this.Stats = MSWhiteScreensCenterStats.GetInstance();
+            }
+            else if (stat.Equals("MSWomenCenterStats"))
+            {
+                this.Stats = MSWomenCenterStats.GetInstance();
+            }
+            else if (stat.Equals("MSWomenPoliticiansCenterStats"))
+            {
+                this.Stats = MSWomenPoliticiansCenterStats.GetInstance();
+            }
+            else if (stat.Equals("MSWomensHealthCenterStats"))
+            {
+                this.Stats = MSWomensHealthCenterStats.GetInstance();
+            }
+            else if (stat.Equals("MSWomensUniversityStats"))
+            {
+                this.Stats = MSWomensUniversityStats.GetInstance();
+            }
+            else if (stat.Equals("MSWorldWithoutBoundariesStats"))
+            {
+                this.Stats = MSWorldWithoutBoundariesStats.GetInstance();
+            }
+
+            capacity = Int32.Parse(sr.ReadLine());
+
+        }
         public override string toString()
         {
             String toReturn = "MSTower\n";
-
+            toReturn += base.toString();
             if (Stats is MSAntiretroviralCenterStats)
             {
                 toReturn += "MSAntiretroviralCenterStats";
@@ -217,7 +342,7 @@ namespace MoodSwingGame
             }
             toReturn += "\n";
             toReturn += (capacity + targetList.Count) + "\n";
-            toReturn += base.toString();
+            
             return toReturn;
         }
     }

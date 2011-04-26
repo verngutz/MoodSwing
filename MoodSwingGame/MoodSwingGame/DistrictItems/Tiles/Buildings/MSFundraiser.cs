@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,9 +45,15 @@ namespace MoodSwingGame
         public override string toString()
         {
             String toReturn = "MSFundraiser\n";
-            toReturn += fundraiseCounter + "\n";
             toReturn += base.toString();
+            toReturn += fundraiseCounter + "\n";
+            
             return toReturn;
+        }
+
+        public void load(StreamReader sr)
+        {
+            fundraiseCounter = Int32.Parse(sr.ReadLine());
         }
     }
 }
