@@ -40,5 +40,13 @@ namespace MoodSwingGame
                 fundraiseCounter = 0;
             }
         }
+
+        public override string toString()
+        {
+            String toReturn = "MSFundraiser\n";
+            toReturn += fundraiseCounter + "\n";
+            toReturn += base.toString();
+            return toReturn;
+        }
     }
 }

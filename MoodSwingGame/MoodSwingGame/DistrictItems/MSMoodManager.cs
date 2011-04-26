@@ -99,6 +99,40 @@ namespace MoodSwingGame
             return instance;
         }
 
+        /*public String toString()
+        {
+            instance.mood = INITIAL_MOOD;
+            instance.isAlive = true;
+
+            instance.povertyScore = 0;
+            instance.educationScore = 0;
+            instance.genderEqualityScore = 0;
+            instance.childHealthScore = 0;
+            instance.maternalHealthScore = 0;
+            instance.hivAidsScore = 0;
+            instance.environmentScore = 0;
+            instance.globalPartnershipScore = 0;
+
+            instance.povertyBonusEnabled = true;
+            instance.educationBonusEnabled = true;
+            instance.genderEqualityBonusEnabled = true;
+            instance.childHleathBonusEnabled = true;
+            instance.maternalHealthBonusEnabled = true;
+            instance.hivAidsBonusEnabled = true;
+            instance.environmentBonusEnabled = true;
+            instance.globalPartnershipBonusEnabled = true;
+
+            instance.lowMoodWarningTimer = 0;
+
+            instance.PovertyProgressBar.Progress = 0;
+            instance.EducationProgressBar.Progress = 0;
+            instance.GenderEqualityProgressBar.Progress = 0;
+            instance.ChildHealthProgressBar.Progress = 0;
+            instance.MaternalHealthProgressBar.Progress = 0;
+            instance.HivAidsProgressBar.Progress = 0;
+            instance.EnvironmentProgressBar.Progress = 0;
+            instance.GlobalPartnershipProgressBar.Progress = 0;
+        }*/
         public static void Reset()
         {
             instance.mood = INITIAL_MOOD;

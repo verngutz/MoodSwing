@@ -21,5 +21,10 @@ namespace MoodSwingGame
     {
         public MSAbandonedBuilding(String model, String texture, String effect, Vector3 position, float rotation, int row, int column)
             : base(model, texture, effect, position, rotation, row, column, MSMap.tallheight) { }
+
+        public override string ToString()
+        {
+            return "MSAbandonedBuilding\n" + base.ToString();
+        }
     }
 }

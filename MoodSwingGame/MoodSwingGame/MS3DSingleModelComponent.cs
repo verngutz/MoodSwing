@@ -63,7 +63,7 @@ namespace MoodSwingGame
         public virtual String toString()
         {
             String toReturn = "";
-            //toReturn += Mode
+            
             return toReturn;
         }
     }

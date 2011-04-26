@@ -37,8 +37,26 @@ namespace MoodSwingGame
         private int columns;
         private int initialVolunteerCenters;
         public int InitialVolunteerCenters { get { return (initialVolunteerCenters); } }
-
+        
         public Vector2 Dimension { get { return (new Vector2(rows, columns) * tileDimension * 2); } }
+
+        public String toString()
+        {
+            String toReturn = "";
+            toReturn += rows + "\n";
+            toReturn += columns + "\n";
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    toReturn += mapArray[i, j].toString();
+                }
+            }
+
+            toReturn += initialVolunteerCenters + "\n";
+            return toReturn;
+        }
+
         public MSMap(String filename)
             : base(MoodSwing.GetInstance())
         {

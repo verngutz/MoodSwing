@@ -58,6 +58,7 @@ namespace MoodSwingGame
         public MSChangeableBuilding(String model, String texture, String effect, Vector3 position, float rotation, int row, int column, int height)
             : base(model, texture, effect, position, rotation, row, column, height) 
         {
+            futureSelf = null;
             buildTime = 5;
             timeCount = 0;
             Texture2D borderTexture = MoodSwing.GetInstance().Content.Load<Texture2D>("BorderTexture");
@@ -130,6 +131,38 @@ namespace MoodSwingGame
                 progressBar.Position = new Vector2(v.X - MSMap.tileDimension/2, v.Y - MSMap.tileDimension);
                 progressBar.Draw(gameTime);
             }
+        }
+
+        public override string toString()
+        {
+            String toReturn = "";
+            switch (this.State)
+            {
+                case MSChangeableBuildingState.DONE:
+                    toReturn += "DONE";
+                    break;
+                case MSChangeableBuildingState.IDLE:
+                    toReturn += "IDLE";
+                    break;
+                case MSChangeableBuildingState.TRANSFORMING:
+                    toReturn += "TRANSFORMING";
+                    break;
+                case MSChangeableBuildingState.WAITING:
+                    toReturn += "WAITING";
+                    break;
+            }
+            toReturn += "\n";
+            toReturn += startTime + "\n";
+            toReturn += timeCount + "\n";
+            toReturn += expectedWorkers + "\n";
+            toReturn += buildTime + "\n";
+            if (futureSelf == null)
+                toReturn += "null\n";
+            else
+                toReturn += futureSelf.toString();
+
+            toReturn += base.toString();
+            return toReturn;
         }
     }
 }

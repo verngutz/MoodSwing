@@ -75,6 +75,10 @@ namespace MoodSwingGame
             toReturn += modelName + "\n";
             toReturn += textureName + "\n";
             toReturn += effectName + "\n";
+            toReturn += position.X + " " + position.Y + " " + position.Z + "\n";
+            toReturn += rotation + "\n";
+            toReturn += row + "\n";
+            toReturn += column + "\n";
 
             return toReturn;
         }

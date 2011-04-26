@@ -18,5 +18,10 @@ namespace MoodSwingGame
     {
         public MSUnchangeableBuilding(String model, String texture, String effect, Vector3 position, float rotation, int row, int column)
             : base(model, texture, effect, position, rotation, row, column, MSMap.shortheight) { }
+
+        public override string toString()
+        {
+            return "MSUnchangeableBuilding\n" + base.toString();
+        }
     }
 }

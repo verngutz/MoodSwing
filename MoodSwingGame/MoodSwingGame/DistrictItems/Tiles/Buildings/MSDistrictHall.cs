@@ -34,5 +34,10 @@ namespace MoodSwingGame
         {
                 
         }
+
+        public override string toString()
+        {
+            return "MSDistrictHall\n" + base.toString();
+        }
     }
 }

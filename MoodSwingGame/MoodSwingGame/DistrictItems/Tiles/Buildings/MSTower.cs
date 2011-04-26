@@ -94,5 +94,131 @@ namespace MoodSwingGame
         {
             capacity++;
         }
+
+        public override string toString()
+        {
+            String toReturn = "MSTower\n";
+
+            if (Stats is MSAntiretroviralCenterStats)
+            {
+                toReturn += "MSAntiretroviralCenterStats";
+            }
+            else if (Stats is MSApartmentStats)
+            {
+                toReturn += "MSApartmentStats";
+            }
+            else if (Stats is MSBedNetsCenterStats)
+            {
+                toReturn += "MSBedNetsCenterStats";
+            }
+            else if (Stats is MSChildrensHospitalStats)
+            {
+                toReturn += "MSChildrensHospitalStats";
+            }
+            else if (Stats is MSChildrensLibraryStats)
+            {
+                toReturn += "MSChildrensLibraryStats";
+            }
+            else if (Stats is MSEFASchoolStats)
+            {
+                toReturn += "MSEFASchoolStats";
+            }
+            else if (Stats is MSEmploymentCenterStats)
+            {
+                toReturn += "MSEmploymentCenterStats";
+            }
+            else if (Stats is MSEnvironmentalCenterStats)
+            {
+                toReturn += "MSEnvironmentalCenterStats";
+            }
+            else if (Stats is MSEpidemicsClinicStats)
+            {
+                toReturn += "MSEpidemicsClinicStats";
+            }
+            else if (Stats is MSFistulaTreatmentCenterStats)
+            {
+                toReturn += "MSFistulaTreatmentCenterStats";
+            }
+            else if (Stats is MSGeneralClinicStats)
+            {
+                toReturn += "MSGeneralClinicStats";
+            }
+            else if (Stats is MSGeneralRefugeStats)
+            {
+                toReturn += "MSGeneralRefugeStats";
+            }
+            else if (Stats is MSImmunizationOutreachStats)
+            {
+                toReturn += "MSImmunizationOutreachStats";
+            }
+            else if (Stats is MSInternationalCenterStats)
+            {
+                toReturn += "MSInternationalCenterStats";
+            }
+            else if (Stats is MSMaternalCareCenterStats)
+            {
+                toReturn += "MSMaternalCareCenterStats";
+            }
+            else if (Stats is MSPovertyRefugeStats)
+            {
+                toReturn += "MSPovertyRefugeStats";
+            }
+            else if (Stats is MSPublicAssistanceCenterStats)
+            {
+                toReturn += "MSPublicAssistanceCenterStats";
+            }
+            else if (Stats is MSSuppliesDonationCenterStats)
+            {
+                toReturn += "MSSuppliesDonationCenterStats";
+            }
+            else if (Stats is MSTechnoFarmhouseStats)
+            {
+                toReturn += "MSTechnoFarmhouseStats";
+            }
+            else if (Stats is MSTrashToCashCenterStats)
+            {
+                toReturn += "MSTrashToCashCenterStats";
+            }
+            else if (Stats is MSTutorialCenterStats)
+            {
+                toReturn += "MSTutorialCenterStats";
+            }
+            else if (Stats is MSVaccinationCenterStats)
+            {
+                toReturn += "MSVaccinationCenterStats";
+            }
+            else if (Stats is MSWaterTreatmentPlantStats)
+            {
+                toReturn += "MSWaterTreatmentPlantStats";
+            }
+            else if (Stats is MSWhiteScreensCenterStats)
+            {
+                toReturn += "MSWhiteScreensCenterStats";
+            }
+            else if (Stats is MSWomenCenterStats)
+            {
+                toReturn += "MSWomenCenterStats";
+            }
+            else if (Stats is MSWomenPoliticiansCenterStats)
+            {
+                toReturn += "MSWomenPoliticiansCenterStats";
+            }
+            else if (Stats is MSWomensHealthCenterStats)
+            {
+                toReturn += "MSWomensHealthCenterStats";
+            }
+            else if (Stats is MSWomensUniversityStats)
+            {
+                toReturn += "MSWomensUniversityStats";
+            }
+            else if (Stats is MSWorldWithoutBoundariesStats)
+            {
+                toReturn += "MSWorldWithoutBoundariesStats";
+            }
+            toReturn += "\n";
+            toReturn += (capacity + targetList.Count) + "\n";
+            toReturn += base.toString();
+            return toReturn;
+        }
     }
 }
