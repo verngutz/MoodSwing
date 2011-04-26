@@ -27,7 +27,7 @@ namespace MoodSwingGame
             targetList.Remove(unit);
         }
 
-        public MSTower( Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column, int height, MSTowerStats stats)
+        public MSTower(String model, String texture, String effect, Vector3 position, float rotation, int row, int column, int height, MSTowerStats stats)
             : base(model, texture, effect, position, rotation, row, column, height)
         {
             this.Stats = stats;

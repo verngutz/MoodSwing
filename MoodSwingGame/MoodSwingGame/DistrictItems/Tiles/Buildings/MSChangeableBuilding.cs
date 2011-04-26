@@ -55,7 +55,7 @@ namespace MoodSwingGame
         private MS3DTile futureSelf;
         public MS3DTile FutureSelf { get { return futureSelf; } }
 
-        public MSChangeableBuilding(Model model, Texture2D texture, Effect effect, Vector3 position, float rotation, int row, int column, int height)
+        public MSChangeableBuilding(String model, String texture, String effect, Vector3 position, float rotation, int row, int column, int height)
             : base(model, texture, effect, position, rotation, row, column, height) 
         {
             buildTime = 5;

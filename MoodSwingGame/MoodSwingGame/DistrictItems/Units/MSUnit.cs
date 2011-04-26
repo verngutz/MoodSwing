@@ -154,6 +154,11 @@ namespace MoodSwingGame
             this.destination = Vector2.Zero;
         }
 
+        public virtual String toString()
+        {
+            return "";
+        }
+
         /**
          * Temporary Solution for the error:
          * "The current vertex declaration does not include all the elements required by the current vertex shader. 
@@ -163,5 +168,6 @@ namespace MoodSwingGame
         /**
          * End Temporary Solution
          */
+
     }
 }

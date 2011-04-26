@@ -50,25 +50,25 @@ namespace MoodSwingGame
                     switch ((tileKey / 10) - ((tileKey / 100) * 10))
                     {
                         case 0:
-                            return new MSUnchangeableBuilding(c.Load<Model>("MModels/BuildingSmall"),
-                                c.Load<Texture2D>("MTextures/BuildingSmall"),
-                                c.Load<Effect>("Mood"),
+                            return new MSUnchangeableBuilding("MModels/BuildingSmall",
+                                "MTextures/BuildingSmall",
+                                "Mood",
                                 position + shortBuildingOffset, rotation, row, column);
                         case 1:
-                            return new MSAbandonedBuilding(c.Load<Model>("MModels/BuildingBig"),
-                                c.Load<Texture2D>("MTextures/BuildingBig"),
-                                c.Load<Effect>("Mood"),
+                            return new MSAbandonedBuilding("MModels/BuildingBig",
+                                "MTextures/BuildingBig",
+                                "Mood",
                                 position + tallBuildingOffset, rotation, row, column);
                         case 2:
-                            MSDistrictHall.instantiate(c.Load<Model>("MModels/DistrictHall"),
-                                c.Load<Texture2D>("MTextures/DistrictHall"),
-                                c.Load<Effect>("Mood"),
+                            MSDistrictHall.instantiate("MModels/DistrictHall",
+                                "MTextures/DistrictHall",
+                                "Mood",
                                 position + hallBuildingOffset, rotation, row, column);
                             return (MSDistrictHall.getInstance());
                         case 3:
-                            return new MSVolunteerCenter(c.Load<Model>("MModels/BuildingBig"),
-                                c.Load<Texture2D>("MTextures/BuildingVolunteer"),
-                                c.Load<Effect>("Mood"),
+                            return new MSVolunteerCenter("MModels/BuildingBig",
+                                "MTextures/BuildingVolunteer",
+                                "Mood",
                                 position + tallBuildingOffset, rotation , row, column);
                     }
                     break;
@@ -100,9 +100,9 @@ namespace MoodSwingGame
                             textureName = "MTextures/41";
                             break;
                     }
-                    return new MSRoad(c.Load<Model>("MModels/Floor"),
-                        c.Load<Texture2D>(textureName),
-                        c.Load<Effect>("Mood"),
+                    return new MSRoad("MModels/Floor",
+                        textureName,
+                        "Mood",
                         position, rotation, row, column); 
             }
             return null;

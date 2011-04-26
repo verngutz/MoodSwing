@@ -31,7 +31,7 @@ namespace MoodSwingGame
         }
 
         public Vector3 LightSource { set; get; }
-
+        
         public MS3DSingleModelComponent(Vector3 position)
             : base(position, MoodSwing.GetInstance()) 
         {
@@ -58,6 +58,13 @@ namespace MoodSwingGame
                 mesh.Draw();
             }
             base.Draw(gameTime);
+        }
+
+        public virtual String toString()
+        {
+            String toReturn = "";
+            //toReturn += Mode
+            return toReturn;
         }
     }
 }
