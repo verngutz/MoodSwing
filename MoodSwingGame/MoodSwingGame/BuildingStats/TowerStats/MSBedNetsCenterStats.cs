@@ -14,8 +14,15 @@ namespace MoodSwingGame
                 instance = new MSBedNetsCenterStats();
             return instance;
         }
+        public override int GetFundsCost()
+        {
+            return 450;
+        }
 
-        public override float GetBuildTime() { return 5; }
+        public override int GetVolunteerCost()
+        {
+            return 4;
+        }
         private MSBedNetsCenterStats()
         {
             povertyEffectiveness = false;

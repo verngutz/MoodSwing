@@ -14,7 +14,17 @@ namespace MoodSwingGame
                 instance = new MSImmunizationOutreachStats();
             return instance;
         }
-        public virtual float GetBuildTime() { return 5; }
+
+        public override int GetFundsCost()
+        {
+            return 450;
+        }
+
+        public override int GetVolunteerCost()
+        {
+            return 4;
+        }
+
         private MSImmunizationOutreachStats()
         {
             povertyEffectiveness = false;
