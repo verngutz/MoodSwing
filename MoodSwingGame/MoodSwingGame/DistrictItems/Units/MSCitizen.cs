@@ -18,12 +18,12 @@ namespace MoodSwingGame
 {
     public class MSCitizen : MSUnit
     {
+        private double rand;
         protected override Model Model 
         { 
             get 
             {
-                double a = MSRandom.random.NextDouble();
-                if (a >= 0.5)
+                if (rand >= 0.5)
                     return Game.Content.Load<Model>("TaoBabae");
                 else
                     return Game.Content.Load<Model>("TaoLalaki");
@@ -32,7 +32,13 @@ namespace MoodSwingGame
 
         protected override Texture2D Texture
         {
-            get { return null; }
+            get
+            {
+                if (rand >= 0.5)
+                    return Game.Content.Load<Texture2D>("TaoBabaeCivilian");
+                else
+                    return Game.Content.Load<Texture2D>("TaoLalakiCivilian");
+            }
         }
 
         private float speed = 0.35f;
@@ -43,6 +49,9 @@ namespace MoodSwingGame
         }
 
         public MSCitizen(Vector3 position, Node path, MSMap map, bool is_mobbable, float initRotation)
-            : base(position, path, map, is_mobbable, initRotation) { }
+            : base(position, path, map, is_mobbable, initRotation) 
+        {
+            rand = MSRandom.random.NextDouble();
+        }
     }
 }

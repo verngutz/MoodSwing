@@ -9,7 +9,7 @@ namespace MoodSwingGame
 {
     public class NormalCitizenCurve : MSParametricCurve
     {
-        private float constant = 1;
+        private float constant = .5f;
         public int X(int t) { return X(t, 0); }
 
         public int X(int t, int x0) { return (int)(MathHelper.Clamp((float)((constant * Math.Log(t))), 0f, 100f)); }
