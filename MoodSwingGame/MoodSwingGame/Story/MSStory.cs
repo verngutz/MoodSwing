@@ -73,9 +73,9 @@ namespace MoodSwingGame
         private static List<MSStoryEvent> timeActiveEvents;
         private static List<MSStoryEvent> eventsToRemove;
 
-        public static void Init()
+        public static void Init(MSDistrictScreen.DistrictName name)
         {
-            StoryEnabled = false;
+            StoryEnabled = true;
             VolunteerCenterEnabled = true;
             TowerEnabled = true;
             FirstMDGBranchEnabled = true;
@@ -86,13 +86,28 @@ namespace MoodSwingGame
             {
                 timeActiveEvents = new List<MSStoryEvent>();
                 eventsToRemove = new List<MSStoryEvent>();
-                AddStoryEvent(new Welcome());
 
-                VolunteerCenterEnabled = false;
-                TowerEnabled = false;
-                FirstMDGBranchEnabled = false;
-                SecondMDGBranchEnabled = false;
-                ThirdMDGBranchEnabled = false;
+                switch(name)
+                {
+                    case MSDistrictScreen.DistrictName.FEAR:
+                        AddStoryEvent(new District1());
+                        FirstMDGBranchEnabled = true;
+                        SecondMDGBranchEnabled = false;
+                        ThirdMDGBranchEnabled = false;
+                        break;
+                    case MSDistrictScreen.DistrictName.SADNESS:
+                        AddStoryEvent(new District2());
+                        FirstMDGBranchEnabled = true;
+                        SecondMDGBranchEnabled = true;
+                        ThirdMDGBranchEnabled = false;
+                        break;
+                    case MSDistrictScreen.DistrictName.ANGER:
+                        AddStoryEvent(new District3());
+                        FirstMDGBranchEnabled = true;
+                        SecondMDGBranchEnabled = true;
+                        ThirdMDGBranchEnabled = true;
+                        break;
+                }
             }
         }
 
