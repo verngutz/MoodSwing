@@ -29,7 +29,6 @@ namespace MoodSwingGame
 
         public override void load(System.IO.StreamReader sr)
         {
-            System.Console.WriteLine("LOADING AB");
             base.load(sr);
         }
     }

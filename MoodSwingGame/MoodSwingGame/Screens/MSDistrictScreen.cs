@@ -858,6 +858,7 @@ namespace MoodSwingGame
             save += map.toString();
             save += moodManager.toString();
             save += resourceManager.toString();
+            save += unitHandler.toString();
             FileStream file = new FileStream(districtName + "_save2.txt", FileMode.Create, FileAccess.Write);
             StreamWriter sw = new StreamWriter(file);
 
@@ -879,6 +880,7 @@ namespace MoodSwingGame
                     map.load(sr);
                     moodManager.load(sr);
                     resourceManager.load(sr);
+                    unitHandler.load(sr, map);
                 }
                 else
                 {

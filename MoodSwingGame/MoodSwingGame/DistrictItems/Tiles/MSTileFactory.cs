@@ -113,7 +113,6 @@ namespace MoodSwingGame
         {
             MS3DTile toReturn = null;
             String id = sr.ReadLine();
-            System.Console.WriteLine(id);
             String modelName = sr.ReadLine();
             String textureName = sr.ReadLine();
             String effectName = sr.ReadLine();
