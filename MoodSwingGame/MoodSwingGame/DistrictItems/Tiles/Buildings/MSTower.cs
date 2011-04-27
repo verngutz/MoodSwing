@@ -37,6 +37,7 @@ namespace MoodSwingGame
             this.Stats = stats;
             if( stats != null ) capacity = stats.GetVolunteerCost();
             this.targetList = new List<MSUnit>();
+            System.Console.WriteLine(capacity);
         }
 
         public void sentinel(MSMap map, MSUnitHandler unitHandler)
@@ -88,6 +89,7 @@ namespace MoodSwingGame
                                 //MSMoodManager.GetInstance().AddMDGScore(goal);
                                 
                             }
+                            break;
                         }
                     }
                 }
@@ -222,7 +224,7 @@ namespace MoodSwingGame
             }
 
             capacity = Int32.Parse(sr.ReadLine());
-
+            System.Console.WriteLine(capacity);
         }
         public override string toString()
         {

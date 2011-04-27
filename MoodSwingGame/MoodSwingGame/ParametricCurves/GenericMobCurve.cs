@@ -10,9 +10,10 @@ namespace MoodSwingGame
 {
     public class GenericMobCurve : MSParametricCurve
     {
+        private float constant = 0.005f;
         public int X(int t) { return X(t, 0); }
 
-        public int X(int t, int x0) { return (int)(MathHelper.Clamp((float)(0.005f*(Math.Log(t)*Math.Cos(t*t) + x0) * 60), 0f, 100f)); }
+        public int X(int t, int x0) { return (int)(MathHelper.Clamp((float)(constant * (Math.Log(t) * Math.Cos(t) + x0)), 0f, 50)); }
 
         public int Dx(int t) { return -1; }
     }
