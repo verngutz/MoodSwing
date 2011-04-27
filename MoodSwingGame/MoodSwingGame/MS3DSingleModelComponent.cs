@@ -43,6 +43,7 @@ namespace MoodSwingGame
 
         public override void Draw(GameTime gameTime)
         {
+            /**
             if (boneTransformsUnset)
             {
                 boneTranforms = new Matrix[Model.Bones.Count];
@@ -50,13 +51,13 @@ namespace MoodSwingGame
                 boneTransformsUnset = false;
             }
             Model.CopyAbsoluteBoneTransformsTo(boneTranforms);
-            
+            */
             foreach (ModelMesh mesh in Model.Meshes)
             {
                 foreach (ModelMeshPart part in mesh.MeshParts)
                 {
                     part.Effect = Effect;
-                    Effect.Parameters["World"].SetValue(boneTranforms[mesh.ParentBone.Index] * world);
+                    Effect.Parameters["World"].SetValue(world); //boneTranforms[mesh.ParentBone.Index] * world);
                     Effect.Parameters["View"].SetValue(MSCamera.GetInstance().GetView());
                     Effect.Parameters["Projection"].SetValue(MSCamera.GetInstance().ProjectionMatrix);
                     Matrix worldInverseTransposeMatrix = Matrix.Transpose(Matrix.Invert(mesh.ParentBone.Transform * world));
