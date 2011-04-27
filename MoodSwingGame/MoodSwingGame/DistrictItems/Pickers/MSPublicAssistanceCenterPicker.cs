@@ -75,7 +75,9 @@ namespace MoodSwingGame
                 AddSelection(
                     "Upgrade To An International Partnership Center",
                     "The poorest countries in the world are benefitting from freer trade and from the relaxing of debt. "
-                    + "Upgrade this office to an international partnership center",
+                    + "Upgrade this office to an international partnership center and make this district open to foreign "
+                    + "support./n/n"
+                    + "Effect: Has a moderate power to stop mobs with MDG complaints on Global Partnership.",
                     MSInternationalCenterStats.GetInstance(),
                     new Rectangle(boundingRectangle.X + 38, boundingRectangle.Y + 187, 93, 73),
                     Game.Content.Load<Texture2D>("BuyDialog/7"),

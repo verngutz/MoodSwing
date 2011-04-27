@@ -50,6 +50,7 @@ namespace MoodSwingGame
                 boneTransformsUnset = false;
             }
             Model.CopyAbsoluteBoneTransformsTo(boneTranforms);
+            
             foreach (ModelMesh mesh in Model.Meshes)
             {
                 foreach (ModelMeshPart part in mesh.MeshParts)

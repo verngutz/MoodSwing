@@ -81,7 +81,7 @@ namespace MoodSwingGame
             String filename = "";
             if (district == DistrictName.FEAR)
             {
-                filename = @"Content\fbxtest.txt";
+                filename = @"Content\Pandalevel2.txt";
             }
             else if (district == DistrictName.SADNESS)
             {
