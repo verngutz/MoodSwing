@@ -14,7 +14,6 @@ namespace MoodSwingGame
                 instance = new MSEpidemicsClinicStats();
             return instance;
         }
-        public override float GetBuildTime() { return 5; }
         private MSEpidemicsClinicStats()
         {
             povertyEffectiveness = false;
