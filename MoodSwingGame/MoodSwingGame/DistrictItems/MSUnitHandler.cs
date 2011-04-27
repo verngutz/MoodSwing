@@ -40,7 +40,7 @@ namespace MoodSwingGame
         }
         private const int MAX_PROBABILITY = 10000;
         //probability constant that handles mob generation
-        private const int MOB_RECRUIT_RATE = 3000;
+        private const int MOB_RECRUIT_RATE = 300;
         private const int MOB_RECRUIT_DISTANCE = 15;
 
         //list of citizens
@@ -137,10 +137,9 @@ namespace MoodSwingGame
             {
                 MSMobParam mp = this.mobTypeParam[i];
                 int rnd = MSRandom.random.Next(100);
-                //System.Console.WriteLine(i + ": " + rnd + " " + mp.getProbability());
                 if (rnd < mp.getProbability())
                 {
-                    
+                    System.Console.WriteLine("SUCCESS");
                     MSUnit person;
 
                     MSUnchangeableBuilding source = map.GetRandomCitizenSource();
@@ -333,7 +332,7 @@ namespace MoodSwingGame
         public int getProbability()
         {
             if (!IsEnabled) return 0;
-            return equation.X(timer/60);
+            return equation.X(timer/100);
         }
     }
 }

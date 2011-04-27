@@ -72,7 +72,7 @@ namespace MoodSwingGame
                     foreach (BasicEffect effect in mesh.Effects)
                     {
                         effect.EnableDefaultLighting();
-                        effect.World = Matrix.CreateRotationZ((Rotation + (float)(Math.PI/2)) ) * this.WorldMatrix;
+                        effect.World = Matrix.CreateRotationZ((Rotation + (float)(-Math.PI/2)) ) * this.WorldMatrix;
                         effect.View = MSCamera.GetInstance().GetView();
                         effect.Projection = MSCamera.GetInstance().ProjectionMatrix;
 

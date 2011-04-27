@@ -19,12 +19,12 @@ namespace MoodSwingGame
 {
     public class MSWorker : MSUnit
     {
+        private double rand = MSRandom.random.NextDouble();
         protected override Model Model
         {
             get
             {
-                double a = MSRandom.random.NextDouble();
-                if (a >= 0.5)
+                if (rand >= 0.5)
                     return Game.Content.Load<Model>("TaoBabae");
                 else
                     return Game.Content.Load<Model>("TaoLalaki");
