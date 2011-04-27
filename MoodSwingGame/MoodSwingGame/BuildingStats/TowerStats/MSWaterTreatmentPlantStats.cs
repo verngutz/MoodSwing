@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MoodSwingGame
 {
-    public class MSWaterTreatmentPlantStats : MSTowerStats
+    public class MSWaterTreatmentPlantStats : MSUltiBuildingStat
     {
         private static MSWaterTreatmentPlantStats instance;
         public static MSWaterTreatmentPlantStats GetInstance()

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MoodSwingGame
 {
-    public class MSBedNetsCenterStats : MSTowerStats
+    public class MSBedNetsCenterStats : MSUltiBuildingStat
     {
         private static MSBedNetsCenterStats instance;
         public static MSBedNetsCenterStats GetInstance()

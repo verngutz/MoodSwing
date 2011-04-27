@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MoodSwingGame
 {
-    public class MSImmunizationOutreachStats : MSTowerStats
+    public class MSImmunizationOutreachStats : MSUltiBuildingStat
     {
         private static MSImmunizationOutreachStats instance;
         public static MSImmunizationOutreachStats GetInstance()

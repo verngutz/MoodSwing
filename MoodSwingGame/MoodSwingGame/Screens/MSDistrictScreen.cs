@@ -377,7 +377,7 @@ namespace MoodSwingGame
             AddComponent(translucentOverlay);
 
             Paused = false;
-            MSStory.Init();
+            MSStory.Init(district);
             load();
         }
 

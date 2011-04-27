@@ -17,7 +17,7 @@ using MoodSwingGUI;
 
 namespace MoodSwingGame
 {
-    public class Welcome : MSStoryEvent
+    public class District1 : MSStoryEvent
     {
         public override bool Enabled()
         {
@@ -36,17 +36,88 @@ namespace MoodSwingGame
 
             moodSwing.Notifier.AddComponent(
                 new MSButton(
-                    new MSFontScalingLabel(
-                        "Where Am I", 
-                        new Rectangle(0, 0, 100, 50), 
-                        moodSwing.Content.Load<SpriteFont>("Temp"),
-                        moodSwing.SpriteBatch,
-                        moodSwing),
-                    new MovementTutorial(),
+                    null,
+                    new CloseNotification(),
                     new Rectangle(0, 0, 100, 50),
-                    moodSwing.Content.Load<Texture2D>("Button"),
-                    moodSwing.Content.Load<Texture2D>("ButtonClicked"),
-                    moodSwing.Content.Load<Texture2D>("ButtonHovered"),
+                    moodSwing.Content.Load<Texture2D>("Okay"),
+                    moodSwing.Content.Load<Texture2D>("OkayClicked"),
+                    moodSwing.Content.Load<Texture2D>("OkayHovered"),
+                    null,
+                    Shape.RECTANGULAR,
+                    moodSwing.SpriteBatch,
+                    moodSwing), Alignment.BOTTOM_CENTER);
+
+            moodSwing.Notifier.InvokeNotification("");
+
+            moodSwing.Notifier.FreezeNotifications = true;
+
+            MSStory.RemoveStoryEvent(this);
+        }
+    }
+
+    public class District2 : MSStoryEvent
+    {
+        public override bool Enabled()
+        {
+            return true;
+        }
+
+        public override void PerformAction(Game game)
+        {
+            MoodSwing moodSwing = game as MoodSwing;
+
+            MSScreen screen = moodSwing.CurrentScreen;
+            (screen as MSDistrictScreen).Paused = true;
+            screen.HasFocus = false;
+            screen.ResetHovers();
+            moodSwing.Notifier.HasFocus = true;
+
+            moodSwing.Notifier.AddComponent(
+                new MSButton(
+                    null,
+                    new CloseNotification(),
+                    new Rectangle(0, 0, 100, 50),
+                    moodSwing.Content.Load<Texture2D>("Okay"),
+                    moodSwing.Content.Load<Texture2D>("OkayClicked"),
+                    moodSwing.Content.Load<Texture2D>("OkayHovered"),
+                    null,
+                    Shape.RECTANGULAR,
+                    moodSwing.SpriteBatch,
+                    moodSwing), Alignment.BOTTOM_CENTER);
+
+            moodSwing.Notifier.InvokeNotification("");
+
+            moodSwing.Notifier.FreezeNotifications = true;
+
+            MSStory.RemoveStoryEvent(this);
+        }
+    }
+
+    public class District3 : MSStoryEvent
+    {
+        public override bool Enabled()
+        {
+            return true;
+        }
+
+        public override void PerformAction(Game game)
+        {
+            MoodSwing moodSwing = game as MoodSwing;
+
+            MSScreen screen = moodSwing.CurrentScreen;
+            (screen as MSDistrictScreen).Paused = true;
+            screen.HasFocus = false;
+            screen.ResetHovers();
+            moodSwing.Notifier.HasFocus = true;
+
+            moodSwing.Notifier.AddComponent(
+                new MSButton(
+                    null,
+                    new CloseNotification(),
+                    new Rectangle(0, 0, 100, 50),
+                    moodSwing.Content.Load<Texture2D>("Okay"),
+                    moodSwing.Content.Load<Texture2D>("OkayClicked"),
+                    moodSwing.Content.Load<Texture2D>("OkayHovered"),
                     null,
                     Shape.RECTANGULAR,
                     moodSwing.SpriteBatch,
