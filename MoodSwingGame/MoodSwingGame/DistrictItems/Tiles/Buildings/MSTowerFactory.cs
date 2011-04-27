@@ -71,7 +71,7 @@ namespace MoodSwingGame
             else if (stats is MSEnvironmentalCenterStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingDahon";
+                texture = "MTextures/Environment";
                 effect = "Mood";
             }
             else if (stats is MSEpidemicsClinicStats)
@@ -89,13 +89,13 @@ namespace MoodSwingGame
             else if (stats is MSGeneralClinicStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingGamot";
+                texture = "MTextures/Clinic";
                 effect = "Mood";
             }
             else if (stats is MSGeneralRefugeStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingSabaw";
+                texture = "MTextures/Refuge";
                 effect = "Mood";
             }
             else if (stats is MSImmunizationOutreachStats)
@@ -107,7 +107,7 @@ namespace MoodSwingGame
             else if (stats is MSInternationalCenterStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingTropa";
+                texture = "MTextures/Global";
                 effect = "Mood";
             }
             else if (stats is MSMaternalCareCenterStats)

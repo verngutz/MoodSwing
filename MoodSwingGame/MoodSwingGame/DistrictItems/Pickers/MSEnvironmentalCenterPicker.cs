@@ -33,9 +33,9 @@ namespace MoodSwingGame
                 + "to safe drinking water.",
                 MSWaterTreatmentPlantStats.GetInstance(),
                 new Rectangle(boundingRectangle.X + 129, boundingRectangle.Y + 187, 93, 73),
-                Game.Content.Load<Texture2D>("BuyDialog/6"),
-                Game.Content.Load<Texture2D>("BuyDialog/6clicked"),
-                Game.Content.Load<Texture2D>("BuyDialog/6hovered"));
+                Game.Content.Load<Texture2D>("BuyDialog/Upgrade"),
+                Game.Content.Load<Texture2D>("BuyDialog/UpgradeClicked"),
+                Game.Content.Load<Texture2D>("BuyDialog/UpgradeHovered"));
         }
     }
 }

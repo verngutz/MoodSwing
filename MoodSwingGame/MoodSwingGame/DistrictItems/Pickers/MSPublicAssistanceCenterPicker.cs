@@ -35,9 +35,9 @@ namespace MoodSwingGame
                     + "and Widespread Disease.",
                     MSGeneralClinicStats.GetInstance(),
                     new Rectangle(boundingRectangle.X, boundingRectangle.Y + 38, 73, 93),
-                    Game.Content.Load<Texture2D>("BuyDialog/1"),
-                    Game.Content.Load<Texture2D>("BuyDialog/1clicked"),
-                    Game.Content.Load<Texture2D>("BuyDialog/1hovered"));
+                    Game.Content.Load<Texture2D>("BuyDialog/Clinic"),
+                    Game.Content.Load<Texture2D>("BuyDialog/ClinicClicked"),
+                    Game.Content.Load<Texture2D>("BuyDialog/ClinicHovered"));
             }
             if (MSStory.FirstMDGBranchEnabled)
             {
@@ -53,9 +53,9 @@ namespace MoodSwingGame
                     + "Disparity.",
                     MSGeneralRefugeStats.GetInstance(),
                     new Rectangle(boundingRectangle.X + 38, boundingRectangle.Y, 93, 73),
-                    Game.Content.Load<Texture2D>("BuyDialog/2"),
-                    Game.Content.Load<Texture2D>("BuyDialog/2clicked"),
-                    Game.Content.Load<Texture2D>("BuyDialog/2hovered"));
+                    Game.Content.Load<Texture2D>("BuyDialog/Refuge"),
+                    Game.Content.Load<Texture2D>("BuyDialog/RefugeClicked"),
+                    Game.Content.Load<Texture2D>("BuyDialog/RefugeHovered"));
             }
             if (MSStory.ThirdMDGBranchEnabled)
             {
@@ -68,9 +68,9 @@ namespace MoodSwingGame
                     + "Effect: Has a moderate power to stop mobs with MDG complaints on Environment Sustainability.",
                     MSEnvironmentalCenterStats.GetInstance(),
                     new Rectangle(boundingRectangle.X + 129, boundingRectangle.Y + 187, 93, 73),
-                    Game.Content.Load<Texture2D>("BuyDialog/6"),
-                    Game.Content.Load<Texture2D>("BuyDialog/6clicked"),
-                    Game.Content.Load<Texture2D>("BuyDialog/6hovered"));
+                    Game.Content.Load<Texture2D>("BuyDialog/Environment"),
+                    Game.Content.Load<Texture2D>("BuyDialog/EnvironmentClicked"),
+                    Game.Content.Load<Texture2D>("BuyDialog/EnvironmentHovered"));
 
                 AddSelection(
                     "Upgrade To An International Partnership Center",
@@ -80,9 +80,9 @@ namespace MoodSwingGame
                     + "Effect: Has a moderate power to stop mobs with MDG complaints on Global Partnership.",
                     MSInternationalCenterStats.GetInstance(),
                     new Rectangle(boundingRectangle.X + 38, boundingRectangle.Y + 187, 93, 73),
-                    Game.Content.Load<Texture2D>("BuyDialog/7"),
-                    Game.Content.Load<Texture2D>("BuyDialog/7clicked"),
-                    Game.Content.Load<Texture2D>("BuyDialog/7hovered"));
+                    Game.Content.Load<Texture2D>("BuyDialog/GLobal"),
+                    Game.Content.Load<Texture2D>("BuyDialog/GlobalClicked"),
+                    Game.Content.Load<Texture2D>("BuyDialog/GlobalHovered"));
             }
 
             AddMiddleOrb();

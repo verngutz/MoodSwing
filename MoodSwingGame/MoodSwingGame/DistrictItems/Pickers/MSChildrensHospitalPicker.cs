@@ -46,9 +46,9 @@ namespace MoodSwingGame
                 description,
                 stat,
                 new Rectangle(boundingRectangle.X, boundingRectangle.Y + 38, 73, 93),
-                Game.Content.Load<Texture2D>("BuyDialog/1"),
-                Game.Content.Load<Texture2D>("BuyDialog/1clicked"),
-                Game.Content.Load<Texture2D>("BuyDialog/1hovered"));
+                Game.Content.Load<Texture2D>("BuyDialog/Upgrade"),
+                Game.Content.Load<Texture2D>("BuyDialog/UpgradeClicked"),
+                Game.Content.Load<Texture2D>("BuyDialog/UpgradeHovered"));
         }
     }
 }

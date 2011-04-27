@@ -385,34 +385,42 @@ namespace MoodSwingGame
                         if(stats is MSAntiretroviralCenterStats || stats is MSBedNetsCenterStats)
                         {
                             MSMoodManager.GetInstance().HivUltiBuilt = true;
+                            MSUnitHandler.GetInstance().SetMobEnabled(MSMilleniumDevelopmentGoal.HIV_AIDS, false);
                         }
                         else if (stats is MSApartmentStats || stats is MSEmploymentCenterStats || stats is MSTechnoFarmhouseStats)
                         {
                             MSMoodManager.GetInstance().PovertyUltiBuilt = true;
+                            MSUnitHandler.GetInstance().SetMobEnabled(MSMilleniumDevelopmentGoal.POVERTY, false);
                         }
                         else if (stats is MSChildrensLibraryStats || stats is MSSuppliesDonationCenterStats || stats is MSEFASchoolStats)
                         {
                             MSMoodManager.GetInstance().EducationUltiBuilt = true;
+                            MSUnitHandler.GetInstance().SetMobEnabled(MSMilleniumDevelopmentGoal.EDUCATION, false);
                         }
                         else if (stats is MSFistulaTreatmentCenterStats || stats is MSMaternalCareCenterStats)
                         {
                             MSMoodManager.GetInstance().MaternalUltiBuilt = true;
+                            MSUnitHandler.GetInstance().SetMobEnabled(MSMilleniumDevelopmentGoal.MATERNAL_HEALTH, false);
                         }
                         else if (stats is MSImmunizationOutreachStats || stats is MSVaccinationCenterStats)
                         {
                             MSMoodManager.GetInstance().ChildUltiBuilt = true;
+                            MSUnitHandler.GetInstance().SetMobEnabled(MSMilleniumDevelopmentGoal.CHILD_HEALTH, false);
                         }
                         else if (stats is MSWomenPoliticiansCenterStats || stats is MSWomensUniversityStats || stats is MSWhiteScreensCenterStats)
                         {
                             MSMoodManager.GetInstance().GenderUltiBuilt = true;
+                            MSUnitHandler.GetInstance().SetMobEnabled(MSMilleniumDevelopmentGoal.GENDER_EQUALITY, false);
                         }
                         else if (stats is MSTrashToCashCenterStats || stats is MSWaterTreatmentPlantStats)
                         {
                             MSMoodManager.GetInstance().EnvironmentUltiBuilt = true;
+                            MSUnitHandler.GetInstance().SetMobEnabled(MSMilleniumDevelopmentGoal.ENVIRONMENT, false);
                         }
                         else if (stats is MSWorldWithoutBoundariesStats)
                         {
                             MSMoodManager.GetInstance().GlobalUltiBuilt = true;
+                            MSUnitHandler.GetInstance().SetMobEnabled(MSMilleniumDevelopmentGoal.GLOBAL_PARTNERSHIP, false);
                         }
                     }
                 }
