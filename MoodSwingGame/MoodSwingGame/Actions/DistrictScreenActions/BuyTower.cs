@@ -38,11 +38,16 @@ namespace MoodSwingGame
                 {
                     screen.ResourceManager.Funds -= toBuildStats.GetFundsCost();
                     screen.ResourceManager.IdleVolunteers -= toBuildStats.GetVolunteerCost();
+                    int currCapacity = 0;
+                    if (toBuy is MSTower)
+                        currCapacity = (toBuy as MSTower).Stats.GetVolunteerCost();
                     MS3DTile futureSelf = MSTowerFactory.CreateMSTower(toBuildStats, toBuy.Position, toBuy.Rotation, toBuy.TileCoordinate);
-
+                    if( futureSelf is MSTower )
+                        (futureSelf as MSTower).increaseCapacity(currCapacity);
                     futureSelf.LightSource = screen.Map.LightSource;
                     toBuy.StartBuildProcess(toBuildStats.GetVolunteerCost(), futureSelf);
 
+                    
                     MSUnitHandler.GetInstance().SendWorkers(screen.Map, toBuy, toBuildStats.GetVolunteerCost());
                     screen.RemoveComponent(screen.CircularPicker);
                 }

@@ -21,6 +21,10 @@ namespace MoodSwingGame
         public MSTowerStats Stats { set; get; }
 
         private int capacity;
+        public void increaseCapacity(int i)
+        {
+            capacity += i;
+        }
         private List<MSUnit> targetList;
         public void remove(MSUnit unit)
         {
