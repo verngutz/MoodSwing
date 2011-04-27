@@ -369,7 +369,7 @@ namespace MoodSwingGame
 
             Paused = false;
             MSStory.Init();
-            //load();
+            load();
         }
 
         public override void Draw(GameTime gameTime)
@@ -856,6 +856,9 @@ namespace MoodSwingGame
         {
             String save = "savefile\n";
             save += map.toString();
+            save += moodManager.toString();
+            save += resourceManager.toString();
+            save += unitHandler.toString();
             FileStream file = new FileStream(districtName + "_save2.txt", FileMode.Create, FileAccess.Write);
             StreamWriter sw = new StreamWriter(file);
 
@@ -871,10 +874,13 @@ namespace MoodSwingGame
             {
                 StreamReader sr = new StreamReader(districtName + "_save2.txt");
                 String s = sr.ReadLine();
-                System.Console.WriteLine(s);
+                //System.Console.WriteLine(s);
                 if (s != null && s.Equals("savefile"))
                 {
                     map.load(sr);
+                    moodManager.load(sr);
+                    resourceManager.load(sr);
+                    unitHandler.load(sr, map);
                 }
                 else
                 {

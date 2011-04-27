@@ -61,8 +61,8 @@ namespace MoodSwingGame
                                 "Mood",
                                 position + tallBuildingOffset, rotation, row, column);
                         case 2:
-                            MSDistrictHall.instantiate("Test",
-                                "TestMap",
+                            MSDistrictHall.instantiate("MModels/DistrictHall",
+                                "MTextures/DistrictHall",
                                 "Mood",
                                 position + hallBuildingOffset, rotation, row, column);
                             return (MSDistrictHall.getInstance());
@@ -113,7 +113,6 @@ namespace MoodSwingGame
         {
             MS3DTile toReturn = null;
             String id = sr.ReadLine();
-            System.Console.WriteLine(id);
             String modelName = sr.ReadLine();
             String textureName = sr.ReadLine();
             String effectName = sr.ReadLine();

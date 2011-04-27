@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework.Storage;
 using MoodSwingCoreComponents;
 using MoodSwingGUI;
 using MoodSwingGame;
+using System.IO;
 
 namespace MoodSwingGame
 {
@@ -67,15 +68,11 @@ namespace MoodSwingGame
         private List<MSUnit> units;
         public List<MSUnit> Units { get { return units; } }
         public bool IsLeaderBusy { get; set; }
-        private float birthRate;
 
         private MSUnitHandler()
         {
             units = new List<MSUnit>();
             IsLeaderBusy = false;
-            prevCheckpoint = 0;
-            IsRelativelyPeaceful = true;
-            birthRate = INITIAL_BIRTH_RATE;
             mobTypeParam = new MSMobParam[9];
             for (int i = 0; i < 9; i++)
             {
@@ -85,11 +82,7 @@ namespace MoodSwingGame
 
         //something to remove. Make oneOnly = true if you want only one citizen to exist.
         //used for testing only
-        private bool oneOnly = false;
-        private bool checkOne = false;
 
-        private int prevCheckpoint;
-        private bool IsRelativelyPeaceful;
         private MSMobParam[] mobTypeParam;
 
         private MSMobParam getMobParam(MSMilleniumDevelopmentGoal? mdg)
@@ -98,6 +91,35 @@ namespace MoodSwingGame
             return mobTypeParam[(int)mdg];
         }
 
+        public string toString()
+        {
+            string toReturn = "";
+            int volunteerCount = 0;
+            foreach (MSUnit unit in this.units)
+            {
+                if (unit is MSVolunteeringCitizen) volunteerCount++;
+            }
+
+            toReturn += volunteerCount + "\n";
+            foreach (MSMobParam mp in this.mobTypeParam)
+            {
+                toReturn += mp.timer + "\n";
+            }
+            return toReturn;
+        }
+
+        public void load(StreamReader sr, MSMap map)
+        {
+            int volunteerCount = Int32.Parse(sr.ReadLine());
+            for (int i = 0; i < 0; i++)
+            {
+                this.VolunteerCitizen(map);
+            }
+            foreach (MSMobParam mp in this.mobTypeParam)
+            {
+                mp.timer = Int32.Parse(sr.ReadLine());
+            }
+        }
         private MSMilleniumDevelopmentGoal? getGoal(int index)
         {
             switch (index)
@@ -274,7 +296,7 @@ namespace MoodSwingGame
 
     class MSMobParam
     {
-        int timer;
+        public int timer;
         bool isPaused;
         bool isEnabled;
         MSParametricCurve equation;

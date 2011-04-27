@@ -819,17 +819,6 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
-    <Compile Include="Woo.FBX">
-      <Name>Woo</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>0.4</ProcessorParameters_Scale>
-    </Compile>
-    <Compile Include="Test.FBX">
-      <Name>Test</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -1043,15 +1032,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestMap.png">
-      <Name>TestMap</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="smallMap.txt">
       <Name>smallMap</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="largeMap.txt">
+      <Name>largeMap</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mediumMap.txt">
+      <Name>mediumMap</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
