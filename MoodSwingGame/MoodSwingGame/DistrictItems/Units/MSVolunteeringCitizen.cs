@@ -24,6 +24,27 @@ namespace MoodSwingGame
         {
 
         }
+        private double rand = MSRandom.random.NextDouble();
+        protected override Model Model
+        {
+            get
+            {
+                if (rand >= 0.5)
+                    return Game.Content.Load<Model>("TaoBabae");
+                else
+                    return Game.Content.Load<Model>("TaoLalaki");
+            }
+        }
+        protected override Texture2D Texture
+        {
+            get
+            {
+                if (rand >= 0.5)
+                    return Game.Content.Load<Texture2D>("TaoBabaeVolunteer");
+                else
+                    return Game.Content.Load<Texture2D>("TaoLalakiVolunteer");
+            }
+        }
 
         public override void Walk(MS3DTile[,] mapArray, List<MSUnit> units)
         {

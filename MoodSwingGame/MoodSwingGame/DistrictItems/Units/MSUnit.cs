@@ -60,11 +60,7 @@ namespace MoodSwingGame
 
         public override void Draw(GameTime gameTime)
         {
-            /**
-             * Temporary Solution for the error:
-             * "The current vertex declaration does not include all the elements required by the current vertex shader. 
-             * TextureCoordinate0 is missing."
-             */            
+                 
             foreach (ModelMesh mesh in Model.Meshes)
             {
                 foreach (ModelMeshPart part in mesh.MeshParts)
@@ -75,15 +71,14 @@ namespace MoodSwingGame
                         effect.World = Matrix.CreateRotationZ((Rotation + (float)(-Math.PI/2)) ) * this.WorldMatrix;
                         effect.View = MSCamera.GetInstance().GetView();
                         effect.Projection = MSCamera.GetInstance().ProjectionMatrix;
+                        effect.TextureEnabled = true;
+                        effect.Texture = Texture;
 
                     }
                 }
                 mesh.Draw();
             }
 
-            /**
-             * End Temporary Solution
-             */
         }
 
         public virtual void Walk(MS3DTile[,] mapArray, List<MSUnit> units )

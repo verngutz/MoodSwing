@@ -32,7 +32,13 @@ namespace MoodSwingGame
 
         protected override Texture2D Texture
         {
-            get { return null; }
+            get
+            {
+                if (rand >= 0.5)
+                    return Game.Content.Load<Texture2D>("TaoBabaeCivilian");
+                else
+                    return Game.Content.Load<Texture2D>("TaoLalakiCivilian");
+            }
         }
 
         private float speed = 0.35f;

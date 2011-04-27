@@ -30,6 +30,17 @@ namespace MoodSwingGame
             }
         }
 
+        protected override Texture2D Texture
+        {
+            get
+            {
+                if (rand >= 0.5)
+                    return Game.Content.Load<Texture2D>("TaoBabaeMob");
+                else
+                    return Game.Content.Load<Texture2D>("TaoLalakiMob");
+            }
+        }
+
         private List<MSMobber> mobList;
         public List<MSMobber> GetMobList() { return mobList; }
         public void AddMember(MSMobber m) { mobList.Add(m); }
@@ -47,10 +58,7 @@ namespace MoodSwingGame
 
 
 
-        protected override Texture2D Texture
-        {
-            get { return null; }
-        }
+     
 
         private float speed = 0.3f;
         public override float Speed
