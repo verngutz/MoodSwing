@@ -21,8 +21,8 @@ namespace MoodSwingGame
     {
         public void PerformAction(Game game)
         {
-            if( (game as MoodSwing).CurrentScreen is MSDistrictScreen ) 
-                ((game as MoodSwing).CurrentScreen as MSDistrictScreen).save();
+            //if( (game as MoodSwing).CurrentScreen is MSDistrictScreen ) 
+            //    ((game as MoodSwing).CurrentScreen as MSDistrictScreen).save();
             game.Exit();
         }
     }

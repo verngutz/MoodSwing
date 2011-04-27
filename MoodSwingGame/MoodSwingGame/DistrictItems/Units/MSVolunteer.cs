@@ -29,7 +29,7 @@ namespace MoodSwingGame
 
         public override float Speed 
         { 
-            get { return 0.85f; }
+            get { return 0.82f; }
             set { throw new NotImplementedException(); } 
         }
 
@@ -49,7 +49,9 @@ namespace MoodSwingGame
         public override void Walk(MS3DTile[,] map_array, List<MSUnit> units )
         {
  	        base.Walk(map_array, units);
-            if (isGoingToMobber && target.DestinationReached )
+            
+            if (isGoingToMobber && 
+                ( target.TileCoordinate == MSDistrictHall.getInstance().TileCoordinate|| target.DestinationReached) )
             {
                 this.path = map.GetPath(this.TileCoordinate, office.TileCoordinate);
                 this.destination = Vector2.Zero;

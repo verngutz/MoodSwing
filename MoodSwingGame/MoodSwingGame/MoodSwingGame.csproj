@@ -184,6 +184,15 @@
     <Compile Include="DistrictItems\Pickers\MSWomenCenterPicker.cs" />
     <Compile Include="DistrictItems\Pickers\MSWomensHealthCenterPicker.cs" />
     <Compile Include="MoodSwing.cs" />
+    <Compile Include="ParametricCurves\ChildHealthCurve.cs" />
+    <Compile Include="ParametricCurves\EducationCurve.cs" />
+    <Compile Include="ParametricCurves\EnvironmentCurve.cs" />
+    <Compile Include="ParametricCurves\GenderEqualityCurve.cs" />
+    <Compile Include="ParametricCurves\GenericMobCurve.cs" />
+    <Compile Include="ParametricCurves\GlobalPartnershipCurve.cs" />
+    <Compile Include="ParametricCurves\HivAidsCurve.cs" />
+    <Compile Include="ParametricCurves\NormalCitizenCurve.cs" />
+    <Compile Include="ParametricCurves\PovertyCurve.cs" />
     <Compile Include="ParametricCurves\SwingButtonCloseMovement.cs" />
     <Compile Include="ParametricCurves\SwingButtonOpenMovement.cs" />
     <Compile Include="DistrictItems\Tiles\MS3DTile.cs" />
@@ -197,6 +206,7 @@
     <Compile Include="DistrictItems\Units\MSCitizen.cs" />
     <Compile Include="MS3DSingleModelComponent.cs" />
     <Compile Include="ParametricCurves\ShiftRight75.cs" />
+    <Compile Include="ParametricCurves\MaternalHealthCurve.cs" />
     <Compile Include="Screens\MSCityScreen.cs" />
     <Compile Include="DistrictItems\Tiles\Buildings\MSDistrictHall.cs" />
     <Compile Include="Screens\MSDistrictScreen.cs" />

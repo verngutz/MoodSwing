@@ -369,7 +369,7 @@ namespace MoodSwingGame
 
             Paused = false;
             MSStory.Init();
-            load();
+            //load();
         }
 
         public override void Draw(GameTime gameTime)
@@ -498,7 +498,7 @@ namespace MoodSwingGame
                 HandleKeyboardInput(MoodSwing.GetInstance().OldKeyboardState);
                 map.Update(gameTime);
                 resourceManager.Update(gameTime);
-                MSUnit person = unitHandler.TryForBaby(map, (int)this.gameTime);
+                unitHandler.TryForBaby(map);
 
                 moodManager.Update(gameTime);
                 unitHandler.Update(map);

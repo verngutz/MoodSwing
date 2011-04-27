@@ -34,8 +34,8 @@ namespace MoodSwingGame
             MoodSwing.GetInstance().Notifier.ClearNotifications();
             MoodSwing.GetInstance().Notifier.FreezeNotifications = false;
 
-            if ((game as MoodSwing).CurrentScreen is MSDistrictScreen)
-                ((game as MoodSwing).CurrentScreen as MSDistrictScreen).save();
+            //if ((game as MoodSwing).CurrentScreen is MSDistrictScreen)
+             //   ((game as MoodSwing).CurrentScreen as MSDistrictScreen).save();
         }
     }
 }
