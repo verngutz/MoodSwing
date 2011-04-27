@@ -22,6 +22,8 @@ namespace MoodSwingGame
         public MSTutorialCenterPicker(Texture2D background, Rectangle boundingRectangle, MSChangeableBuilding toBuy, SpriteBatch spriteBatch, Game game)
             : base(background, boundingRectangle, 78, 78, 62, 62, toBuy, Shape.RECTANGULAR, spriteBatch, game)
         {
+
+            AddMiddleOrb();
             String title = "";
             String description = "";
             MSTowerStats stat = null;
@@ -47,7 +49,7 @@ namespace MoodSwingGame
                 title,
                 description,
                 stat,
-                new Rectangle(boundingRectangle.X + 187, boundingRectangle.Y + 38, 73, 93),
+                    new Rectangle(boundingRectangle.X + 55, boundingRectangle.Y + 130, 152, 78),
                 Game.Content.Load<Texture2D>("BuyDialog/4"),
                 Game.Content.Load<Texture2D>("BuyDialog/4clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/4hovered"));

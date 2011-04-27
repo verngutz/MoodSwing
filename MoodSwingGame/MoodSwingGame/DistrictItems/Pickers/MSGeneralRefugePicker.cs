@@ -22,6 +22,8 @@ namespace MoodSwingGame
         public MSGeneralRefugePicker(Texture2D background, Rectangle boundingRectangle, MSChangeableBuilding toBuy, SpriteBatch spriteBatch, Game game)
             : base(background, boundingRectangle, 78, 78, 62, 62, toBuy, Shape.RECTANGULAR, spriteBatch, game)
         {
+
+            AddMiddleOrb();
             AddSelection(
                 "Upgrade To Include A Feeding Center For The Poor",
                 "One in four children in Mood City are underweight, and a majority of the children "

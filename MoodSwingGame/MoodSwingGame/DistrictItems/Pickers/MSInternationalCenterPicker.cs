@@ -22,11 +22,13 @@ namespace MoodSwingGame
         public MSInternationalCenterPicker(Texture2D background, Rectangle boundingRectangle, MSChangeableBuilding toBuy, SpriteBatch spriteBatch, Game game)
             : base(background, boundingRectangle, 78, 78, 62, 62, toBuy, Shape.RECTANGULAR, spriteBatch, game)
         {
+
+            AddMiddleOrb();
             AddSelection(
                 "Establish the World Without Boundaries Foundation",
                 "",
                 MSWorldWithoutBoundariesStats.GetInstance(),
-                new Rectangle(boundingRectangle.X + 38, boundingRectangle.Y + 187, 93, 73),
+                    new Rectangle(boundingRectangle.X + 55, boundingRectangle.Y + 130, 152, 78),
                 Game.Content.Load<Texture2D>("BuyDialog/7"),
                 Game.Content.Load<Texture2D>("BuyDialog/7clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/7hovered"));

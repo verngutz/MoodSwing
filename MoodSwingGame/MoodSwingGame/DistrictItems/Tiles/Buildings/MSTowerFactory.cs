@@ -29,19 +29,19 @@ namespace MoodSwingGame
             if (stats is MSAntiretroviralCenterStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingGamot";
+                texture = "Ulti/BuildingGamot";
                 effect = "Mood";
             }
             else if (stats is MSApartmentStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingSabaw";
+                texture = "Ulti/BuildingSabaw";
                 effect = "Mood";
             }
             else if (stats is MSBedNetsCenterStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingGamot";
+                texture = "Ulti/BuildingGamot";
                 effect = "Mood";
             }
             else if (stats is MSChildrensHospitalStats)
@@ -53,19 +53,19 @@ namespace MoodSwingGame
             else if (stats is MSChildrensLibraryStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingLapis";
+                texture = "Ulti/BuildingLapis";
                 effect = "Mood";
             }
             else if (stats is MSEFASchoolStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingLapis";
+                texture = "Ulti/BuildingLapis";
                 effect = "Mood";
             }
             else if (stats is MSEmploymentCenterStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingSabaw";
+                texture = "Ulti/BuildingSabaw";
                 effect = "Mood";
             }
             else if (stats is MSEnvironmentalCenterStats)
@@ -83,7 +83,7 @@ namespace MoodSwingGame
             else if (stats is MSFistulaTreatmentCenterStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingBuntis";
+                texture = "Ulti/BuildingBuntis";
                 effect = "Mood";
             }
             else if (stats is MSGeneralClinicStats)
@@ -101,7 +101,7 @@ namespace MoodSwingGame
             else if (stats is MSImmunizationOutreachStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingTeddy";
+                texture = "Ulti/BuildingTeddy";
                 effect = "Mood";
             }
             else if (stats is MSInternationalCenterStats)
@@ -113,7 +113,7 @@ namespace MoodSwingGame
             else if (stats is MSMaternalCareCenterStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingBuntis";
+                texture = "Ulti/BuildingBuntis";
                 effect = "Mood";
             }
             else if (stats is MSPovertyRefugeStats)
@@ -131,19 +131,19 @@ namespace MoodSwingGame
             else if (stats is MSSuppliesDonationCenterStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingLapis";
+                texture = "Ulti/BuildingLapis";
                 effect = "Mood";
             }
             else if (stats is MSTechnoFarmhouseStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingSabaw";
+                texture = "Ulti/BuildingSabaw";
                 effect = "Mood";
             }
             else if (stats is MSTrashToCashCenterStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingSabaw";
+                texture = "Ulti/BuildingSabaw";
                 effect = "Mood";
             }
             else if (stats is MSTutorialCenterStats)
@@ -155,19 +155,19 @@ namespace MoodSwingGame
             else if (stats is MSVaccinationCenterStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingTeddy";
+                texture = "Ulti/BuildingTeddy";
                 effect = "Mood";
             }
             else if (stats is MSWaterTreatmentPlantStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingDahon";
+                texture = "Ulti/BuildingDahon";
                 effect = "Mood";
             }
             else if (stats is MSWhiteScreensCenterStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingCross";
+                texture = "Ulti/BuildingCross";
                 effect = "Mood";
             }
             else if (stats is MSWomenCenterStats)
@@ -179,7 +179,7 @@ namespace MoodSwingGame
             else if (stats is MSWomenPoliticiansCenterStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingCross";
+                texture = "Ulti/BuildingCross";
                 effect = "Mood";
             }
             else if (stats is MSWomensHealthCenterStats)
@@ -191,13 +191,13 @@ namespace MoodSwingGame
             else if (stats is MSWomensUniversityStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingCross";
+                texture = "Ulti/BuildingCross";
                 effect = "Mood";
             }
             else if (stats is MSWorldWithoutBoundariesStats)
             {
                 model = "MModels/BuildingBig";
-                texture = "MTextures/BuildingTropa";
+                texture = "Ulti/BuildingTropa";
                 effect = "Mood";
             }
 

@@ -22,6 +22,7 @@ namespace MoodSwingGame
         public MSWomensHealthCenterPicker(Texture2D background, Rectangle boundingRectangle, MSChangeableBuilding toBuy, SpriteBatch spriteBatch, Game game)
             : base(background, boundingRectangle, 78, 78, 62, 62, toBuy, Shape.RECTANGULAR, spriteBatch, game)
         {
+            AddMiddleOrb();
             String title = "";
             String description = "";
             MSTowerStats stat = null;
@@ -42,7 +43,7 @@ namespace MoodSwingGame
                 title,
                 description,
                 stat,
-                new Rectangle(boundingRectangle.X + 187, boundingRectangle.Y + 129, 73, 93),
+                    new Rectangle(boundingRectangle.X + 55, boundingRectangle.Y + 130, 152, 78),
                 Game.Content.Load<Texture2D>("BuyDialog/5"),
                 Game.Content.Load<Texture2D>("BuyDialog/5clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/5hovered"));

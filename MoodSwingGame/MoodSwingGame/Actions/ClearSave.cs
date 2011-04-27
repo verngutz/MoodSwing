@@ -19,15 +19,14 @@ namespace MoodSwingGame
 {
     public class ClearSave : ChangeScreen
     {
-        private MSDistrictScreen.DistrictName name;
-        public ClearSave(MSDistrictScreen.DistrictName name)
+        public ClearSave()
         {
-            this.name = name;
         }
 
         public override void PerformAction(Game game)
         {
             MSDistrictScreen.clearSave();
+            (game as MoodSwing).Notifier.InvokeNotification("The game has been reset: all saved files have been deleted.");
         }
     }
 }

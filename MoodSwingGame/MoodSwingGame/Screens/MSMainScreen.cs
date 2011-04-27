@@ -55,10 +55,26 @@ namespace MoodSwingGame
             optionsButton.HoverPosition = new ShiftRight75();
             optionsButton.UnhoverPosition = new ShiftLeft75();
 
+            MSAnimatingButton res = new MSAnimatingButton(
+                    null,
+                    (new ClearSave()),
+                    new Rectangle(300, 450, 574, 60),
+                    game.Content.Load<Texture2D>("back"),
+                    game.Content.Load<Texture2D>("backHovered"),
+                    game.Content.Load<Texture2D>("backHovered"),
+                    Color.White,
+                    null,
+                    Shape.AMORPHOUS,
+                    SpriteBatch,
+                    Game);
+
+            res.HoverPosition = new ShiftRight75();
+            res.UnhoverPosition = new ShiftLeft75();
+
             MSAnimatingButton exitButton = new MSAnimatingButton(
                     null,
                     new OpenExitConfirmation(OpenExitConfirmation.ExitType.ToWindows),
-                    new Rectangle(300, 450, 574, 60),
+                    new Rectangle(300, 550, 574, 60),
                     game.Content.Load<Texture2D>("exit"),
                     game.Content.Load<Texture2D>("exitclicked"),
                     game.Content.Load<Texture2D>("exitclicked"),
@@ -74,7 +90,7 @@ namespace MoodSwingGame
             AddComponent(startGameButton);
 
             AddComponent(optionsButton);
-
+            AddComponent(res);
             AddComponent(exitButton);
             AddComponent(new MSPanel(Game.Content.Load<Texture2D>("gamescreen"), new Rectangle(0, 0, MSResolution.VirtualWidth, MSResolution.VirtualHeight), null, Shape.AMORPHOUS, SpriteBatch, Game));
         }

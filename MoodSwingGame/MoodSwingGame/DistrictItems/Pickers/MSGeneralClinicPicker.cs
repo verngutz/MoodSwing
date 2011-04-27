@@ -22,6 +22,8 @@ namespace MoodSwingGame
         public MSGeneralClinicPicker(Texture2D background, Rectangle boundingRectangle, MSChangeableBuilding toBuy, SpriteBatch spriteBatch, Game game)
             : base(background, boundingRectangle, 78, 78, 62, 62, toBuy, Shape.RECTANGULAR, spriteBatch, game)
         {
+
+            AddMiddleOrb();
             AddSelection(
                 "Upgrade To A Children's Hospital",
                 "One in seven children in sub-Saharan Africa die before their fifth birthday. "
