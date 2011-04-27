@@ -32,27 +32,27 @@ namespace MoodSwingGame
                 + "MDG Target by 2015: Halve the proportion of the population who suffer from hunger.",
                 MSGeneralRefugeStats.GetInstance(),
                 new Rectangle(boundingRectangle.X + 38, boundingRectangle.Y, 93, 73),
-                Game.Content.Load<Texture2D>("BuyDialog/2"),
-                Game.Content.Load<Texture2D>("BuyDialog/2clicked"),
-                Game.Content.Load<Texture2D>("BuyDialog/2hovered"));
+                Game.Content.Load<Texture2D>("BuyDialog/FeedingCenter"),
+                Game.Content.Load<Texture2D>("BuyDialog/FeedingCenterClicked"),
+                Game.Content.Load<Texture2D>("BuyDialog/FeedingCenterHovered"));
 
             AddSelection(
                 "Upgrade to a center for women empowerment",
                 "",
                 MSWomenCenterStats.GetInstance(),
                 new Rectangle(boundingRectangle.X + 129, boundingRectangle.Y, 93, 73),
-                Game.Content.Load<Texture2D>("BuyDialog/3"),
-                Game.Content.Load<Texture2D>("BuyDialog/3clicked"),
-                Game.Content.Load<Texture2D>("BuyDialog/3hovered"));
+                Game.Content.Load<Texture2D>("BuyDialog/Women's"),
+                Game.Content.Load<Texture2D>("BuyDialog/Women'sClicked"),
+                Game.Content.Load<Texture2D>("BuyDialog/Women'sHovered"));
 
             AddSelection(
                 "Upgrade to a tutorial center for the masses",
                 "",
                 MSTutorialCenterStats.GetInstance(),
                 new Rectangle(boundingRectangle.X + 187, boundingRectangle.Y + 38, 73, 93),
-                Game.Content.Load<Texture2D>("BuyDialog/4"),
-                Game.Content.Load<Texture2D>("BuyDialog/4clicked"),
-                Game.Content.Load<Texture2D>("BuyDialog/4hovered"));
+                Game.Content.Load<Texture2D>("BuyDialog/Tutorial"),
+                Game.Content.Load<Texture2D>("BuyDialog/TutorialClicked"),
+                Game.Content.Load<Texture2D>("BuyDialog/TutorialHovered"));
         }
     }
 }

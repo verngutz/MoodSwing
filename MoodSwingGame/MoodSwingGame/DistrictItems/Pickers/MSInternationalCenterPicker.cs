@@ -29,9 +29,9 @@ namespace MoodSwingGame
                 "",
                 MSWorldWithoutBoundariesStats.GetInstance(),
                     new Rectangle(boundingRectangle.X + 55, boundingRectangle.Y + 130, 152, 78),
-                Game.Content.Load<Texture2D>("BuyDialog/7"),
-                Game.Content.Load<Texture2D>("BuyDialog/7clicked"),
-                Game.Content.Load<Texture2D>("BuyDialog/7hovered"));
+                Game.Content.Load<Texture2D>("BuyDialog/Upgrade"),
+                Game.Content.Load<Texture2D>("BuyDialog/UpgradeClicked"),
+                Game.Content.Load<Texture2D>("BuyDialog/UpgradeHovered"));
         }
     }
 }
