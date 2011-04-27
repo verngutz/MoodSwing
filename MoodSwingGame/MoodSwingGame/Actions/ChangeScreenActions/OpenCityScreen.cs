@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework.Storage;
 
 using MoodSwingGUI;
 using MoodSwingCoreComponents;
+using System.IO;
 
 namespace MoodSwingGame
 {
@@ -30,6 +31,61 @@ namespace MoodSwingGame
 
         public override void PerformAction(Game game)
         {
+            try
+            {
+                StreamReader sr = new StreamReader("small_save.txt");
+                String s = sr.ReadLine();
+                //System.Console.WriteLine(s);
+                if (s != null && s.Equals("savefile"))
+                {
+                    new OpenDistrictScreen(MSDistrictScreen.DistrictName.FEAR).PerformAction(game);
+                    sr.Close();
+                    return;
+                }
+                sr.Close();
+            }
+            catch (FileNotFoundException)
+            {
+                return;
+            }
+
+            try
+            {
+                StreamReader sr = new StreamReader("medium_save.txt");
+                String s = sr.ReadLine();
+                //System.Console.WriteLine(s);
+                if (s != null && s.Equals("savefile"))
+                {
+                    new OpenDistrictScreen(MSDistrictScreen.DistrictName.SADNESS).PerformAction(game);
+                    sr.Close();
+                    return;
+                }
+                sr.Close();
+            }
+            catch (FileNotFoundException)
+            {
+                return;
+            }
+
+            try
+            {
+                StreamReader sr = new StreamReader("large_save.txt");
+                String s = sr.ReadLine();
+                //System.Console.WriteLine(s);
+                if (s != null && s.Equals("savefile"))
+                {
+                    new OpenDistrictScreen(MSDistrictScreen.DistrictName.ANGER).PerformAction(game);
+                    sr.Close();
+                    return;
+                }
+                sr.Close();
+            }
+            catch (FileNotFoundException)
+            {
+                return;
+            }
+
+            
             base.ChangeToScreen(MSCityScreen.getInstance(), game);
         }
     }
