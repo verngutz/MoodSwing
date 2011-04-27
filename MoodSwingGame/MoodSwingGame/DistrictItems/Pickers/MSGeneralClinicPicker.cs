@@ -23,11 +23,11 @@ namespace MoodSwingGame
             : base(background, boundingRectangle, 78, 78, 62, 62, toBuy, Shape.RECTANGULAR, spriteBatch, game)
         {
             AddSelection(
-                "Upgrade to a Children's Hospital",
-                "One in seven children in some place known as sub-Saharan Africa die before their fifth birthday. "
+                "Upgrade To A Children's Hospital",
+                "One in seven children in sub-Saharan Africa die before their fifth birthday. "
                 + "This district also suffers from such a high rate of child mortality. "
                 + "Upgrade to help this district fight against pneumonia, diarrhoea, and many other easily "
-                + "preventable sicknesses that cause a lot of child deaths.\n\n"
+                + "preventable and curable sicknesses that cause a lot of child deaths.\n\n"
                 + "MDG Target by 2015: Reduce by two thirds, between 1990 and 2015, the under-five mortality rate.",
                 MSChildrensHospitalStats.GetInstance(),
                 new Rectangle(boundingRectangle.X, boundingRectangle.Y + 38, 73, 93),
@@ -36,9 +36,13 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/1hovered"));
 
             AddSelection(
-                "Upgrade to a Women's Health Center",
+                "Upgrade To A Women's Health Center",
                 "More than 350,000 women die each year because of complications during pregnancy or childbirth. "
-                + "This district ",
+                + "The risk is highest for adolescent girls. To make things worse, not everyone has access to knowledge "
+                + "of proper family planning and reproductive health. Upgrade to help this district fight against "
+                + "maternal mortality.\n\n"
+                + "MDG Targets by 2015:\n 1.Reduce by three quarters, between 1990 and 2015, the maternal mortality ratio.\n"
+                + "2.Achieve, by 2015, universal access to reproductive health.",
                 MSWomensHealthCenterStats.GetInstance(),
                 new Rectangle(boundingRectangle.X + 187, boundingRectangle.Y + 129, 73, 93),
                 Game.Content.Load<Texture2D>("BuyDialog/5"),

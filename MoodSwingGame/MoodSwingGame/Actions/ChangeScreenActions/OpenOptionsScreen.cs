@@ -30,8 +30,11 @@ namespace MoodSwingGame
 
         public override void PerformAction(Game game)
         {
+            (game as MoodSwing).Notifier.InvokeNotification("This feature is not yet available in this version of the game.");
+            /**
             MSOptionsScreen.GetInstance().ReturnScreen = MoodSwing.GetInstance().CurrentScreen;
             base.ChangeToScreen(MSOptionsScreen.GetInstance(), game);
+             */
         }
     }
 }

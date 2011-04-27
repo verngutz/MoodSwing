@@ -23,16 +23,6 @@ namespace MoodSwingGame
     {
         public static bool CitizensEnabled { set; get; }
 
-        private static bool[] mobEnabled = new bool[] { true, true, true, true, true, true, true, true };
-        public static bool GetMobEnabled(MSMilleniumDevelopmentGoal mdg)
-        {
-            return mobEnabled[(int)mdg];
-        }
-        public static void SetMobEnabled(MSMilleniumDevelopmentGoal mdg, bool enabled)
-        {
-            mobEnabled[(int)mdg] = enabled;
-        }
-
         private static MSUnitHandler unitHandler = null;
 
         public static MSUnitHandler GetInstance()
@@ -46,23 +36,12 @@ namespace MoodSwingGame
         public static MSUnitHandler Restart()
         {
             unitHandler = new MSUnitHandler();
-            unitHandler.MOB_WAVE_PROBABILITY = 7;
-            unitHandler.MOB_STABLE_PROBABILITY = 0;
-            unitHandler.MOB_MDG_OPTIONS = 1;
             return unitHandler;
         }
-        //probability constant that handles unit generation
-        private const int INITIAL_BIRTH_RATE = 10;
         private const int MAX_PROBABILITY = 10000;
-        private const int MAX_MOB_PROBABILITY = 100;
         //probability constant that handles mob generation
-        private int MOB_WAVE_PROBABILITY = 7;
-        private int MOB_STABLE_PROBABILITY = 0;
         private const int MOB_RECRUIT_RATE = 3000;
         private const int MOB_RECRUIT_DISTANCE = 15;
-        //probability of kind of mdg in mob
-        private int MOB_MDG_OPTIONS = 1;
-        private const int MOB_MDG_DELAY = 4;
 
         //list of citizens
         private List<MSUnit> units;
@@ -84,6 +63,10 @@ namespace MoodSwingGame
         //used for testing only
 
         private MSMobParam[] mobTypeParam;
+        public void SetMobEnabled(MSMilleniumDevelopmentGoal mdg, bool enabled)
+        {
+            mobTypeParam[(int)mdg].IsEnabled = enabled;
+        }
 
         private MSMobParam getMobParam(MSMilleniumDevelopmentGoal? mdg)
         {
@@ -297,15 +280,15 @@ namespace MoodSwingGame
     class MSMobParam
     {
         public int timer;
-        bool isPaused;
-        bool isEnabled;
+        public bool IsPaused { set; get; }
+        public bool IsEnabled { set; get; }
         MSParametricCurve equation;
 
         public MSMobParam(MSMilleniumDevelopmentGoal? mdg)
         {
             timer = 0;
-            isPaused = false;
-            isEnabled = true;
+            IsPaused = false;
+            IsEnabled = true;
 
             switch (mdg)
             {
@@ -342,12 +325,12 @@ namespace MoodSwingGame
 
         public void incrTimer()
         {
-            if (!isPaused && timer + 1 <= Int32.MaxValue) timer++;
+            if (!IsPaused && timer + 1 <= Int32.MaxValue) timer++;
         }
 
         public int getProbability()
         {
-            if (!isEnabled) return 0;
+            if (!IsEnabled) return 0;
             return equation.X(timer/60);
         }
     }

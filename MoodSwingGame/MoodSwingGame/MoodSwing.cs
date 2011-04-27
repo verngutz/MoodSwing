@@ -61,7 +61,7 @@ namespace MoodSwingGame
 
             MSResolution.Init(ref graphics);
             MSResolution.SetVirtualResolution(1024, 768);
-            MSResolution.SetResolution(1024, 768, false);
+            MSResolution.SetResolution(1024, 768, true);
 
             //graphics.PreferMultiSampling = true;
             
