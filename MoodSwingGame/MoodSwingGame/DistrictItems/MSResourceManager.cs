@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework.Storage;
 
 using MoodSwingCoreComponents;
 using MoodSwingGUI;
+using System.IO;
 
 namespace MoodSwingGame
 {
@@ -36,6 +37,26 @@ namespace MoodSwingGame
         public int TotalVolunteers { get; set; }
         public int IdleVolunteers { get; set; }
 
+        public string toString()
+        {
+            string toReturn = "";
+            toReturn += volunteerGenerationCounter + "\n";
+            toReturn += Funds + "\n";
+            toReturn += VolunteerCapacity + "\n";
+            toReturn += TotalVolunteers + "\n";
+            toReturn += IdleVolunteers + "\n";
+
+            return toReturn;
+        }
+
+        public void load(StreamReader sr)
+        {
+            volunteerGenerationCounter = Int32.Parse(sr.ReadLine());
+            Funds = Int32.Parse(sr.ReadLine());
+            VolunteerCapacity = Int32.Parse(sr.ReadLine());
+            TotalVolunteers = Int32.Parse(sr.ReadLine());
+            IdleVolunteers = Int32.Parse(sr.ReadLine());
+        }
         private MSResourceManager() : base(MoodSwing.GetInstance()) { }
 
         public static void instantiate(int initial_funds, int initial_volunteer_centers)

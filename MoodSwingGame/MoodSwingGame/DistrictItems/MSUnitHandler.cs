@@ -67,15 +67,11 @@ namespace MoodSwingGame
         private List<MSUnit> units;
         public List<MSUnit> Units { get { return units; } }
         public bool IsLeaderBusy { get; set; }
-        private float birthRate;
 
         private MSUnitHandler()
         {
             units = new List<MSUnit>();
             IsLeaderBusy = false;
-            prevCheckpoint = 0;
-            IsRelativelyPeaceful = true;
-            birthRate = INITIAL_BIRTH_RATE;
             mobTypeParam = new MSMobParam[9];
             for (int i = 0; i < 9; i++)
             {
@@ -85,11 +81,7 @@ namespace MoodSwingGame
 
         //something to remove. Make oneOnly = true if you want only one citizen to exist.
         //used for testing only
-        private bool oneOnly = false;
-        private bool checkOne = false;
 
-        private int prevCheckpoint;
-        private bool IsRelativelyPeaceful;
         private MSMobParam[] mobTypeParam;
 
         private MSMobParam getMobParam(MSMilleniumDevelopmentGoal? mdg)

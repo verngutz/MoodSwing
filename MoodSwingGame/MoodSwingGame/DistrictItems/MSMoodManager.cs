@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 using MoodSwingCoreComponents;
 using MoodSwingGUI;
+using System.IO;
 
 namespace MoodSwingGame
 {
@@ -102,40 +103,56 @@ namespace MoodSwingGame
             return instance;
         }
 
-        /*public String toString()
+        public String toString()
         {
-            instance.mood = INITIAL_MOOD;
-            instance.isAlive = true;
+            String toReturn = "";
+            toReturn += lowMoodWarningTimer + "\n";
+            toReturn += mood + "\n";
+            toReturn += isAlive + "\n";
 
-            instance.povertyScore = 0;
-            instance.educationScore = 0;
-            instance.genderEqualityScore = 0;
-            instance.childHealthScore = 0;
-            instance.maternalHealthScore = 0;
-            instance.hivAidsScore = 0;
-            instance.environmentScore = 0;
-            instance.globalPartnershipScore = 0;
+            toReturn += povertyBonusEnabled + "\n";
+            toReturn += povertyScore + "\n";
+            toReturn += educationBonusEnabled + "\n";
+            toReturn += educationScore + "\n";
+            toReturn += genderEqualityBonusEnabled + "\n";
+            toReturn += genderEqualityScore + "\n";
+            toReturn += childHleathBonusEnabled + "\n";
+            toReturn += childHealthScore + "\n";
+            toReturn += maternalHealthBonusEnabled + "\n";
+            toReturn += maternalHealthScore + "\n";
+            toReturn += hivAidsBonusEnabled + "\n";
+            toReturn += hivAidsScore + "\n";
+            toReturn += environmentBonusEnabled + "\n";
+            toReturn += environmentScore + "\n";
+            toReturn += globalPartnershipBonusEnabled + "\n";
+            toReturn += globalPartnershipScore + "\n";
 
-            instance.povertyBonusEnabled = true;
-            instance.educationBonusEnabled = true;
-            instance.genderEqualityBonusEnabled = true;
-            instance.childHleathBonusEnabled = true;
-            instance.maternalHealthBonusEnabled = true;
-            instance.hivAidsBonusEnabled = true;
-            instance.environmentBonusEnabled = true;
-            instance.globalPartnershipBonusEnabled = true;
+            return toReturn;
+        }
 
-            instance.lowMoodWarningTimer = 0;
+        public void load(StreamReader sr)
+        {
+            lowMoodWarningTimer = Int32.Parse(sr.ReadLine());
+            mood = float.Parse(sr.ReadLine());
+            isAlive = bool.Parse(sr.ReadLine());
 
-            instance.PovertyProgressBar.Progress = 0;
-            instance.EducationProgressBar.Progress = 0;
-            instance.GenderEqualityProgressBar.Progress = 0;
-            instance.ChildHealthProgressBar.Progress = 0;
-            instance.MaternalHealthProgressBar.Progress = 0;
-            instance.HivAidsProgressBar.Progress = 0;
-            instance.EnvironmentProgressBar.Progress = 0;
-            instance.GlobalPartnershipProgressBar.Progress = 0;
-        }*/
+            povertyBonusEnabled = bool.Parse(sr.ReadLine());
+            povertyScore = float.Parse(sr.ReadLine());
+            educationBonusEnabled = bool.Parse(sr.ReadLine());
+            educationScore = float.Parse(sr.ReadLine());
+            genderEqualityBonusEnabled = bool.Parse(sr.ReadLine());
+            genderEqualityScore = float.Parse(sr.ReadLine());
+            childHleathBonusEnabled = bool.Parse(sr.ReadLine());
+            childHealthScore = float.Parse(sr.ReadLine());
+            maternalHealthBonusEnabled = bool.Parse(sr.ReadLine());
+            maternalHealthScore = float.Parse(sr.ReadLine());
+            hivAidsBonusEnabled = bool.Parse(sr.ReadLine());
+            hivAidsScore = float.Parse(sr.ReadLine());
+            environmentBonusEnabled = bool.Parse(sr.ReadLine());
+            environmentScore = float.Parse(sr.ReadLine());
+            globalPartnershipBonusEnabled = bool.Parse(sr.ReadLine());
+            globalPartnershipScore = float.Parse(sr.ReadLine());
+        }
         public static void Reset()
         {
             instance.mood = INITIAL_MOOD;
