@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework.Storage;
 
 using MoodSwingCoreComponents;
 using MoodSwingGUI;
+using MoodSwingGame;
 
 namespace MoodSwingGame
 {
@@ -21,7 +22,7 @@ namespace MoodSwingGame
     {
         public static bool CitizensEnabled { set; get; }
 
-        private static bool[] mobEnabled = new bool[] {true, true, true, true, true, true, true, true};
+        private static bool[] mobEnabled = new bool[] { true, true, true, true, true, true, true, true };
         public static bool GetMobEnabled(MSMilleniumDevelopmentGoal mdg)
         {
             return mobEnabled[(int)mdg];
@@ -37,6 +38,7 @@ namespace MoodSwingGame
         {
             if (unitHandler == null)
                 unitHandler = new MSUnitHandler();
+
             return unitHandler;
         }
 
@@ -67,13 +69,18 @@ namespace MoodSwingGame
         public bool IsLeaderBusy { get; set; }
         private float birthRate;
 
-        private MSUnitHandler() 
+        private MSUnitHandler()
         {
             units = new List<MSUnit>();
             IsLeaderBusy = false;
-            prevCheckpoint = 0 ;
+            prevCheckpoint = 0;
             IsRelativelyPeaceful = true;
             birthRate = INITIAL_BIRTH_RATE;
+            mobTypeParam = new MSMobParam[9];
+            for (int i = 0; i < 9; i++)
+            {
+                mobTypeParam[i] = new MSMobParam(getGoal(i));
+            }
         }
 
         //something to remove. Make oneOnly = true if you want only one citizen to exist.
@@ -83,74 +90,90 @@ namespace MoodSwingGame
 
         private int prevCheckpoint;
         private bool IsRelativelyPeaceful;
+        private MSMobParam[] mobTypeParam;
 
-        public MSUnit TryForBaby( MSMap map, int gameTime )
+        private MSMobParam getMobParam(MSMilleniumDevelopmentGoal? mdg)
         {
-            if (CitizensEnabled)
+            if (mdg == null) return mobTypeParam[8];
+            return mobTypeParam[(int)mdg];
+        }
+
+        private MSMilleniumDevelopmentGoal? getGoal(int index)
+        {
+            switch (index)
             {
-                int timeDiff = gameTime - prevCheckpoint;
-                if ((timeDiff >= 30 && !IsRelativelyPeaceful) ||
-                     (timeDiff >= 20 && IsRelativelyPeaceful))
-                {
-                    IsRelativelyPeaceful = !IsRelativelyPeaceful;
-                    prevCheckpoint = gameTime;
-                    if (IsRelativelyPeaceful &&
-                        MOB_WAVE_PROBABILITY + (MOB_WAVE_PROBABILITY + "").Length <= MAX_MOB_PROBABILITY)
-                    {
-                        if (birthRate < MAX_PROBABILITY) birthRate += 0.05f;
-                        MOB_WAVE_PROBABILITY += (MOB_WAVE_PROBABILITY + "").Length;
-                    }
-                    MOB_MDG_OPTIONS++;
-                }
-
-                int mob_probability = MOB_WAVE_PROBABILITY;
-                if (IsRelativelyPeaceful) mob_probability = MOB_STABLE_PROBABILITY;
-
-                int rnd = MSRandom.random.Next(MAX_PROBABILITY);
-
-                if (oneOnly && checkOne)
+                case 0:
+                    return MSMilleniumDevelopmentGoal.CHILD_HEALTH;
+                case 1:
+                    return MSMilleniumDevelopmentGoal.EDUCATION;
+                case 2:
+                    return MSMilleniumDevelopmentGoal.ENVIRONMENT;
+                case 3:
+                    return MSMilleniumDevelopmentGoal.GENDER_EQUALITY;
+                case 4:
+                    return MSMilleniumDevelopmentGoal.GLOBAL_PARTNERSHIP;
+                case 5:
+                    return MSMilleniumDevelopmentGoal.HIV_AIDS;
+                case 6:
+                    return MSMilleniumDevelopmentGoal.MATERNAL_HEALTH;
+                case 7:
+                    return MSMilleniumDevelopmentGoal.POVERTY;
+                default:
                     return null;
-                if (rnd < birthRate)
-                {
-                    if (birthRate < MAX_PROBABILITY)
-                        birthRate += 0.01f;
+            }
+        }
 
-                    checkOne = true;
+
+        public void TryForBaby(MSMap map)
+        {
+            List<MSUnit> mobbers = new List<MSUnit>();
+
+            for (int i = 0; i < 9; i++)
+            {
+                MSMobParam mp = this.mobTypeParam[i];
+                int rnd = MSRandom.random.Next(100);
+                if (rnd < mp.getProbability())
+                {
                     MSUnit person;
 
                     MSUnchangeableBuilding source = map.GetRandomCitizenSource();
-                    Vector2 start = new Vector2(source.Row, source.Column);
 
                     MSUnchangeableBuilding sink;
                     do
                     {
                         sink = map.GetRandomCitizenSource();
                     } while (source == sink);
+
+                    Vector2 start = new Vector2(source.Row, source.Column);
                     Vector2 end = new Vector2(sink.Row, sink.Column);
 
-                    Node path = map.GetPath(start, end);
+                    MSMilleniumDevelopmentGoal? mdg = this.getGoal(i);
 
-                    if (rnd < mob_probability)
+                    if (mdg != null)
                     {
-                        int typeRnd = ((MSRandom.random.Next(MOB_MDG_OPTIONS)) / MOB_MDG_DELAY) % 8;
-                        MSMilleniumDevelopmentGoal mobmdg = (MSMilleniumDevelopmentGoal) typeRnd;
-                        if (GetMobEnabled(mobmdg))
-                            person = new MSMobber(
-                            map.MapArray[(int)start.X, (int)start.Y].Position + MSUnit.UNITZ_POSITION,
-                            map.GetPath(start, MSDistrictHall.getInstance().TileCoordinate), map, mobmdg, 0);
-                        else
-                            return null;
+                        MSMilleniumDevelopmentGoal mobmdg = (MSMilleniumDevelopmentGoal)mdg;
+                        person = new MSMobber(
+                                map.MapArray[(int)start.X, (int)start.Y].Position + MSUnit.UNITZ_POSITION,
+                                map.GetPath(start, MSDistrictHall.getInstance().TileCoordinate), map, mobmdg, 0);
                     }
                     else
+                    {
+                        Node path = map.GetPath(start, end);
                         person = new MSCitizen(
                             map.MapArray[(int)start.X, (int)start.Y].Position + MSUnit.UNITZ_POSITION,
                             path, map, true, 0);
+                    }
 
-                    units.Add(person);
-                    return person;
+                    if (person != null)
+                    {
+                        if (mdg != null) units.Add(person);
+                        else mobbers.Add(person);
+                    }
                 }
             }
-            return null;
+
+            if( mobbers.Count > 0 ) 
+                units.Add(mobbers.ElementAt<MSUnit>(MSRandom.random.Next(mobbers.Count)));
         }
 
         public void AddUnit(MSUnit unit)
@@ -158,7 +181,7 @@ namespace MoodSwingGame
             units.Add(unit);
         }
 
-        public void SendVolunteer(MSMap map, MSUnit unit, MSTower office )
+        public void SendVolunteer(MSMap map, MSUnit unit, MSTower office)
         {
             Node path1 = map.GetPath(new Vector2(office.Row, office.Column), unit.TileCoordinate);
 
@@ -182,7 +205,7 @@ namespace MoodSwingGame
             MSUnitHandler.GetInstance().AddUnit(volunteer);
         }
 
-        public void SendWorkers( MSMap map, MSChangeableBuilding bldg, int qty)
+        public void SendWorkers(MSMap map, MSChangeableBuilding bldg, int qty)
         {
             MSVolunteerCenter center = map.GetNearestVolunteerCenter(bldg);
             Node path = map.GetPath(center.TileCoordinate, bldg.TileCoordinate);
@@ -193,7 +216,7 @@ namespace MoodSwingGame
                 units.Add(worker);
             }
         }
-        public void VolunteerCitizen( MSMap map )
+        public void VolunteerCitizen(MSMap map)
         {
             MS3DTile bldg = map.GetRandomCitizenSource();
             MS3DTile center = map.GetNearestVolunteerCenter(bldg);
@@ -205,8 +228,11 @@ namespace MoodSwingGame
         public void Update(MSMap map)
         {
             List<MSUnit> toRemove = new List<MSUnit>();
-
-            for (int i = 0; i < units.Count; i++ )
+            foreach (MSMobParam mp in this.mobTypeParam)
+            {
+                mp.incrTimer();
+            }
+            for (int i = 0; i < units.Count; i++)
             {
                 MSUnit unit = units[i];
                 if (!unit.DestinationReached)
@@ -222,7 +248,7 @@ namespace MoodSwingGame
                 person.Dispose();
             }
 
-            for (int i = 0; i < units.Count; i++ )
+            for (int i = 0; i < units.Count; i++)
             {
                 int rnd = MSRandom.random.Next(MAX_PROBABILITY);
 
@@ -243,6 +269,64 @@ namespace MoodSwingGame
                     }
                 }
             }
+        }
+    }
+
+    class MSMobParam
+    {
+        int timer;
+        bool isPaused;
+        bool isEnabled;
+        MSParametricCurve equation;
+
+        public MSMobParam(MSMilleniumDevelopmentGoal? mdg)
+        {
+            timer = 0;
+            isPaused = false;
+            isEnabled = true;
+
+            switch (mdg)
+            {
+                case MSMilleniumDevelopmentGoal.CHILD_HEALTH:
+                    equation = new ChildHealthCurve();
+                    break;
+                case MSMilleniumDevelopmentGoal.EDUCATION:
+                    equation = new EducationCurve();
+                    break;
+                case MSMilleniumDevelopmentGoal.ENVIRONMENT:
+                    equation = new EnvironmentCurve();
+                    break;
+                case MSMilleniumDevelopmentGoal.GENDER_EQUALITY:
+                    equation = new GenderEqualityCurve();
+                    break;
+                case MSMilleniumDevelopmentGoal.GLOBAL_PARTNERSHIP:
+                    equation = new GlobalPartnershipCurve();
+                    break;
+                case MSMilleniumDevelopmentGoal.HIV_AIDS:
+                    equation = new HivAidsCurve();
+                    break;
+                case MSMilleniumDevelopmentGoal.MATERNAL_HEALTH:
+                    equation = new MaternalHealthCurve();
+                    break;
+                case MSMilleniumDevelopmentGoal.POVERTY:
+                    equation = new PovertyCurve();
+                    break;
+                default:
+                    equation = new NormalCitizenCurve();
+                    break;
+            }
+
+        }
+
+        public void incrTimer()
+        {
+            if (!isPaused && timer + 1 <= Int32.MaxValue) timer++;
+        }
+
+        public int getProbability()
+        {
+            if (!isEnabled) return 0;
+            return equation.X(timer/60);
         }
     }
 }

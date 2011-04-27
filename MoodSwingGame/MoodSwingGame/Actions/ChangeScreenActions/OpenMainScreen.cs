@@ -31,8 +31,13 @@ namespace MoodSwingGame
         public override void PerformAction(Game game)
         {
             base.ChangeToScreen(MSMainScreen.getInstance(), game);
-            if ((game as MoodSwing).CurrentScreen is MSDistrictScreen)
-                ((game as MoodSwing).CurrentScreen as MSDistrictScreen).save();
+
+            MoodSwing.GetInstance().Notifier.ClearNotifications();
+            MoodSwing.GetInstance().Notifier.FreezeNotifications = false;
+
+            //if ((game as MoodSwing).CurrentScreen is MSDistrictScreen)
+             //   ((game as MoodSwing).CurrentScreen as MSDistrictScreen).save();
+
         }
     }
 }
