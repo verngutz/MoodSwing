@@ -50,8 +50,7 @@ namespace MoodSwingGame
             moodSwing.Notifier.InvokeNotification("");
 
             moodSwing.Notifier.FreezeNotifications = true;
-
-            MSStory.RemoveStoryEvent(this);
+            MSStory.StoryEnabled = false;
         }
     }
 
@@ -87,9 +86,7 @@ namespace MoodSwingGame
 
             moodSwing.Notifier.InvokeNotification("");
 
-            moodSwing.Notifier.FreezeNotifications = true;
-
-            MSStory.RemoveStoryEvent(this);
+            moodSwing.Notifier.FreezeNotifications = true; MSStory.StoryEnabled = false;
         }
     }
 
@@ -125,9 +122,7 @@ namespace MoodSwingGame
 
             moodSwing.Notifier.InvokeNotification("");
 
-            moodSwing.Notifier.FreezeNotifications = true;
-
-            MSStory.RemoveStoryEvent(this);
+            moodSwing.Notifier.FreezeNotifications = true;MSStory.StoryEnabled = false;
         }
     }
 }

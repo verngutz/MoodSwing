@@ -26,5 +26,14 @@ namespace MoodSwingGame
             environmentEffectiveness = false;
             globalEffectiveness = false;
         }
+        public override int GetFundsCost()
+        {
+            return 250;
+        }
+
+        public override int GetVolunteerCost()
+        {
+            return 2;
+        }
     }
 }

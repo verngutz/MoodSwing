@@ -150,7 +150,16 @@ namespace MoodSwingGame
             toReturn += environmentScore + "\n";
             toReturn += globalPartnershipBonusEnabled + "\n";
             toReturn += globalPartnershipScore + "\n";
+            toReturn += PovertyUltiBuilt  + "\n";
+            toReturn += EducationUltiBuilt  + "\n";
+            toReturn += GenderUltiBuilt  + "\n";
+            toReturn += ChildUltiBuilt  + "\n";
+            toReturn += MaternalUltiBuilt  + "\n";
+            toReturn += HivUltiBuilt  + "\n";
+            toReturn += EnvironmentUltiBuilt  + "\n";
+            toReturn += GlobalUltiBuilt  + "\n";
 
+            toReturn += numUltiBuilt + "\n";
             return toReturn;
         }
 
@@ -176,6 +185,17 @@ namespace MoodSwingGame
             environmentScore = float.Parse(sr.ReadLine());
             globalPartnershipBonusEnabled = bool.Parse(sr.ReadLine());
             globalPartnershipScore = float.Parse(sr.ReadLine());
+
+            PovertyUltiBuilt = bool.Parse(sr.ReadLine());
+            EducationUltiBuilt = bool.Parse(sr.ReadLine());
+            GenderUltiBuilt = bool.Parse(sr.ReadLine());
+            ChildUltiBuilt = bool.Parse(sr.ReadLine());
+            MaternalUltiBuilt = bool.Parse(sr.ReadLine());
+            HivUltiBuilt = bool.Parse(sr.ReadLine());
+            EnvironmentUltiBuilt = bool.Parse(sr.ReadLine());
+            GlobalUltiBuilt = bool.Parse(sr.ReadLine());
+
+            numUltiBuilt = Int32.Parse(sr.ReadLine());
         }
         public static void Reset()
         {

@@ -46,7 +46,6 @@ namespace MoodSwingGame
             }
             catch (FileNotFoundException)
             {
-                return;
             }
 
             try
@@ -64,7 +63,6 @@ namespace MoodSwingGame
             }
             catch (FileNotFoundException)
             {
-                return;
             }
 
             try
@@ -82,7 +80,6 @@ namespace MoodSwingGame
             }
             catch (FileNotFoundException)
             {
-                return;
             }
 
             

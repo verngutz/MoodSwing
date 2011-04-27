@@ -880,30 +880,44 @@ namespace MoodSwingGame
 
         public static void clearSave()
         {
+            FileStream file;
+            StreamWriter sw;
             String save = "";
-            FileStream file = new FileStream( "small_save.txt", FileMode.Create, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(file);
+            try
+            {
+                file = new FileStream("small_save.txt", FileMode.Create, FileAccess.Write);
+                sw = new StreamWriter(file);
 
-            sw.WriteLine(save);
+                sw.WriteLine(save);
 
-            sw.Close();
-            file.Close();
+                sw.Close();
+                file.Close();
+            }
+            catch (Exception e) { }
 
-            file = new FileStream( "medium_save.txt", FileMode.Create, FileAccess.Write);
-            sw = new StreamWriter(file);
+            try
+            {
+                file = new FileStream("medium_save.txt", FileMode.Create, FileAccess.Write);
+                sw = new StreamWriter(file);
 
-            sw.WriteLine(save);
+                sw.WriteLine(save);
 
-            sw.Close();
-            file.Close();
+                sw.Close();
+                file.Close();
+            }
+            catch (Exception e) { }
 
-            file = new FileStream( "large_save.txt", FileMode.Create, FileAccess.Write);
-            sw = new StreamWriter(file);
+            try
+            {
+                file = new FileStream("large_save.txt", FileMode.Create, FileAccess.Write);
+                sw = new StreamWriter(file);
 
-            sw.WriteLine(save);
+                sw.WriteLine(save);
 
-            sw.Close();
-            file.Close();  
+                sw.Close();
+                file.Close();
+            }
+            catch (Exception e) { }
         }
 
         public void load()

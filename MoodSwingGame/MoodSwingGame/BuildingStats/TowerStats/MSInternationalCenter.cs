@@ -14,7 +14,7 @@ namespace MoodSwingGame
                 instance = new MSInternationalCenterStats();
             return instance;
         }
-
+        public virtual float GetBuildTime() { return 5; }
         private MSInternationalCenterStats()
         {
             povertyEffectiveness = false;
@@ -25,6 +25,16 @@ namespace MoodSwingGame
             hivAidsEffectiveness = false;
             environmentEffectiveness = false;
             globalEffectiveness = true;
+        }
+
+        public override int GetFundsCost()
+        {
+            return 200;
+        }
+
+        public override int GetVolunteerCost()
+        {
+            return 2;
         }
     }
 }

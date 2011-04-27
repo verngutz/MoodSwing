@@ -15,6 +15,7 @@ namespace MoodSwingGame
             return instance;
         }
 
+        public override float GetBuildTime() { return 5; }
         private MSAntiretroviralCenterStats()
         {
             povertyEffectiveness = false;

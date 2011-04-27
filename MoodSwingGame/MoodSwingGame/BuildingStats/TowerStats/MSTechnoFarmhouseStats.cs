@@ -14,7 +14,7 @@ namespace MoodSwingGame
                 instance = new MSTechnoFarmhouseStats();
             return instance;
         }
-
+        public override float GetBuildTime() { return 5; }
         private MSTechnoFarmhouseStats()
         {
             povertyEffectiveness = true;
@@ -25,6 +25,15 @@ namespace MoodSwingGame
             hivAidsEffectiveness = false;
             environmentEffectiveness = false;
             globalEffectiveness = false;
+        }
+        public override int GetFundsCost()
+        {
+            return 450;
+        }
+
+        public override int GetVolunteerCost()
+        {
+            return 4;
         }
     }
 }

@@ -61,12 +61,12 @@ namespace MoodSwingGame
 
             MSResolution.Init(ref graphics);
             MSResolution.SetVirtualResolution(1024, 768);
-            MSResolution.SetResolution(1024, 768, true);
+            MSResolution.SetResolution(1024, 768, false);
 
             //graphics.PreferMultiSampling = true;
             
             Content.RootDirectory = "Content";
-
+            
             IsMouseVisible = true;
             Window.Title = "MoodSwing";
             MediaPlayer.Volume = 0.85f;

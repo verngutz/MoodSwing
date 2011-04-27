@@ -14,7 +14,6 @@ namespace MoodSwingGame
                 instance = new MSWhiteScreensCenterStats();
             return instance;
         }
-
         private MSWhiteScreensCenterStats()
         {
             povertyEffectiveness = false;
@@ -25,6 +24,15 @@ namespace MoodSwingGame
             hivAidsEffectiveness = false;
             environmentEffectiveness = false;
             globalEffectiveness = false;
+        }
+        public override int GetFundsCost()
+        {
+            return 450;
+        }
+
+        public override int GetVolunteerCost()
+        {
+            return 4;
         }
     }
 }

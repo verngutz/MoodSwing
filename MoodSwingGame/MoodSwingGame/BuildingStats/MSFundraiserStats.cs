@@ -18,5 +18,6 @@ namespace MoodSwingGame
 
         public int GetVolunteerCost() { return 2; }
         public int GetFundsCost() { return 100; }
+        public float GetBuildTime() { return 5; }
     }
 }

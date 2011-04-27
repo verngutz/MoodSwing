@@ -14,7 +14,6 @@ namespace MoodSwingGame
                 instance = new MSWomensUniversityStats();
             return instance;
         }
-
         private MSWomensUniversityStats()
         {
             povertyEffectiveness = false;

@@ -14,7 +14,6 @@ namespace MoodSwingGame
                 instance = new MSWaterTreatmentPlantStats();
             return instance;
         }
-
         private MSWaterTreatmentPlantStats()
         {
             povertyEffectiveness = false;
@@ -25,6 +24,16 @@ namespace MoodSwingGame
             hivAidsEffectiveness = false;
             environmentEffectiveness = true;
             globalEffectiveness = false;
+        }
+
+        public override int GetFundsCost()
+        {
+            return 400;
+        }
+
+        public override int GetVolunteerCost()
+        {
+            return 4;
         }
     }
 }
