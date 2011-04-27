@@ -125,6 +125,7 @@
     <Compile Include="Actions\ChangeScreenActions\ChangeScreen.cs" />
     <Compile Include="Actions\ChangeScreenActions\CloseNotification.cs" />
     <Compile Include="Actions\ChangeScreenActions\OpenExitConfirmation.cs" />
+    <Compile Include="Actions\ClearSave.cs" />
     <Compile Include="Actions\DistrictScreenActions\BuyFundraiser.cs" />
     <Compile Include="Actions\DistrictScreenActions\BuyTower.cs" />
     <Compile Include="Actions\DistrictScreenActions\BuyVolunteerCenter.cs" />

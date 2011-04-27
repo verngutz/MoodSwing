@@ -31,7 +31,7 @@ namespace MoodSwingGame
             : base(model, texture, effect, position, rotation, row, column, height)
         {
             this.Stats = stats;
-            capacity = stats.GetVolunteerCost();
+            if( stats != null ) capacity = stats.GetVolunteerCost();
             this.targetList = new List<MSUnit>();
         }
 

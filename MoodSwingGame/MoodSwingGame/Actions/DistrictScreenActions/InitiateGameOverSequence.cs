@@ -42,6 +42,8 @@ namespace MoodSwingGame
                 MoodSwing.GetInstance().Notifier.InvokeNotification("Try Again\nThe district went into a wild uproar before you could achieve the Millenium Development Goals.");
 
             MoodSwing.GetInstance().Notifier.FreezeNotifications = true;
+            if (MoodSwing.GetInstance().CurrentScreen is MSDistrictScreen)
+                (MoodSwing.GetInstance().CurrentScreen as MSDistrictScreen).clearSave();
         }
     }
 }

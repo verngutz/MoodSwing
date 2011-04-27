@@ -69,7 +69,7 @@ namespace MoodSwingGame
         private double gameTime;
         private double lastTotalRunTime;
 
-        private String districtName = "district";
+        private String districtName;
 
         public MSDistrictScreen(DistrictName district, MoodSwing game)
             : base(game.Content.Load<Texture2D>("districtmap"), 0, 0, 0, 0, game.SpriteBatch, game)
@@ -81,15 +81,18 @@ namespace MoodSwingGame
             String filename = "";
             if (district == DistrictName.FEAR)
             {
-                filename = @"Content\Pandalevel2.txt";
+                filename = @"Content\smallMap.txt";
+                districtName = "small";
             }
             else if (district == DistrictName.SADNESS)
             {
-                filename = @"Content\Pandalevel2.txt";
+                filename = @"Content\mediumMap.txt";
+                districtName = "medium";
             }
             else if (district == DistrictName.ANGER)
             {
-                filename = @"Content\Pandalevel2.txt";
+                filename = @"Content\largeMap.txt";
+                districtName = "large";
             }
             map = new MSMap(filename);
 
@@ -859,8 +862,36 @@ namespace MoodSwingGame
             save += moodManager.toString();
             save += resourceManager.toString();
             save += unitHandler.toString();
-            FileStream file = new FileStream(districtName + "_save2.txt", FileMode.Create, FileAccess.Write);
+            FileStream file = new FileStream(districtName + "_save.txt", FileMode.Create, FileAccess.Write);
             StreamWriter sw = new StreamWriter(file);
+
+            sw.WriteLine(save);
+
+            sw.Close();
+            file.Close();  
+        }
+
+        public static void clearSave()
+        {
+            String save = "";
+            FileStream file = new FileStream( "small_save.txt", FileMode.Create, FileAccess.Write);
+            StreamWriter sw = new StreamWriter(file);
+
+            sw.WriteLine(save);
+
+            sw.Close();
+            file.Close();
+
+            file = new FileStream( "medium_save.txt", FileMode.Create, FileAccess.Write);
+            sw = new StreamWriter(file);
+
+            sw.WriteLine(save);
+
+            sw.Close();
+            file.Close();
+
+            file = new FileStream( "large_save.txt", FileMode.Create, FileAccess.Write);
+            sw = new StreamWriter(file);
 
             sw.WriteLine(save);
 
@@ -872,7 +903,7 @@ namespace MoodSwingGame
         {
             try
             {
-                StreamReader sr = new StreamReader(districtName + "_save2.txt");
+                StreamReader sr = new StreamReader(districtName + "_save.txt");
                 String s = sr.ReadLine();
                 //System.Console.WriteLine(s);
                 if (s != null && s.Equals("savefile"))
