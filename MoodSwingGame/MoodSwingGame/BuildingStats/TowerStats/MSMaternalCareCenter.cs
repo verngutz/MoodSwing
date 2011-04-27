@@ -14,7 +14,6 @@ namespace MoodSwingGame
                 instance = new MSMaternalCareCenterStats();
             return instance;
         }
-        public override float GetBuildTime() { return 30; }
         private MSMaternalCareCenterStats()
         {
             povertyEffectiveness = false;
@@ -25,6 +24,16 @@ namespace MoodSwingGame
             hivAidsEffectiveness = false;
             environmentEffectiveness = false;
             globalEffectiveness = false;
+        }
+
+        public override int GetFundsCost()
+        {
+            return 450;
+        }
+
+        public override int GetVolunteerCost()
+        {
+            return 4;
         }
     }
 }

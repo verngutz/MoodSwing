@@ -56,6 +56,7 @@ namespace MoodSwingGame
         public void setBuildTime(double d)
         {
             buildTime = d;
+            //System.Console.WriteLine("TIME : " + buildTime);
         }
         private MS3DTile futureSelf;
         public MS3DTile FutureSelf { get { return futureSelf; } }

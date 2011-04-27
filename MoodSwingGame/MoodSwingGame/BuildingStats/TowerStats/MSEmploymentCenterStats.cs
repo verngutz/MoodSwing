@@ -14,7 +14,6 @@ namespace MoodSwingGame
                 instance = new MSEmploymentCenterStats();
             return instance;
         }
-        public virtual float GetBuildTime() { return 5; }
         private MSEmploymentCenterStats()
         {
             povertyEffectiveness = true;

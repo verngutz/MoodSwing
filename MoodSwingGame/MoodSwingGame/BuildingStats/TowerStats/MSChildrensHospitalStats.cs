@@ -14,7 +14,6 @@ namespace MoodSwingGame
                 instance = new MSChildrensHospitalStats();
             return instance;
         }
-        public virtual float GetBuildTime() { return 5; }
         private MSChildrensHospitalStats()
         {
             povertyEffectiveness = false;

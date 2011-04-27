@@ -38,6 +38,9 @@ namespace MoodSwingGame
                 {
                     screen.ResourceManager.Funds -= toBuildStats.GetFundsCost();
                     screen.ResourceManager.IdleVolunteers -= toBuildStats.GetVolunteerCost();
+
+                    toBuy.setBuildTime(toBuildStats.GetBuildTime());
+                   
                     int currCapacity = 0;
                     if (toBuy is MSTower)
                         currCapacity = (toBuy as MSTower).Stats.GetVolunteerCost();
