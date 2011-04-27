@@ -22,30 +22,33 @@ namespace MoodSwingGame
         public MSChildrensHospitalPicker(Texture2D background, Rectangle boundingRectangle, MSChangeableBuilding toBuy, SpriteBatch spriteBatch, Game game)
             : base(background, boundingRectangle, 78, 78, 62, 62, toBuy, Shape.RECTANGULAR, spriteBatch, game)
         {
+            String title = "";
             String description = "";
             MSTowerStats stat = null;
 
             MSDistrictScreen.DistrictName name = ((Game as MoodSwing).CurrentScreen as MSDistrictScreen).Name;
-            if (name == MSDistrictScreen.DistrictName.SADNESS)
+            switch (name)
             {
-                description = "Equip with a Vaccination Research Center";
-                stat = MSVaccinationCenterStats.GetInstance();
-            }
-            else if (name == MSDistrictScreen.DistrictName.ANGER)
-            {
-                description = "Equip with an Immunization Outreah Center";
-                stat = MSImmunizationOutreachStats.GetInstance();
+                case MSDistrictScreen.DistrictName.SADNESS:
+                    title = "Equip With A Vaccination Research Center";
+                    description = "";
+                    stat = MSVaccinationCenterStats.GetInstance();
+                    break;
+                case MSDistrictScreen.DistrictName.ANGER:
+                    title = "Equip With An Immunization Outreach Center";
+                    description = "";
+                    stat = MSImmunizationOutreachStats.GetInstance();
+                    break;
             }
 
             AddSelection(
+                title,
                 description,
                 stat,
                 new Rectangle(boundingRectangle.X, boundingRectangle.Y + 38, 73, 93),
                 Game.Content.Load<Texture2D>("BuyDialog/1"),
                 Game.Content.Load<Texture2D>("BuyDialog/1clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/1hovered"));
-
-            AddMiddleOrb("Children's Hospital");
         }
     }
 }

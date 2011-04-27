@@ -39,9 +39,18 @@ namespace MoodSwingGUI
             }
         }
 
+        private MSWrappingLabel notificationHolder;
         private Queue<string> notifications;
-        private SpriteFont notificationFont;
         private Color fadeEffect;
+        private Color FadeEffect 
+        {
+            get { return fadeEffect; }
+            set
+            {
+                fadeEffect = value;
+                notificationHolder.TextColor = value;
+            }
+        }
         private int fadeAlpha;
         private int fadeIncrement;
         private int holdTimer;
@@ -52,11 +61,24 @@ namespace MoodSwingGUI
         public MSNotifier(Texture2D background, Rectangle boundingRectangle, Shape shape, SpriteBatch spriteBatch, Game game)
             : base(background, boundingRectangle, null, shape, spriteBatch, game) 
         {
+            notificationHolder = new MSWrappingLabel(new Point(0, 0), "", Game.Content.Load<SpriteFont>("ToolTipFont"), FadeEffect, null, null, null, SpriteBatch, Game);
+            AddComponent(notificationHolder);
+
             HoldTime = 50;
-            notificationFont = Game.Content.Load<SpriteFont>("ToolTipFont");
             notifications = new Queue<string>();
             fadeAlpha = 1;
-            fadeEffect = new Color(255, 255, 255, fadeAlpha);
+            FadeEffect = new Color(255, 255, 255, fadeAlpha);
+            fadeIncrement = 5;
+            holdTimer = 0;
+            dirtyParent = true;
+            FreezeNotifications = false;
+        }
+
+        public void Reset()
+        {
+            notifications = new Queue<string>();
+            fadeAlpha = 1;
+            FadeEffect = new Color(255, 255, 255, fadeAlpha);
             fadeIncrement = 5;
             holdTimer = 0;
             dirtyParent = true;
@@ -76,6 +98,8 @@ namespace MoodSwingGUI
         public void InvokeNotification(string message)
         {
             notifications.Enqueue(message);
+            notificationHolder.Text = message;
+            notificationHolder.Position = Position + Size / 2 - notificationHolder.Size / 2;
         }
 
         public void ReturnFocusTo(MSScreen parent)
@@ -142,7 +166,7 @@ namespace MoodSwingGUI
                     dirtyParent = true;
                 }
             }
-            fadeEffect.A = (byte)fadeAlpha;
+            FadeEffect = new Color(FadeEffect.R, FadeEffect.G, FadeEffect.B, (byte)fadeAlpha);
         }
 
         public override void Draw(GameTime gameTime)
@@ -150,15 +174,8 @@ namespace MoodSwingGUI
             if (notifications.Count > 0)
             {
                 if(background != null)
-                    SpriteBatch.Draw(background, BoundingRectangle, fadeEffect);
-                SpriteBatch.DrawString
-                (
-                    notificationFont,
-                    notifications.Peek(),
-                    Position + (Size - notificationFont.MeasureString(notifications.Peek())) / 2,
-                    fadeEffect
-                );
-
+                    SpriteBatch.Draw(background, BoundingRectangle, FadeEffect);
+                notificationHolder.Draw(gameTime);
                 foreach (MSGUIObject component in components)
                 {
                     if (component is MSGUIClickable)

@@ -22,35 +22,35 @@ namespace MoodSwingGame
         public MSWomenCenterPicker(Texture2D background, Rectangle boundingRectangle, MSChangeableBuilding toBuy, SpriteBatch spriteBatch, Game game)
             : base(background, boundingRectangle, 78, 78, 62, 62, toBuy, Shape.RECTANGULAR, spriteBatch, game)
         {
+            String title = "";
             String description = "";
             MSTowerStats stat = null;
 
             MSDistrictScreen.DistrictName name = ((Game as MoodSwing).CurrentScreen as MSDistrictScreen).Name;
             if (name == MSDistrictScreen.DistrictName.FEAR)
             {
-                description = "Upgrade to a \"White Screens\" Center for Corporate Equity";
+                title = "Upgrade to a \"White Screens\" Center for Corporate Equity";
                 stat = MSWhiteScreensCenterStats.GetInstance();
             }
             else if (name == MSDistrictScreen.DistrictName.SADNESS)
             {
-                description = "Upgrade to a Training Center for Aspiring Women Politicians";
+                title = "Upgrade to a Training Center for Aspiring Women Politicians";
                 stat = MSWomenPoliticiansCenterStats.GetInstance();
             }
             else if (name == MSDistrictScreen.DistrictName.ANGER)
             {
-                description = "Upgrade to a Women's Open University";
+                title = "Upgrade to a Women's Open University";
                 stat = MSWomensUniversityStats.GetInstance();
             }
 
             AddSelection(
+                title,
                 description,
                 stat,
                 new Rectangle(boundingRectangle.X + 129, boundingRectangle.Y, 93, 73),
                 Game.Content.Load<Texture2D>("BuyDialog/3"),
                 Game.Content.Load<Texture2D>("BuyDialog/3clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/3hovered"));
-
-            AddMiddleOrb("Women Empowerment Center");
         }
     }
 }

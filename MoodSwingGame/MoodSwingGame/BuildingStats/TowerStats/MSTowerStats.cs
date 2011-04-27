@@ -16,8 +16,8 @@ namespace MoodSwingGame
         protected bool environmentEffectiveness;
         protected bool globalEffectiveness;
 
-        public virtual int GetVolunteerCost() { return 4; }
-        public virtual int GetFundsCost() { return 200; }
+        public virtual int GetVolunteerCost() { return 1; }
+        public virtual int GetFundsCost() { return 0; }
         public virtual int GetRange() { return 2; }
 
         public bool GetEffectiveness(MSMilleniumDevelopmentGoal type)

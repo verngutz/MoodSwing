@@ -22,35 +22,35 @@ namespace MoodSwingGame
         public MSTutorialCenterPicker(Texture2D background, Rectangle boundingRectangle, MSChangeableBuilding toBuy, SpriteBatch spriteBatch, Game game)
             : base(background, boundingRectangle, 78, 78, 62, 62, toBuy, Shape.RECTANGULAR, spriteBatch, game)
         {
+            String title = "";
             String description = "";
             MSTowerStats stat = null;
 
             MSDistrictScreen.DistrictName name = ((Game as MoodSwing).CurrentScreen as MSDistrictScreen).Name;
             if (name == MSDistrictScreen.DistrictName.FEAR)
             {
-                description = "Upgrade to a School Supplies and Materials Donation Center";
+                title = "Upgrade to a School Supplies and Materials Donation Center";
                 stat = MSSuppliesDonationCenterStats.GetInstance();
             }
             else if (name == MSDistrictScreen.DistrictName.SADNESS)
             {
-                description = "Upgrade to a Children's Interactive Library";
+                title = "Upgrade to a Children's Interactive Library";
                 stat = MSChildrensLibraryStats.GetInstance();
             }
             else if (name == MSDistrictScreen.DistrictName.ANGER)
             {
-                description = "Upgrade to an Education-For-All School";
+                title = "Upgrade to an Education-For-All School";
                 stat = MSEFASchoolStats.GetInstance();
             }
 
             AddSelection(
+                title,
                 description,
                 stat,
                 new Rectangle(boundingRectangle.X + 187, boundingRectangle.Y + 38, 73, 93),
                 Game.Content.Load<Texture2D>("BuyDialog/4"),
                 Game.Content.Load<Texture2D>("BuyDialog/4clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/4hovered"));
-
-            AddMiddleOrb("Tutorial Center");
         }
     }
 }

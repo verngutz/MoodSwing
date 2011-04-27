@@ -20,18 +20,25 @@ namespace MoodSwingGUI
         private Texture2D borderTexture;
         private Texture2D fillTexture;
         private Texture2D fullTexture;
+        private Texture2D pamatong;
         private MSProgressBar.Orientation orientation;
         public double Progress { get; set; }
 
         public MSMDGProgressBar(Rectangle bounding_rectangle, SpriteBatch sprite_batch, Game game,
-            Texture2D border_texture, Texture2D fill_texture, Texture2D full_texture, MSProgressBar.Orientation orientation)
+            Texture2D border_texture, Texture2D fill_texture, Texture2D full_texture, Texture2D pamatong, MSProgressBar.Orientation orientation)
             : base(bounding_rectangle, sprite_batch, game)
         {
             this.borderTexture = border_texture;
             this.fillTexture = fill_texture;
             this.fullTexture = full_texture;
+            this.pamatong = pamatong;
             this.orientation = orientation;
             Progress = 0;
+        }
+
+        public void DrawPamatong()
+        {
+            spriteBatch.Draw(pamatong, new Vector2(0, 0), Color.White);
         }
 
         public override void Draw(GameTime gameTime)

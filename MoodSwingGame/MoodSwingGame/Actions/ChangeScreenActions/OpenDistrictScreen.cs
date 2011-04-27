@@ -28,8 +28,6 @@ namespace MoodSwingGame
         public override void PerformAction(Game game)
         {
             base.ChangeToScreen(new MSDistrictScreen(name, game as MoodSwing), game);
-            MoodSwing.GetInstance().Notifier.ClearNotifications();
-            MoodSwing.GetInstance().Notifier.FreezeNotifications = false;
         }
     }
 }

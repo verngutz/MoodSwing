@@ -61,8 +61,8 @@ namespace MoodSwingGame
                                 "Mood",
                                 position + tallBuildingOffset, rotation, row, column);
                         case 2:
-                            MSDistrictHall.instantiate("MModels/DistrictHall",
-                                "MTextures/DistrictHall",
+                            MSDistrictHall.instantiate("Test",
+                                "TestMap",
                                 "Mood",
                                 position + hallBuildingOffset, rotation, row, column);
                             return (MSDistrictHall.getInstance());

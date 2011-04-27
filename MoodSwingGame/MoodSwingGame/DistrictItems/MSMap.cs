@@ -149,7 +149,7 @@ namespace MoodSwingGame
                     float? dist = Intersects(t.BoundingBox, new Vector2(MSMouse.GetState().X, MSMouse.GetState().Y),
                         MSCamera.GetInstance().GetView(),
                         MSCamera.GetInstance().ProjectionMatrix,
-                        MoodSwing.GetInstance().GraphicsDevice.Viewport);
+                        MSResolution.InnerViewPort);
 
                     if (dist != null)
                     {

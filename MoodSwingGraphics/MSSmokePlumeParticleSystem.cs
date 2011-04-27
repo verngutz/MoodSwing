@@ -21,7 +21,7 @@ namespace MoodSwingGraphics
     /// </summary>
     public class MSSmokePlumeParticleSystem : MSParticleSystem
     {
-        public const int THICKNESS = 30;
+        public const int THICKNESS = 10;
         public MSSmokePlumeParticleSystem(Game game)
             : base(game)
         { }
@@ -31,9 +31,9 @@ namespace MoodSwingGraphics
         {
             settings.TextureName = "smoke2";
 
-            settings.MaxParticles = 1000;
+            settings.MaxParticles = 600;
 
-            settings.Duration = TimeSpan.FromSeconds(10);
+            settings.Duration = TimeSpan.FromSeconds(7);
 
             // Create a wind effect by tilting the gravity vector sideways.
             settings.Gravity = new Vector3(0, 0, -2);
@@ -43,8 +43,13 @@ namespace MoodSwingGraphics
             settings.MinStartSize = 20;
             settings.MaxStartSize = 50;
 
-            settings.MinEndSize = 20;
-            settings.MaxEndSize = 50;
+            settings.MinEndSize = 12;
+            settings.MaxEndSize = 16;
+
+            settings.MinColor = new Color(255, 255, 255, 60);
+            settings.MaxColor = new Color(255, 255, 255, 90);
+
+            settings.BlendState = BlendState.Additive;
         }
     }
 }

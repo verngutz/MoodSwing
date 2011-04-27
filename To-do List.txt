@@ -10,16 +10,15 @@ Changing the resolution in-game messes up the graphics.
 Things To Do Arranged by Priority
 ---------------------------------
 
-Add descriptive text to towers.
-
 Add booleans to disable MDG branches:
-	MDG Progress Bars (graphics)
 	branches of the tower heirarchy
 	mobs
 
 Fix Fonts.
 
 Add new 3d models.
+
+Finish descriptive text to towers.
 
 Add story and tutorial.
 
@@ -28,7 +27,6 @@ Add new 2d graphics.
 Add support for more districts, add more districts, and finalize districts design.
 
 Fix pedestrian simulation:
-	Flocking
 	Evading
 
 Fix mob frequency behavior simulation.
@@ -37,7 +35,13 @@ Fix smoke particle system.
 
 Game balancing.
 
-Finish necessary documentation.
+Fix intro video.
+
+Finish necessary documentation:
+	Not-more-than-300-words Game Summary
+	Gameplay Instructions (name as README)
+	Not-more-than-5-minutes Game Video
+	3 Game Screenshots
 
 ----------------------- After Round 2 --------------------------
 
@@ -72,6 +76,8 @@ Fix Level Editor:
 	Level editor cannot load maps from a txt file.
 
 Implement Mood Motifs (Dynamic Background Music).
+
+Add Loading Screen.
 
 Add voices.
 

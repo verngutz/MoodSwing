@@ -22,39 +22,68 @@ namespace MoodSwingGame
         public MSPublicAssistanceCenterPicker(Texture2D background, Rectangle boundingRectangle, MSChangeableBuilding toBuy, SpriteBatch spriteBatch, Game game)
             : base(background, boundingRectangle, 78, 78, 62, 62, toBuy, Shape.RECTANGULAR, spriteBatch, game)
         {
-            AddSelection(
-                "Upgrade to a general clinic",
-                MSGeneralClinicStats.GetInstance(),
-                new Rectangle(boundingRectangle.X, boundingRectangle.Y + 38, 73, 93),
-                Game.Content.Load<Texture2D>("BuyDialog/1"),
-                Game.Content.Load<Texture2D>("BuyDialog/1clicked"),
-                Game.Content.Load<Texture2D>("BuyDialog/1hovered"));
+            if (MSStory.SecondMDGBranchEnabled)
+            {
+                AddSelection(
+                    "Upgrade To A General Clinic",
+                    "There are three major challenges the world faces in terms of health care: too many children die of "
+                    + "avoidable and curable diseases, too many mothers die upon giving birth, and too many more people "
+                    + "die of epidemics such as AIDS and malaria. Take the first step to improve this district's health "
+                    + "care. Upgrade this assistance office into a clinic for emergency first aid. The medics in this clinic "
+                    + "can also encourage people to have healthy, simple yet life-saving habits such as handwashing.\n\n"
+                    + "Effect: Has a moderate power to stop mobs with MDG complaints on Maternal Health, Child Health, "
+                    + "and Widespread Disease.",
+                    MSGeneralClinicStats.GetInstance(),
+                    new Rectangle(boundingRectangle.X, boundingRectangle.Y + 38, 73, 93),
+                    Game.Content.Load<Texture2D>("BuyDialog/1"),
+                    Game.Content.Load<Texture2D>("BuyDialog/1clicked"),
+                    Game.Content.Load<Texture2D>("BuyDialog/1hovered"));
+            }
+            if (MSStory.FirstMDGBranchEnabled)
+            {
+                AddSelection(
+                    "Upgrade To A Refuge For The Poor And The Widows",
+                    "About 1.4 billion people in the world are living in extreme poverty, earning less than "
+                    + "$1.25 a day. Most people are poor because of the lack of education: 69 million school-age children "
+                    + "are not in school. To make things worse, in some places, employment opportunities are still "
+                    + "largely biased against women. Many women who suddenly become widows or single mothers find "
+                    + "it difficult to have a decent form of subsistence. Help the poor and the women in this district. "
+                    + "Upgrade this assistance office into a temporary home for them.\n\n"
+                    + "Effect: Has a moderate power to stop mobs with MDG complaints on Poverty, Education, and Gender "
+                    + "Disparity.",
+                    MSGeneralRefugeStats.GetInstance(),
+                    new Rectangle(boundingRectangle.X + 38, boundingRectangle.Y, 93, 73),
+                    Game.Content.Load<Texture2D>("BuyDialog/2"),
+                    Game.Content.Load<Texture2D>("BuyDialog/2clicked"),
+                    Game.Content.Load<Texture2D>("BuyDialog/2hovered"));
+            }
+            if (MSStory.ThirdMDGBranchEnabled)
+            {
+                AddSelection(
+                    "Upgrade To An Environmental Awareness Center",
+                    "About 17, 000 species of plants and animals are at risk of extinction, with the numbers growing "
+                    + "daily. Every year, 5.2 million hectares of forest are lost. Let the people of this district "
+                    + "know and encourage them to take action. Upgrade this office into an environmental awareness center "
+                    + "and tell everyone to care for our planet.\n\n"
+                    + "Effect: Has a moderate power to stop mobs with MDG complaints on Environment Sustainability.",
+                    MSEnvironmentalCenterStats.GetInstance(),
+                    new Rectangle(boundingRectangle.X + 129, boundingRectangle.Y + 187, 93, 73),
+                    Game.Content.Load<Texture2D>("BuyDialog/6"),
+                    Game.Content.Load<Texture2D>("BuyDialog/6clicked"),
+                    Game.Content.Load<Texture2D>("BuyDialog/6hovered"));
 
-            AddSelection(
-                "Upgrade to a refuge for the poor and the oppressed women",
-                MSGeneralRefugeStats.GetInstance(),
-                new Rectangle(boundingRectangle.X + 38, boundingRectangle.Y, 93, 73),
-                Game.Content.Load<Texture2D>("BuyDialog/2"),
-                Game.Content.Load<Texture2D>("BuyDialog/2clicked"),
-                Game.Content.Load<Texture2D>("BuyDialog/2hovered"));
+                AddSelection(
+                    "Upgrade To An International Partnership Center",
+                    "The poorest countries in the world are benefitting from freer trade and from the relaxing of debt. "
+                    + "Upgrade this office to an international partnership center",
+                    MSInternationalCenterStats.GetInstance(),
+                    new Rectangle(boundingRectangle.X + 38, boundingRectangle.Y + 187, 93, 73),
+                    Game.Content.Load<Texture2D>("BuyDialog/7"),
+                    Game.Content.Load<Texture2D>("BuyDialog/7clicked"),
+                    Game.Content.Load<Texture2D>("BuyDialog/7hovered"));
+            }
 
-            AddSelection(
-                "Upgrade to an environmental awareness center",
-                MSEnvironmentalCenterStats.GetInstance(),
-                new Rectangle(boundingRectangle.X + 129, boundingRectangle.Y + 187, 93, 73),
-                Game.Content.Load<Texture2D>("BuyDialog/6"),
-                Game.Content.Load<Texture2D>("BuyDialog/6clicked"),
-                Game.Content.Load<Texture2D>("BuyDialog/6hovered"));
-
-            AddSelection(
-                "Upgrade to an international partnership center",
-                MSInternationalCenterStats.GetInstance(),
-                new Rectangle(boundingRectangle.X + 38, boundingRectangle.Y + 187, 93, 73),
-                Game.Content.Load<Texture2D>("BuyDialog/7"),
-                Game.Content.Load<Texture2D>("BuyDialog/7clicked"),
-                Game.Content.Load<Texture2D>("BuyDialog/7hovered"));
-
-            AddMiddleOrb("Public Assistance Center");
+            AddMiddleOrb();
         }
     }
 }

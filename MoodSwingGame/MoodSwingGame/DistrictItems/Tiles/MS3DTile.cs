@@ -44,7 +44,7 @@ namespace MoodSwingGame
             : base(position)
         {
             this.model = MoodSwing.GetInstance().Content.Load<Model>(mName);
-            this.texture = MoodSwing.GetInstance().Content.Load<Texture2D>(tName); 
+            this.texture = null; //MoodSwing.GetInstance().Content.Load<Texture2D>(tName); 
             this.Effect = MoodSwing.GetInstance().Content.Load<Effect>(eName);
 
             this.modelName = mName;
@@ -84,7 +84,8 @@ namespace MoodSwingGame
             row = Int32.Parse(sr.ReadLine());
             column = Int32.Parse(sr.ReadLine());
         }
-        public virtual String toString() {
+
+        public override String toString() {
             String toReturn = "";
             toReturn += modelName + "\n";
             toReturn += textureName + "\n";

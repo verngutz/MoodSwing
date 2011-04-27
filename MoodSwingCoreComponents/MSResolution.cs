@@ -25,7 +25,7 @@ namespace MoodSwingCoreComponents
         public static int VirtualWidth { get { return virtualWidth; } }
         public static int VirtualHeight { get { return virtualHeight; } }
         public static Viewport InnerViewPort { get { return innerViewport; } }
-        public static bool IsFullScreen 
+        public static bool IsFullScreen
         {
             set
             {
@@ -194,6 +194,5 @@ namespace MoodSwingCoreComponents
             device.GraphicsDevice.Viewport = viewport;
             innerViewport = viewport;
         }
-
     }
 }

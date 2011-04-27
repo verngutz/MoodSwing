@@ -22,30 +22,30 @@ namespace MoodSwingGame
         public MSWomensHealthCenterPicker(Texture2D background, Rectangle boundingRectangle, MSChangeableBuilding toBuy, SpriteBatch spriteBatch, Game game)
             : base(background, boundingRectangle, 78, 78, 62, 62, toBuy, Shape.RECTANGULAR, spriteBatch, game)
         {
+            String title = "";
             String description = "";
             MSTowerStats stat = null;
 
             MSDistrictScreen.DistrictName name = ((Game as MoodSwing).CurrentScreen as MSDistrictScreen).Name;
             if (name == MSDistrictScreen.DistrictName.SADNESS)
             {
-                description = "Upgrade to a Maternal Care Center Equipped with Mobile Units";
+                title = "Upgrade to a Maternal Care Center Equipped with Mobile Units";
                 stat = MSMaternalCareCenterStats.GetInstance();
             }
             else if (name == MSDistrictScreen.DistrictName.ANGER)
             {
-                description = "Upgrade to a Fistula Treatment Center";
+                title = "Upgrade to a Fistula Treatment Center";
                 stat = MSFistulaTreatmentCenterStats.GetInstance();
             }
 
             AddSelection(
+                title,
                 description,
                 stat,
                 new Rectangle(boundingRectangle.X + 187, boundingRectangle.Y + 129, 73, 93),
                 Game.Content.Load<Texture2D>("BuyDialog/5"),
                 Game.Content.Load<Texture2D>("BuyDialog/5clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/5hovered"));
-
-            AddMiddleOrb("Women's Health Center");
         }
     }
 }

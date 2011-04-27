@@ -60,13 +60,13 @@ namespace MoodSwingGUI
         {
             this.spriteFont = spriteFont;
             Text = text;
-            textColor = text_color;
+            TextColor = text_color;
         }
 
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
-            SpriteBatch.DrawString(spriteFont, Text, Position, textColor, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
+            SpriteBatch.DrawString(spriteFont, Text, Position, TextColor, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
         }
     }
 }

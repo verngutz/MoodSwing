@@ -21,6 +21,9 @@ namespace MoodSwingGame
     {
         public static bool StoryEnabled { set; get; }
 
+        public static bool VolunteerCenterEnabled { set; get; }
+        public static bool TowerEnabled { set; get; }
+
         private static bool firstMDGBranchEnabled;
         public static bool FirstMDGBranchEnabled
         {
@@ -73,6 +76,11 @@ namespace MoodSwingGame
         public static void Init()
         {
             StoryEnabled = false;
+            VolunteerCenterEnabled = true;
+            TowerEnabled = true;
+            FirstMDGBranchEnabled = true;
+            SecondMDGBranchEnabled = true;
+            ThirdMDGBranchEnabled = true;
 
             if (StoryEnabled)
             {
@@ -80,6 +88,8 @@ namespace MoodSwingGame
                 eventsToRemove = new List<MSStoryEvent>();
                 AddStoryEvent(new Welcome());
 
+                VolunteerCenterEnabled = false;
+                TowerEnabled = false;
                 FirstMDGBranchEnabled = false;
                 SecondMDGBranchEnabled = false;
                 ThirdMDGBranchEnabled = false;

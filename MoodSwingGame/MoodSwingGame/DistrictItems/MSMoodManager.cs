@@ -91,6 +91,9 @@ namespace MoodSwingGame
         private MSMDGProgressBar globalPartnershipProgressBar;
         public MSMDGProgressBar GlobalPartnershipProgressBar { get { return globalPartnershipProgressBar; } }
 
+        private MSMDGProgressBar[] bars;
+        public MSMDGProgressBar[] Bars { get { return bars; } }
+
         public static MSMoodManager instance;
         public static MSMoodManager GetInstance()
         {
@@ -178,6 +181,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("GamePanel/1"),
                 Game.Content.Load<Texture2D>("GamePanel/a"),
                 Game.Content.Load<Texture2D>("GamePanel/10"),
+                Game.Content.Load<Texture2D>("Pamatong/4"),
                 MSProgressBar.Orientation.VERTICAL
             );
 
@@ -189,6 +193,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("GamePanel/2"),
                 Game.Content.Load<Texture2D>("GamePanel/b"),
                 Game.Content.Load<Texture2D>("GamePanel/20"),
+                Game.Content.Load<Texture2D>("Pamatong/5"),
                 MSProgressBar.Orientation.VERTICAL
             );
 
@@ -200,6 +205,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("GamePanel/3"),
                 Game.Content.Load<Texture2D>("GamePanel/c"),
                 Game.Content.Load<Texture2D>("GamePanel/30"),
+                Game.Content.Load<Texture2D>("Pamatong/6"),
                 MSProgressBar.Orientation.VERTICAL
             );
 
@@ -211,6 +217,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("GamePanel/4"),
                 Game.Content.Load<Texture2D>("GamePanel/d"),
                 Game.Content.Load<Texture2D>("GamePanel/40"),
+                Game.Content.Load<Texture2D>("Pamatong/7"),
                 MSProgressBar.Orientation.VERTICAL
             );
 
@@ -222,6 +229,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("GamePanel/5"),
                 Game.Content.Load<Texture2D>("GamePanel/e"),
                 Game.Content.Load<Texture2D>("GamePanel/50"),
+                Game.Content.Load<Texture2D>("Pamatong/8"),
                 MSProgressBar.Orientation.VERTICAL
             );
 
@@ -233,6 +241,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("GamePanel/6"),
                 Game.Content.Load<Texture2D>("GamePanel/f"),
                 Game.Content.Load<Texture2D>("GamePanel/60"),
+                Game.Content.Load<Texture2D>("Pamatong/9"),
                 MSProgressBar.Orientation.VERTICAL
             );
 
@@ -244,6 +253,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("GamePanel/7"),
                 Game.Content.Load<Texture2D>("GamePanel/g"),
                 Game.Content.Load<Texture2D>("GamePanel/70"),
+                Game.Content.Load<Texture2D>("Pamatong/10"),
                 MSProgressBar.Orientation.VERTICAL
             );
 
@@ -255,8 +265,19 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("GamePanel/8"),
                 Game.Content.Load<Texture2D>("GamePanel/h"),
                 Game.Content.Load<Texture2D>("GamePanel/80"),
+                Game.Content.Load<Texture2D>("Pamatong/11"),
                 MSProgressBar.Orientation.VERTICAL
             );
+
+            bars = new MSMDGProgressBar[8];
+            bars[0] = povertyProgressBar;
+            bars[1] = educationProgressBar;
+            bars[2] = genderEqualityProgressBar;
+            bars[3] = childHealthProgressBar;
+            bars[4] = maternalHealthProgressBar;
+            bars[5] = hivAidsProgressBar;
+            bars[6] = environmentProgressBar;
+            bars[7] = globalPartnershipProgressBar;
         }
 
         public override void Update(GameTime gameTime)
@@ -364,10 +385,6 @@ namespace MoodSwingGame
                     AddScore(ref globalPartnershipScore, ref globalPartnershipBonusEnabled, ref globalPartnershipProgressBar);
                     break;
             }
-
-            if(povertyScore == 1 && educationScore == 1 && genderEqualityScore == 1 && childHealthScore == 1
-                && maternalHealthScore == 1 && hivAidsScore == 1 && environmentScore == 1 && globalPartnershipScore == 1)
-                (new InitiateGameOverSequence(true)).PerformAction(Game);
         }
     }
 }

@@ -21,6 +21,7 @@ namespace MoodSwingGame
             moodSwing.CurrentScreen.HasFocus = false;
             moodSwing.CurrentScreen = screen;
             moodSwing.CurrentScreen.HasFocus = true;
+            moodSwing.Notifier.Reset();
         }
     }
 }

@@ -51,7 +51,7 @@ namespace MoodSwingGame
             return toReturn;
         }
 
-        public void load(StreamReader sr)
+        public override void load(StreamReader sr)
         {
             fundraiseCounter = Int32.Parse(sr.ReadLine());
         }

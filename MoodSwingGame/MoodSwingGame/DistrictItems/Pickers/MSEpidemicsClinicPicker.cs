@@ -22,30 +22,30 @@ namespace MoodSwingGame
         public MSEpidemicsClinicPicker(Texture2D background, Rectangle boundingRectangle, MSChangeableBuilding toBuy, SpriteBatch spriteBatch, Game game)
             : base(background, boundingRectangle, 78, 78, 62, 62, toBuy, Shape.RECTANGULAR, spriteBatch, game)
         {
+            String title = "";
             String description = "";
             MSTowerStats stat = null;
 
             MSDistrictScreen.DistrictName name = ((Game as MoodSwing).CurrentScreen as MSDistrictScreen).Name;
             if (name == MSDistrictScreen.DistrictName.SADNESS)
             {
-                description = "Equip with a Bed Nets Distribution Center";
+                title = "Equip with a Bed Nets Distribution Center";
                 stat = MSBedNetsCenterStats.GetInstance();
             }
             else if (name == MSDistrictScreen.DistrictName.ANGER)
             {
-                description = "Equip with an Antiretroviral Treatment Center";
+                title = "Equip with an Antiretroviral Treatment Center";
                 stat = MSAntiretroviralCenterStats.GetInstance();
             }
 
             AddSelection(
+                title,
                 description,
                 stat,
                 new Rectangle(boundingRectangle.X, boundingRectangle.Y + 129, 73, 93),
                 Game.Content.Load<Texture2D>("BuyDialog/8"),
                 Game.Content.Load<Texture2D>("BuyDialog/8clicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/8hovered"));
-
-            AddMiddleOrb("Epidemics Clinic and Research Center");
         }
     }
 }

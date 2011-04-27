@@ -81,7 +81,7 @@ namespace MoodSwingGame
             String filename = "";
             if (district == DistrictName.FEAR)
             {
-                filename = @"Content\Pandalevel2.txt";
+                filename = @"Content\fbxtest.txt";
             }
             else if (district == DistrictName.SADNESS)
             {
@@ -417,6 +417,12 @@ namespace MoodSwingGame
                     if ((component as MSGUIUnclickable).Visible)
                         (component as MSGUIUnclickable).Draw(gameTime);
                 }
+            }
+
+            foreach (MSMDGProgressBar bar in moodManager.Bars)
+            {
+                if (!bar.Visible)
+                    bar.DrawPamatong();
             }
 
             if (currentHovered != null && currentHovered.ToolTip != null)
@@ -861,18 +867,25 @@ namespace MoodSwingGame
 
         public void load()
         {
-            StreamReader sr = new StreamReader(districtName+"_save2.txt");
-            String s = sr.ReadLine();
-            System.Console.WriteLine(s);
-            if ( s!= null && s.Equals("savefile"))
+            try
             {
-                map.load(sr);
+                StreamReader sr = new StreamReader(districtName + "_save2.txt");
+                String s = sr.ReadLine();
+                System.Console.WriteLine(s);
+                if (s != null && s.Equals("savefile"))
+                {
+                    map.load(sr);
+                }
+                else
+                {
+                    System.Console.WriteLine("NONE");
+                }
+                sr.Close();
             }
-            else
+            catch (FileNotFoundException)
             {
-                System.Console.WriteLine("NONE");
+                return;
             }
-            sr.Close();
         }
     }
 }

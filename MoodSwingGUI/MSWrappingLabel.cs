@@ -32,17 +32,18 @@ namespace MoodSwingGUI
                 else
                 {
                     displayedText = "";
-                    for (int i = 0; i < value.Length; i++)
+                    string[] words = value.Split(' ');
+                    for (int i = 0; i < words.Length; i++)
                     {
-                        if (boundedPosition.X + spriteFont.MeasureString(displayedText).X + spriteFont.MeasureString(value.ElementAt<Char>(i).ToString()).X > rightBoundary)
+                        if (boundedPosition.X + spriteFont.MeasureString(displayedText + words[i]).X > rightBoundary)
                         {
-                            if (bottomBoundary != null && boundedPosition.Y + spriteFont.MeasureString(displayedText).Y + spriteFont.MeasureString(value.ElementAt<Char>(i).ToString()).Y > bottomBoundary)
+                            if (bottomBoundary != null && boundedPosition.Y + spriteFont.MeasureString(displayedText).Y + spriteFont.MeasureString(words[i]).Y > bottomBoundary)
                             {
                                 break;
                             }
                             displayedText += "\n";
                         }
-                        displayedText += value.ElementAt<Char>(i);
+                        displayedText += words[i] + ' ';
                     }
                 }
                 BoundingRectangle = new Rectangle
@@ -107,7 +108,7 @@ namespace MoodSwingGUI
             : base(text, new Rectangle(position.X, position.Y, 0, 0), sprite_font, text_color, spriteBatch, game)
         {
             this.spriteFont = sprite_font;
-            this.textColor = text_color;
+            this.TextColor = text_color;
             this.background = background;
 
             this.topPadding = topPadding;
@@ -128,7 +129,7 @@ namespace MoodSwingGUI
             base.Draw(gameTime);
             if (background != null)
                 SpriteBatch.Draw(background, BoundingRectangle, Color.White);
-            SpriteBatch.DrawString(spriteFont, displayedText, boundedPosition, textColor);
+            SpriteBatch.DrawString(spriteFont, displayedText, boundedPosition, TextColor);
         }
     }
 }
