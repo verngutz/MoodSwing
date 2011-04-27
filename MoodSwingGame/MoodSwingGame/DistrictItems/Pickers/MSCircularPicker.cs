@@ -53,15 +53,17 @@ namespace MoodSwingGame
 
         protected void AddSelection(string title, string description, MSBuildingStats stats, Rectangle boundingRectangle, Texture2D unhoveredTexture, Texture2D clickedTexture, Texture2D hoveredTexture)
         {
+            AddSelection(title, description, stats, boundingRectangle, unhoveredTexture, clickedTexture, hoveredTexture, Alignment.MANUAL);
+        }
+
+        protected void AddSelection(string title, string description, MSBuildingStats stats, Rectangle boundingRectangle, Texture2D unhoveredTexture, Texture2D clickedTexture, Texture2D hoveredTexture, Alignment alignment)
+        {
             if (selected is MSChangeableBuilding)
             {
                 MSToolTip toolTip = new MSToolTip(Game.Content.Load<Texture2D>("BlackOut"), new Rectangle(0, 568, 1024, 200), 10, 10, 10, 10, SpriteBatch, Game);
 
-                MSWrappingLabel titleToolTip = new MSWrappingLabel(new Point(0, 0), title, Game.Content.Load<SpriteFont>("ToolTipFont"), Color.White, null, 2, 2, 2, 2, 1024, 758, SpriteBatch, Game);
+                MSWrappingLabel titleToolTip = new MSWrappingLabel(new Point(0, 0), title, Game.Content.Load<SpriteFont>("ToolTipTitle"), Color.White, null, 2, 2, 2, 2, 1024, 758, SpriteBatch, Game);
                 toolTip.AddComponent(titleToolTip, Alignment.TOP_LEFT);
-
-                MSWrappingLabel descriptionToolTip = new MSWrappingLabel(new Point(0, 0), description, Game.Content.Load<SpriteFont>("ToolTipFont"), Color.White, null, 2, 2, 2, 2, 1024, 758, SpriteBatch, Game);
-                toolTip.AddComponent(descriptionToolTip, Alignment.BOTTOM_LEFT);
 
                 /**
                 MSToolTip orbCostToolTip = new MSToolTip(null, new Rectangle(BoundingRectangle.X + BoundingRectangle.Width / 2, BoundingRectangle.Y, 75, 50), -30, 0, 0, 0, SpriteBatch, Game);
@@ -89,6 +91,9 @@ namespace MoodSwingGame
                     costToolTip.AddComponent(volunteerCost, Alignment.BOTTOM_RIGHT);
                 }
 
+                MSWrappingLabel descriptionToolTip = new MSWrappingLabel(new Point(titleToolTip.BoundingRectangle.X, costToolTip.BoundingRectangle.Y + costToolTip.BoundingRectangle.Height), description, Game.Content.Load<SpriteFont>("ToolTipFont"), Color.White, null, 2, 2, 2, 2, 1024, 758, SpriteBatch, Game);
+                toolTip.AddComponent(descriptionToolTip);
+
                 MSAction toPerform;
 
                 if (stats is MSTowerStats)
@@ -102,7 +107,7 @@ namespace MoodSwingGame
 
                 else throw new ArgumentException();
 
-                AddComponent(new MSButton(null, toPerform, boundingRectangle, unhoveredTexture, clickedTexture, hoveredTexture, toolTip, Shape.AMORPHOUS, spriteBatch, Game));
+                AddComponent(new MSButton(null, toPerform, boundingRectangle, unhoveredTexture, clickedTexture, hoveredTexture, toolTip, Shape.AMORPHOUS, spriteBatch, Game), alignment);
             }
             else throw new NotImplementedException();
         }

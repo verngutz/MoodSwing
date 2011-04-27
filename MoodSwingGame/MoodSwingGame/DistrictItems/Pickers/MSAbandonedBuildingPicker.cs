@@ -29,18 +29,18 @@ namespace MoodSwingGame
                     + "acquire the necessary knowledge and technology to help improve this district.\n\n"
                     + "Effect: Increases your volunteer limit by " + MSResourceManager.VOLUNTEER_CENTER_GAIN + ".",
                     MSVolunteerCenterStats.GetInstance(),
-                    new Rectangle(boundingRectangle.X + 128, boundingRectangle.Y + 131, 136, 267),
+                    new Rectangle(boundingRectangle.X + 130, boundingRectangle.Y - 5, 135, 270),
                     Game.Content.Load<Texture2D>("BuyDialog/VolunteerCenter"),
                     Game.Content.Load<Texture2D>("BuyDialog/VolunteerCenterClicked"),
                     Game.Content.Load<Texture2D>("BuyDialog/VolunteerCenterHovered"));
             }
 
             AddSelection("Build A Business Center",
-                "Use your entrepreneurial skills to make money which you can later use for things like "
-                + "saving the world, for example.\n\n"
+                "Use your entrepreneurial skills to make money for yourself, and of course, for helping the people in "
+                + "this district too!\n\n"
                 + "Effect: Generates funds over time.",
                 MSFundraiserStats.GetInstance(),
-                new Rectangle(boundingRectangle.X + 55, boundingRectangle.Y + 131, 136, 267),
+                new Rectangle(boundingRectangle.X - 5, boundingRectangle.Y - 5, 135, 270),
                 Game.Content.Load<Texture2D>("BuyDialog/MoneyCenter"),
                 Game.Content.Load<Texture2D>("BuyDialog/MoneyCenterClicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/MoneyCenterHovered"));

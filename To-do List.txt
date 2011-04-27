@@ -12,7 +12,6 @@ Things To Do Arranged by Priority
 
 Add booleans to disable MDG branches:
 	branches of the tower heirarchy
-	mobs
 
 Fix Fonts.
 
@@ -28,8 +27,6 @@ Add support for more districts, add more districts, and finalize districts desig
 
 Fix pedestrian simulation:
 	Evading
-
-Fix mob frequency behavior simulation.
 
 Fix smoke particle system.
 
