@@ -56,10 +56,10 @@ namespace MoodSwingGame
                     + "disease, and destruction of nature.\n\n"
                     + "Effect: Has a small power to stop mobs with any given MDG complaint.",
                     MSPublicAssistanceCenterStats.GetInstance(),
-                    new Rectangle(boundingRectangle.X, boundingRectangle.Y + 38, 73, 93),
-                    Game.Content.Load<Texture2D>("BuyDialog/1"),
-                    Game.Content.Load<Texture2D>("BuyDialog/1clicked"),
-                    Game.Content.Load<Texture2D>("BuyDialog/1hovered"));
+                    new Rectangle(boundingRectangle.X + 60, boundingRectangle.Y + 135, 73, 93),
+                    Game.Content.Load<Texture2D>("BuyDialog/general"),
+                    Game.Content.Load<Texture2D>("BuyDialog/GeneralClicked"),
+                    Game.Content.Load<Texture2D>("BuyDialog/GeneralHovered"));
             }
 
             AddMiddleOrb();

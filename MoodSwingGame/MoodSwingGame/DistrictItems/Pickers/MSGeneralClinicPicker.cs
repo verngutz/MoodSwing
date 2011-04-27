@@ -31,9 +31,9 @@ namespace MoodSwingGame
                 + "MDG Target by 2015: Reduce by two thirds, between 1990 and 2015, the under-five mortality rate.",
                 MSChildrensHospitalStats.GetInstance(),
                 new Rectangle(boundingRectangle.X, boundingRectangle.Y + 38, 73, 93),
-                Game.Content.Load<Texture2D>("BuyDialog/1"),
-                Game.Content.Load<Texture2D>("BuyDialog/1clicked"),
-                Game.Content.Load<Texture2D>("BuyDialog/1hovered"));
+                Game.Content.Load<Texture2D>("BuyDialog/Children's"),
+                Game.Content.Load<Texture2D>("BuyDialog/Children'sClicked"),
+                Game.Content.Load<Texture2D>("BuyDialog/Children'sHovered"));
 
             AddSelection(
                 "Upgrade To A Women's Health Center",
@@ -45,18 +45,18 @@ namespace MoodSwingGame
                 + "2.Achieve, by 2015, universal access to reproductive health.",
                 MSWomensHealthCenterStats.GetInstance(),
                 new Rectangle(boundingRectangle.X + 187, boundingRectangle.Y + 129, 73, 93),
-                Game.Content.Load<Texture2D>("BuyDialog/5"),
-                Game.Content.Load<Texture2D>("BuyDialog/5clicked"),
-                Game.Content.Load<Texture2D>("BuyDialog/5hovered"));
+                Game.Content.Load<Texture2D>("BuyDialog/Women's"),
+                Game.Content.Load<Texture2D>("BuyDialog/Women'sClicked"),
+                Game.Content.Load<Texture2D>("BuyDialog/Women'sHovered"));
 
             AddSelection(
                 "Upgrade To An Epidemics Clinic and Research Center",
                 "",
                 MSEpidemicsClinicStats.GetInstance(),
                 new Rectangle(boundingRectangle.X, boundingRectangle.Y + 129, 73, 93),
-                Game.Content.Load<Texture2D>("BuyDialog/8"),
-                Game.Content.Load<Texture2D>("BuyDialog/8clicked"),
-                Game.Content.Load<Texture2D>("BuyDialog/8hovered"));
+                Game.Content.Load<Texture2D>("BuyDialog/Epidemics"),
+                Game.Content.Load<Texture2D>("BuyDialog/EpidemicsClicked"),
+                Game.Content.Load<Texture2D>("BuyDialog/EpidemicsHovered"));
         }
     }
 }

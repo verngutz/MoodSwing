@@ -23,7 +23,7 @@ namespace MoodSwingGame
             : base(background, boundingRectangle, 78, 78, 62, 62, toBuy, Shape.RECTANGULAR, spriteBatch, game)
         {
             AddSelection(
-                "Upgrade to Include a Feeding Center for the Poor",
+                "Upgrade To Include A Feeding Center For The Poor",
                 "One in four children in Mood City are underweight, and a majority of the children "
                 + "in this district is a part of that fourth. Upgrade this refuge to include a food donations center "
                 + "for those poor people.\n\n" 
