@@ -18,6 +18,29 @@ namespace MoodSwingGame
 {
     public class MSMobber : MSUnit
     {
+        private double rand = MSRandom.random.NextDouble();
+        protected override Model Model
+        {
+            get
+            {
+                if (rand >= 0.5)
+                    return Game.Content.Load<Model>("TaoBabae");
+                else
+                    return Game.Content.Load<Model>("TaoLalaki");
+            }
+        }
+
+        protected override Texture2D Texture
+        {
+            get
+            {
+                if (rand >= 0.5)
+                    return Game.Content.Load<Texture2D>("TaoBabaeMob");
+                else
+                    return Game.Content.Load<Texture2D>("TaoLalakiMob");
+            }
+        }
+
         private List<MSMobber> mobList;
         public List<MSMobber> GetMobList() { return mobList; }
         public void AddMember(MSMobber m) { mobList.Add(m); }
@@ -33,22 +56,9 @@ namespace MoodSwingGame
             }
         }
 
-        protected override Model Model
-        {
-            get
-            {
-                double a = MSRandom.random.NextDouble();
-                if (a >= 0.5)
-                    return Game.Content.Load<Model>("TaoBabae");
-                else
-                    return Game.Content.Load<Model>("TaoLalaki");
-            }
-        }
 
-        protected override Texture2D Texture
-        {
-            get { return null; }
-        }
+
+     
 
         private float speed = 0.3f;
         public override float Speed

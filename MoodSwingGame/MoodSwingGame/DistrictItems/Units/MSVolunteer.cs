@@ -17,21 +17,27 @@ namespace MoodSwingGame
 {
     public class MSVolunteer : MSUnit
     {
+
+        private double rand = MSRandom.random.NextDouble();
         protected override Model Model
         {
             get
             {
-                double a = MSRandom.random.NextDouble();
-                if (a >= 0.5)
+                if (rand >= 0.5)
                     return Game.Content.Load<Model>("TaoBabae");
                 else
                     return Game.Content.Load<Model>("TaoLalaki");
             }
         }
-
         protected override Texture2D Texture
         {
-            get { return null; }
+            get
+            {
+                if (rand >= 0.5)
+                    return Game.Content.Load<Texture2D>("TaoBabaeVolunteer");
+                else
+                    return Game.Content.Load<Texture2D>("TaoLalakiVolunteer");
+            }
         }
 
         public override float Speed 
