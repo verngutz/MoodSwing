@@ -23,19 +23,22 @@ namespace MoodSwingGame
             : base(background, boundingRectangle, 78, 78, 62, 62, toBuy, Shape.RECTANGULAR, spriteBatch, game)
         {
             String title = "";
-            String description = "One of the best ways to reduce child mortality is to ensure";
+            String description = "";
             MSTowerStats stat = null;
 
             MSDistrictScreen.DistrictName name = ((Game as MoodSwing).CurrentScreen as MSDistrictScreen).Name;
-            if (name == MSDistrictScreen.DistrictName.SADNESS)
+            switch (name)
             {
-                title = "Equip with a Vaccination Research Center";
-                stat = MSVaccinationCenterStats.GetInstance();
-            }
-            else if (name == MSDistrictScreen.DistrictName.ANGER)
-            {
-                title = "Equip with an Immunization Outreah Center";
-                stat = MSImmunizationOutreachStats.GetInstance();
+                case MSDistrictScreen.DistrictName.SADNESS:
+                    title = "Equip With A Vaccination Research Center";
+                    description = "";
+                    stat = MSVaccinationCenterStats.GetInstance();
+                    break;
+                case MSDistrictScreen.DistrictName.ANGER:
+                    title = "Equip With An Immunization Outreach Center";
+                    description = "";
+                    stat = MSImmunizationOutreachStats.GetInstance();
+                    break;
             }
 
             AddSelection(

@@ -42,8 +42,8 @@ namespace MoodSwingGame
             selected.Effect = Game.Content.Load<Effect>("highlight");
             bucksIcon = new MSImageHolder(new Rectangle(0, 0, 40, 24), Game.Content.Load<Texture2D>("BuyDialog/bucks"), SpriteBatch, Game);
             gingerBreadManIcon = new MSImageHolder(new Rectangle(0, 0, 20, 26), Game.Content.Load<Texture2D>("BuyDialog/gingerBreadMan"), SpriteBatch, Game);
-            MSPanel middleOrb = new MSPanel(Game.Content.Load<Texture2D>("BuyDialog/middleOrb"), new Rectangle(0, 0, 184, 184), 30, 0, 0, 0, null, Shape.CIRCULAR, spriteBatch, Game);
-            AddComponent(middleOrb, Alignment.MIDDLE_CENTER);
+            MSPanel outerRing = new MSPanel(Game.Content.Load<Texture2D>("BuyDialog/OuterRing"), new Rectangle(0, 0, 270, 270), 0, 0, 0, 0, null, Shape.CIRCULAR, spriteBatch, Game);
+            AddComponent(outerRing, Alignment.MIDDLE_CENTER);
         }
 
         public void UnhighlightSelected()
@@ -57,11 +57,11 @@ namespace MoodSwingGame
             {
                 MSToolTip toolTip = new MSToolTip(Game.Content.Load<Texture2D>("BlackOut"), new Rectangle(0, 568, 1024, 200), 10, 10, 10, 10, SpriteBatch, Game);
 
-                MSWrappingLabel titleToolTip = new MSWrappingLabel(new Point(0, 0), title, Game.Content.Load<SpriteFont>("ToolTipFont"), Color.White, null, 2, 2, 2, 2, 1024, 768, SpriteBatch, Game);
+                MSWrappingLabel titleToolTip = new MSWrappingLabel(new Point(0, 0), title, Game.Content.Load<SpriteFont>("ToolTipFont"), Color.White, null, 2, 2, 2, 2, 1024, 758, SpriteBatch, Game);
                 toolTip.AddComponent(titleToolTip, Alignment.TOP_LEFT);
 
-                MSWrappingLabel descriptionToolTip = new MSWrappingLabel(new Point(0, 0), description, Game.Content.Load<SpriteFont>("ToolTipFont"), Color.White, null, 2, 2, 2, 2, 1024, 768, SpriteBatch, Game);
-                toolTip.AddComponent(descriptionToolTip, Alignment.MIDDLE_LEFT);
+                MSWrappingLabel descriptionToolTip = new MSWrappingLabel(new Point(0, 0), description, Game.Content.Load<SpriteFont>("ToolTipFont"), Color.White, null, 2, 2, 2, 2, 1024, 758, SpriteBatch, Game);
+                toolTip.AddComponent(descriptionToolTip, Alignment.BOTTOM_LEFT);
 
                 /**
                 MSToolTip orbCostToolTip = new MSToolTip(null, new Rectangle(BoundingRectangle.X + BoundingRectangle.Width / 2, BoundingRectangle.Y, 75, 50), -30, 0, 0, 0, SpriteBatch, Game);
@@ -105,6 +105,12 @@ namespace MoodSwingGame
                 AddComponent(new MSButton(null, toPerform, boundingRectangle, unhoveredTexture, clickedTexture, hoveredTexture, toolTip, Shape.AMORPHOUS, spriteBatch, Game));
             }
             else throw new NotImplementedException();
+        }
+
+        protected void AddMiddleOrb()
+        {
+            MSPanel middleOrb = new MSPanel(Game.Content.Load<Texture2D>("BuyDialog/MiddleOrb"), new Rectangle(0, 0, 184, 184), 30, 0, 0, 0, null, Shape.CIRCULAR, spriteBatch, Game);
+            AddComponent(middleOrb, Alignment.MIDDLE_CENTER);
         }
     }
 }

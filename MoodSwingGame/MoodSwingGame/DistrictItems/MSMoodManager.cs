@@ -385,10 +385,6 @@ namespace MoodSwingGame
                     AddScore(ref globalPartnershipScore, ref globalPartnershipBonusEnabled, ref globalPartnershipProgressBar);
                     break;
             }
-
-            if(povertyScore == 1 && educationScore == 1 && genderEqualityScore == 1 && childHealthScore == 1
-                && maternalHealthScore == 1 && hivAidsScore == 1 && environmentScore == 1 && globalPartnershipScore == 1)
-                (new InitiateGameOverSequence(true)).PerformAction(Game);
         }
     }
 }

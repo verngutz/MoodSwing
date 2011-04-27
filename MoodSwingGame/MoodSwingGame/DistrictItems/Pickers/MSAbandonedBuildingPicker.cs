@@ -29,26 +29,28 @@ namespace MoodSwingGame
                     + "acquire the necessary knowledge and technology to help improve this district.\n\n"
                     + "Effect: Increases your volunteer limit by " + MSResourceManager.VOLUNTEER_CENTER_GAIN + ".",
                     MSVolunteerCenterStats.GetInstance(),
-                    new Rectangle(boundingRectangle.X + 128, boundingRectangle.Y + 131, 77, 80),
-                    Game.Content.Load<Texture2D>("BuyDialog/volunteer"),
-                    Game.Content.Load<Texture2D>("BuyDialog/volunteerclicked"),
-                    Game.Content.Load<Texture2D>("BuyDialog/volunteerhover"));
+                    new Rectangle(boundingRectangle.X + 128, boundingRectangle.Y + 131, 136, 267),
+                    Game.Content.Load<Texture2D>("BuyDialog/VolunteerCenter"),
+                    Game.Content.Load<Texture2D>("BuyDialog/VolunteerCenterClicked"),
+                    Game.Content.Load<Texture2D>("BuyDialog/VolunteerCenterHovered"));
             }
 
-            AddSelection("Build a Business Center",
+            AddSelection("Build A Business Center",
                 "Use your entrepreneurial skills to make money which you can later use for things like "
                 + "saving the world, for example.\n\n"
                 + "Effect: Generates funds over time.",
                 MSFundraiserStats.GetInstance(),
-                new Rectangle(boundingRectangle.X + 55, boundingRectangle.Y + 131, 77, 80),
-                Game.Content.Load<Texture2D>("BuyDialog/money"),
-                Game.Content.Load<Texture2D>("BuyDialog/moneyClicked"),
-                Game.Content.Load<Texture2D>("BuyDialog/moneyHover"));
+                new Rectangle(boundingRectangle.X + 55, boundingRectangle.Y + 131, 136, 267),
+                Game.Content.Load<Texture2D>("BuyDialog/MoneyCenter"),
+                Game.Content.Load<Texture2D>("BuyDialog/MoneyCenterClicked"),
+                Game.Content.Load<Texture2D>("BuyDialog/MoneyCenterHovered"));
 
             if (MSStory.TowerEnabled)
             {
-                AddSelection("Build a Public Assistance Center",
-                    "Background Information: The eight Millenium Development Goals were formed by all "
+                AddSelection("Build A Public Assistance Center",
+                    "The people of Mood City are in turmoil. Take the first step to help them. Build an office "
+                    + "to lend a helping hand to and hear the concerns of the people in this district.\n\n"
+                    + "Background Information: The eight Millenium Development Goals were formed by all "
                     + "of the world's countries and leading development institutions as a unified commitment "
                     + "to solve the world's toughest problems, which include, among others, widespread poverty, "
                     + "disease, and destruction of nature.\n\n"
@@ -59,6 +61,8 @@ namespace MoodSwingGame
                     Game.Content.Load<Texture2D>("BuyDialog/1clicked"),
                     Game.Content.Load<Texture2D>("BuyDialog/1hovered"));
             }
+
+            AddMiddleOrb();
         }
     }
 }

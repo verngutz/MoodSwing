@@ -34,7 +34,6 @@ namespace MoodSwingGame
         private Matrix[] boneTranforms;
         private bool boneTransformsUnset;
 
-
         public MS3DSingleModelComponent(Vector3 position)
             : base(position, MoodSwing.GetInstance()) 
         {

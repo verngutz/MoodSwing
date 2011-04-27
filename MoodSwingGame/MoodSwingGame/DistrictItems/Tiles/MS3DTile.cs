@@ -44,7 +44,7 @@ namespace MoodSwingGame
             : base(position)
         {
             this.model = MoodSwing.GetInstance().Content.Load<Model>(mName);
-            this.texture = MoodSwing.GetInstance().Content.Load<Texture2D>(tName); 
+            this.texture = null; //MoodSwing.GetInstance().Content.Load<Texture2D>(tName); 
             this.Effect = MoodSwing.GetInstance().Content.Load<Effect>(eName);
 
             this.modelName = mName;
