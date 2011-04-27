@@ -20,12 +20,19 @@ namespace MoodSwingGame
     {
         protected override Model Model 
         { 
-            get { return Game.Content.Load<Model>("personBump"); } 
+            get 
+            {
+                double a = MSRandom.random.NextDouble();
+                if (a >= 0.5)
+                    return Game.Content.Load<Model>("TaoBabae");
+                else
+                    return Game.Content.Load<Model>("TaoLalaki");
+            } 
         }
 
         protected override Texture2D Texture
         {
-            get { return Game.Content.Load<Texture2D>("MTextures/tao"); }
+            get { return null; }
         }
 
         private float speed = 0.35f;

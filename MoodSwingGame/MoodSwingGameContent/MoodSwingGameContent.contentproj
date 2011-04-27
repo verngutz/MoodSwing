@@ -682,18 +682,6 @@
       <Name>Pandalevel2</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Compile Include="person.fbx">
-      <Name>person</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>0.35</ProcessorParameters_Scale>
-    </Compile>
-    <Compile Include="personBump.fbx">
-      <Name>personBump</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>0.35</ProcessorParameters_Scale>
-    </Compile>
     <Compile Include="ParticleEffect.fx">
       <Name>ParticleEffect</Name>
       <Importer>EffectImporter</Importer>
@@ -703,6 +691,18 @@
       <Name>ToolTipTitle</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+    <Compile Include="TaoBabae.fbx">
+      <Name>TaoBabae</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>0.2</ProcessorParameters_Scale>
+    </Compile>
+    <Compile Include="TaoLalaki.fbx">
+      <Name>TaoLalaki</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>0.2</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -1132,6 +1132,28 @@
     </Compile>
     <Compile Include="BuyDialog\GeneralHovered.png">
       <Name>GeneralHovered</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MTextures\Clinic.png">
+      <Name>Clinic</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\Environment.png">
+      <Name>Environment</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\Global.png">
+      <Name>Global</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="MTextures\Refuge.png">
+      <Name>Refuge</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
