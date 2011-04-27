@@ -584,7 +584,7 @@ namespace MoodSwingGame
                 else if (tile is MSTower)
                 {
                     MSTowerStats stats = (tile as MSTower).Stats;
-                    if (stats is MSChildrensHospitalStats && !MSMoodManager.GetInstance().ChildUltiBuilt)
+                    if (stats is MSChildrensHospitalStats && !MSMoodManager.GetInstance().ChildUltiBuilt && MSMoodManager.GetInstance().ChildHealthProgressBar.Progress >= 1)
                     {
                         CircularPicker = new MSChildrensHospitalPicker
                         (
@@ -595,7 +595,7 @@ namespace MoodSwingGame
                             Game
                         );
                     }
-                    else if (stats is MSEnvironmentalCenterStats && !MSMoodManager.GetInstance().EnvironmentUltiBuilt)
+                    else if (stats is MSEnvironmentalCenterStats && !MSMoodManager.GetInstance().EnvironmentUltiBuilt && MSMoodManager.GetInstance().EnvironmentProgressBar.Progress >= 1)
                     {
                         CircularPicker = new MSEnvironmentalCenterPicker
                         (
@@ -606,7 +606,7 @@ namespace MoodSwingGame
                             Game
                         );
                     }
-                    else if (stats is MSEpidemicsClinicStats && !MSMoodManager.GetInstance().HivUltiBuilt)
+                    else if (stats is MSEpidemicsClinicStats && !MSMoodManager.GetInstance().HivUltiBuilt && MSMoodManager.GetInstance().HivAidsProgressBar.Progress >= 1)
                     {
                         CircularPicker = new MSEpidemicsClinicPicker
                         (
@@ -639,7 +639,7 @@ namespace MoodSwingGame
                             Game
                         );
                     }
-                    else if (stats is MSInternationalCenterStats && !MSMoodManager.GetInstance().GlobalUltiBuilt)
+                    else if (stats is MSInternationalCenterStats && !MSMoodManager.GetInstance().GlobalUltiBuilt && MSMoodManager.GetInstance().GlobalPartnershipProgressBar.Progress >= 1)
                     {
                         CircularPicker = new MSInternationalCenterPicker
                         (
@@ -650,7 +650,7 @@ namespace MoodSwingGame
                             Game
                         );
                     }
-                    else if (stats is MSPovertyRefugeStats && !MSMoodManager.GetInstance().PovertyUltiBuilt)
+                    else if (stats is MSPovertyRefugeStats && !MSMoodManager.GetInstance().PovertyUltiBuilt && MSMoodManager.GetInstance().PovertyProgressBar.Progress >= 1)
                     {
                         CircularPicker = new MSPovertyRefugePicker
                         (
@@ -672,7 +672,7 @@ namespace MoodSwingGame
                             Game
                         );
                     }
-                    else if (stats is MSTutorialCenterStats && !MSMoodManager.GetInstance().EducationUltiBuilt)
+                    else if (stats is MSTutorialCenterStats && !MSMoodManager.GetInstance().EducationUltiBuilt && MSMoodManager.GetInstance().EducationProgressBar.Progress >= 1)
                     {
                         CircularPicker = new MSTutorialCenterPicker
                         (
@@ -683,7 +683,7 @@ namespace MoodSwingGame
                             Game
                         );
                     }
-                    else if (stats is MSWomenCenterStats && !MSMoodManager.GetInstance().GenderUltiBuilt)
+                    else if (stats is MSWomenCenterStats && !MSMoodManager.GetInstance().GenderUltiBuilt && MSMoodManager.GetInstance().GenderEqualityProgressBar.Progress >= 1)
                     {
                         CircularPicker = new MSWomenCenterPicker
                         (
@@ -694,7 +694,7 @@ namespace MoodSwingGame
                             Game
                         );
                     }
-                    else if (stats is MSWomensHealthCenterStats && !MSMoodManager.GetInstance().MaternalUltiBuilt)
+                    else if (stats is MSWomensHealthCenterStats && !MSMoodManager.GetInstance().MaternalUltiBuilt && MSMoodManager.GetInstance().MaternalHealthProgressBar.Progress >= 1)
                     {
                         CircularPicker = new MSWomensHealthCenterPicker
                         (
