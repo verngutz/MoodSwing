@@ -14,7 +14,7 @@ namespace MoodSwingGame
                 instance = new MSMaternalCareCenterStats();
             return instance;
         }
-
+        public virtual float GetBuildTime() { return 5; }
         private MSMaternalCareCenterStats()
         {
             povertyEffectiveness = false;

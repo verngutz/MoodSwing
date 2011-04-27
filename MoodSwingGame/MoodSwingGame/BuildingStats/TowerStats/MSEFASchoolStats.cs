@@ -14,7 +14,7 @@ namespace MoodSwingGame
                 instance = new MSEFASchoolStats();
             return instance;
         }
-
+        public virtual float GetBuildTime() { return 5; }
         private MSEFASchoolStats()
         {
             povertyEffectiveness = false;

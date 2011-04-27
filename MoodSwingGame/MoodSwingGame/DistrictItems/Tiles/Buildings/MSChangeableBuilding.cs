@@ -53,6 +53,10 @@ namespace MoodSwingGame
         private MSProgressBar progressBar;
         private double buildTime;
 
+        public void setBuildTime(double d)
+        {
+            buildTime = d;
+        }
         private MS3DTile futureSelf;
         public MS3DTile FutureSelf { get { return futureSelf; } }
 
@@ -60,7 +64,7 @@ namespace MoodSwingGame
             : base(model, texture, effect, position, rotation, row, column, height) 
         {
             futureSelf = null;
-            buildTime = 5;
+            buildTime = 1;
             timeCount = 0;
             Texture2D borderTexture = MoodSwing.GetInstance().Content.Load<Texture2D>("BorderTexture");
             Texture2D loadingTexture = MoodSwing.GetInstance().Content.Load<Texture2D>("LoadingTexture");

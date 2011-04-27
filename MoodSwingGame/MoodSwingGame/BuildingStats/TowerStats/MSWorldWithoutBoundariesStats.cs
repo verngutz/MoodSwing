@@ -14,7 +14,7 @@ namespace MoodSwingGame
                 instance = new MSWorldWithoutBoundariesStats();
             return instance;
         }
-
+        public virtual float GetBuildTime() { return 30; }
         private MSWorldWithoutBoundariesStats()
         {
             povertyEffectiveness = false;

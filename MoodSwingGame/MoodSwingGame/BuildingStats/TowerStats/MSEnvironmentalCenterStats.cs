@@ -14,7 +14,7 @@ namespace MoodSwingGame
                 instance = new MSEnvironmentalCenterStats();
             return instance;
         }
-
+        public virtual float GetBuildTime() { return 5; }
         private MSEnvironmentalCenterStats()
         {
             povertyEffectiveness = false;

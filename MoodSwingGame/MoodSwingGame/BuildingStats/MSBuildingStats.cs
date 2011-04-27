@@ -9,5 +9,6 @@ namespace MoodSwingGame
     {
         int GetVolunteerCost();
         int GetFundsCost();
+        float GetBuildTime();
     }
 }

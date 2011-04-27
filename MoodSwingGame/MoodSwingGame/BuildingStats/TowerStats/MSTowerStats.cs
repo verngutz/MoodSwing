@@ -19,7 +19,8 @@ namespace MoodSwingGame
         public virtual int GetVolunteerCost() { return 1; }
         public virtual int GetFundsCost() { return 0; }
         public virtual int GetRange() { return 2; }
-
+        public virtual float GetBuildTime() { return 5; }
+        
         public bool GetEffectiveness(MSMilleniumDevelopmentGoal type)
         {
             switch (type)
