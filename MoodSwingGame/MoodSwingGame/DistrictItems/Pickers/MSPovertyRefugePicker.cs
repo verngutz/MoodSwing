@@ -22,6 +22,8 @@ namespace MoodSwingGame
         public MSPovertyRefugePicker(Texture2D background, Rectangle boundingRectangle, MSChangeableBuilding toBuy, SpriteBatch spriteBatch, Game game)
             : base(background, boundingRectangle, 78, 78, 62, 62, toBuy, Shape.RECTANGULAR, spriteBatch, game)
         {
+
+            AddMiddleOrb();
             String title = "";
             String description = "";
             MSTowerStats stat = null;
@@ -29,17 +31,17 @@ namespace MoodSwingGame
             MSDistrictScreen.DistrictName name = ((Game as MoodSwing).CurrentScreen as MSDistrictScreen).Name;
             if (name == MSDistrictScreen.DistrictName.FEAR)
             {
-                title = "Upgrade to a Techno-farmhouse";
+                title = "Upgrade To A Techno-Farmhouse For NERICA";
                 stat = MSTechnoFarmhouseStats.GetInstance();
             }
             else if (name == MSDistrictScreen.DistrictName.SADNESS)
             {
-                title = "Upgrade to a free apartments for the poor and homeless";
+                title = "Upgrade To A Free Apartments For The Poor and Homeless";
                 stat = MSApartmentStats.GetInstance();
             }
             else if (name == MSDistrictScreen.DistrictName.ANGER)
             {
-                title = "Upgrade to an employment and business opportunity center";
+                title = "Upgrade To An Employment And Business Opportunity Center";
                 stat = MSEmploymentCenterStats.GetInstance();
             }
 
@@ -47,10 +49,10 @@ namespace MoodSwingGame
                 title,
                 description,
                 stat,
-                new Rectangle(boundingRectangle.X + 38, boundingRectangle.Y, 93, 73),
-                Game.Content.Load<Texture2D>("BuyDialog/2"),
-                Game.Content.Load<Texture2D>("BuyDialog/2clicked"),
-                Game.Content.Load<Texture2D>("BuyDialog/2hovered"));
+                    new Rectangle(boundingRectangle.X + 55, boundingRectangle.Y + 130, 152, 78),
+                Game.Content.Load<Texture2D>("BuyDialog/Upgrade"),
+                Game.Content.Load<Texture2D>("BuyDialog/UpgradeClicked"),
+                Game.Content.Load<Texture2D>("BuyDialog/UpgradeHovered"));
         }
     }
 }

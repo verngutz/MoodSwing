@@ -45,6 +45,8 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/MoneyCenterClicked"),
                 Game.Content.Load<Texture2D>("BuyDialog/MoneyCenterHovered"));
 
+            AddMiddleOrb();
+
             if (MSStory.TowerEnabled)
             {
                 AddSelection("Build A Public Assistance Center",
@@ -56,13 +58,11 @@ namespace MoodSwingGame
                     + "disease, and destruction of nature.\n\n"
                     + "Effect: Has a small power to stop mobs with any given MDG complaint.",
                     MSPublicAssistanceCenterStats.GetInstance(),
-                    new Rectangle(boundingRectangle.X + 60, boundingRectangle.Y + 135, 73, 93),
+                    new Rectangle(boundingRectangle.X + 55, boundingRectangle.Y + 130, 152, 78),
                     Game.Content.Load<Texture2D>("BuyDialog/general"),
                     Game.Content.Load<Texture2D>("BuyDialog/GeneralClicked"),
                     Game.Content.Load<Texture2D>("BuyDialog/GeneralHovered"));
             }
-
-            AddMiddleOrb();
         }
     }
 }

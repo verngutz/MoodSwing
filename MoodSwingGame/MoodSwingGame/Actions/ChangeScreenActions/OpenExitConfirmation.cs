@@ -67,7 +67,7 @@ namespace MoodSwingGame
                         moodSwing.SpriteBatch,
                         moodSwing), Alignment.BOTTOM_LEFT);
 
-                moodSwing.Notifier.InvokeNotification("Are you sure you want to quit to Windows?");
+                moodSwing.Notifier.InvokeNotification("Are you sure you want to quit to Windows? Your game will automatically be saved.");
             }
             else if (type == ExitType.ToMainMenu)
             {
@@ -84,7 +84,7 @@ namespace MoodSwingGame
                         moodSwing.SpriteBatch,
                         moodSwing), Alignment.BOTTOM_LEFT);
 
-                moodSwing.Notifier.InvokeNotification("Are you sure you want to quit to the main menu?");
+                moodSwing.Notifier.InvokeNotification("Are you sure you want to quit to the main menu? Your game will automatically be saved.");
             }
 
             moodSwing.Notifier.FreezeNotifications = true;
