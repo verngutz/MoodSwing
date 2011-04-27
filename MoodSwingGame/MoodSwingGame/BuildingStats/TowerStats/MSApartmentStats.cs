@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MoodSwingGame
 {
-    public class MSApartmentStats : MSTowerStats
+    public class MSApartmentStats : MSUltiBuildingStat
     {
         private static MSApartmentStats instance;
         public static MSApartmentStats GetInstance()

@@ -71,6 +71,9 @@ namespace MoodSwingGame
 
         private String districtName;
 
+        private static int ultiGoal;
+        public static int UltiGoal { get { return ultiGoal; } }
+
         public MSDistrictScreen(DistrictName district, MoodSwing game)
             : base(game.Content.Load<Texture2D>("districtmap"), 0, 0, 0, 0, game.SpriteBatch, game)
         {
@@ -83,16 +86,19 @@ namespace MoodSwingGame
             {
                 filename = @"Content\smallMap.txt";
                 districtName = "small";
+                ultiGoal = 3;
             }
             else if (district == DistrictName.SADNESS)
             {
                 filename = @"Content\mediumMap.txt";
                 districtName = "medium";
+                ultiGoal = 6;
             }
             else if (district == DistrictName.ANGER)
             {
                 filename = @"Content\largeMap.txt";
                 districtName = "large";
+                ultiGoal = 8;
             }
             map = new MSMap(filename);
 
@@ -194,7 +200,7 @@ namespace MoodSwingGame
             totalVolunteersToolTip.AddComponent(new MSWrappingLabel
             (
                 new Point(192, 48),
-                "Total Volunteers/Volunteers Manageable",
+                "Total Volunteers/Volunteer Limit",
                 Game.Content.Load<SpriteFont>("ToolTipFont"),
                 Color.White,
                 Game.Content.Load<Texture2D>("BlackOut"),
@@ -578,7 +584,7 @@ namespace MoodSwingGame
                 else if (tile is MSTower)
                 {
                     MSTowerStats stats = (tile as MSTower).Stats;
-                    if (stats is MSChildrensHospitalStats)
+                    if (stats is MSChildrensHospitalStats && !MSMoodManager.GetInstance().ChildUltiBuilt)
                     {
                         CircularPicker = new MSChildrensHospitalPicker
                         (
@@ -589,7 +595,7 @@ namespace MoodSwingGame
                             Game
                         );
                     }
-                    else if (stats is MSEnvironmentalCenterStats)
+                    else if (stats is MSEnvironmentalCenterStats && !MSMoodManager.GetInstance().EnvironmentUltiBuilt)
                     {
                         CircularPicker = new MSEnvironmentalCenterPicker
                         (
@@ -600,7 +606,7 @@ namespace MoodSwingGame
                             Game
                         );
                     }
-                    else if (stats is MSEpidemicsClinicStats)
+                    else if (stats is MSEpidemicsClinicStats && !MSMoodManager.GetInstance().HivUltiBuilt)
                     {
                         CircularPicker = new MSEpidemicsClinicPicker
                         (
@@ -633,7 +639,7 @@ namespace MoodSwingGame
                             Game
                         );
                     }
-                    else if (stats is MSInternationalCenterStats)
+                    else if (stats is MSInternationalCenterStats && !MSMoodManager.GetInstance().GlobalUltiBuilt)
                     {
                         CircularPicker = new MSInternationalCenterPicker
                         (
@@ -644,7 +650,7 @@ namespace MoodSwingGame
                             Game
                         );
                     }
-                    else if (stats is MSPovertyRefugeStats)
+                    else if (stats is MSPovertyRefugeStats && !MSMoodManager.GetInstance().PovertyUltiBuilt)
                     {
                         CircularPicker = new MSPovertyRefugePicker
                         (
@@ -666,7 +672,7 @@ namespace MoodSwingGame
                             Game
                         );
                     }
-                    else if (stats is MSTutorialCenterStats)
+                    else if (stats is MSTutorialCenterStats && !MSMoodManager.GetInstance().EducationUltiBuilt)
                     {
                         CircularPicker = new MSTutorialCenterPicker
                         (
@@ -677,7 +683,7 @@ namespace MoodSwingGame
                             Game
                         );
                     }
-                    else if (stats is MSWomenCenterStats)
+                    else if (stats is MSWomenCenterStats && !MSMoodManager.GetInstance().GenderUltiBuilt)
                     {
                         CircularPicker = new MSWomenCenterPicker
                         (
@@ -688,7 +694,7 @@ namespace MoodSwingGame
                             Game
                         );
                     }
-                    else if (stats is MSWomensHealthCenterStats)
+                    else if (stats is MSWomensHealthCenterStats && !MSMoodManager.GetInstance().MaternalUltiBuilt)
                     {
                         CircularPicker = new MSWomensHealthCenterPicker
                         (
@@ -700,7 +706,8 @@ namespace MoodSwingGame
                         );
                     }
                 }
-                AddComponent(CircularPicker);
+                if(CircularPicker != null)
+                    AddComponent(CircularPicker);
             }
         }
 
