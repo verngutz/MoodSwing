@@ -137,7 +137,7 @@ namespace MoodSwingGame
             {
                 MSMobParam mp = this.mobTypeParam[i];
                 int rnd = MSRandom.random.Next(100);
-                System.Console.WriteLine(i + ": " + rnd + " " + mp.getProbability());
+                //System.Console.WriteLine(i + ": " + rnd + " " + mp.getProbability());
                 if (rnd < mp.getProbability())
                 {
                     

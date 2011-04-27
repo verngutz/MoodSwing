@@ -14,7 +14,7 @@ namespace MoodSwingGame
                 instance = new MSApartmentStats();
             return instance;
         }
-        public virtual float GetBuildTime() { return 30; }
+        public override float GetBuildTime() { return 30; }
         private MSApartmentStats()
         {
             povertyEffectiveness = true;

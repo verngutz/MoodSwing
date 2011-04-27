@@ -14,7 +14,7 @@ namespace MoodSwingGame
                 instance = new MSTechnoFarmhouseStats();
             return instance;
         }
-        public virtual float GetBuildTime() { return 5; }
+        public override float GetBuildTime() { return 5; }
         private MSTechnoFarmhouseStats()
         {
             povertyEffectiveness = true;

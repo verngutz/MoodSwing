@@ -75,7 +75,7 @@ namespace MoodSwingGame
 
         public static void Init(MSDistrictScreen.DistrictName name)
         {
-            StoryEnabled = true;
+            StoryEnabled = false;
             VolunteerCenterEnabled = true;
             TowerEnabled = true;
             FirstMDGBranchEnabled = true;

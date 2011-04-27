@@ -7,5 +7,6 @@ namespace MoodSwingGame
 {
     public class MSUltiBuildingStat : MSTowerStats
     {
+        public override float GetBuildTime() { return 30; }
     }
 }
