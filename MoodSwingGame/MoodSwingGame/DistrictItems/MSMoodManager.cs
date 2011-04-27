@@ -95,6 +95,30 @@ namespace MoodSwingGame
         private MSMDGProgressBar[] bars;
         public MSMDGProgressBar[] Bars { get { return bars; } }
 
+        public bool PovertyUltiBuilt { set; get; }
+        public bool EducationUltiBuilt { set; get; }
+        public bool GenderUltiBuilt { set; get; }
+        public bool ChildUltiBuilt { set; get; }
+        public bool MaternalUltiBuilt { set; get; }
+        public bool HivUltiBuilt { set; get; }
+        public bool EnvironmentUltiBuilt { set; get; }
+        public bool GlobalUltiBuilt { set; get; }
+
+        private int numUltiBuilt;
+        public int NumUltiBuilt 
+        {
+            set
+            {
+                numUltiBuilt = value;
+                if (numUltiBuilt >= MSDistrictScreen.UltiGoal)
+                {
+                    numUltiBuilt = 0;
+                    (new InitiateGameOverSequence(true)).PerformAction(Game);
+                }
+            }
+            get { return numUltiBuilt; }
+        }
+
         public static MSMoodManager instance;
         public static MSMoodManager GetInstance()
         {
@@ -186,6 +210,15 @@ namespace MoodSwingGame
             instance.HivAidsProgressBar.Progress = 0;
             instance.EnvironmentProgressBar.Progress = 0;
             instance.GlobalPartnershipProgressBar.Progress = 0;
+
+            instance.PovertyUltiBuilt = false;
+            instance.EducationUltiBuilt = false;
+            instance.GenderUltiBuilt = false;
+            instance.ChildUltiBuilt = false;
+            instance.MaternalUltiBuilt = false;
+            instance.HivUltiBuilt = false;
+            instance.EnvironmentUltiBuilt = false;
+            instance.GlobalUltiBuilt = false;
         }
 
         private MSMoodManager() : base(MoodSwing.GetInstance())
@@ -295,6 +328,17 @@ namespace MoodSwingGame
             bars[5] = hivAidsProgressBar;
             bars[6] = environmentProgressBar;
             bars[7] = globalPartnershipProgressBar;
+
+            numUltiBuilt = 0;
+
+            PovertyUltiBuilt = false;
+            EducationUltiBuilt = false;
+            GenderUltiBuilt = false;
+            ChildUltiBuilt = false;
+            MaternalUltiBuilt = false;
+            HivUltiBuilt = false;
+            EnvironmentUltiBuilt = false;
+            GlobalUltiBuilt = false;
         }
 
         public override void Update(GameTime gameTime)

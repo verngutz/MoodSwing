@@ -50,7 +50,7 @@ namespace MoodSwingGame
                 Game.Content.Load<Texture2D>("BuyDialog/5hovered"));
 
             AddSelection(
-                "Upgrade to an epidemics clinic and research center",
+                "Upgrade To An Epidemics Clinic and Research Center",
                 "",
                 MSEpidemicsClinicStats.GetInstance(),
                 new Rectangle(boundingRectangle.X, boundingRectangle.Y + 129, 73, 93),

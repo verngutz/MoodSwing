@@ -375,7 +375,47 @@ namespace MoodSwingGame
                     MSResourceManager.GetInstance().VolunteerCapacity += MSResourceManager.VOLUNTEER_CENTER_GAIN;
                 mapArray[(int)coord.X, (int)coord.Y] =
                     (mapArray[(int)coord.X, (int)coord.Y] as MSChangeableBuilding).FutureSelf;
-
+                MS3DTile tile = mapArray[(int)coord.X, (int)coord.Y];
+                if (tile is MSTower)
+                {
+                    MSTowerStats stats = (tile as MSTower).Stats;
+                    if(stats is MSUltiBuildingStat)
+                    {
+                        MSMoodManager.GetInstance().NumUltiBuilt++;
+                        if(stats is MSAntiretroviralCenterStats || stats is MSBedNetsCenterStats)
+                        {
+                            MSMoodManager.GetInstance().HivUltiBuilt = true;
+                        }
+                        else if (stats is MSApartmentStats || stats is MSEmploymentCenterStats || stats is MSTechnoFarmhouseStats)
+                        {
+                            MSMoodManager.GetInstance().PovertyUltiBuilt = true;
+                        }
+                        else if (stats is MSChildrensLibraryStats || stats is MSSuppliesDonationCenterStats || stats is MSEFASchoolStats)
+                        {
+                            MSMoodManager.GetInstance().EducationUltiBuilt = true;
+                        }
+                        else if (stats is MSFistulaTreatmentCenterStats || stats is MSMaternalCareCenterStats)
+                        {
+                            MSMoodManager.GetInstance().MaternalUltiBuilt = true;
+                        }
+                        else if (stats is MSImmunizationOutreachStats || stats is MSVaccinationCenterStats)
+                        {
+                            MSMoodManager.GetInstance().ChildUltiBuilt = true;
+                        }
+                        else if (stats is MSWomenPoliticiansCenterStats || stats is MSWomensUniversityStats || stats is MSWhiteScreensCenterStats)
+                        {
+                            MSMoodManager.GetInstance().GenderUltiBuilt = true;
+                        }
+                        else if (stats is MSTrashToCashCenterStats || stats is MSWaterTreatmentPlantStats)
+                        {
+                            MSMoodManager.GetInstance().EnvironmentUltiBuilt = true;
+                        }
+                        else if (stats is MSWorldWithoutBoundariesStats)
+                        {
+                            MSMoodManager.GetInstance().GlobalUltiBuilt = true;
+                        }
+                    }
+                }
             }
         }
 
