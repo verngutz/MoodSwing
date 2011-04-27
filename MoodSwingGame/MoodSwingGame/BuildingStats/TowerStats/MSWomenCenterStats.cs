@@ -29,12 +29,12 @@ namespace MoodSwingGame
 
         public override int GetFundsCost()
         {
-            return 250;
+            return 300;
         }
 
         public override int GetVolunteerCost()
         {
-            return 2;
+            return 3;
         }
     }
 }
