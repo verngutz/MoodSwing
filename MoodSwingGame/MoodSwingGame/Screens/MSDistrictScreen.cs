@@ -81,15 +81,15 @@ namespace MoodSwingGame
             String filename = "";
             if (district == DistrictName.FEAR)
             {
-                filename = @"Content\fbxtest.txt";
+                filename = @"Content\smallMap.txt";
             }
             else if (district == DistrictName.SADNESS)
             {
-                filename = @"Content\Pandalevel2.txt";
+                filename = @"Content\smallMap.txt";
             }
             else if (district == DistrictName.ANGER)
             {
-                filename = @"Content\Pandalevel2.txt";
+                filename = @"Content\smallMap.txt";
             }
             map = new MSMap(filename);
 
