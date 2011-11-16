@@ -75,7 +75,7 @@ namespace MoodSwingGame
             {
                 if (volunteerGenerationCounter++ > VOLUNTEER_GENERATION_DIFFICULTY)
                 {
-                    int volunteerGeneration = MSRandom.random.Next(VolunteerCapacity + 1);
+                    int volunteerGeneration = MSRandom.Instance.GetUniformInt(VolunteerCapacity + 1);
                     if (volunteerGeneration > TotalVolunteers)
                     {
                         TotalVolunteers++;

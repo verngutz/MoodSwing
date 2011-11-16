@@ -17,8 +17,7 @@ namespace MoodSwingGame
 {
     public class MSVolunteer : MSUnit
     {
-
-        private double rand = MSRandom.random.NextDouble();
+        private double rand = MSRandom.Instance.GetUniform();
         protected override Model Model
         {
             get

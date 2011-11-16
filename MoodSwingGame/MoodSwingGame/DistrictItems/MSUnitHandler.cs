@@ -136,7 +136,7 @@ namespace MoodSwingGame
             for (int i = 0; i < 9; i++)
             {
                 MSMobParam mp = this.mobTypeParam[i];
-                int rnd = MSRandom.random.Next(100);
+                int rnd = MSRandom.Instance.GetUniformInt(100);
                 if (rnd < mp.getProbability())
                 {
                     System.Console.WriteLine("SUCCESS");
@@ -179,7 +179,7 @@ namespace MoodSwingGame
             }
 
             if( mobbers.Count > 0 ) 
-                units.Add(mobbers.ElementAt<MSUnit>(MSRandom.random.Next(mobbers.Count)));
+                units.Add(mobbers.ElementAt<MSUnit>(MSRandom.Instance.GetUniformInt(mobbers.Count)));
         }
 
         public void AddUnit(MSUnit unit)
@@ -256,7 +256,7 @@ namespace MoodSwingGame
 
             for (int i = 0; i < units.Count; i++)
             {
-                int rnd = MSRandom.random.Next(MAX_PROBABILITY);
+                int rnd = MSRandom.Instance.GetUniformInt(MAX_PROBABILITY);
 
                 if (rnd <= MOB_RECRUIT_RATE && units[i].IsMobbable)
                 {

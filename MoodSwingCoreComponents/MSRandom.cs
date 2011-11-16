@@ -10,18 +10,48 @@ namespace MoodSwingCoreComponents
 {
     public class MSRandom
     {
-        public static Random random = new Random();
-        private static Normal normal = new Normal();
+        private static MSRandom instance;
+        public static MSRandom Instance 
+        { 
+            get 
+            {
+                if (instance == null)
+                    instance = new MSRandom();
+                return instance; 
+            } 
+        }
 
-        public static float GetUniform()
+        private Random random;
+        private Normal normal;
+
+        public MSRandom(int seed)
+        {
+            random = new Random(seed);
+            normal = new Normal();
+        }
+
+        public MSRandom()
+        {
+            random = new Random();
+            normal = new Normal();
+        }
+
+        public int GetUniformInt(int max)
+        {
+            return random.Next(max);
+        }
+
+        public float GetUniform()
         {
             return (float)random.NextDouble();
         }
-        public static float GetNormal()
+
+        public float GetNormal()
         {
             return MathHelper.Clamp((float)normal.Sample(), 0, 0.999f);
         }
-        public static float GetReverseNormal()
+
+        public float GetReverseNormal()
         {
             if (GetUniform() >= 0.5f)
                 return MathHelper.Clamp((float)Math.Abs(GetNormal()), 0, 0.999f);

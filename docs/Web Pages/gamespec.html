@@ -1,0 +1,336 @@
+<!-- BEGIN HEADER -->
+<html lang = "en">
+<head>
+<title>MoodSwing Game Spec</title>
+<link rel = "stylesheet" type = "text/css" href = "moodswing.css" />
+</head>
+
+<body>
+
+<h1>The MoodSwing Project</h1>
+
+<div id = "navbar">
+<span class = "inbar">
+<ul>
+	<li class = "navhome"><a href = "main.html"><span>MoodSwing Home</span></a></li>
+	<li><a href = "devgraph.html"><span>View Development Graph</span></a></li>
+	<li><a href = "issues.html"><span>Current Issues</span></a></li>
+</ul>
+</span>
+</div>
+<!-- END HEADER -->
+
+<!-- BEGIN CONTENT -->
+<div id = "content">
+	<table class = "mover">
+		<tr>
+			<td><span class = "moveprev">Previous: <a href = "treatment.html">The Initial Treatment</a></span></td>
+			<td><span class = "movetop">Top: <a href = "devgraph.html#designphase">Return to Design Phase</a></span></td>
+			<td><span class = "movenext">Next: <a href = "designnotes.html">The Designer's Notes</a></span></td>
+		</tr>
+	</table>
+	<h2>The Game Spec (Late September to Mid-November, 2010)</h2>
+	<span id = "jump"><a href = "#updates">Jump to Updates</a></span>
+	<h3>System</h3>
+	<p>
+	This game will be developed primarily for the PC only. (An Xbox version may be possible but it may lead to issues in the user interface as the 
+	primary way for the player to manipulate the game world is through the mouse.)
+	</p>
+	<h3>Players</h3>
+	<p>
+	Each player can play alone or with any number (unlimited) of other players through LAN. In single player mode, the player plays with the game 
+	system &mdash; that is, no computer player AI systems will be required. In multiplayer mode, the player will play with other human players 
+	cooperatively.
+	See <a href = "designnotes.html#coopmultiplayer">Note on Cooperative Multiplayer Mode.</a>
+	</p>
+	<h3>Look and Feel</h3>
+	<p>
+	The setting of the game is an urbanized city in a modern-postmodern earth. As such, the look and feel of the game must resemble the dominant 
+	art styles present in the modern-postmodern world &mdash; minimalist, surrealist, Dadaistic, etc. (Probably not too minimalist as to not be 
+	too similar to Wildfire.) It is important that the original models and textures be in bright colors so that the manipulation of the hue and 
+	saturation as one of the features of the GUI be effective. Despite the seriousness of the theme, however, the game is supposed to be fun and 
+	cuteness and pleasantness to the eyes must not be compromised. Similar concerns are also applicable to the background music.
+	</p>
+	<h3 id = "macrogame">Macro-aspect Gameplay</h3>
+	<p>
+	Each installation of the game entitles each player to his own city (one game world) with an overall mood rating. Each city will consist of 
+	several districts.
+	</p>
+	<p>
+	Some of the districts will be part of the "Save the World" mode. These districts are an integral part of the game and represent the levels of 
+	the game. Some levels will be locked at the beginning and are unlocked based on how the player is doing in the earlier levels. Levels will not 
+	be arranged linearly, although some partial ordering might be necessary in order to supplement a narrative. Players may return to the 
+	districts that he or she has played before in any way he or she wants. For "Save the World" mode, players will be given explicit goals to 
+	achieve, with the effect of making an RTS game emerge.
+	</p>
+	<p>
+	The other districts will be part of the "Endless" or "Sandbox" mode. New districts may be made and the only limitations to the number of 
+	districts a player may create is hard drive space. Players may save their districts and resume playing them later (state-saving, as opposed to 
+	the "Save the World" mode, where pregiven districts are either reset or made to manage themselves when the player is not actively playing 
+	them). In this mode, players will not be given explicit goals to achieve. The player here may act freely, although with certain limits of 
+	course, with the effect of making a simulation game emerge.
+	</p>
+	<p>
+	Thus, using the same concept of a district, two entirely different gaming experiences are possible, simply by manipulating the explicity of 
+	the goals. Both modes will affect the overall mood rating of the city. This overall mood will be responsible for determining how the narrative 
+	conflicts resolve or how certain parts of the plot are explained (hopefully removing narrative linearity). It is quite challenging to provide 
+	an infinitely looping story so that the game can virtually possess an infinite replay value, therefore, tentatively, a narrative with specific 
+	closure points will be implemented for this game.
+	</p>
+	<p>
+	Mini-games will also be introduced into the game. These games will be patterned after common PC arcade games. Certain mini-games, when 
+	completed by the player, will allow the player to take an advisor or an influential person (powerups) with him to the districts (including the 
+	sandbox districts).
+	</p>
+	<h3 id = "gamesetup">Game Setup</h3>
+	<p>
+	Whether it is the male lead or the female lead who the player encounters first, encounters more, and prioritizes will be determined randomly 
+	(unless there arises better ideas on how to do this). At the beginning of the game, the "Save the World" mode will only have one district 
+	unlocked. Later districts will be unlocked in a tree-like manner. Also, available controls or commands for the "Save the World" mode will be 
+	initially limited and gradually increased to promote smooth learning curves for the players. The "Sandbox" mode will not have these 
+	restrictions though.
+	</p>
+	<p>
+	Because the player can choose to return to visited districts and can choose to visit districts in almost any order, there will be a great 
+	demand for the level designer to integrate the linearity of the in-game tutorials with the non-linearity of the player's selection of the 
+	levels. Of course, the necessity of a linear in-game tutorial is still open for debate.
+	</p>
+	<p>
+	The initial overall mood of each player's city will be somewhere below average.
+	</p>
+	<h3 id = "gameobjectives">Game Objectives</h3>
+	<p>
+	It will be up to the player whether or not he or she wishes to fulfill a happy ending for the narrative. The natural impulse for players to 
+	perceive completing the story as a clearly-defined objective will be difficult to avoid though. 
+	</p>
+	<p>
+	Certain awards may be given to players for achieving certain things in the game. Casual gamers may completely ignore the award collection, 
+	while hardcore gamers may aspire to collect all or some of the awards. Awards are distinguished from powerups in that awards do not help the 
+	player in any way in terms of gameplay (except for motivational boost maybe), and that awards are usually obtained by doing certain actions in 
+	the "Save the World" or "Sandbox" main game modes while powerups are usually obtained by completing mini-games. Awards can be represented as 
+	pieces of a picture, as medals, as ribbons, etc. These awards can then be viewed by the player from a certain "Gallery" or "Folio."
+	</p>
+	<h3>Game Entities</h3>
+	<p>
+	All of the characters in the story are humans. The main characters in the story are the male lead, the female lead, and the player. The side 
+	characters are the advisors and influential people that the player may meet if he or she chooses to play the mini-games.
+	</p>
+	<h3>Game Features</h3>
+	<p>
+	The user interface is designed to simulate mood &mdash; changes in graphics and in background music replace glowing bars to represent the mood 
+	of the city. This is one of the central features of the game. The other central feature involves the swinging behaviour of the presentation of 
+	the narrative, hand in hand with the greater amount of freedom given to the player in terms of the order in which he wishes to play the levels.
+	</p>
+	<h3 id = "gamerules">Game Rules</h3>
+	<p>
+	The macro-aspect rules of the game are less limited than the micro-aspect, level-specific rules. There are only three basic rules when it 
+	comes to macro-aspect gameplay: 
+	<ol>
+		<li>Playing districts, both single player and multiplayer, both "Save the World" and "Sandbox" mode, will affect the overall mood of each 
+			player's city. </li>
+		<li>The interface and the narrative is presented to the player in relation to the order in which the player plays the level and to the 
+			player's overall mood at certain times.</li>
+		<li>The player may reset the game.</li>
+	</ol>
+	</p>
+	<h3>Interactivity</h3>
+	<p>
+	Even in the "Save the World" mode, it would be ideal to avoid explicitly telling the player that he has to save the world. Perhaps that the 
+	first tutorials should be about how the player is supposed to earn money in the game world, and in line with that, the story begins with the 
+	player assuming a completely capitalist stance. That is, the need for the player to save the world must be presented gradually and must 
+	parallel the player's immersion in the game: 
+	<ol>
+		<li>The player is completely indifferent about the condition of the MoodSwing world initially.</li> 
+		<li>The player is then invited by his old friend to visit the local park and to his dismay sees the factory instead.</li>
+		<li>The player then meets another old friend of his (either the male or female lead) and begins to feel the urge to help.</li>
+		<li>This sense of responsibility is built up through the levels. Of course, the player may choose to not save the world at all, which the 
+			game system can find out about by evaluating the player's actions in the levels, but he has to see the consequences of such a choice – 
+			a sad (not necessarily ugly) ending.</li>
+	</ol>
+	</p>
+	<p>
+	To achieve interactivity in the game, the narrative will be presented to the player as conversations with the player, ideally not as cutscene 
+	conversations, but rather conversations occuring during the levels themselves. The player may access these conversations by selecting certain 
+	attention-seeking objects on the map. The curious player will most likely notice these objects and hence select them to reveal more of the 
+	story.
+	</p>
+	<h3 id = "microgame">Micro-aspect Gameplay</h3>
+	<p>
+	Each district will consist of many interlocked streets (cyclical digraphs). The edges of these streets will be populated with buildings or 
+	other establishments on either side. One of the most important buildings in each district will be the district hall. The district hall may be 
+	situated anywhere on the district where any building is allowed to be situated. The actual placement will depend on the level design. 
+	</p>
+	<p>
+	Many of the other different buildings may be rented by the player for buildings that generate him funds and volunteers, and for buildings that 
+	help improve the mood of the city and that help mitigate ongoing riots. The player basically has three resources in each level: funds, 
+	volunteers, and mood. Funds allow the player to rent more buildings and to upgrade his current buildings. Volunteers must be assigned to 
+	buildings (can be done by AI) in order for those buildings to function, including fundraising buildings. Volunteers increase over time 
+	according to how the player is doing in the level, and volunteer centers would help in the recruitment of more volunteers. Mood is the overall 
+	health or happiness level of the district which the player is in. Buildings that help stop ongoing riots will generally also be beneficial to 
+	the mood of the city. There are two ways by which a player's district's mood may decrease: pollution level and successful riots. 
+	</p>
+	<p>
+	Pollution is caused by the other buildings in the district which are not owned by the player (although the player's buildings may also cause 
+	pollution). The player can reduce pollution in two ways: by respectfully asking the owner of the problem-causing buildings to use more 
+	efficient systems or to relocate (which requires spending on the player's part), or by creating competition against the owners of the 
+	problem-causing buildings, driving them out of business, and then applying the efficient systems with his own building (which makes it more 
+	financially beneficial to the player but is more risky).
+	</p>
+	<p>
+	Riots begin when certain individual citizens living in the district go around to share his ideas through oration. Riots progress toward the 
+	district hall, and will continue to increase in size until it reaches its destination. Thus, riots that begin far away from the district hall 
+	will take a longer time to become successful (reach the hall), but will be larger and will have a greater effect on the mood of the district 
+	than riots that begin close to the district hall. This trend may not be always followed. It is up to the level designer to impose how long a 
+	rioting group goes around in circles before progressing toward the district hall. Using the basic rule, however, players will be facing a 
+	certain dilemma (at least early game): whether to place his problem-solving buildings far from the district hall so that massive riots are 
+	avoided altogether, or to place them near the district hall so that riots that do begin near the hall do not go unguarded.
+	</p>
+	<h3>Level Setup</h3>
+	<p>
+	Each district is randomly generated. Citizens spawn randomly from different buildings in the city and will start walking randomly around the 
+	city. Each citizen will have a riot timer. When this timer reaches zero, the citizen will start orating and form riots. It is thus the 
+	player's decision on how long he should stay on the level: stay too long and riots will become unmanageable as more people start spreading 
+	ideas like wildfire, stay too short and the district may not have improved that much yet in terms of mood.
+	See <a href = "designnotes.html#randomdistrict">Note on Randomly Generated Districts</a>
+	</p>
+	<p>
+	The player will be given an initial amount of funds and volunteers to begin with. The mood of each district will begin at a percentage value 
+	specified by the level designer. Any powerups that the player has brought to the district will be set-up as well.
+	</p>
+	<h3 id = "levelobjectives">Level Objectives</h3>
+	<p>
+	Each district begins with an initial mood level and ends with a final mood level. This final mood level will affect the macro-game, as 
+	described above.
+	</p>
+	<p>
+	Given that riots are like time bombs, finishing each level with a satisfactory mood level will be quite easy and will be suitable for casual 
+	gamers. Finishing each level with an optimum mood level will be quite challenging and will please hardcore gamers.
+	</p>
+	<p>
+	The sandbox mode will have none of these explicit objectives – the objectives may be set by the players themselves.
+	</p>
+	<h3>Level Entities</h3>
+	<p>
+	Each level will involve both, one, or none of the lead characters, plus any non-lead characters that may or may not be crucial to the 
+	development of the narrative. (Let's not forget the player and his advisers and influential friends, of course.)
+	</p>
+	<h3 id = "levelrules">Level Rules</h3>
+	<p>
+	Each district is governed by a fairly simple set of rules:
+	<ol>
+		<li>Districts begin and end with certain mood levels, and the player may choose to leave the district at any time.</li>
+		<li>Rioting citizens are like time bombs, and when they explode, are like magnets moving towards the district hall.</li>
+		<li>The government is utterly corrupt and can do nothing to help the citizens. They will only ask the police to forcefully stop the riots 
+			and in doing so, decrease the mood of the district. (In simple words, riots that reach the district hall decrease mood.)</li>
+		<li>Larger riots cause larger decreases in mood when they become successful.</li>
+		<li>Players can stop riots by renting any of the free lots on the district and creating problem-solving centers for the citizens.</li>
+		<li>Problem-solving centers cost money.</li>
+		<li>Pollution also lowers mood.</li>
+		<li>Players can stop pollution by paying money to the pollution causers, or by driving them out of business.</li>
+		<li>Business establishments cost money and pollution.</li>
+		<li>Both business establishments and fundraising buildings generate and cost money, but the latter does not cause pollution.</li>
+	    <li>Volunteers contribute to the funds of the player and are also necessary for operating the
+			buildings. Volunteers increase over time and their increase may be sped up by volunteer
+			centers (which also cost money).</li>
+	    <li>Buildings may be upgraded.</li>
+	</ol>
+	</p>
+	<p>
+	Rules 1 and 10 will be presented to the player first, follwed by either rules 2 to 6 and 11, or 7 to 9 depending on certain actions performed 
+	by the player. The remaining rules are then finally presented to the player, with rule 12 being the last presented.
+	</p>
+	<h3>Level Design</h3>
+	<p>
+	The level designers concerns will primarily be on the size of each district, on the denseness of the districts (number of buildings over 
+	number of streets), on the speeds of the citizens, on the initial mood level of the district, on the initial pollution level of the district, 
+	on the climate and weather of the district (not a crucial feature of the game), on the percentage of problem-causing buildings to total lots, 
+	and on the NPC's present in each district.
+	</p>
+	<h3>Interface</h3>
+	<p>
+	Control panels must be kept to a minimum. A small side panel would probably suffice to contain all the essential information that the player 
+	needs that cannot be found on the map such as the minimap, funds, and free/total volunteers, and for the commands to exit from a district, 
+	save the game, etc. Many of the other commands are building-specific (rent, stop renting, upgrade, assign volunteers, ask to use efficient 
+	systems, ask to relocate), and are better presented in pop-up boxes above those buildings, similar to how object interaction is performed in 
+	the Sims trilogy. Pollution and mood will be represented using the graphics and the music. Numbers revealed to the player will be kept to a 
+	minimum as to not overwhelm the player.
+	</p>
+	<h3>Technical Requirements</h3>
+	<p>
+	Random city generation, adapting background music, and pathfinding riots will probably be the most difficult to implement for MoodSwing.
+	</p>
+	<h2 id = "updates">Updates</h2>
+	<h4>Early November, 2010</h4>
+	<p>
+	Under header <a href = "#macrogame">Macro-aspect Gameplay</a> &mdash; Each game will now accomodate multiple profiles so that people who 
+	share computers may play their own cities without messing up the cities of the other players. Each player may delete/reset their profiles.
+	</p>
+	<p>
+	Under header <a href = "#gamerules">Game Rules</a> &mdash; Each player may create one or several profiles. A player may play Save the World 
+	Mode, which is linked to a profile and affects the overall city mood that is linked to the profile. A player may also play Sandbox Mode, 
+	which is not linked to any profile. Each profile may be reset or deleted.
+	</p>
+	<h4>Mid-October, 2010</h4>
+	<p>
+	Under header <a href = "#macrogame">Macro-aspect Gameplay</a> &mdash; The Sandbox Mode will no longer be dependent/affecting the main city. 
+	Sandbox games also need not be connected to a profile. Mini-games have been scrapped out of the game. In place of these will be meta-games, 
+	or secondary objectives, which also yield powerups.
+	See <a href = "designnotes.html#independentsandbox">Note on Independent Sandbox Mode.</a>
+	See <a href = "designnotes.html#minigamescrapping">Note on Scrapping the Mini-games.</a>
+	</p>
+	<p>
+	Under header <a href = "#gameobjectives">Game Objectives</a> &mdash; Awards have been (tentatively maybe) scrapped out of the game.
+	See <a href = "desingnotes.html#folioscrapping">Note on Scrapping the Award Folio/Gallery Feature:</a>
+	</p>
+	<p>
+	Under header <a href = "#entities">Game Entities</a> &mdash; replace <em>mini-games</em> with <em>meta-games</em>.
+	</p>
+	<p>
+	Under header <a href = "#microgame">Micro-aspect Gameplay</a> &mdash; Redefinition of pollution: pollution is defined as any shortcoming from 
+	the ideals of the UN Millenium Development Goals. Thus, pollution in this sense is not limited to environmental pollution. Competition 
+	against the polluting industries in each district will no longer be supported. Instead, they will "voluntarily" move out of town or become 
+	"unpollutive" if the player is doing a good job at improving the mood of the district he or she is in.
+	</p>
+	<p>
+	Under header <a href = "#levelobjectives">Level Objectives</a> &mdash; The player may leave the district any time he or she wants to. When he 
+	or she does, the state of the district is automatically saved. In addition to the primary objective of improving the mood of the districts, 
+	the player may opt to accomplish the secondary objectives: the meta-games.
+	</p>
+	<p>
+	A total revamping of the <a href = "#levelrules">Level Rules:</a>
+	<ol>
+		<li>Districts begin and end with certain mood levels, and the player may choose to leave the district at any time.</li>
+		<li>Rioting citizens are like time bombs, and when they explode, become like magnets moving towards the district hall. These time bombs
+			explode faster if the mood of the district is lower and if the district has been in a bad mood for longer times.</li>
+		<li>The government is utterly corrupt and can do nothing to help the citizens. They will only ask the police to forcefully stop the riots 
+			and in doing so, decrease the mood of the district. (In simple words, riots that reach the district hall decrease mood.)</li>
+		<li>Larger riots cause larger decreases in mood when they become successful.</li>
+		<li>Pollution lowers mood.</li>
+		<li>Players can stop riots and pollution by renting any of the free lots on the district and creating problem-solving centers for the 	
+			citizens.</li>
+		<li>Problem-solving centers cost money.</li>
+		<li>Business establishments cost money and may or may not cause pollution.</li>
+	    <li>Volunteers contribute to the funds of the player and are also necessary for operating the
+			buildings. Volunteers increase over time and their increase may be sped up by volunteer
+			centers (which also cost money).</li>
+	    <li>Buildings may be upgraded.</li>
+	</ol>
+	</p>
+	<h4>September 24, 2010</h4>
+	<p>
+	Under header <a href = "#gamesetup">"Game Setup"</a> &mdash; The lead character whom the player encounters first and more often and whom more
+	priority will be given to will no longer be determined randomly. Instead, it will be chosen based on who the player interacts with first.
+	See <a href = "designnotes.html#leadrandomization">Note on Removing the Randomization Involved in Choosing which Lead character the Player 
+	Focuses on</a>
+	</p>
+</div>
+<!-- END CONTENT -->
+
+<!-- BEGIN FOOTER -->
+<cite>
+&copy; 2010 by Vernon Gutierrez, Janssen Go, Mark Tan, and Daniel Fordan
+</cite>
+</body>
+
+</html>
+<!-- END FOOTER -->

@@ -1,9 +1,7 @@
 *.cachefile
-*.csproj.user
+*.user
 *.suo
 bin/
 obj/
 MoodSwing/MoodSwing_TemporaryKey*
 *.db
-docs/
-*.contentproj.*

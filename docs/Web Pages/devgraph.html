@@ -1,0 +1,138 @@
+<!-- BEGIN HEADER -->
+<html lang = "en">
+<head>
+<title>MoodSwing Dev Graph</title>
+<link rel = "stylesheet" type = "text/css" href = "moodswing.css" />
+</head>
+
+<body>
+
+<h1>The MoodSwing Project</h1>
+
+<div id = "navbar">
+<span class = "inbar">
+<ul>
+	<li class = "navhome"><a href = "main.html"><span>MoodSwing Home</span></a></li>
+	<li><a href = "devgraph.html"><span>View Development Graph</span></a></li>
+	<li><a href = "issues.html"><span>Current Issues</span></a></li>
+</ul>
+</span>
+</div>
+<!-- END HEADER -->
+
+<!-- BEGIN CONTENT -->
+<div id = "content">
+
+	<h2>Development Graph</h2>
+	<p>
+	The development strategy used in MoodSwing is similar to the one prescribed in 
+	<a href= "http://www.ebookee.com/Game-Architecture-and-Design-A-New-Edition_467759.html">
+	<em>Game Architecture and Design</em> by Rollings and Morris.</a> The model introduced by this book is a
+	<em>Tier-based Model</em>, wherein each tier represents a certain level of completion &mdash; the game is playable at the end of each tier.
+	</p>
+
+	<p>
+	Below is a graph representing the development progress. The development process is divided into three phases: the design phase, the 
+	development phase, and the testing phase. Nodes represent a certain area of development. <span class = "green">Green</span> nodes represent
+	finished areas. <span class = "yellow">Yellow</span> nodes represent areas that are not yet finished but are currently being worked on. 
+	<span class = "red">Red</span> nodes represent unfinished areas that are currently not being worked on. Click on nodes to view details
+	relating to the corresponding area.
+	</p>
+	<div class = "graph">
+		<h3>Design Phase</h3>
+		<table id = "designphase">
+			<tr><td colspan = "3"><a href = "initconcept.html" class = "finished">Initial Concepts</a></td>
+			</tr>
+			<tr><td colspan = "3"><img src = "arrow.png" alt = "|" height = "100"></img></td>
+			</tr>
+			<tr><td colspan = "3"><a href = "pitch.html" class = "finished">The Pitch</a></td>
+			</tr>
+			<tr><td colspan = "3"><img src = "arrow.png" alt = "|" height = "100"></img></td>
+			</tr>
+			<tr><td colspan = "3" class = "fullcols"><a href = "treatment.html" class = "finished">The Initial Treatment</a></td>
+			</tr>
+			<tr><td><img src = "arrow15.png" alt = "|" height = "100"></img></td>
+				<td><img src = "arrow.png" alt = "|" height = "100"></img></td>
+				<td><img src = "arrowminus15.png" alt = "|" height = "100"></img></td>
+			</tr>
+			<tr><td><a href = "gamespec.html" class = "finished">The Game Spec</a></td>
+				<td><a href = "dummy.html" class = "finished">Interface Design</a></td>
+				<td><a href = "gamescreens.html" class = "finished">Game Screens Diagram</a></td>
+			</tr>
+			<tr><td><img src = "arrow.png" alt = "|" height = "100"></img></td>
+			</tr>
+			<tr><td><a href = "designnotes.html" class = "finished">The Designer's Notes</a></td>
+			</tr>
+		</table>
+		<h3>Development Phase</h3>
+		<table id = "devphase">
+			<tr><th><a href = "dummy.html">Story Development</a></th>
+				<th><a href = "codedev.html">Code Development</a></th>
+				<th><a href = "dummy.html">Art Development</a></th>
+				<th><a href = "dummy.html">Music and SFX Development</a></th>
+			</tr>
+			<tr><td></td>
+				<td><a href = "dummy.html" class = "unfinished">Class Diagrams</a></td>
+			</tr>
+			<tr><td></td>
+				<td><img src = "arrow.png" alt = "|" height = "100"></img></td>
+			</tr>
+			<tr><td></td>
+				<td><a href = "dummy.html" class = "unfinished">Components</a></td>
+			</tr>
+			<tr><td></td>
+				<td><img src = "arrow.png" alt = "|" height = "100"></img></td>
+			</tr>
+			<tr><td></td>
+				<td><a href = "dummy.html" class = "unfinished">Tier One</a></td>
+			</tr>
+			<tr><td></td>
+				<td><img src = "arrow.png" alt = "|" height = "100"></img></td>
+			</tr>
+			<tr><td></td>
+				<td><a href = "dummy.html" class = "unfinished">Tier Two</a></td>
+			</tr>
+			<tr><td></td>
+				<td><img src = "arrow.png" alt = "|" height = "100"></img></td>
+			</tr>
+			<tr><td></td>
+				<td><a href = "dummy.html" class = "unfinished">Tier Three</a></td>
+			</tr>
+			<tr><td></td>
+				<td><img src = "arrow.png" alt = "|" height = "100"></img></td>
+			</tr>
+			<tr><td></td>
+				<td><a href = "dummy.html" class = "unfinished">Tier Four</a></td>
+			</tr>
+			<tr><td></td>
+				<td><img src = "arrow.png" alt = "|" height = "100"></img></td>
+			</tr>
+			<tr><td></td>
+				<td><a href = "dummy.html" class = "unfinished">Tier Five</a></td>
+			</tr>
+		</table>
+		<h3>Testing Phase</h3>
+		<table id = "testphase">
+			<tr><td><a href = "dummy.html" class = "unfinished">Game Balance Tweaking</a></td>
+			</tr>
+			<tr><td><img src = "arrow.png" alt = "|" height = "100"></img><img src = "arrow180.png" alt = "|" height = "100"></img></td>
+			</tr>
+			<tr><td><a href = "dummy.html" class = "unfinished">Stress Testing</a></td>
+			</tr>
+			<tr><td><img src = "arrow.png" alt = "|" height = "100"></img></td>
+			</tr>
+			<tr><td><a href = "dummy.html" class = "unfinished">Public Beta</a></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<!-- END CONTENT -->
+
+<!-- BEGIN FOOTER -->
+<cite>
+&copy; 2010 by Vernon Gutierrez, Janssen Go, Mark Tan, and Daniel Fordan
+</cite>
+</body>
+
+</html>
+<!-- END FOOTER -->

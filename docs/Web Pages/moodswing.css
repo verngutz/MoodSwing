@@ -1,0 +1,332 @@
+body
+{
+	margin:0px;
+}
+h1
+{
+	display:block;
+	background-color:#7777CC;
+	margin:0px;
+	padding:0px;
+	height:54px;
+	line-height:54px;
+	border-style:solid;
+	border-bottom-width:1px;
+	border-left-width:0px;
+	border-right-width:0px;
+	border-top-width:2px;
+	text-align:center;
+}
+#return
+{
+	text-align:center;
+	display:block;
+	background-color:#DDDDDD;
+	margin:0px;
+	padding:0px;
+	height:36px;
+	line-height:36px;
+	border-style:solid;
+	border-width:1px;
+	border-left-width:0px;
+	border-right-width:0px;
+}
+#navbar
+{
+	width:auto;
+	height:36px;
+	border-style:solid;
+	border-style:solid;
+	border-width:1px;
+	border-left-width:0px;
+	border-right-width:0px;
+}
+#navbar.inbar
+{
+	display:block;
+	height:36px;
+}
+#navbar ul, #navbar ul li
+{
+	border:0px;
+	margin:0px;
+	padding:0px;
+	list-style:none;
+	height:36px;
+	line-height:36px; 
+} 
+#navbar ul
+{
+	background-color:#DDDDDD;
+}
+#navbar ul li
+{
+	float:left;
+	display:block;
+	line-height:36px; 
+}
+#navbar ul li a, #return a
+{
+	color:black;
+	text-decoration:none;
+	font-weight:bold;
+	display:block; 
+}
+#navbar ul li a span, #return a span
+{
+	padding-left:20px;
+	padding-right:20px;
+	height:36px;
+	line-height:36px;
+	display:block;
+	margin-left:20px; 
+}
+#navbar.navhome a, #navbar.navhome a:hover, #return a:hover
+{
+	height:36px;
+	line-height:36px; 
+}
+#navbar.navhome a span, #navbar .navhome a:hover span, #return a:hover span
+{
+	color:#FFFFFF;
+	background-color:#000000;
+	height:36px;
+	line-height:36px; 
+}
+#navbar ul li a:hover, #return a:hover
+{
+	color:#000000;
+	background-color:7777CC;
+	height:36px;
+	line-height:36px; 
+}
+#navbar ul li a:hover span
+{
+	color:#000000;
+	background-color:#FFFFFF;
+	height:36px;
+	line-height:36px; 
+}
+a:hover
+{
+	color:green;
+}
+#content
+{
+	padding-bottom:50px;
+	text-indent:15px;
+}
+h2, h3
+{
+	background-color:#CCCCFF;
+	display:block;
+	padding-top:10px;
+	padding-bottom:10px;
+	margin-top:0px;
+	margin-bottom:0px;
+	border-style:solid;
+	border-width:1px;
+	border-left-width:0px;
+	border-right-width:0px;
+}
+p
+{
+	display:block;
+	font-family:sans-serif;
+	font-size:14px;
+	text-indent:25px;
+	padding-left:20px;
+	padding-right:20px;
+	padding-bottom:10px;
+	text-align:justify;
+}
+.left
+{
+	text-align:left;
+}
+.right
+{
+	text-align:right;
+}
+li
+{
+	font-family:sans-serif;
+	font-size:14px;
+	margin-left:45px;
+	padding-right:20px;
+	padding-bottom:10px;
+	text-align:justify;
+	text-indent:0px;
+}
+.mover
+{
+	width:100%;
+	padding-left:20px;
+	padding-right:20px;
+}
+.mover tr
+{
+	margin:0px;
+	padding:0px;
+}
+.mover td
+{
+	margin:0px;
+	padding:0px;
+}
+.moveprev
+{
+	display:block;
+	font-family:sans-serif;
+	font-size:14px;
+	padding-top:15px;
+	padding-bottom:10px;
+	text-align:left;
+}
+.movetop
+{
+	display:block;
+	font-family:sans-serif;
+	font-size:14px;
+	padding-top:15px;
+	padding-bottom:10px;
+	text-align:center;
+}
+.movenext
+{
+	display:block;
+	font-family:sans-serif;
+	font-size:14px;
+	padding-top:15px;
+	padding-bottom:10px;
+	text-align:right;
+}
+p:first-letter
+{
+	font-size:20px;
+}
+#jump a
+{
+	text-align:center;
+	margin-top:0px;
+	padding:10px;
+	display:block;
+	color:white;
+	background-color:black;
+	text-decoration:none;
+	font-weight:bold;
+	font-family:sans-serif;
+}
+#jump a:hover
+{
+	display:block;
+	color:black;
+	background-color:yellow;
+}
+.red
+{
+	padding-left:2px;
+	padding-right:2px;
+	background-color:#FF3333;
+}
+.green
+{
+	padding-left:2px;
+	padding-right:2px;
+	background-color:#33CC33;
+}
+.yellow
+{
+	padding-left:2px;
+	padding-right:2px;
+	background-color:#FFFF33;
+}
+.graph table
+{
+	width:100%;
+	padding:0px;
+	margin:0px;
+	margin-bottom:20px;
+}
+.graph tr
+{
+	padding:0px;
+	margin:0px;
+}
+.graph .head
+{
+	background-color:#CCCCFF;
+	display:block;
+	padding-top:10px;
+	padding-bottom:10px;
+	margin-top:0px;
+	border-style:solid;
+	border-width:1px;
+	font-size:20px;
+	font-weight:bold;
+}
+.graph td
+{
+	padding:0px;
+	margin:0px;
+	text-align:center;
+	margin:5px;
+	padding:5px;
+}
+.graph .fullcols a
+{
+	display:block;
+	margin-left:15%;
+	margin-right:15%;
+}
+.graph td a
+{	
+	border-style:solid;
+	border-color:black;
+	border-width:1px;
+}
+.graph a
+{
+	color:black;
+	height:36px;
+	line-height:36px;
+	text-decoration:none;
+	padding:8px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.graph a:hover
+{
+	color:white;
+	background-color:black;
+}
+.graph .unfinished
+{
+	background-color:#FF3333;
+}
+.graph .finished
+{
+	background-color:#33CC33;
+}
+.graph .working
+{
+	background-color:#FFFF33;
+}
+
+cite
+{
+	background-color:#DDDDDD;
+	padding:2px;
+	padding-right:10px;
+	line-height:36px;
+	display:block;
+	text-align:right;
+	bottom:0px;
+	right:0px;
+	left:0px;
+	border-style:solid;
+	border-top-width:1px;
+	border-left-width:0px;
+	border-right-width:0px;
+	border-bottom-width:2px;
+}

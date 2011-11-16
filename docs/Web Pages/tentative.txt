@@ -1,0 +1,47 @@
+Note on cooperative multiplayer mode:
+The cooperative multiplayer mode would actually resemble what Microsoft likes to call "coopertition." The players may opt to "compete" with each other
+by who gets the best game score, or by who makes the most money, or by who has the most volunteers, or by any other criteria which the players choose
+on their own (not stated explicitly by the game). However, they must still manage the district's mood. This creates a sort of prisoner's dilemma for competitive players.
+
+Note on independent Sandbox mode:
+Making the Sandbox mode entirely independent from the main city encourages free play and experimenting, giving the player a greater freedom of choice.
+Making it dependent has negative effects on the gameplay: players will less often attempt to fool around on the sandbox mode if it affects the main city's mood, ruining a potential aspect of fun for the game.
+
+Note on scrapping the mini-games:
+Mini-games will likely waste development time and will make the game less elegant and therefore has been scrapped from the game, at the cost of losing a market (assumed to be very small) of casual gamers who are more interested in short arcade games.
+
+Note on removing the randomization on which lead character the player focuses on:
+The issue with randomization is that the player who wishes to experience the two entirely opposite sides of the narrative without playing more than two times is not guaranteed to be able to do so.
+
+Note on scrapping the award folio/gallery feature:
+The award folio/gallery feature will be a useless feature if the rewards aren't visually or aurally pleasing enough to be rewarding at all. This feature is furthermore highly dispensible and will be of least priority (may even be totally scrapped out of the game depending on the time we have available).
+
+Note on randomly generated 
+
+
+
+
+Game Spec Macro-aspect Gameplay update (november):
+Each game will now accomodate multiple profiles so that people who share computers may play their own cities without messing up the cities of the other players. Each player may delete/reset their profiles.
+(october)
+The Sandbox Mode will no longer be dependent/affecting the main city. Sandbox games also need not be connected to a profile.
+Mini-games have been scrapped out of the game. In place of these will be meta-games, or secondary objectives, which also yield powerups.
+
+Game Spec Game Objectives update (october): 
+Awards have been (tentatively maybe) scrapped out of the game.
+
+Game Spec Game Entities Update(october):
+Replace mini-games with meta-games.
+
+Game Spec Game Rules Update(november):
+Each player may create one or several profiles.
+A player may play Save the World Mode, which is linked to a profile and affects the overall city mood that is linked to the profile.
+A player may also play Sandbox Mode, which is not linked to any profile.
+Each profile may be reset or deleted.
+
+Game Spec Micro-aspect Gameplay update(october):
+Redefinition of pollution: pollution is defined as any shortcoming from the ideals of the UN Millenium Development Goals. Thus, pollution in this sense is not limited to environmental pollution. Competition against the polluting industries in each district will no longer be supported. Instead, they will "voluntarily" move out of town or become "unpollutive" if the player is doing a good job at improving the mood of the district he or she is in.
+
+Game Spec Level Objectives update(october):
+The player may leave the district any time he or she wants to. When he or she does, the state of the district is automatically saved.
+In addition to the primary objective of improving the mood of the districts, the player may opt to accomplish the secondary objectives: the meta-games.

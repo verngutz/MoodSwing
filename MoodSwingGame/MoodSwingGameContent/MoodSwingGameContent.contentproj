@@ -863,12 +863,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Visual Studio 2008\Templates\ProjectTemplates\Visual C#\XNA Game Studio 3.0\RacingGameContentProcessors\RacingGameContentProcessors.csproj">
-      <Project>{BB00E3F7-7B57-4CC1-A235-7CB0FDF07C33}</Project>
-      <Name>RacingGameContentProcessors</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="BuyDialog\OuterRing.png">
       <Name>OuterRing</Name>
       <Importer>TextureImporter</Importer>

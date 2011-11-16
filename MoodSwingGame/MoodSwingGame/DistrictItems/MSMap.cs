@@ -102,7 +102,7 @@ namespace MoodSwingGame
         
         public MSUnchangeableBuilding GetRandomCitizenSource()
         {
-            return citizenSources.ElementAt<MSUnchangeableBuilding>(MSRandom.random.Next(citizenSources.Count));
+            return citizenSources.ElementAt<MSUnchangeableBuilding>(MSRandom.Instance.GetUniformInt(citizenSources.Count));
         }
 
         /// <summary>

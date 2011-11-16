@@ -92,8 +92,8 @@ namespace MoodSwingGame
                     Vector3 targetVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
                     if (path.next != null || path.parent != null)
                     {
-                        destination = new Vector2(targetVector3.X + MSRandom.random.Next(MSMap.tileDimension / 2),
-                                                      targetVector3.Y + MSRandom.random.Next(MSMap.tileDimension / 2));
+                        destination = new Vector2(targetVector3.X + MSRandom.Instance.GetUniformInt(MSMap.tileDimension / 2),
+                                                      targetVector3.Y + MSRandom.Instance.GetUniformInt(MSMap.tileDimension / 2));
                     }
                     else
                         destination = new Vector2(targetVector3.X, targetVector3.Y);
@@ -109,8 +109,8 @@ namespace MoodSwingGame
                     {
                         path = path.next;
                         Vector3 targetVector3 = (mapArray[(int)path.Position.X, (int)path.Position.Y] as MS3DTile).Position;
-                        destination = new Vector2(targetVector3.X + MSRandom.random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4,
-                                                      targetVector3.Y + MSRandom.random.Next(MSMap.tileDimension / 2) - MSMap.tileDimension / 4);
+                        destination = new Vector2(targetVector3.X + MSRandom.Instance.GetUniformInt(MSMap.tileDimension / 2) - MSMap.tileDimension / 4,
+                                                      targetVector3.Y + MSRandom.Instance.GetUniformInt(MSMap.tileDimension / 2) - MSMap.tileDimension / 4);
 
                         Vector2 direction = destination - new Vector2(position.X, position.Y);
                         float angle = (float)Math.Atan2(direction.Y, direction.X);

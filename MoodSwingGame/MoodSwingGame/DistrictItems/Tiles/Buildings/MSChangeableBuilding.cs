@@ -91,27 +91,27 @@ namespace MoodSwingGame
                     Vector3 max = boundingBox.Max;
                     (Game as MoodSwing).SmokeParticles.AddParticle(
                         new Vector3(min.X,
-                                    MathHelper.Lerp(min.Y, max.Y, MSRandom.GetUniform()),
-                                    MathHelper.Lerp(min.Z, max.Z, MSRandom.GetUniform())),
+                                    MathHelper.Lerp(min.Y, max.Y, MSRandom.Instance.GetUniform()),
+                                    MathHelper.Lerp(min.Z, max.Z, MSRandom.Instance.GetUniform())),
                         new Vector3(0, 0, 5));
                     (Game as MoodSwing).SmokeParticles.AddParticle(
-                        new Vector3(MathHelper.Lerp(min.X, max.X, MSRandom.GetUniform()),
+                        new Vector3(MathHelper.Lerp(min.X, max.X, MSRandom.Instance.GetUniform()),
                                     min.Y,
-                                    MathHelper.Lerp(min.Z, max.Z, MSRandom.GetUniform())),
+                                    MathHelper.Lerp(min.Z, max.Z, MSRandom.Instance.GetUniform())),
                         new Vector3(0, 0, 5));
                     (Game as MoodSwing).SmokeParticles.AddParticle(
                         new Vector3(max.X,
-                                    MathHelper.Lerp(min.Y, max.Y, MSRandom.GetUniform()),
-                                    MathHelper.Lerp(min.Z, max.Z, MSRandom.GetUniform())),
+                                    MathHelper.Lerp(min.Y, max.Y, MSRandom.Instance.GetUniform()),
+                                    MathHelper.Lerp(min.Z, max.Z, MSRandom.Instance.GetUniform())),
                         new Vector3(0, 0, 5));
                     (Game as MoodSwing).SmokeParticles.AddParticle(
-                        new Vector3(MathHelper.Lerp(min.X, max.X, MSRandom.GetUniform()),
+                        new Vector3(MathHelper.Lerp(min.X, max.X, MSRandom.Instance.GetUniform()),
                                     max.Y,
-                                    MathHelper.Lerp(min.Z, max.Z, MSRandom.GetUniform())),
+                                    MathHelper.Lerp(min.Z, max.Z, MSRandom.Instance.GetUniform())),
                         new Vector3(0, 0, 5));
                     (Game as MoodSwing).SmokeParticles.AddParticle(
-                        new Vector3(MathHelper.Lerp(min.X, max.X, MSRandom.GetUniform()),
-                                    MathHelper.Lerp(min.Y, max.Y, MSRandom.GetUniform()),
+                        new Vector3(MathHelper.Lerp(min.X, max.X, MSRandom.Instance.GetUniform()),
+                                    MathHelper.Lerp(min.Y, max.Y, MSRandom.Instance.GetUniform()),
                                     min.Z),
                         new Vector3(0, 0, 5));
                 }
